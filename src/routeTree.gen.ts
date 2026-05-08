@@ -14,6 +14,8 @@ import { Route as StoreRouteImport } from './routes/store'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -42,6 +44,16 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -56,6 +68,8 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
@@ -65,6 +79,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
@@ -75,6 +91,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
@@ -86,6 +104,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
+    | '/auth'
     | '/contact'
     | '/portfolio'
     | '/services'
@@ -95,6 +115,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/admin'
+    | '/auth'
     | '/contact'
     | '/portfolio'
     | '/services'
@@ -104,6 +126,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
+    | '/auth'
     | '/contact'
     | '/portfolio'
     | '/services'
@@ -114,6 +138,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRoute
+  AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   PortfolioRoute: typeof PortfolioRoute
   ServicesRoute: typeof ServicesRoute
@@ -158,6 +184,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -178,6 +218,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRoute,
+  AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   PortfolioRoute: PortfolioRoute,
   ServicesRoute: ServicesRoute,
@@ -187,3 +229,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

@@ -8,7 +8,7 @@ export const Route = createFileRoute("/admin")({
   component: AdminLayout,
 });
 
-const NAV = [
+const NAV: { to: string; label: string; Icon: typeof LayoutDashboard; exact?: boolean }[] = [
   { to: "/admin", label: "Overview", Icon: LayoutDashboard, exact: true },
   { to: "/admin/projects", label: "Projects", Icon: FolderKanban },
   { to: "/admin/team", label: "Team", Icon: Users },
@@ -16,7 +16,7 @@ const NAV = [
   { to: "/admin/products", label: "Products", Icon: ShoppingBag },
   { to: "/admin/testimonials", label: "Testimonials", Icon: Star },
   { to: "/admin/contact", label: "Inquiries", Icon: MessageSquare },
-] as const;
+];
 
 function AdminLayout() {
   const { user, isAdmin, loading, signOut } = useAuth();
@@ -49,7 +49,7 @@ function AdminLayout() {
           {NAV.map((n) => {
             const active = n.exact ? path === n.to : path.startsWith(n.to);
             return (
-              <Link key={n.to} to={n.to} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${active ? "bg-gradient-primary text-white" : "text-muted-foreground hover:bg-white/5 hover:text-white"}`}>
+              <Link key={n.to} to={n.to as any} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${active ? "bg-gradient-primary text-white" : "text-muted-foreground hover:bg-white/5 hover:text-white"}`}>
                 <n.Icon className="size-4" />{n.label}
               </Link>
             );

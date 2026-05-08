@@ -60,8 +60,9 @@
   --glow: oklch(0.7 0.22 250);
   --cyan: oklch(0.82 0.18 220);
 
-  --font-display: 'Space Grotesk', 'Orbitron', system-ui, sans-serif;
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Sora', 'Space Grotesk', system-ui, sans-serif;
+  --font-sans: 'Manrope', 'Inter', system-ui, sans-serif;
+  --font-accent: 'Orbitron', 'Sora', system-ui, sans-serif;
 
   --gradient-primary: linear-gradient(135deg, oklch(0.66 0.22 250) 0%, oklch(0.82 0.18 220) 100%);
   --gradient-hero: radial-gradient(ellipse at top, oklch(0.3 0.18 250 / 0.45), transparent 60%),

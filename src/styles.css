@@ -92,7 +92,11 @@
     pointer-events: none;
     z-index: 0;
   }
-  h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: -0.025em; font-weight: 700; }
+  h1 { letter-spacing: -0.035em; }
+  p { line-height: 1.7; }
+  .font-accent { font-family: var(--font-accent); letter-spacing: 0.08em; text-transform: uppercase; }
+  button, .btn { font-family: var(--font-display); letter-spacing: 0.01em; }
 }
 
 @layer components {

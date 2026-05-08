@@ -1,48 +1,65 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Plus, Trash2, Pencil, X } from "lucide-react";
+import { Plus, Trash2, Pencil, X, Search } from "lucide-react";
+import { MediaUpload, MediaUploadMulti } from "@/components/media/MediaUpload";
+import { SmartMedia } from "@/components/media/SmartMedia";
 
 export interface FieldDef {
   name: string;
   label: string;
-  type?: "text" | "textarea" | "number" | "url" | "boolean" | "date" | "tags";
+  type?: "text" | "textarea" | "number" | "url" | "boolean" | "date" | "tags" | "media" | "media-list" | "json";
   required?: boolean;
+  placeholder?: string;
+  folder?: string;
+  help?: string;
 }
 
 interface Props {
   table: string;
   title: string;
   fields: FieldDef[];
-  display: (row: any) => { title: string; subtitle?: string; meta?: string };
+  display: (row: any) => { title: string; subtitle?: string; meta?: string; image?: string | null };
   orderBy?: string;
   ascending?: boolean;
+  searchKeys?: string[];
 }
 
-export function CrudPage({ table, title, fields, display, orderBy = "created_at", ascending = false }: Props) {
+export function CrudPage({ table, title, fields, display, orderBy = "created_at", ascending = false, searchKeys = ["title", "name"] }: Props) {
   const [rows, setRows] = useState<any[]>([]);
   const [editing, setEditing] = useState<any | null>(null);
   const [open, setOpen] = useState(false);
+  const [draft, setDraft] = useState<Record<string, any>>({});
+  const [q, setQ] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const load = async () => {
+    setLoading(true);
     const { data } = await (supabase as any).from(table).select("*").order(orderBy, { ascending });
     setRows(data || []);
+    setLoading(false);
   };
-  useEffect(() => { load(); }, []);
+  useEffect(() => { load(); /* eslint-disable-next-line */ }, []);
+
+  const openNew = () => { setEditing(null); setDraft({}); setOpen(true); };
+  const openEdit = (r: any) => { setEditing(r); setDraft({ ...r }); setOpen(true); };
+
+  const setField = (name: string, value: any) => setDraft((d) => ({ ...d, [name]: value }));
 
   const save = async (e: React.FormEvent) => {
     e.preventDefault();
     const fd = new FormData(e.target as HTMLFormElement);
-    const body: any = {};
+    const body: any = { ...draft };
     for (const f of fields) {
+      if (f.type === "media" || f.type === "media-list" || f.type === "json") continue; // handled in draft
       const v = fd.get(f.name);
-      if (f.type === "boolean") body[f.name] = fd.get(f.name) === "on";
+      if (f.type === "boolean") body[f.name] = !!fd.get(f.name);
       else if (f.type === "number") body[f.name] = v ? Number(v) : null;
-      else if (f.type === "tags") body[f.name] = v ? String(v).split(",").map(s => s.trim()).filter(Boolean) : [];
+      else if (f.type === "tags") body[f.name] = v ? String(v).split(",").map((s) => s.trim()).filter(Boolean) : [];
       else body[f.name] = v || null;
     }
-    if (table === "blog_posts" || table === "projects") {
-      if (body.title && !body.slug) body.slug = String(body.title).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    if ((table === "blog_posts" || table === "projects") && body.title && !body.slug) {
+      body.slug = String(body.title).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     }
     const op = editing
       ? (supabase as any).from(table).update(body).eq("id", editing.id)
@@ -50,7 +67,7 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
     const { error } = await op;
     if (error) { toast.error(error.message); return; }
     toast.success("Saved");
-    setOpen(false); setEditing(null); load();
+    setOpen(false); setEditing(null); setDraft({}); load();
   };
 
   const remove = async (id: string) => {
@@ -59,26 +76,47 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
     if (error) toast.error(error.message); else { toast.success("Deleted"); load(); }
   };
 
+  const filtered = q
+    ? rows.filter((r) => searchKeys.some((k) => String(r[k] || "").toLowerCase().includes(q.toLowerCase())))
+    : rows;
+
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="font-display text-3xl font-bold">{title}</h1>
-        <button onClick={() => { setEditing(null); setOpen(true); }} className="bg-gradient-primary px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 neon-glow"><Plus className="size-4" />New</button>
+      <div className="flex items-center justify-between gap-4 mb-8 flex-wrap">
+        <div>
+          <h1 className="font-display text-3xl font-bold">{title}</h1>
+          <p className="text-sm text-muted-foreground mt-1">{rows.length} item{rows.length === 1 ? "" : "s"}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" className="glass rounded-xl pl-9 pr-3 py-2 text-sm w-48" />
+          </div>
+          <button onClick={openNew} className="bg-gradient-primary px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 neon-glow"><Plus className="size-4" />New</button>
+        </div>
       </div>
 
       <div className="grid gap-3">
-        {rows.length === 0 && <div className="glass rounded-2xl p-10 text-center text-muted-foreground">No items yet.</div>}
-        {rows.map((r) => {
+        {loading && <div className="glass rounded-2xl p-10 text-center text-muted-foreground">Loading…</div>}
+        {!loading && filtered.length === 0 && <div className="glass rounded-2xl p-10 text-center text-muted-foreground">No items yet.</div>}
+        {filtered.map((r) => {
           const d = display(r);
           return (
-            <div key={r.id} className="glass rounded-2xl p-4 flex items-center justify-between gap-4">
-              <div className="min-w-0 flex-1">
-                <div className="font-semibold truncate">{d.title}</div>
-                {d.subtitle && <div className="text-sm text-muted-foreground truncate">{d.subtitle}</div>}
-                {d.meta && <div className="text-xs text-accent mt-1">{d.meta}</div>}
+            <div key={r.id} className="glass rounded-2xl p-3 flex items-center justify-between gap-4 hover:bg-white/[0.03] transition-colors">
+              <div className="flex items-center gap-4 min-w-0 flex-1">
+                {d.image !== undefined && (
+                  <div className="size-16 shrink-0 rounded-xl overflow-hidden">
+                    <SmartMedia src={d.image} className="w-full h-full" autoplay={false} />
+                  </div>
+                )}
+                <div className="min-w-0 flex-1">
+                  <div className="font-semibold truncate">{d.title}</div>
+                  {d.subtitle && <div className="text-sm text-muted-foreground truncate">{d.subtitle}</div>}
+                  {d.meta && <div className="text-xs text-accent mt-1">{d.meta}</div>}
+                </div>
               </div>
               <div className="flex gap-2 shrink-0">
-                <button onClick={() => { setEditing(r); setOpen(true); }} className="size-9 grid place-items-center rounded-lg glass-strong hover:bg-primary/20"><Pencil className="size-4" /></button>
+                <button onClick={() => openEdit(r)} className="size-9 grid place-items-center rounded-lg glass-strong hover:bg-primary/20"><Pencil className="size-4" /></button>
                 <button onClick={() => remove(r.id)} className="size-9 grid place-items-center rounded-lg glass-strong hover:bg-destructive/20"><Trash2 className="size-4" /></button>
               </div>
             </div>
@@ -87,36 +125,45 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
       </div>
 
       {open && (
-        <div className="fixed inset-0 z-50 grid place-items-center p-4 bg-black/70 backdrop-blur-sm" onClick={() => setOpen(false)}>
-          <form onSubmit={save} onClick={(e) => e.stopPropagation()} className="glass-strong rounded-3xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between mb-5">
+        <div className="fixed inset-0 z-50 grid place-items-center p-4 bg-black/70 backdrop-blur-md" onClick={() => setOpen(false)}>
+          <form onSubmit={save} onClick={(e) => e.stopPropagation()} className="glass-strong rounded-3xl p-6 w-full max-w-2xl max-h-[92vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-5 sticky top-0 bg-card/80 backdrop-blur -mt-6 -mx-6 px-6 pt-6 pb-3 z-10 rounded-t-3xl">
               <h2 className="font-display text-xl font-bold">{editing ? "Edit" : "New"} {title.replace(/s$/, "")}</h2>
               <button type="button" onClick={() => setOpen(false)} className="size-8 grid place-items-center rounded-lg hover:bg-white/10"><X className="size-4" /></button>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-4">
               {fields.map((f) => (
                 <label key={f.name} className="block">
                   <span className="text-xs uppercase tracking-wider text-muted-foreground">{f.label}{f.required && " *"}</span>
                   <div className="mt-1.5">
-                    {f.type === "textarea" ? (
-                      <textarea name={f.name} defaultValue={editing?.[f.name] ?? ""} required={f.required} rows={4} className="w-full glass rounded-xl px-3 py-2" />
+                    {f.type === "media" ? (
+                      <MediaUpload value={draft[f.name] ?? ""} onChange={(v) => setField(f.name, v)} folder={f.folder || table} label={f.placeholder || `Upload ${f.label}`} />
+                    ) : f.type === "media-list" ? (
+                      <MediaUploadMulti value={draft[f.name] || []} onChange={(v) => setField(f.name, v)} folder={f.folder || table} />
+                    ) : f.type === "textarea" ? (
+                      <textarea name={f.name} defaultValue={editing?.[f.name] ?? ""} required={f.required} rows={4} placeholder={f.placeholder} className="w-full glass rounded-xl px-3 py-2" />
                     ) : f.type === "boolean" ? (
-                      <input type="checkbox" name={f.name} defaultChecked={editing?.[f.name] ?? false} className="size-5" />
+                      <input type="checkbox" name={f.name} defaultChecked={editing?.[f.name] ?? false} className="size-5 accent-primary" />
                     ) : f.type === "tags" ? (
-                      <input name={f.name} defaultValue={(editing?.[f.name] || []).join(", ")} placeholder="comma, separated" className="w-full glass rounded-xl px-3 py-2" />
+                      <input name={f.name} defaultValue={(editing?.[f.name] || []).join(", ")} placeholder={f.placeholder || "comma, separated"} className="w-full glass rounded-xl px-3 py-2" />
+                    ) : f.type === "json" ? (
+                      <textarea name={f.name} defaultValue={editing?.[f.name] ? JSON.stringify(editing[f.name], null, 2) : ""} rows={4} placeholder={f.placeholder || '{ "instagram": "https://..." }'}
+                        onBlur={(e) => { try { setField(f.name, e.target.value ? JSON.parse(e.target.value) : {}); } catch { /* keep raw */ } }}
+                        className="w-full glass rounded-xl px-3 py-2 font-mono text-xs" />
                     ) : (
                       <input type={f.type === "number" ? "number" : f.type === "date" ? "date" : f.type === "url" ? "url" : "text"}
-                        step="any" name={f.name}
+                        step="any" name={f.name} placeholder={f.placeholder}
                         defaultValue={editing?.[f.name] ?? ""} required={f.required}
                         className="w-full glass rounded-xl px-3 py-2" />
                     )}
+                    {f.help && <div className="text-[11px] text-muted-foreground mt-1">{f.help}</div>}
                   </div>
                 </label>
               ))}
             </div>
-            <div className="mt-6 flex gap-3 justify-end">
+            <div className="mt-6 flex gap-3 justify-end sticky bottom-0 bg-card/80 backdrop-blur -mx-6 -mb-6 px-6 py-4 rounded-b-3xl">
               <button type="button" onClick={() => setOpen(false)} className="px-5 py-2.5 rounded-xl glass">Cancel</button>
-              <button type="submit" className="bg-gradient-primary px-6 py-2.5 rounded-xl font-semibold">Save</button>
+              <button type="submit" className="bg-gradient-primary px-6 py-2.5 rounded-xl font-semibold neon-glow">Save</button>
             </div>
           </form>
         </div>

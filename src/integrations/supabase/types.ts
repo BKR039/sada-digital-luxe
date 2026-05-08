@@ -165,6 +165,7 @@ export type Database = {
           cover_url: string | null
           created_at: string
           description: string | null
+          external_url: string | null
           featured: boolean
           gallery: Json | null
           id: string
@@ -175,6 +176,7 @@ export type Database = {
           slug: string
           sort_order: number
           tags: string[] | null
+          thumbnail_url: string | null
           title: string
           updated_at: string
         }
@@ -184,6 +186,7 @@ export type Database = {
           cover_url?: string | null
           created_at?: string
           description?: string | null
+          external_url?: string | null
           featured?: boolean
           gallery?: Json | null
           id?: string
@@ -194,6 +197,7 @@ export type Database = {
           slug: string
           sort_order?: number
           tags?: string[] | null
+          thumbnail_url?: string | null
           title: string
           updated_at?: string
         }
@@ -203,6 +207,7 @@ export type Database = {
           cover_url?: string | null
           created_at?: string
           description?: string | null
+          external_url?: string | null
           featured?: boolean
           gallery?: Json | null
           id?: string
@@ -213,6 +218,7 @@ export type Database = {
           slug?: string
           sort_order?: number
           tags?: string[] | null
+          thumbnail_url?: string | null
           title?: string
           updated_at?: string
         }
@@ -222,6 +228,7 @@ export type Database = {
         Row: {
           bio: string | null
           created_at: string
+          featured: boolean
           id: string
           name: string
           photo_url: string | null
@@ -234,6 +241,7 @@ export type Database = {
         Insert: {
           bio?: string | null
           created_at?: string
+          featured?: boolean
           id?: string
           name: string
           photo_url?: string | null
@@ -246,6 +254,7 @@ export type Database = {
         Update: {
           bio?: string | null
           created_at?: string
+          featured?: boolean
           id?: string
           name?: string
           photo_url?: string | null

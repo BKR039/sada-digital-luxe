@@ -60,8 +60,9 @@
   --glow: oklch(0.7 0.22 250);
   --cyan: oklch(0.82 0.18 220);
 
-  --font-display: 'Space Grotesk', 'Orbitron', system-ui, sans-serif;
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Sora', 'Space Grotesk', system-ui, sans-serif;
+  --font-sans: 'Manrope', 'Inter', system-ui, sans-serif;
+  --font-accent: 'Orbitron', 'Sora', system-ui, sans-serif;
 
   --gradient-primary: linear-gradient(135deg, oklch(0.66 0.22 250) 0%, oklch(0.82 0.18 220) 100%);
   --gradient-hero: radial-gradient(ellipse at top, oklch(0.3 0.18 250 / 0.45), transparent 60%),
@@ -91,7 +92,11 @@
     pointer-events: none;
     z-index: 0;
   }
-  h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: -0.025em; font-weight: 700; }
+  h1 { letter-spacing: -0.035em; }
+  p { line-height: 1.7; }
+  .font-accent { font-family: var(--font-accent); letter-spacing: 0.08em; text-transform: uppercase; }
+  button, .btn { font-family: var(--font-display); letter-spacing: 0.01em; }
 }
 
 @layer components {
@@ -154,6 +159,18 @@
 }
 .animate-float { animation: float 6s ease-in-out infinite; }
 .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+@keyframes orbit-spin { to { transform: rotate(360deg); } }
+@keyframes orbit-counter { to { transform: rotate(-360deg); } }
+@keyframes aura-breathe {
+  0%,100% { opacity: 0.55; transform: scale(1); filter: blur(40px); }
+  50% { opacity: 0.9; transform: scale(1.08); filter: blur(55px); }
+}
+@keyframes particle-drift {
+  0% { transform: translate(0,0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)); opacity: 0; }
+}
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 10px; height: 10px; }

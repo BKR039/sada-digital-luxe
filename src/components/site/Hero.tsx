@@ -1,7 +1,34 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles, Camera, Globe, Megaphone, Heart, TrendingUp } from "lucide-react";
+import { ArrowRight, Sparkles, Instagram, Youtube, Facebook, Globe, Palette } from "lucide-react";
 import logo from "@/assets/sada-mark.png";
+
+// TikTok inline icon (not in lucide)
+const TikTok = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V9.69a8.16 8.16 0 0 0 4.77 1.52V7.83a4.85 4.85 0 0 1-1.84-1.14z"/>
+  </svg>
+);
+
+type Orbiter = {
+  Icon: React.ComponentType<{ className?: string }>;
+  ring: 0 | 1 | 2;
+  angle: number; // initial degrees
+  color: string;
+};
+
+const orbiters: Orbiter[] = [
+  { Icon: Instagram, ring: 0, angle: 0, color: "text-pink-300" },
+  { Icon: TikTok, ring: 0, angle: 180, color: "text-white" },
+  { Icon: Youtube, ring: 1, angle: 60, color: "text-red-400" },
+  { Icon: Facebook, ring: 1, angle: 240, color: "text-blue-300" },
+  { Icon: Globe, ring: 2, angle: 30, color: "text-accent" },
+  { Icon: Palette, ring: 2, angle: 210, color: "text-primary-foreground" },
+];
+
+const RING_SIZES = [180, 260, 340]; // mobile base radii (px diameter)
+const RING_DURATIONS = [22, 32, 44];
+const RING_DIRECTIONS = ["orbit-spin", "orbit-counter", "orbit-spin"];
 
 export function Hero() {
   return (
@@ -12,11 +39,11 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 grid lg:grid-cols-2 gap-12 items-center py-16">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-medium mb-6">
+          <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-[11px] font-accent mb-6">
             <Sparkles className="size-3.5 text-accent" />
             <span className="text-muted-foreground">Creative · Branding · Growth Studio</span>
           </div>
-          <h1 className="font-display text-5xl md:text-7xl font-bold leading-[0.95] tracking-tight">
+          <h1 className="text-5xl md:text-7xl leading-[0.92]">
             We build brands<br />
             that get <span className="text-gradient">noticed.</span>
           </h1>
@@ -24,11 +51,11 @@ export function Hero() {
             We help businesses grow through powerful content, smart strategy, and creative storytelling — content that doesn't just get watched, it convinces.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <Link to="/services" className="group inline-flex items-center gap-2 bg-gradient-primary text-white px-7 py-3.5 rounded-2xl font-semibold neon-glow hover:scale-[1.03] transition-transform">
+            <Link to="/services" className="btn group inline-flex items-center gap-2 bg-gradient-primary text-white px-7 py-3.5 rounded-2xl font-semibold neon-glow hover:scale-[1.03] transition-transform">
               Explore Services
               <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <Link to="/portfolio" className="inline-flex items-center gap-2 glass-strong px-7 py-3.5 rounded-2xl font-semibold hover:cyan-glow transition-all">
+            <Link to="/portfolio" className="btn inline-flex items-center gap-2 glass-strong px-7 py-3.5 rounded-2xl font-semibold hover:cyan-glow transition-all">
               View Our Work
             </Link>
           </div>
@@ -40,46 +67,111 @@ export function Hero() {
             ].map((s) => (
               <div key={s.v}>
                 <div className="text-2xl font-display font-bold text-gradient">{s.k}</div>
-                <div className="text-xs text-muted-foreground uppercase tracking-wider">{s.v}</div>
+                <div className="text-[10px] text-muted-foreground font-accent">{s.v}</div>
               </div>
             ))}
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }}
-          className="relative flex justify-center items-center h-[500px]">
-          {/* Orbital rings */}
-          <div className="absolute inset-0 grid place-items-center">
-            <div className="size-[420px] rounded-full border border-primary/30 animate-[spin_30s_linear_infinite]" />
-          </div>
-          <div className="absolute inset-0 grid place-items-center">
-            <div className="size-[300px] rounded-full border border-accent/30 animate-[spin_20s_linear_infinite_reverse]" />
-          </div>
-          {/* Floating icons */}
-          {[
-            { Icon: Camera, x: -180, y: -120, d: 0 },
-            { Icon: Globe, x: 170, y: -140, d: 0.3 },
-            { Icon: Megaphone, x: -200, y: 100, d: 0.6 },
-            { Icon: Heart, x: 190, y: 120, d: 0.9 },
-            { Icon: TrendingUp, x: 0, y: -200, d: 1.2 },
-          ].map(({ Icon, x, y, d }, i) => (
-            <motion.div key={i}
-              animate={{ y: [y, y - 15, y], }}
-              transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut", delay: d }}
-              style={{ transform: `translate(${x}px, ${y}px)` }}
-              className="absolute glass rounded-2xl p-4 cyan-glow">
-              <Icon className="size-6 text-accent" />
-            </motion.div>
-          ))}
-          {/* Center logo */}
-          <motion.div
-            animate={{ rotate: [0, 5, -5, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="relative z-10 glass-strong rounded-3xl p-10 cyan-glow">
-            <img src={logo} alt="SADA" className="size-32 object-contain animate-float" />
-          </motion.div>
-        </motion.div>
+        <OrbitalSystem />
       </div>
     </section>
+  );
+}
+
+function OrbitalSystem() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.85 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1.1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      className="relative mx-auto flex justify-center items-center h-[420px] w-[340px] sm:h-[520px] sm:w-[460px] lg:h-[560px] lg:w-[560px]"
+      style={{ perspective: "1000px" }}
+    >
+      {/* Aura layers */}
+      <div className="absolute inset-0 grid place-items-center pointer-events-none">
+        <div
+          className="size-[60%] rounded-full bg-primary/35"
+          style={{ animation: "aura-breathe 5s ease-in-out infinite" }}
+        />
+      </div>
+      <div className="absolute inset-0 grid place-items-center pointer-events-none">
+        <div
+          className="size-[40%] rounded-full bg-accent/30"
+          style={{ animation: "aura-breathe 6.5s ease-in-out infinite", animationDelay: "1s" }}
+        />
+      </div>
+
+      {/* Energy rings (visual only) */}
+      {RING_SIZES.map((_, i) => (
+        <div key={`ring-${i}`} className="absolute inset-0 grid place-items-center pointer-events-none">
+          <div
+            className="rounded-full border border-primary/20"
+            style={{
+              width: `${(i + 1) * 32 + 30}%`,
+              height: `${(i + 1) * 32 + 30}%`,
+              boxShadow: "inset 0 0 30px oklch(0.66 0.22 250 / 0.15), 0 0 20px oklch(0.66 0.22 250 / 0.1)",
+            }}
+          />
+        </div>
+      ))}
+
+      {/* Orbiting icons — one rotating wrapper per ring containing all icons on that ring */}
+      {RING_SIZES.map((_, ringIdx) => {
+        const ringIcons = orbiters.filter((o) => o.ring === ringIdx);
+        const sizePct = `${(ringIdx + 1) * 32 + 30}%`;
+        const spin = RING_DIRECTIONS[ringIdx];
+        const counter = spin === "orbit-spin" ? "orbit-counter" : "orbit-spin";
+        const dur = RING_DURATIONS[ringIdx];
+        return (
+          <div key={`orbit-${ringIdx}`} className="absolute inset-0 grid place-items-center pointer-events-none">
+            <div
+              className="relative"
+              style={{
+                width: sizePct,
+                height: sizePct,
+                animation: `${spin} ${dur}s linear infinite`,
+                willChange: "transform",
+              }}
+            >
+              {ringIcons.map(({ Icon, angle, color }, i) => (
+                <div
+                  key={i}
+                  className="absolute inset-0"
+                  style={{ transform: `rotate(${angle}deg)` }}
+                >
+                  <div
+                    className="absolute"
+                    style={{ top: 0, left: "50%", transform: `translate(-50%, -50%) rotate(${-angle}deg)` }}
+                  >
+                    <div
+                      className="pointer-events-auto"
+                      style={{
+                        animation: `${counter} ${dur}s linear infinite`,
+                        willChange: "transform",
+                      }}
+                    >
+                      <div className="glass rounded-2xl p-2.5 sm:p-3 cyan-glow backdrop-blur-xl">
+                        <Icon className={`size-4 sm:size-5 ${color}`} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+
+      {/* Center logo */}
+      <motion.div
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        className="relative z-10 glass-strong rounded-3xl p-6 sm:p-8 lg:p-10 cyan-glow"
+        style={{ boxShadow: "0 0 80px -10px oklch(0.66 0.22 250 / 0.7), inset 0 1px 0 oklch(1 0 0 / 0.1)" }}
+      >
+        <img src={logo} alt="SADA" className="size-20 sm:size-28 lg:size-32 object-contain" />
+      </motion.div>
+    </motion.div>
   );
 }

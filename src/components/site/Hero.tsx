@@ -120,36 +120,40 @@ function OrbitalSystem() {
       {RING_SIZES.map((_, ringIdx) => {
         const ringIcons = orbiters.filter((o) => o.ring === ringIdx);
         const sizePct = `${(ringIdx + 1) * 32 + 30}%`;
+        const spin = RING_DIRECTIONS[ringIdx];
+        const counter = spin === "orbit-spin" ? "orbit-counter" : "orbit-spin";
+        const dur = RING_DURATIONS[ringIdx];
         return (
           <div
             key={`orbit-${ringIdx}`}
-            className="absolute grid place-items-center pointer-events-none"
+            className="absolute pointer-events-none"
             style={{
               width: sizePct,
               height: sizePct,
-              animation: `${RING_DIRECTIONS[ringIdx]} ${RING_DURATIONS[ringIdx]}s linear infinite`,
+              animation: `${spin} ${dur}s linear infinite`,
               willChange: "transform",
             }}
           >
             {ringIcons.map(({ Icon, angle, color }, i) => (
               <div
                 key={i}
-                className="absolute"
-                style={{
-                  transform: `rotate(${angle}deg) translateY(-50%) translateY(0)`,
-                  top: "50%",
-                  left: "50%",
-                }}
+                className="absolute inset-0"
+                style={{ transform: `rotate(${angle}deg)` }}
               >
                 <div
-                  className="pointer-events-auto"
-                  style={{
-                    transform: `translate(-50%, -50%) rotate(${-angle}deg)`,
-                    animation: `${RING_DIRECTIONS[ringIdx] === "orbit-spin" ? "orbit-counter" : "orbit-spin"} ${RING_DURATIONS[ringIdx]}s linear infinite`,
-                  }}
+                  className="absolute"
+                  style={{ top: 0, left: "50%", transform: `translate(-50%, -50%) rotate(${-angle}deg)` }}
                 >
-                  <div className="glass rounded-2xl p-2.5 sm:p-3 cyan-glow backdrop-blur-xl">
-                    <Icon className={`size-4 sm:size-5 ${color}`} />
+                  <div
+                    className="pointer-events-auto"
+                    style={{
+                      animation: `${counter} ${dur}s linear infinite`,
+                      willChange: "transform",
+                    }}
+                  >
+                    <div className="glass rounded-2xl p-2.5 sm:p-3 cyan-glow backdrop-blur-xl">
+                      <Icon className={`size-4 sm:size-5 ${color}`} />
+                    </div>
                   </div>
                 </div>
               </div>

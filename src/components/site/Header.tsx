@@ -30,9 +30,16 @@ export function Header() {
   useEffect(() => { setOpen(false); }, [path]);
 
   return (
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? "py-3" : "py-5"}`}>
+    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "py-2" : "py-4"}`}>
       <div className="mx-auto max-w-7xl px-4">
-        <div className={`glass rounded-2xl px-5 py-3 flex items-center justify-between transition-all ${scrolled ? "shadow-[0_10px_40px_-10px_oklch(0_0_0/0.5)]" : ""}`}>
+        <div
+          className={`rounded-2xl px-5 py-3 flex items-center justify-between transition-all duration-500 ${
+            scrolled
+              ? "glass-strong shadow-[0_10px_40px_-10px_oklch(0_0_0/0.6)] border border-primary/20"
+              : "bg-background/10 backdrop-blur-md border border-white/5"
+          }`}
+          style={scrolled ? { boxShadow: "0 0 0 1px oklch(0.66 0.22 250 / 0.15), 0 20px 60px -20px oklch(0 0 0 / 0.7)" } : undefined}
+        >
           <Link to="/"><Logo /></Link>
           <nav className="hidden lg:flex items-center gap-1">
             {NAV.map((n) => (

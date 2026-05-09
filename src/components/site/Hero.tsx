@@ -1,44 +1,50 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles, Instagram, Youtube, Facebook, Globe, Palette } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowRight, Sparkles, Instagram, Youtube, Facebook, Globe, Camera, Palette } from "lucide-react";
 import logo from "@/assets/sada-mark.png";
 
-// TikTok inline icon (not in lucide)
 const TikTok = ({ className = "" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
     <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V9.69a8.16 8.16 0 0 0 4.77 1.52V7.83a4.85 4.85 0 0 1-1.84-1.14z"/>
   </svg>
 );
 
-type Orbiter = {
-  Icon: React.ComponentType<{ className?: string }>;
-  ring: 0 | 1 | 2;
-  angle: number; // initial degrees
-  color: string;
-};
-
-const orbiters: Orbiter[] = [
-  { Icon: Instagram, ring: 0, angle: 0, color: "text-pink-300" },
-  { Icon: TikTok, ring: 0, angle: 180, color: "text-white" },
-  { Icon: Youtube, ring: 1, angle: 60, color: "text-red-400" },
-  { Icon: Facebook, ring: 1, angle: 240, color: "text-blue-300" },
-  { Icon: Globe, ring: 2, angle: 30, color: "text-accent" },
-  { Icon: Palette, ring: 2, angle: 210, color: "text-primary-foreground" },
+const ALL_ICONS = [
+  { Icon: Instagram, color: "text-pink-300" },
+  { Icon: TikTok, color: "text-white" },
+  { Icon: Youtube, color: "text-red-400" },
+  { Icon: Facebook, color: "text-blue-300" },
+  { Icon: Globe, color: "text-accent" },
+  { Icon: Camera, color: "text-cyan-300" },
+  { Icon: Palette, color: "text-primary-foreground" },
 ];
 
-const RING_SIZES = [180, 260, 340]; // mobile base radii (px diameter)
-const RING_DURATIONS = [22, 32, 44];
-const RING_DIRECTIONS = ["orbit-spin", "orbit-counter", "orbit-spin"];
-
 export function Hero() {
-  return (
-    <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-      <div className="absolute inset-0 grid-bg opacity-30 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
-      <div className="absolute -top-32 -right-20 size-[600px] rounded-full bg-primary/20 blur-[120px] animate-pulse-glow" />
-      <div className="absolute -bottom-20 -left-20 size-[500px] rounded-full bg-accent/15 blur-[120px] animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
+  const reduce = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 grid lg:grid-cols-2 gap-12 items-center py-16">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    const upd = () => setIsMobile(mq.matches);
+    upd();
+    mq.addEventListener("change", upd);
+    return () => mq.removeEventListener("change", upd);
+  }, []);
+
+  const icons = isMobile ? ALL_ICONS.slice(0, 5) : ALL_ICONS;
+
+  return (
+    <section className="relative min-h-[100vh] flex items-center overflow-hidden -mt-24 pt-24">
+      {/* Continuous ambient background — extends behind navbar */}
+      <div className="absolute inset-0 grid-bg opacity-25 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
+      <div className="absolute -top-40 -right-32 size-[640px] rounded-full bg-primary/20 blur-[140px] animate-pulse-glow" />
+      <div className="absolute -bottom-32 -left-32 size-[520px] rounded-full bg-accent/15 blur-[140px] animate-pulse-glow" style={{ animationDelay: "1.8s" }} />
+      {/* Soft top vignette so navbar floats */}
+      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background/80 via-background/30 to-transparent pointer-events-none" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 grid lg:grid-cols-2 gap-12 items-center py-16 lg:py-20">
+        <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-[11px] font-accent mb-6">
             <Sparkles className="size-3.5 text-accent" />
             <span className="text-muted-foreground">Creative · Branding · Growth Studio</span>
@@ -73,81 +79,83 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <OrbitalSystem />
+        <SingleOrbit icons={icons} reduce={!!reduce} isMobile={isMobile} />
       </div>
     </section>
   );
 }
 
-function OrbitalSystem() {
+function SingleOrbit({
+  icons,
+  reduce,
+  isMobile,
+}: {
+  icons: { Icon: React.ComponentType<{ className?: string }>; color: string }[];
+  reduce: boolean;
+  isMobile: boolean;
+}) {
+  const duration = isMobile ? 38 : 30;
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.85 }}
+      initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1.1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-      className="relative mx-auto flex justify-center items-center h-[420px] w-[340px] sm:h-[520px] sm:w-[460px] lg:h-[560px] lg:w-[560px]"
-      style={{ perspective: "1000px" }}
+      transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+      className="relative mx-auto flex justify-center items-center h-[360px] w-[320px] sm:h-[480px] sm:w-[480px] lg:h-[560px] lg:w-[560px]"
     >
-      {/* Aura layers */}
+      {/* Aura — soft breathing glow */}
       <div className="absolute inset-0 grid place-items-center pointer-events-none">
         <div
-          className="size-[60%] rounded-full bg-primary/35"
-          style={{ animation: "aura-breathe 5s ease-in-out infinite" }}
+          className="size-[55%] rounded-full bg-primary/30"
+          style={{ animation: reduce ? undefined : "aura-breathe 6s ease-in-out infinite", filter: "blur(50px)" }}
         />
       </div>
-      <div className="absolute inset-0 grid place-items-center pointer-events-none">
-        <div
-          className="size-[40%] rounded-full bg-accent/30"
-          style={{ animation: "aura-breathe 6.5s ease-in-out infinite", animationDelay: "1s" }}
-        />
-      </div>
-
-      {/* Energy rings (visual only) */}
-      {RING_SIZES.map((_, i) => (
-        <div key={`ring-${i}`} className="absolute inset-0 grid place-items-center pointer-events-none">
+      {!isMobile && (
+        <div className="absolute inset-0 grid place-items-center pointer-events-none">
           <div
-            className="rounded-full border border-primary/20"
-            style={{
-              width: `${(i + 1) * 32 + 30}%`,
-              height: `${(i + 1) * 32 + 30}%`,
-              boxShadow: "inset 0 0 30px oklch(0.66 0.22 250 / 0.15), 0 0 20px oklch(0.66 0.22 250 / 0.1)",
-            }}
+            className="size-[35%] rounded-full bg-accent/25"
+            style={{ animation: reduce ? undefined : "aura-breathe 7.5s ease-in-out infinite", animationDelay: "1.2s", filter: "blur(60px)" }}
           />
         </div>
-      ))}
+      )}
 
-      {/* Orbiting icons — one rotating wrapper per ring containing all icons on that ring */}
-      {RING_SIZES.map((_, ringIdx) => {
-        const ringIcons = orbiters.filter((o) => o.ring === ringIdx);
-        const sizePct = `${(ringIdx + 1) * 32 + 30}%`;
-        const spin = RING_DIRECTIONS[ringIdx];
-        const counter = spin === "orbit-spin" ? "orbit-counter" : "orbit-spin";
-        const dur = RING_DURATIONS[ringIdx];
-        return (
-          <div key={`orbit-${ringIdx}`} className="absolute inset-0 grid place-items-center pointer-events-none">
-            <div
-              className="relative"
-              style={{
-                width: sizePct,
-                height: sizePct,
-                animation: `${spin} ${dur}s linear infinite`,
-                willChange: "transform",
-              }}
-            >
-              {ringIcons.map(({ Icon, angle, color }, i) => (
-                <div
-                  key={i}
-                  className="absolute inset-0"
-                  style={{ transform: `rotate(${angle}deg)` }}
-                >
+      {/* Single thin orbit line */}
+      <div className="absolute inset-0 grid place-items-center pointer-events-none">
+        <div
+          className="rounded-full border"
+          style={{
+            width: "82%",
+            height: "82%",
+            borderColor: "oklch(0.66 0.22 250 / 0.25)",
+            boxShadow:
+              "inset 0 0 30px oklch(0.66 0.22 250 / 0.12), 0 0 24px oklch(0.82 0.18 220 / 0.15)",
+          }}
+        />
+      </div>
+
+      {/* Orbiting icons */}
+      {!reduce && (
+        <div className="absolute inset-0 grid place-items-center pointer-events-none">
+          <div
+            className="relative"
+            style={{
+              width: "82%",
+              height: "82%",
+              animation: `orbit-spin ${duration}s linear infinite`,
+              willChange: "transform",
+            }}
+          >
+            {icons.map(({ Icon, color }, i) => {
+              const angle = (360 / icons.length) * i;
+              return (
+                <div key={i} className="absolute inset-0" style={{ transform: `rotate(${angle}deg)` }}>
                   <div
                     className="absolute"
-                    style={{ top: 0, left: "50%", transform: `translate(-50%, -50%) rotate(${-angle}deg)` }}
+                    style={{ top: 0, left: "50%", transform: "translate(-50%, -50%)" }}
                   >
                     <div
                       className="pointer-events-auto"
                       style={{
-                        animation: `${counter} ${dur}s linear infinite`,
+                        animation: `orbit-counter ${duration}s linear infinite`,
                         willChange: "transform",
                       }}
                     >
@@ -157,17 +165,37 @@ function OrbitalSystem() {
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
-        );
-      })}
+        </div>
+      )}
+
+      {/* Static fallback icons for reduced motion */}
+      {reduce && (
+        <div className="absolute inset-0 grid place-items-center pointer-events-none">
+          <div className="relative" style={{ width: "82%", height: "82%" }}>
+            {icons.map(({ Icon, color }, i) => {
+              const angle = (360 / icons.length) * i;
+              return (
+                <div key={i} className="absolute inset-0" style={{ transform: `rotate(${angle}deg)` }}>
+                  <div className="absolute" style={{ top: 0, left: "50%", transform: `translate(-50%, -50%) rotate(${-angle}deg)` }}>
+                    <div className="glass rounded-2xl p-2.5 sm:p-3">
+                      <Icon className={`size-4 sm:size-5 ${color}`} />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Center logo */}
       <motion.div
-        animate={{ y: [0, -8, 0] }}
+        animate={reduce ? undefined : { y: [0, -6, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="relative z-10 glass-strong rounded-3xl p-6 sm:p-8 lg:p-10 cyan-glow"
+        className="relative z-10 glass-strong rounded-3xl p-6 sm:p-8 lg:p-10"
         style={{ boxShadow: "0 0 80px -10px oklch(0.66 0.22 250 / 0.7), inset 0 1px 0 oklch(1 0 0 / 0.1)" }}
       >
         <img src={logo} alt="SADA" className="size-20 sm:size-28 lg:size-32 object-contain" />

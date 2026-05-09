@@ -93,7 +93,7 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <SingleOrbit icons={icons} reduce={!!reduce} isMobile={isMobile} />
+        <SingleOrbit icons={icons} reduce={!!reduce} isMobile={isMobile} ready={showOrbit} />
       </div>
     </section>
   );

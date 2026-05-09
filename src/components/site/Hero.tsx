@@ -23,23 +23,37 @@ const ALL_ICONS = [
 export function Hero() {
   const reduce = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
+  const [showOrbit, setShowOrbit] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 640px)");
     const upd = () => setIsMobile(mq.matches);
     upd();
     mq.addEventListener("change", upd);
-    return () => mq.removeEventListener("change", upd);
+    // Defer heavy orbit/glow until after first paint
+    const idle = (window as any).requestIdleCallback || ((cb: () => void) => setTimeout(cb, 200));
+    const id = idle(() => setShowOrbit(true));
+    return () => {
+      mq.removeEventListener("change", upd);
+      if ((window as any).cancelIdleCallback) (window as any).cancelIdleCallback(id);
+    };
   }, []);
 
-  const icons = isMobile ? ALL_ICONS.slice(0, 5) : ALL_ICONS;
+  const icons = isMobile ? ALL_ICONS.slice(0, 4) : ALL_ICONS;
 
   return (
     <section className="relative min-h-[100vh] flex items-center overflow-hidden -mt-24 pt-24">
       {/* Continuous ambient background — extends behind navbar */}
       <div className="absolute inset-0 grid-bg opacity-25 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
-      <div className="absolute -top-40 -right-32 size-[640px] rounded-full bg-primary/20 blur-[140px] animate-pulse-glow" />
-      <div className="absolute -bottom-32 -left-32 size-[520px] rounded-full bg-accent/15 blur-[140px] animate-pulse-glow" style={{ animationDelay: "1.8s" }} />
+      {showOrbit && !isMobile && (
+        <>
+          <div className="absolute -top-40 -right-32 size-[520px] rounded-full bg-primary/15 blur-[90px] animate-pulse-glow" />
+          <div className="absolute -bottom-32 -left-32 size-[420px] rounded-full bg-accent/10 blur-[90px] animate-pulse-glow" style={{ animationDelay: "1.8s" }} />
+        </>
+      )}
+      {showOrbit && isMobile && (
+        <div className="absolute -top-32 -right-20 size-[380px] rounded-full bg-primary/12 blur-[60px]" />
+      )}
       {/* Soft top vignette so navbar floats */}
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background/80 via-background/30 to-transparent pointer-events-none" />
 

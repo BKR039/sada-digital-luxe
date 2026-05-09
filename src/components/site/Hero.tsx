@@ -103,31 +103,35 @@ function SingleOrbit({
   icons,
   reduce,
   isMobile,
+  ready,
 }: {
   icons: { Icon: React.ComponentType<{ className?: string }>; color: string }[];
   reduce: boolean;
   isMobile: boolean;
+  ready: boolean;
 }) {
-  const duration = isMobile ? 38 : 30;
+  const duration = isMobile ? 40 : 30;
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-      className="relative mx-auto flex justify-center items-center h-[360px] w-[320px] sm:h-[480px] sm:w-[480px] lg:h-[560px] lg:w-[560px]"
+      transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+      className="relative mx-auto flex justify-center items-center h-[340px] w-[320px] sm:h-[480px] sm:w-[480px] lg:h-[560px] lg:w-[560px]"
     >
       {/* Aura — soft breathing glow */}
-      <div className="absolute inset-0 grid place-items-center pointer-events-none">
-        <div
-          className="size-[55%] rounded-full bg-primary/30"
-          style={{ animation: reduce ? undefined : "aura-breathe 6s ease-in-out infinite", filter: "blur(50px)" }}
-        />
-      </div>
-      {!isMobile && (
+      {ready && (
         <div className="absolute inset-0 grid place-items-center pointer-events-none">
           <div
-            className="size-[35%] rounded-full bg-accent/25"
-            style={{ animation: reduce ? undefined : "aura-breathe 7.5s ease-in-out infinite", animationDelay: "1.2s", filter: "blur(60px)" }}
+            className="size-[55%] rounded-full bg-primary/25"
+            style={{ animation: reduce ? undefined : "aura-breathe 6s ease-in-out infinite", filter: isMobile ? "blur(28px)" : "blur(45px)" }}
+          />
+        </div>
+      )}
+      {ready && !isMobile && (
+        <div className="absolute inset-0 grid place-items-center pointer-events-none">
+          <div
+            className="size-[35%] rounded-full bg-accent/20"
+            style={{ animation: reduce ? undefined : "aura-breathe 7.5s ease-in-out infinite", animationDelay: "1.2s", filter: "blur(50px)" }}
           />
         </div>
       )}

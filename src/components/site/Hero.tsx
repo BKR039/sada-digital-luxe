@@ -177,7 +177,7 @@ function SingleOrbit({
                         willChange: "transform",
                       }}
                     >
-                      <div className="glass rounded-2xl p-2.5 sm:p-3 cyan-glow backdrop-blur-xl">
+                      <div className="glass rounded-2xl p-2.5 sm:p-3">
                         <Icon className={`size-4 sm:size-5 ${color}`} />
                       </div>
                     </div>

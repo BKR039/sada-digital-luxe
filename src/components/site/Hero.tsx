@@ -151,7 +151,7 @@ function SingleOrbit({
       </div>
 
       {/* Orbiting icons */}
-      {!reduce && (
+      {ready && !reduce && (
         <div className="absolute inset-0 grid place-items-center pointer-events-none">
           <div
             className="relative"

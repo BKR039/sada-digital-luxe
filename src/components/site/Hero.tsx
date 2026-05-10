@@ -330,15 +330,13 @@ function CinematicLens({
         </div>
       )}
 
-      {/* Camera Lens */}
-      <motion.div
-        animate={reduce ? undefined : { rotate: [0, 360] }}
-        transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
+      {/* 3D SADA Logo */}
+      <div
         className="relative z-10"
-        style={{ width: "min(72%, 300px)", aspectRatio: "1 / 1" }}
+        style={{ width: "min(72%, 320px)", aspectRatio: "1 / 1", perspective: "1200px" }}
       >
-        <Lens reduce={reduce} />
-      </motion.div>
+        <Logo3D reduce={reduce} />
+      </div>
 
       {/* Particles */}
       {ready && !reduce && !isMobile && (

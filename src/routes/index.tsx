@@ -1,12 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
 import { Hero } from "@/components/site/Hero";
-
-const Services = lazy(() => import("@/components/site/Services").then(m => ({ default: m.Services })));
-const FeaturedProjects = lazy(() => import("@/components/site/FeaturedProjects").then(m => ({ default: m.FeaturedProjects })));
-const About = lazy(() => import("@/components/site/About").then(m => ({ default: m.About })));
-const Testimonials = lazy(() => import("@/components/site/Testimonials").then(m => ({ default: m.Testimonials })));
-const CTA = lazy(() => import("@/components/site/CTA").then(m => ({ default: m.CTA })));
+import { Services } from "@/components/site/Services";
+import { FeaturedProjects } from "@/components/site/FeaturedProjects";
+import { About } from "@/components/site/About";
+import { Testimonials } from "@/components/site/Testimonials";
+import { CTA } from "@/components/site/CTA";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,17 +16,15 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const Fallback = () => <div className="h-32" />;
-
 function Index() {
   return (
     <>
       <Hero />
-      <Suspense fallback={<Fallback />}><Services /></Suspense>
-      <Suspense fallback={<Fallback />}><FeaturedProjects /></Suspense>
-      <Suspense fallback={<Fallback />}><About /></Suspense>
-      <Suspense fallback={<Fallback />}><Testimonials /></Suspense>
-      <Suspense fallback={<Fallback />}><CTA /></Suspense>
+      <Services />
+      <FeaturedProjects />
+      <About />
+      <Testimonials />
+      <CTA />
     </>
   );
 }

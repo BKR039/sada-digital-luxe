@@ -15,6 +15,7 @@ import {
   Megaphone,
   TrendingUp,
 } from "lucide-react";
+import logo from "@/assets/sada-mark.png";
 
 const TikTok = ({ className = "" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>

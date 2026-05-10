@@ -54,8 +54,9 @@ export function Header() {
               <Link to="/admin" className="text-sm px-4 py-2 rounded-lg glass-strong hover:cyan-glow transition-all">Admin</Link>
             )}
             <Link to="/contact"
-              className="text-sm font-semibold px-5 py-2.5 rounded-xl bg-gradient-primary text-white hover:scale-105 transition-transform neon-glow">
-              Start a Project
+              className="group text-sm font-semibold inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-primary text-white hover:scale-105 transition-transform neon-glow">
+              Let's Talk
+              <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
           <button onClick={() => setOpen(!open)} className="lg:hidden p-2 text-white" aria-label="Toggle menu">

@@ -6,11 +6,11 @@ import { useAuth } from "@/lib/auth";
 
 const NAV = [
   { to: "/", label: "Home" },
-  { to: "/services", label: "Services" },
-  { to: "/portfolio", label: "Portfolio" },
   { to: "/about", label: "About" },
+  { to: "/services", label: "Services" },
+  { to: "/portfolio", label: "Our Work" },
+  { to: "/store", label: "Packages" },
   { to: "/team", label: "Team" },
-  { to: "/store", label: "Store" },
   { to: "/contact", label: "Contact" },
 ] as const;
 

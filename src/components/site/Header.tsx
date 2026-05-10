@@ -71,7 +71,7 @@ export function Header() {
               </Link>
             ))}
             {user && isAdmin && <Link to="/admin" className="block px-4 py-3 rounded-lg text-accent">Admin Dashboard</Link>}
-            <Link to="/contact" className="block mt-2 text-center bg-gradient-primary py-3 rounded-xl font-semibold">Start a Project</Link>
+            <Link to="/contact" className="block mt-2 text-center bg-gradient-primary py-3 rounded-xl font-semibold">Let's Talk</Link>
           </div>
         )}
       </div>

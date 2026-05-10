@@ -1,16 +1,16 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { Logo } from "./Logo";
 import { useAuth } from "@/lib/auth";
 
 const NAV = [
   { to: "/", label: "Home" },
-  { to: "/services", label: "Services" },
-  { to: "/portfolio", label: "Portfolio" },
   { to: "/about", label: "About" },
+  { to: "/services", label: "Services" },
+  { to: "/portfolio", label: "Our Work" },
+  { to: "/store", label: "Packages" },
   { to: "/team", label: "Team" },
-  { to: "/store", label: "Store" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -54,8 +54,9 @@ export function Header() {
               <Link to="/admin" className="text-sm px-4 py-2 rounded-lg glass-strong hover:cyan-glow transition-all">Admin</Link>
             )}
             <Link to="/contact"
-              className="text-sm font-semibold px-5 py-2.5 rounded-xl bg-gradient-primary text-white hover:scale-105 transition-transform neon-glow">
-              Start a Project
+              className="group text-sm font-semibold inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-primary text-white hover:scale-105 transition-transform neon-glow">
+              Let's Talk
+              <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
           <button onClick={() => setOpen(!open)} className="lg:hidden p-2 text-white" aria-label="Toggle menu">
@@ -70,7 +71,7 @@ export function Header() {
               </Link>
             ))}
             {user && isAdmin && <Link to="/admin" className="block px-4 py-3 rounded-lg text-accent">Admin Dashboard</Link>}
-            <Link to="/contact" className="block mt-2 text-center bg-gradient-primary py-3 rounded-xl font-semibold">Start a Project</Link>
+            <Link to="/contact" className="block mt-2 text-center bg-gradient-primary py-3 rounded-xl font-semibold">Let's Talk</Link>
           </div>
         )}
       </div>

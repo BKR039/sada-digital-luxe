@@ -15,6 +15,7 @@ import {
   Megaphone,
   TrendingUp,
 } from "lucide-react";
+import logo from "@/assets/sada-mark.png";
 
 const TikTok = ({ className = "" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
@@ -330,15 +331,13 @@ function CinematicLens({
         </div>
       )}
 
-      {/* Camera Lens */}
-      <motion.div
-        animate={reduce ? undefined : { rotate: [0, 360] }}
-        transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
+      {/* 3D SADA Logo */}
+      <div
         className="relative z-10"
-        style={{ width: "min(72%, 300px)", aspectRatio: "1 / 1" }}
+        style={{ width: "min(72%, 320px)", aspectRatio: "1 / 1", perspective: "1200px" }}
       >
-        <Lens reduce={reduce} />
-      </motion.div>
+        <Logo3D reduce={reduce} />
+      </div>
 
       {/* Particles */}
       {ready && !reduce && !isMobile && (
@@ -366,96 +365,122 @@ function CinematicLens({
   );
 }
 
-function Lens({ reduce }: { reduce: boolean }) {
+function Logo3D({ reduce }: { reduce: boolean }) {
   return (
-    <div className="relative size-full rounded-full">
-      {/* Outer barrel */}
-      <div
-        className="absolute inset-0 rounded-full"
-        style={{
-          background:
-            "conic-gradient(from 90deg, oklch(0.18 0.02 260), oklch(0.28 0.04 260), oklch(0.14 0.02 260), oklch(0.32 0.05 260), oklch(0.18 0.02 260))",
-          boxShadow:
-            "0 0 60px -10px oklch(0.66 0.22 250 / 0.7), inset 0 0 40px oklch(0 0 0 / 0.6), inset 0 2px 0 oklch(1 0 0 / 0.1)",
-          border: "1px solid oklch(0.4 0.05 260 / 0.6)",
-        }}
-      />
-      {/* Ridges */}
+    <motion.div
+      animate={
+        reduce
+          ? undefined
+          : { rotateY: [-12, 12, -12], rotateX: [6, -4, 6], y: [0, -8, 0] }
+      }
+      transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+      className="relative size-full"
+      style={{ transformStyle: "preserve-3d" }}
+    >
+      {/* Back glow disc */}
       <div
         className="absolute inset-[6%] rounded-full"
         style={{
           background:
-            "repeating-conic-gradient(oklch(0.22 0.03 260) 0deg 4deg, oklch(0.14 0.02 260) 4deg 8deg)",
-          boxShadow: "inset 0 0 30px oklch(0 0 0 / 0.7)",
+            "radial-gradient(circle at 50% 50%, oklch(0.66 0.22 250 / 0.7), oklch(0.35 0.2 250 / 0.4) 55%, transparent 75%)",
+          filter: "blur(30px)",
+          transform: "translateZ(-80px)",
+          animation: reduce ? undefined : "pulse-glow 5s ease-in-out infinite",
         }}
       />
-      {/* Mid ring */}
+
+      {/* Glass disc base */}
       <div
-        className="absolute inset-[14%] rounded-full"
+        className="absolute inset-[8%] rounded-full"
         style={{
           background:
-            "radial-gradient(circle at 30% 25%, oklch(0.4 0.06 260), oklch(0.12 0.02 260) 70%)",
+            "radial-gradient(circle at 32% 25%, oklch(1 0 0 / 0.18), transparent 48%), radial-gradient(circle at 70% 80%, oklch(0.66 0.22 250 / 0.45), transparent 60%), oklch(0.16 0.05 260 / 0.7)",
+          backdropFilter: "blur(20px) saturate(160%)",
+          WebkitBackdropFilter: "blur(20px) saturate(160%)",
+          border: "1px solid oklch(0.7 0.18 240 / 0.45)",
           boxShadow:
-            "inset 0 0 30px oklch(0 0 0 / 0.8), 0 0 0 1px oklch(0.5 0.1 240 / 0.4)",
+            "0 0 80px -10px oklch(0.66 0.22 250 / 0.8), inset 0 1px 0 oklch(1 0 0 / 0.2), inset 0 -50px 90px -20px oklch(0.66 0.22 250 / 0.35)",
+          transform: "translateZ(0)",
         }}
       />
-      {/* Glass element */}
+
+      {/* Inner highlight ring */}
       <div
-        className="absolute inset-[24%] rounded-full overflow-hidden"
+        className="absolute inset-[14%] rounded-full pointer-events-none"
         style={{
-          background:
-            "radial-gradient(circle at 30% 25%, oklch(0.7 0.18 240 / 0.95), oklch(0.35 0.18 250 / 0.85) 45%, oklch(0.1 0.04 260) 90%)",
-          boxShadow:
-            "inset 0 0 40px oklch(0.66 0.22 250 / 0.6), inset 0 4px 14px oklch(1 0 0 / 0.15), 0 0 50px oklch(0.66 0.22 250 / 0.5)",
+          border: "1px solid oklch(1 0 0 / 0.1)",
+          boxShadow: "inset 0 0 40px oklch(0.82 0.18 220 / 0.2)",
+          transform: "translateZ(20px)",
         }}
+      />
+
+      {/* SADA mark — 3D extrusion via stacked layers */}
+      <div
+        className="absolute inset-0 grid place-items-center"
+        style={{ transform: "translateZ(60px)" }}
       >
-        {/* Iris blades hint */}
+        <div className="relative" style={{ transformStyle: "preserve-3d" }}>
+          {/* Depth stack */}
+          {Array.from({ length: 8 }).map((_, i) => (
+            <img
+              key={i}
+              src={logo}
+              alt=""
+              aria-hidden
+              className="absolute inset-0 size-32 sm:size-40 lg:size-48 object-contain"
+              style={{
+                transform: `translateZ(${-i * 2}px)`,
+                filter: `brightness(${0.35 + i * 0.04}) saturate(0.6)`,
+                opacity: 0.9,
+              }}
+            />
+          ))}
+          {/* Front face */}
+          <img
+            src={logo}
+            alt="SADA"
+            className="relative size-32 sm:size-40 lg:size-48 object-contain"
+            style={{
+              filter:
+                "drop-shadow(0 0 24px oklch(0.66 0.22 250 / 0.85)) drop-shadow(0 0 48px oklch(0.82 0.18 220 / 0.6))",
+            }}
+          />
+          {/* Specular highlight overlay */}
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none mix-blend-screen"
+            style={{
+              background:
+                "linear-gradient(135deg, oklch(1 0 0 / 0.35) 0%, transparent 45%)",
+              maskImage: `url(${logo})`,
+              WebkitMaskImage: `url(${logo})`,
+              maskRepeat: "no-repeat",
+              WebkitMaskRepeat: "no-repeat",
+              maskPosition: "center",
+              WebkitMaskPosition: "center",
+              maskSize: "contain",
+              WebkitMaskSize: "contain",
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Foreground reflection sweep */}
+      <div
+        className="absolute inset-[8%] rounded-full pointer-events-none overflow-hidden"
+        style={{ transform: "translateZ(80px)" }}
+      >
         <div
-          className="absolute inset-0 rounded-full"
+          className="absolute -inset-1/4"
           style={{
             background:
-              "conic-gradient(from 0deg, oklch(0.66 0.22 250 / 0.25) 0deg 30deg, transparent 30deg 60deg, oklch(0.82 0.18 220 / 0.2) 60deg 90deg, transparent 90deg 120deg, oklch(0.66 0.22 250 / 0.25) 120deg 150deg, transparent 150deg 180deg, oklch(0.82 0.18 220 / 0.2) 180deg 210deg, transparent 210deg 240deg, oklch(0.66 0.22 250 / 0.25) 240deg 270deg, transparent 270deg 300deg, oklch(0.82 0.18 220 / 0.2) 300deg 330deg, transparent 330deg 360deg)",
-            mixBlendMode: "screen",
-          }}
-        />
-        {/* Reflections */}
-        <div
-          className="absolute top-[12%] left-[18%] size-[28%] rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, oklch(1 0 0 / 0.8), transparent 70%)",
-            filter: "blur(2px)",
-          }}
-        />
-        <div
-          className="absolute bottom-[18%] right-[22%] size-[14%] rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, oklch(0.82 0.18 220 / 0.9), transparent 70%)",
-            filter: "blur(1px)",
-          }}
-        />
-        {/* Pupil */}
-        <div
-          className="absolute inset-[34%] rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, oklch(0.05 0.01 260), oklch(0.02 0 0) 80%)",
-            boxShadow:
-              "inset 0 0 20px oklch(0 0 0), 0 0 30px oklch(0.66 0.22 250 / 0.7)",
+              "linear-gradient(115deg, transparent 40%, oklch(1 0 0 / 0.22) 50%, transparent 60%)",
+            animation: reduce ? undefined : "shimmer 6s linear infinite",
+            backgroundSize: "200% 100%",
           }}
         />
       </div>
-
-      {/* Pulse glow ring */}
-      <div
-        className="absolute inset-[20%] rounded-full pointer-events-none"
-        style={{
-          boxShadow:
-            "0 0 40px 4px oklch(0.66 0.22 250 / 0.5), 0 0 80px 10px oklch(0.82 0.18 220 / 0.25)",
-          animation: reduce ? undefined : "pulse-glow 4s ease-in-out infinite",
-        }}
-      />
-    </div>
+    </motion.div>
   );
 }
+

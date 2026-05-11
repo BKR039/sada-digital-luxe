@@ -1,42 +1,52 @@
 import { motion } from "framer-motion";
-import { Camera, ThumbsUp, MonitorSmartphone, Megaphone, Lightbulb, Rocket, type LucideIcon } from "lucide-react";
+import { Camera, ThumbsUp, MonitorSmartphone, Megaphone, Lightbulb, Video, type LucideIcon } from "lucide-react";
 
-const SERVICES: { title: string; desc: string; tags: string[]; Icon: LucideIcon }[] = [
-  { title: "Content Creation", desc: "Photography, video editing, premium reels and short-form built to stop the scroll.", tags: ["Photo", "Video", "Reels"], Icon: Camera },
-  { title: "Social Media Management", desc: "Strategy, publishing, growth — a complete operating system for your social presence.", tags: ["Strategy", "Posting", "Growth"], Icon: ThumbsUp },
-  { title: "Web Design", desc: "Modern, premium websites engineered for conversion and brand authority.", tags: ["Design", "Build", "Launch"], Icon: MonitorSmartphone },
-  { title: "Paid Ads", desc: "Meta & TikTok performance campaigns. Tracked, optimized, scaled.", tags: ["Meta", "TikTok", "Funnels"], Icon: Megaphone },
-  { title: "Brand Development", desc: "Identity systems and positioning that earn trust and stand out in a crowded market.", tags: ["Identity", "Voice", "Strategy"], Icon: Lightbulb },
-  { title: "Brand Growth", desc: "Long-term partnerships that turn attention into revenue and revenue into momentum.", tags: ["Retainer", "Scale", "Results"], Icon: Rocket },
+const SERVICES: { title: string; desc: string; Icon: LucideIcon }[] = [
+  { title: "Content Creation", desc: "Photography, video & short-form built to stop the scroll.", Icon: Camera },
+  { title: "Branding", desc: "Identity systems that earn trust and stand out in your market.", Icon: Lightbulb },
+  { title: "Social Media", desc: "Strategy, posting and growth — a complete social operating system.", Icon: ThumbsUp },
+  { title: "Web Design", desc: "Modern, premium sites engineered to convert visitors into clients.", Icon: MonitorSmartphone },
+  { title: "Paid Ads", desc: "Meta & TikTok performance campaigns — tracked, optimized, scaled.", Icon: Megaphone },
+  { title: "Video Production", desc: "Cinematic shoots, premium edits and reels that perform.", Icon: Video },
 ];
 
 export function Services() {
   return (
-    <section className="relative py-28 px-4">
+    <section className="relative py-24 px-4">
       <div className="mx-auto max-w-7xl">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-          <p className="text-xs font-bold text-accent tracking-[0.3em] mb-3">OUR SERVICES</p>
-          <h2 className="font-display text-4xl md:text-6xl font-bold">What we <span className="text-gradient">build</span></h2>
-          <p className="mt-4 text-muted-foreground max-w-xl mx-auto">An end-to-end studio for brands that want to be seen, heard and felt.</p>
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-14 max-w-2xl mx-auto"
+        >
+          <p className="text-xs font-semibold tracking-[0.25em] text-primary mb-3">OUR SERVICES</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
+            Everything your brand needs <span className="text-gradient">to grow.</span>
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            An end-to-end studio for brands that want to be seen, heard and remembered.
+          </p>
         </motion.div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {SERVICES.map((s, i) => (
-            <motion.div key={s.title}
-              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="group relative glass glow-border rounded-3xl p-7 hover:-translate-y-1.5 transition-all duration-500 hover:cyan-glow overflow-hidden">
-              <div className="absolute -top-20 -right-20 size-48 rounded-full bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative">
-                <div className="size-14 rounded-2xl bg-gradient-primary grid place-items-center mb-5 neon-glow">
-                  <s.Icon className="size-7 text-white" />
-                </div>
-                <h3 className="font-display text-xl font-bold mb-2">{s.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
-                <div className="mt-5 flex flex-wrap gap-1.5">
-                  {s.tags.map((t) => (
-                    <span key={t} className="text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10">{t}</span>
-                  ))}
-                </div>
+            <motion.div
+              key={s.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ delay: i * 0.05, duration: 0.45 }}
+              className="group relative rounded-3xl border border-border bg-card p-7 soft-shadow hover:-translate-y-1 hover:elevated-shadow transition-all"
+            >
+              <div className="size-12 rounded-2xl bg-gradient-primary grid place-items-center neon-glow">
+                <s.Icon className="size-6 text-white" />
+              </div>
+              <h3 className="mt-5 text-lg font-bold">{s.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+              <div className="mt-5 inline-flex items-center text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                Learn more →
               </div>
             </motion.div>
           ))}

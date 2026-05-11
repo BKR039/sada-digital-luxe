@@ -51,8 +51,8 @@ function Contact() {
     <section className="px-4 py-16">
       <div className="mx-auto max-w-6xl grid lg:grid-cols-5 gap-8">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="lg:col-span-2 space-y-5">
-          <p className="text-xs font-bold text-accent tracking-[0.3em]">CONTACT</p>
-          <h1 className="font-display text-5xl md:text-6xl font-bold leading-tight">Let's make <span className="text-gradient">noise.</span></h1>
+          <p className="text-xs font-semibold tracking-[0.25em] text-primary">CONTACT</p>
+          <h1 className="text-5xl md:text-6xl font-bold leading-tight">Let's build <span className="text-gradient">your brand.</span></h1>
           <p className="text-muted-foreground">Tell us about your brand. We typically reply within 24 hours.</p>
           <div className="space-y-3 pt-4">
             <a href="mailto:hello@sada.media" className="glass rounded-2xl p-4 flex items-center gap-4 hover:cyan-glow transition-all">

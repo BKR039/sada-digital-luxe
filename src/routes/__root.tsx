@@ -112,10 +112,12 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <SiteLayout />
-        <Toaster theme="dark" position="top-right" />
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <SiteLayout />
+          <Toaster position="top-right" />
+        </AuthProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

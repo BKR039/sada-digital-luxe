@@ -112,7 +112,7 @@ function Contact() {
   );
 }
 
-const inputCls = "w-full glass rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-primary/50 placeholder:text-muted-foreground/60";
+const inputCls = "w-full bg-card border border-border rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 placeholder:text-muted-foreground/60 transition-colors text-foreground";
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return <label className="block"><span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{label}</span><div className="mt-1.5">{children}</div></label>;
 }

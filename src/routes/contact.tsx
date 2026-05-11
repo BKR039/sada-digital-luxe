@@ -101,7 +101,7 @@ function Contact() {
                 <textarea required rows={5} value={form.message} onChange={(e) => setForm(f => ({ ...f, message: e.target.value }))} className={inputCls} />
               </Field>
               <button disabled={loading} type="submit"
-                className="w-full bg-gradient-primary py-4 rounded-2xl font-semibold neon-glow hover:scale-[1.01] transition-transform disabled:opacity-50 inline-flex items-center justify-center gap-2">
+                className="w-full bg-gradient-primary text-white py-4 rounded-2xl font-semibold neon-glow hover:scale-[1.01] transition-transform disabled:opacity-50 inline-flex items-center justify-center gap-2">
                 {loading ? "Sending..." : <>Send message <Send className="size-4" /></>}
               </button>
             </form>

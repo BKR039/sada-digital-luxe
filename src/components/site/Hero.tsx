@@ -4,7 +4,7 @@ import { ArrowRight, Sparkles, TrendingUp, Eye, Heart, Play, Instagram, Youtube 
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-28 sm:pt-32 pb-20 sm:pb-28">
+    <section className="relative overflow-hidden pt-8 sm:pt-12 pb-20 sm:pb-28">
       {/* Soft ambient background */}
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-60 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]" />
       <div className="pointer-events-none absolute -top-32 -right-24 size-[520px] rounded-full bg-primary/10 blur-[100px]" />

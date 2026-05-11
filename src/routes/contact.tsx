@@ -55,22 +55,22 @@ function Contact() {
           <h1 className="text-5xl md:text-6xl font-bold leading-tight">Let's build <span className="text-gradient">your brand.</span></h1>
           <p className="text-muted-foreground">Tell us about your brand. We typically reply within 24 hours.</p>
           <div className="space-y-3 pt-4">
-            <a href="mailto:hello@sada.media" className="glass rounded-2xl p-4 flex items-center gap-4 hover:cyan-glow transition-all">
-              <div className="size-11 rounded-xl bg-gradient-primary grid place-items-center"><Mail className="size-5" /></div>
+            <a href="mailto:hello@sada.media" className="rounded-2xl p-4 flex items-center gap-4 border border-border bg-card soft-shadow hover:elevated-shadow transition-all">
+              <div className="size-11 rounded-xl bg-gradient-primary grid place-items-center"><Mail className="size-5 text-white" /></div>
               <div><div className="text-xs text-muted-foreground">Email</div><div className="font-semibold">hello@sada.media</div></div>
             </a>
-            <a href="https://wa.me/" className="glass rounded-2xl p-4 flex items-center gap-4 hover:cyan-glow transition-all">
-              <div className="size-11 rounded-xl bg-gradient-primary grid place-items-center"><MessageCircle className="size-5" /></div>
+            <a href="https://wa.me/" className="rounded-2xl p-4 flex items-center gap-4 border border-border bg-card soft-shadow hover:elevated-shadow transition-all">
+              <div className="size-11 rounded-xl bg-gradient-primary grid place-items-center"><MessageCircle className="size-5 text-white" /></div>
               <div><div className="text-xs text-muted-foreground">WhatsApp</div><div className="font-semibold">Chat now</div></div>
             </a>
-            <a href="tel:+0" className="glass rounded-2xl p-4 flex items-center gap-4 hover:cyan-glow transition-all">
-              <div className="size-11 rounded-xl bg-gradient-primary grid place-items-center"><Phone className="size-5" /></div>
+            <a href="tel:+0" className="rounded-2xl p-4 flex items-center gap-4 border border-border bg-card soft-shadow hover:elevated-shadow transition-all">
+              <div className="size-11 rounded-xl bg-gradient-primary grid place-items-center"><Phone className="size-5 text-white" /></div>
               <div><div className="text-xs text-muted-foreground">Phone</div><div className="font-semibold">Schedule a call</div></div>
             </a>
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="lg:col-span-3 glass-strong rounded-3xl p-8">
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="lg:col-span-3 rounded-3xl border border-border bg-card p-8 elevated-shadow">
           {done ? (
             <div className="text-center py-12">
               <CheckCircle2 className="size-16 text-accent mx-auto mb-5" />

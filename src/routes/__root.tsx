@@ -10,6 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { AuthProvider } from "@/lib/auth";
+import { ThemeProvider } from "@/lib/theme";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Toaster } from "@/components/ui/sonner";
 

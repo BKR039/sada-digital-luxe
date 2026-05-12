@@ -161,9 +161,9 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
                 </label>
               ))}
             </div>
-            <div className="mt-6 flex gap-3 justify-end sticky bottom-0 bg-card/80 backdrop-blur -mx-6 -mb-6 px-6 py-4 rounded-b-3xl">
-              <button type="button" onClick={() => setOpen(false)} className="px-5 py-2.5 rounded-xl glass">Cancel</button>
-              <button type="submit" className="bg-gradient-primary px-6 py-2.5 rounded-xl font-semibold neon-glow">Save</button>
+            <div className="flex gap-3 justify-end sticky bottom-0 bg-card/95 backdrop-blur px-6 py-4 rounded-b-3xl border-t border-border">
+              <button type="button" onClick={() => setOpen(false)} className="px-5 py-2.5 rounded-xl border border-border text-foreground hover:bg-muted transition-colors">Cancel</button>
+              <button type="submit" className="bg-gradient-primary text-white px-6 py-2.5 rounded-xl font-semibold neon-glow hover:scale-[1.03] transition-transform">Save changes</button>
             </div>
           </form>
         </div>

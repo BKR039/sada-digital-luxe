@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 import { Hero } from "@/components/site/Hero";
+import { Stats } from "@/components/site/Stats";
 
 const Services = lazy(() => import("@/components/site/Services").then(m => ({ default: m.Services })));
 const FeaturedProjects = lazy(() => import("@/components/site/FeaturedProjects").then(m => ({ default: m.FeaturedProjects })));
@@ -18,12 +19,13 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const Fallback = () => <div className="h-32" />;
+const Fallback = () => <div className="h-16" />;
 
 function Index() {
   return (
     <>
       <Hero />
+      <Stats />
       <Suspense fallback={<Fallback />}><Services /></Suspense>
       <Suspense fallback={<Fallback />}><FeaturedProjects /></Suspense>
       <Suspense fallback={<Fallback />}><About /></Suspense>

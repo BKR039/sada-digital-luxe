@@ -97,27 +97,27 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
       </div>
 
       <div className="grid gap-3">
-        {loading && <div className="glass rounded-2xl p-10 text-center text-muted-foreground">Loading…</div>}
-        {!loading && filtered.length === 0 && <div className="glass rounded-2xl p-10 text-center text-muted-foreground">No items yet.</div>}
+        {loading && <div className="rounded-2xl border border-border bg-card p-10 text-center text-muted-foreground">Loading…</div>}
+        {!loading && filtered.length === 0 && <div className="rounded-2xl border border-border bg-card p-10 text-center text-muted-foreground">No items yet.</div>}
         {filtered.map((r) => {
           const d = display(r);
           return (
-            <div key={r.id} className="glass rounded-2xl p-3 flex items-center justify-between gap-4 hover:bg-white/[0.03] transition-colors">
+            <div key={r.id} className="rounded-2xl border border-border bg-card p-3 flex items-center justify-between gap-4 soft-shadow hover:elevated-shadow hover:border-primary/30 transition-all">
               <div className="flex items-center gap-4 min-w-0 flex-1">
                 {d.image !== undefined && (
-                  <div className="size-16 shrink-0 rounded-xl overflow-hidden">
+                  <div className="size-16 shrink-0 rounded-xl overflow-hidden bg-muted">
                     <SmartMedia src={d.image} className="w-full h-full" autoplay={false} />
                   </div>
                 )}
                 <div className="min-w-0 flex-1">
                   <div className="font-semibold truncate">{d.title}</div>
                   {d.subtitle && <div className="text-sm text-muted-foreground truncate">{d.subtitle}</div>}
-                  {d.meta && <div className="text-xs text-accent mt-1">{d.meta}</div>}
+                  {d.meta && <div className="text-xs text-primary font-medium mt-1">{d.meta}</div>}
                 </div>
               </div>
               <div className="flex gap-2 shrink-0">
-                <button onClick={() => openEdit(r)} className="size-9 grid place-items-center rounded-lg glass-strong hover:bg-primary/20"><Pencil className="size-4" /></button>
-                <button onClick={() => remove(r.id)} className="size-9 grid place-items-center rounded-lg glass-strong hover:bg-destructive/20"><Trash2 className="size-4" /></button>
+                <button onClick={() => openEdit(r)} className="size-9 grid place-items-center rounded-lg border border-border bg-card hover:bg-primary hover:text-white hover:border-primary transition-colors" aria-label="Edit"><Pencil className="size-4" /></button>
+                <button onClick={() => remove(r.id)} className="size-9 grid place-items-center rounded-lg border border-border bg-card hover:bg-destructive hover:text-white hover:border-destructive transition-colors" aria-label="Delete"><Trash2 className="size-4" /></button>
               </div>
             </div>
           );

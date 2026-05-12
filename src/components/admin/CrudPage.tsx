@@ -141,20 +141,20 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
                     ) : f.type === "media-list" ? (
                       <MediaUploadMulti value={draft[f.name] || []} onChange={(v) => setField(f.name, v)} folder={f.folder || table} />
                     ) : f.type === "textarea" ? (
-                      <textarea name={f.name} defaultValue={editing?.[f.name] ?? ""} required={f.required} rows={4} placeholder={f.placeholder} className="w-full glass rounded-xl px-3 py-2" />
+                      <textarea name={f.name} defaultValue={editing?.[f.name] ?? ""} required={f.required} rows={4} placeholder={f.placeholder} className="w-full bg-background border border-border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all" />
                     ) : f.type === "boolean" ? (
                       <input type="checkbox" name={f.name} defaultChecked={editing?.[f.name] ?? false} className="size-5 accent-primary" />
                     ) : f.type === "tags" ? (
-                      <input name={f.name} defaultValue={(editing?.[f.name] || []).join(", ")} placeholder={f.placeholder || "comma, separated"} className="w-full glass rounded-xl px-3 py-2" />
+                      <input name={f.name} defaultValue={(editing?.[f.name] || []).join(", ")} placeholder={f.placeholder || "comma, separated"} className="w-full bg-background border border-border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all" />
                     ) : f.type === "json" ? (
                       <textarea name={f.name} defaultValue={editing?.[f.name] ? JSON.stringify(editing[f.name], null, 2) : ""} rows={4} placeholder={f.placeholder || '{ "instagram": "https://..." }'}
                         onBlur={(e) => { try { setField(f.name, e.target.value ? JSON.parse(e.target.value) : {}); } catch { /* keep raw */ } }}
-                        className="w-full glass rounded-xl px-3 py-2 font-mono text-xs" />
+                        className="w-full bg-background border border-border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all font-mono text-xs" />
                     ) : (
                       <input type={f.type === "number" ? "number" : f.type === "date" ? "date" : f.type === "url" ? "url" : "text"}
                         step="any" name={f.name} placeholder={f.placeholder}
                         defaultValue={editing?.[f.name] ?? ""} required={f.required}
-                        className="w-full glass rounded-xl px-3 py-2" />
+                        className="w-full bg-background border border-border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all" />
                     )}
                     {f.help && <div className="text-[11px] text-muted-foreground mt-1">{f.help}</div>}
                   </div>

@@ -19,7 +19,7 @@ export function Testimonials() {
     });
   }, []);
   return (
-    <section className="relative py-24 px-4">
+    <section className="relative py-16 md:py-20 px-4">
       <div className="mx-auto max-w-7xl">
         <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.5 }} className="text-center mb-12 max-w-2xl mx-auto">
           <p className="text-xs font-semibold tracking-[0.25em] text-primary mb-3">CLIENT LOVE</p>

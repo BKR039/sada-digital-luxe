@@ -84,40 +84,40 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
     <div>
       <div className="flex items-center justify-between gap-4 mb-8 flex-wrap">
         <div>
-          <h1 className="font-display text-3xl font-bold">{title}</h1>
+          <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight">{title}</h1>
           <p className="text-sm text-muted-foreground mt-1">{rows.length} item{rows.length === 1 ? "" : "s"}</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" className="glass rounded-xl pl-9 pr-3 py-2 text-sm w-48" />
+            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" className="bg-card border border-border rounded-xl pl-9 pr-3 py-2 text-sm w-48 focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all" />
           </div>
-          <button onClick={openNew} className="bg-gradient-primary px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 neon-glow"><Plus className="size-4" />New</button>
+          <button onClick={openNew} className="bg-gradient-primary text-white px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 neon-glow hover:scale-[1.03] transition-transform"><Plus className="size-4" />New</button>
         </div>
       </div>
 
       <div className="grid gap-3">
-        {loading && <div className="glass rounded-2xl p-10 text-center text-muted-foreground">Loading…</div>}
-        {!loading && filtered.length === 0 && <div className="glass rounded-2xl p-10 text-center text-muted-foreground">No items yet.</div>}
+        {loading && <div className="rounded-2xl border border-border bg-card p-10 text-center text-muted-foreground">Loading…</div>}
+        {!loading && filtered.length === 0 && <div className="rounded-2xl border border-border bg-card p-10 text-center text-muted-foreground">No items yet.</div>}
         {filtered.map((r) => {
           const d = display(r);
           return (
-            <div key={r.id} className="glass rounded-2xl p-3 flex items-center justify-between gap-4 hover:bg-white/[0.03] transition-colors">
+            <div key={r.id} className="rounded-2xl border border-border bg-card p-3 flex items-center justify-between gap-4 soft-shadow hover:elevated-shadow hover:border-primary/30 transition-all">
               <div className="flex items-center gap-4 min-w-0 flex-1">
                 {d.image !== undefined && (
-                  <div className="size-16 shrink-0 rounded-xl overflow-hidden">
+                  <div className="size-16 shrink-0 rounded-xl overflow-hidden bg-muted">
                     <SmartMedia src={d.image} className="w-full h-full" autoplay={false} />
                   </div>
                 )}
                 <div className="min-w-0 flex-1">
                   <div className="font-semibold truncate">{d.title}</div>
                   {d.subtitle && <div className="text-sm text-muted-foreground truncate">{d.subtitle}</div>}
-                  {d.meta && <div className="text-xs text-accent mt-1">{d.meta}</div>}
+                  {d.meta && <div className="text-xs text-primary font-medium mt-1">{d.meta}</div>}
                 </div>
               </div>
               <div className="flex gap-2 shrink-0">
-                <button onClick={() => openEdit(r)} className="size-9 grid place-items-center rounded-lg glass-strong hover:bg-primary/20"><Pencil className="size-4" /></button>
-                <button onClick={() => remove(r.id)} className="size-9 grid place-items-center rounded-lg glass-strong hover:bg-destructive/20"><Trash2 className="size-4" /></button>
+                <button onClick={() => openEdit(r)} className="size-9 grid place-items-center rounded-lg border border-border bg-card hover:bg-primary hover:text-white hover:border-primary transition-colors" aria-label="Edit"><Pencil className="size-4" /></button>
+                <button onClick={() => remove(r.id)} className="size-9 grid place-items-center rounded-lg border border-border bg-card hover:bg-destructive hover:text-white hover:border-destructive transition-colors" aria-label="Delete"><Trash2 className="size-4" /></button>
               </div>
             </div>
           );
@@ -125,13 +125,13 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
       </div>
 
       {open && (
-        <div className="fixed inset-0 z-50 grid place-items-center p-4 bg-black/70 backdrop-blur-md" onClick={() => setOpen(false)}>
-          <form onSubmit={save} onClick={(e) => e.stopPropagation()} className="glass-strong rounded-3xl p-6 w-full max-w-2xl max-h-[92vh] overflow-y-auto">
-            <div className="flex items-center justify-between mb-5 sticky top-0 bg-card/80 backdrop-blur -mt-6 -mx-6 px-6 pt-6 pb-3 z-10 rounded-t-3xl">
+        <div className="fixed inset-0 z-50 grid place-items-center p-4 bg-foreground/40 backdrop-blur-md animate-in fade-in" onClick={() => setOpen(false)}>
+          <form onSubmit={save} onClick={(e) => e.stopPropagation()} className="bg-card border border-border rounded-3xl elevated-shadow w-full max-w-2xl max-h-[92vh] overflow-y-auto animate-in zoom-in-95 fade-in">
+            <div className="flex items-center justify-between sticky top-0 bg-card/95 backdrop-blur px-6 py-4 z-10 rounded-t-3xl border-b border-border">
               <h2 className="font-display text-xl font-bold">{editing ? "Edit" : "New"} {title.replace(/s$/, "")}</h2>
-              <button type="button" onClick={() => setOpen(false)} className="size-8 grid place-items-center rounded-lg hover:bg-white/10"><X className="size-4" /></button>
+              <button type="button" onClick={() => setOpen(false)} className="size-8 grid place-items-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"><X className="size-4" /></button>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 px-6 py-5">
               {fields.map((f) => (
                 <label key={f.name} className="block">
                   <span className="text-xs uppercase tracking-wider text-muted-foreground">{f.label}{f.required && " *"}</span>
@@ -141,29 +141,29 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
                     ) : f.type === "media-list" ? (
                       <MediaUploadMulti value={draft[f.name] || []} onChange={(v) => setField(f.name, v)} folder={f.folder || table} />
                     ) : f.type === "textarea" ? (
-                      <textarea name={f.name} defaultValue={editing?.[f.name] ?? ""} required={f.required} rows={4} placeholder={f.placeholder} className="w-full glass rounded-xl px-3 py-2" />
+                      <textarea name={f.name} defaultValue={editing?.[f.name] ?? ""} required={f.required} rows={4} placeholder={f.placeholder} className="w-full bg-background border border-border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all" />
                     ) : f.type === "boolean" ? (
                       <input type="checkbox" name={f.name} defaultChecked={editing?.[f.name] ?? false} className="size-5 accent-primary" />
                     ) : f.type === "tags" ? (
-                      <input name={f.name} defaultValue={(editing?.[f.name] || []).join(", ")} placeholder={f.placeholder || "comma, separated"} className="w-full glass rounded-xl px-3 py-2" />
+                      <input name={f.name} defaultValue={(editing?.[f.name] || []).join(", ")} placeholder={f.placeholder || "comma, separated"} className="w-full bg-background border border-border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all" />
                     ) : f.type === "json" ? (
                       <textarea name={f.name} defaultValue={editing?.[f.name] ? JSON.stringify(editing[f.name], null, 2) : ""} rows={4} placeholder={f.placeholder || '{ "instagram": "https://..." }'}
                         onBlur={(e) => { try { setField(f.name, e.target.value ? JSON.parse(e.target.value) : {}); } catch { /* keep raw */ } }}
-                        className="w-full glass rounded-xl px-3 py-2 font-mono text-xs" />
+                        className="w-full bg-background border border-border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all font-mono text-xs" />
                     ) : (
                       <input type={f.type === "number" ? "number" : f.type === "date" ? "date" : f.type === "url" ? "url" : "text"}
                         step="any" name={f.name} placeholder={f.placeholder}
                         defaultValue={editing?.[f.name] ?? ""} required={f.required}
-                        className="w-full glass rounded-xl px-3 py-2" />
+                        className="w-full bg-background border border-border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all" />
                     )}
                     {f.help && <div className="text-[11px] text-muted-foreground mt-1">{f.help}</div>}
                   </div>
                 </label>
               ))}
             </div>
-            <div className="mt-6 flex gap-3 justify-end sticky bottom-0 bg-card/80 backdrop-blur -mx-6 -mb-6 px-6 py-4 rounded-b-3xl">
-              <button type="button" onClick={() => setOpen(false)} className="px-5 py-2.5 rounded-xl glass">Cancel</button>
-              <button type="submit" className="bg-gradient-primary px-6 py-2.5 rounded-xl font-semibold neon-glow">Save</button>
+            <div className="flex gap-3 justify-end sticky bottom-0 bg-card/95 backdrop-blur px-6 py-4 rounded-b-3xl border-t border-border">
+              <button type="button" onClick={() => setOpen(false)} className="px-5 py-2.5 rounded-xl border border-border text-foreground hover:bg-muted transition-colors">Cancel</button>
+              <button type="submit" className="bg-gradient-primary text-white px-6 py-2.5 rounded-xl font-semibold neon-glow hover:scale-[1.03] transition-transform">Save changes</button>
             </div>
           </form>
         </div>

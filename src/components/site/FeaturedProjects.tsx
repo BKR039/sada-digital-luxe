@@ -18,7 +18,7 @@ export function FeaturedProjects() {
   if (items.length === 0) return null;
 
   return (
-    <section className="px-4 py-24 relative">
+    <section className="px-4 py-16 md:py-20 relative">
       <div className="mx-auto max-w-7xl">
         <div className="flex items-end justify-between gap-6 flex-wrap mb-10">
           <div>

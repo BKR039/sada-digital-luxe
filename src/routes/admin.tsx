@@ -42,25 +42,38 @@ function AdminLayout() {
   }
 
   return (
-    <div className="min-h-screen flex">
-      <aside className="w-64 shrink-0 border-r border-border/50 p-5 glass-strong sticky top-0 h-screen">
-        <Link to="/"><Logo /></Link>
-        <nav className="mt-8 space-y-1">
+    <div className="min-h-screen flex bg-gradient-soft">
+      <aside className="w-64 shrink-0 border-r border-border p-5 bg-card sticky top-0 h-screen flex flex-col">
+        <Link to="/" className="block"><Logo /></Link>
+        <nav className="mt-8 space-y-1 flex-1">
           {NAV.map((n) => {
             const active = n.exact ? path === n.to : path.startsWith(n.to);
             return (
-              <Link key={n.to} to={n.to as any} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${active ? "bg-gradient-primary text-white" : "text-muted-foreground hover:bg-white/5 hover:text-white"}`}>
-                <n.Icon className="size-4" />{n.label}
+              <Link
+                key={n.to}
+                to={n.to as any}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  active
+                    ? "bg-gradient-primary text-white shadow-md"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
+              >
+                <n.Icon className="size-4 shrink-0" />
+                <span className="truncate">{n.label}</span>
               </Link>
             );
           })}
         </nav>
-        <div className="absolute bottom-5 left-5 right-5 space-y-2">
-          <Link to="/" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-accent"><ArrowLeft className="size-3" /> Back to site</Link>
-          <button onClick={() => signOut()} className="w-full flex items-center gap-2 px-3 py-2 rounded-xl glass text-sm hover:bg-destructive/20"><LogOut className="size-4" /> Sign out</button>
+        <div className="space-y-2 pt-4 border-t border-border">
+          <Link to="/" className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+            <ArrowLeft className="size-3.5" /> Back to site
+          </Link>
+          <button onClick={() => signOut()} className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors">
+            <LogOut className="size-4" /> Sign out
+          </button>
         </div>
       </aside>
-      <main className="flex-1 p-8 overflow-x-hidden">
+      <main className="flex-1 p-6 md:p-10 overflow-x-hidden">
         <Outlet />
       </main>
     </div>

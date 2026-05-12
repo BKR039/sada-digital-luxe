@@ -125,11 +125,11 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
       </div>
 
       {open && (
-        <div className="fixed inset-0 z-50 grid place-items-center p-4 bg-black/70 backdrop-blur-md" onClick={() => setOpen(false)}>
-          <form onSubmit={save} onClick={(e) => e.stopPropagation()} className="glass-strong rounded-3xl p-6 w-full max-w-2xl max-h-[92vh] overflow-y-auto">
-            <div className="flex items-center justify-between mb-5 sticky top-0 bg-card/80 backdrop-blur -mt-6 -mx-6 px-6 pt-6 pb-3 z-10 rounded-t-3xl">
+        <div className="fixed inset-0 z-50 grid place-items-center p-4 bg-foreground/40 backdrop-blur-md animate-in fade-in" onClick={() => setOpen(false)}>
+          <form onSubmit={save} onClick={(e) => e.stopPropagation()} className="bg-card border border-border rounded-3xl elevated-shadow w-full max-w-2xl max-h-[92vh] overflow-y-auto animate-in zoom-in-95 fade-in">
+            <div className="flex items-center justify-between sticky top-0 bg-card/95 backdrop-blur px-6 py-4 z-10 rounded-t-3xl border-b border-border">
               <h2 className="font-display text-xl font-bold">{editing ? "Edit" : "New"} {title.replace(/s$/, "")}</h2>
-              <button type="button" onClick={() => setOpen(false)} className="size-8 grid place-items-center rounded-lg hover:bg-white/10"><X className="size-4" /></button>
+              <button type="button" onClick={() => setOpen(false)} className="size-8 grid place-items-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"><X className="size-4" /></button>
             </div>
             <div className="space-y-4">
               {fields.map((f) => (

@@ -133,6 +133,12 @@
   p { line-height: 1.7; }
   .font-accent { font-family: var(--font-accent); letter-spacing: 0.08em; text-transform: uppercase; }
   button, .btn { font-family: var(--font-display); letter-spacing: 0.01em; }
+  /* Smooth global hover transitions for interactive elements */
+  a, button { transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease; }
+  /* Anchor scroll offset accounts for fixed navbar */
+  section[id] { scroll-margin-top: 96px; }
+  /* Accessible focus ring */
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; border-radius: 6px; }
 }
 
 @layer components {

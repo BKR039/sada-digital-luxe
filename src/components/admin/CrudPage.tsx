@@ -131,7 +131,7 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
               <h2 className="font-display text-xl font-bold">{editing ? "Edit" : "New"} {title.replace(/s$/, "")}</h2>
               <button type="button" onClick={() => setOpen(false)} className="size-8 grid place-items-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"><X className="size-4" /></button>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 px-6 py-5">
               {fields.map((f) => (
                 <label key={f.name} className="block">
                   <span className="text-xs uppercase tracking-wider text-muted-foreground">{f.label}{f.required && " *"}</span>

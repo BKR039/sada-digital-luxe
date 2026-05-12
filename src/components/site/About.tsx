@@ -9,7 +9,7 @@ export function About() {
     "Engineer a digital presence that earns trust",
   ];
   return (
-    <section className="relative py-24 px-4 bg-gradient-soft">
+    <section className="relative py-16 md:py-20 px-4 bg-gradient-soft">
       <div className="mx-auto max-w-7xl grid lg:grid-cols-2 gap-14 lg:gap-16 items-center">
         <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.5 }}>
           <p className="text-xs font-semibold tracking-[0.25em] text-primary mb-3">WHO WE ARE</p>

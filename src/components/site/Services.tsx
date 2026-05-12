@@ -12,7 +12,7 @@ const SERVICES: { title: string; desc: string; Icon: LucideIcon }[] = [
 
 export function Services() {
   return (
-    <section className="relative py-24 px-4">
+    <section className="relative py-16 md:py-20 px-4">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 18 }}

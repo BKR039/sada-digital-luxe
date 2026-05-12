@@ -84,15 +84,15 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
     <div>
       <div className="flex items-center justify-between gap-4 mb-8 flex-wrap">
         <div>
-          <h1 className="font-display text-3xl font-bold">{title}</h1>
+          <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight">{title}</h1>
           <p className="text-sm text-muted-foreground mt-1">{rows.length} item{rows.length === 1 ? "" : "s"}</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" className="glass rounded-xl pl-9 pr-3 py-2 text-sm w-48" />
+            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search…" className="bg-card border border-border rounded-xl pl-9 pr-3 py-2 text-sm w-48 focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all" />
           </div>
-          <button onClick={openNew} className="bg-gradient-primary px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 neon-glow"><Plus className="size-4" />New</button>
+          <button onClick={openNew} className="bg-gradient-primary text-white px-5 py-2.5 rounded-xl font-semibold inline-flex items-center gap-2 neon-glow hover:scale-[1.03] transition-transform"><Plus className="size-4" />New</button>
         </div>
       </div>
 

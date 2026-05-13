@@ -108,6 +108,17 @@ function RootShell({ children }: { children: React.ReactNode }) {
         />
       </head>
       <body>
+        <div id="sada-splash" aria-hidden="true">
+          <div class="sada-splash-mark">
+            <span>S</span><span>A</span><span>D</span><span>A</span>
+          </div>
+          <div class="sada-splash-bar"><i></i></div>
+        </div>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.addEventListener('load',function(){requestAnimationFrame(function(){var s=document.getElementById('sada-splash');if(s){s.classList.add('is-hidden');setTimeout(function(){s&&s.remove();},450);}});});`,
+          }}
+        />
         {children}
         <Scripts />
       </body>

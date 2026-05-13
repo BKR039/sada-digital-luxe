@@ -22,7 +22,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const setTheme = (t: Theme) => {
     setThemeState(t);
     try { localStorage.setItem("sada-theme", t); } catch {}
-    document.documentElement.classList.toggle("dark", t === "dark");
+    const root = document.documentElement;
+    root.classList.add("theme-transitioning");
+    root.classList.toggle("dark", t === "dark");
+    window.setTimeout(() => root.classList.remove("theme-transitioning"), 260);
   };
 
   const toggle = () => setTheme(theme === "dark" ? "light" : "dark");

@@ -109,10 +109,10 @@ function RootShell({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <div id="sada-splash" aria-hidden="true">
-          <div class="sada-splash-mark">
+          <div className="sada-splash-mark">
             <span>S</span><span>A</span><span>D</span><span>A</span>
           </div>
-          <div class="sada-splash-bar"><i></i></div>
+          <div className="sada-splash-bar"><i /></div>
         </div>
         <script
           dangerouslySetInnerHTML={{

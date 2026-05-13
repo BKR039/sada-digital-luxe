@@ -170,25 +170,44 @@ function FloatSelect({
   const filled = value.length > 0;
   return (
     <div className="relative">
-      <select
-        id={id}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={baseField + " appearance-none cursor-pointer pr-10"}
-      >
-        <option value="" />
-        {options.map(o => <option key={o} value={o}>{o}</option>)}
-      </select>
-      <label htmlFor={id}
+      <Select value={value} onValueChange={onChange}>
+        <SelectTrigger
+          id={id}
+          className={
+            "w-full h-auto bg-transparent border border-border rounded-xl px-4 pt-6 pb-2 text-sm text-foreground " +
+            "shadow-none transition-all duration-200 " +
+            "hover:border-foreground/20 focus:border-primary focus:ring-4 focus:ring-primary/15 focus:ring-offset-0 " +
+            "data-[placeholder]:text-transparent"
+          }
+        >
+          <SelectValue placeholder=" " />
+        </SelectTrigger>
+        <SelectContent
+          className="rounded-xl border border-border bg-popover text-popover-foreground shadow-xl"
+          position="popper"
+        >
+          {options.map((o) => (
+            <SelectItem
+              key={o}
+              value={o}
+              className="rounded-lg px-3 py-2 text-sm cursor-pointer focus:bg-primary/10 focus:text-foreground data-[state=checked]:bg-primary/15 data-[state=checked]:text-primary"
+            >
+              {o}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <label
+        htmlFor={id}
         className={
           "pointer-events-none absolute left-4 transition-all duration-200 " +
           (filled
             ? "top-1.5 text-[10px] uppercase tracking-wider text-primary"
             : "top-4 text-sm text-muted-foreground")
-        }>
+        }
+      >
         {label}
       </label>
-      <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground">▾</span>
     </div>
   );
 }

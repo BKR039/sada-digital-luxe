@@ -87,7 +87,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Orbitron:wght@500;700&family=Space+Grotesk:wght@500;700&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Sora:wght@500;700&family=Manrope:wght@400;500;600&display=swap" },
     ],
   }),
   shellComponent: RootShell,
@@ -108,6 +108,17 @@ function RootShell({ children }: { children: React.ReactNode }) {
         />
       </head>
       <body>
+        <div id="sada-splash" aria-hidden="true">
+          <div className="sada-splash-mark">
+            <span>S</span><span>A</span><span>D</span><span>A</span>
+          </div>
+          <div className="sada-splash-bar"><i /></div>
+        </div>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.addEventListener('load',function(){requestAnimationFrame(function(){var s=document.getElementById('sada-splash');if(s){s.classList.add('is-hidden');setTimeout(function(){s&&s.remove();},450);}});});`,
+          }}
+        />
         {children}
         <Scripts />
       </body>

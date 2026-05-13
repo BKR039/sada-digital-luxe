@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 import { Hero } from "@/components/site/Hero";
-import { Stats } from "@/components/site/Stats";
 
+const Stats = lazy(() => import("@/components/site/Stats").then(m => ({ default: m.Stats })));
 const Services = lazy(() => import("@/components/site/Services").then(m => ({ default: m.Services })));
 const FeaturedProjects = lazy(() => import("@/components/site/FeaturedProjects").then(m => ({ default: m.FeaturedProjects })));
 const About = lazy(() => import("@/components/site/About").then(m => ({ default: m.About })));
@@ -25,7 +25,7 @@ function Index() {
   return (
     <>
       <Hero />
-      <Stats />
+      <Suspense fallback={<Fallback />}><Stats /></Suspense>
       <Suspense fallback={<Fallback />}><Services /></Suspense>
       <Suspense fallback={<Fallback />}><FeaturedProjects /></Suspense>
       <Suspense fallback={<Fallback />}><About /></Suspense>

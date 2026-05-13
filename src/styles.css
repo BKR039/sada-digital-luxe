@@ -293,3 +293,14 @@ main > section { content-visibility: auto; contain-intrinsic-size: 1px 600px; }
   0% { transform: translateX(-110%); }
   100% { transform: translateX(360%); }
 }
+
+/* Native select/option dark-mode fallback (covers any non-shadcn selects) */
+.dark select { color-scheme: dark; background-color: var(--card); color: var(--foreground); }
+.dark select option {
+  background-color: oklch(0.18 0.03 260);
+  color: oklch(0.95 0.01 250);
+}
+.dark select option:checked {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}

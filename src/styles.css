@@ -118,7 +118,11 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-    transition: background-color 400ms ease, color 400ms ease;
+  }
+  /* Apply theme transition briefly when toggling, not on every paint */
+  html.theme-transitioning,
+  html.theme-transitioning body {
+    transition: background-color 220ms ease, color 220ms ease !important;
   }
   body::before {
     content: '';
@@ -133,11 +137,8 @@
   p { line-height: 1.7; }
   .font-accent { font-family: var(--font-accent); letter-spacing: 0.08em; text-transform: uppercase; }
   button, .btn { font-family: var(--font-display); letter-spacing: 0.01em; }
-  /* Smooth global hover transitions for interactive elements */
-  a, button { transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease; }
-  /* Anchor scroll offset accounts for fixed navbar */
+  a, button { transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease; }
   section[id] { scroll-margin-top: 96px; }
-  /* Accessible focus ring */
   :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; border-radius: 6px; }
 }
 
@@ -149,9 +150,9 @@
     box-shadow: var(--shadow-card);
   }
   .dark .glass {
-    background: oklch(0.2 0.04 260 / 0.45);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    background: oklch(0.2 0.04 260 / 0.65);
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
     border: 1px solid oklch(0.6 0.15 240 / 0.18);
   }
   .glass-strong {
@@ -160,8 +161,8 @@
     box-shadow: var(--shadow-elevated);
   }
   .dark .glass-strong {
-    background: oklch(0.18 0.05 260 / 0.75);
-    backdrop-filter: blur(28px) saturate(180%);
+    background: oklch(0.18 0.05 260 / 0.85);
+    backdrop-filter: blur(14px) saturate(150%);
     border: 1px solid oklch(0.6 0.15 240 / 0.25);
   }
   .surface-muted { background: var(--muted); }

@@ -116,7 +116,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
         </div>
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.addEventListener('load',function(){requestAnimationFrame(function(){var s=document.getElementById('sada-splash');if(s){s.classList.add('is-hidden');setTimeout(function(){s&&s.remove();},450);}});});`,
+            __html: `(function(){function hide(){var s=document.getElementById('sada-splash');if(!s)return;s.classList.add('is-hidden');setTimeout(function(){s&&s.remove();},300);}if(document.readyState!=='loading'){requestAnimationFrame(hide);}else{document.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(hide);});}setTimeout(hide,2500);})();`,
           }}
         />
         {children}

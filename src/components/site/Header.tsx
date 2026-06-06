@@ -8,9 +8,9 @@ import { ThemeToggle } from "./ThemeToggle";
 const NAV = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
-  { to: "/portfolio", label: "Portfolio" },
-  { to: "/team", label: "Team" },
-  { to: "/store", label: "Products" },
+  { to: "/portfolio", label: "Case Studies" },
+  { to: "/pricing", label: "Pricing" },
+  { to: "/blog", label: "Blog" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ] as const;

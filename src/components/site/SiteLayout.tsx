@@ -1,6 +1,11 @@
 import { Outlet, useRouterState } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+
+const AIAssistant = lazy(() =>
+  import("./AIAssistant").then((m) => ({ default: m.AIAssistant })),
+);
 
 export function SiteLayout() {
   const path = useRouterState({ select: (s) => s.location.pathname });
@@ -14,6 +19,9 @@ export function SiteLayout() {
         <Outlet />
       </main>
       <Footer />
+      <Suspense fallback={null}>
+        <AIAssistant />
+      </Suspense>
     </div>
   );
 }

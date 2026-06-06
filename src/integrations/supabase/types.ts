@@ -16,6 +16,8 @@ export type Database = {
     Tables: {
       blog_posts: {
         Row: {
+          author: string | null
+          category: string | null
           content: string | null
           cover_url: string | null
           created_at: string
@@ -23,11 +25,16 @@ export type Database = {
           id: string
           published: boolean
           published_at: string | null
+          reading_minutes: number | null
+          seo_description: string | null
           slug: string
+          tags: string[]
           title: string
           updated_at: string
         }
         Insert: {
+          author?: string | null
+          category?: string | null
           content?: string | null
           cover_url?: string | null
           created_at?: string
@@ -35,11 +42,16 @@ export type Database = {
           id?: string
           published?: boolean
           published_at?: string | null
+          reading_minutes?: number | null
+          seo_description?: string | null
           slug: string
+          tags?: string[]
           title: string
           updated_at?: string
         }
         Update: {
+          author?: string | null
+          category?: string | null
           content?: string | null
           cover_url?: string | null
           created_at?: string
@@ -47,7 +59,10 @@ export type Database = {
           id?: string
           published?: boolean
           published_at?: string | null
+          reading_minutes?: number | null
+          seo_description?: string | null
           slug?: string
+          tags?: string[]
           title?: string
           updated_at?: string
         }
@@ -160,7 +175,10 @@ export type Database = {
       }
       projects: {
         Row: {
+          after_url: string | null
+          before_url: string | null
           category: string | null
+          challenge: string | null
           client: string | null
           cover_url: string | null
           created_at: string
@@ -169,19 +187,26 @@ export type Database = {
           featured: boolean
           gallery: Json | null
           id: string
+          metrics: Json
+          process: string | null
           project_date: string | null
           published: boolean
           results: string | null
+          results_summary: string | null
           services: string[] | null
           slug: string
           sort_order: number
+          strategy: string | null
           tags: string[] | null
           thumbnail_url: string | null
           title: string
           updated_at: string
         }
         Insert: {
+          after_url?: string | null
+          before_url?: string | null
           category?: string | null
+          challenge?: string | null
           client?: string | null
           cover_url?: string | null
           created_at?: string
@@ -190,19 +215,26 @@ export type Database = {
           featured?: boolean
           gallery?: Json | null
           id?: string
+          metrics?: Json
+          process?: string | null
           project_date?: string | null
           published?: boolean
           results?: string | null
+          results_summary?: string | null
           services?: string[] | null
           slug: string
           sort_order?: number
+          strategy?: string | null
           tags?: string[] | null
           thumbnail_url?: string | null
           title: string
           updated_at?: string
         }
         Update: {
+          after_url?: string | null
+          before_url?: string | null
           category?: string | null
+          challenge?: string | null
           client?: string | null
           cover_url?: string | null
           created_at?: string
@@ -211,12 +243,16 @@ export type Database = {
           featured?: boolean
           gallery?: Json | null
           id?: string
+          metrics?: Json
+          process?: string | null
           project_date?: string | null
           published?: boolean
           results?: string | null
+          results_summary?: string | null
           services?: string[] | null
           slug?: string
           sort_order?: number
+          strategy?: string | null
           tags?: string[] | null
           thumbnail_url?: string | null
           title?: string

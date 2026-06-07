@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { SmartMedia } from "@/components/media/SmartMedia";
-import { ShoppingBag, ArrowUpRight, Sparkles, Search, Check } from "lucide-react";
+import { ShoppingBag, ArrowUpRight, Sparkles, Search, Check, ArrowRight } from "lucide-react";
 
 interface Product { id: string; title: string; description: string | null; price: number | null; currency: string | null; thumbnail_url: string | null; gumroad_url: string | null; category: string | null }
 
@@ -130,15 +130,14 @@ function Store() {
                         {p.price ? `${p.currency || "USD"} ${Number(p.price).toFixed(0)}` : "Free"}
                       </div>
                     </div>
-                    <a
-                      href={p.gumroad_url || "#"}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`Buy ${p.title}`}
+                    <Link
+                      to="/store/$id"
+                      params={{ id: p.id }}
+                      aria-label={`Learn more about ${p.title}`}
                       className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-primary text-white font-semibold text-sm neon-glow hover:scale-[1.04] transition-transform"
                     >
-                      Get it <ArrowUpRight className="size-4" />
-                    </a>
+                      Learn more <ArrowRight className="size-4" />
+                    </Link>
                   </div>
                 </div>
               </motion.div>

@@ -10,19 +10,18 @@ const COLUMNS = [
       { to: "/services", label: "Services" },
       { to: "/portfolio", label: "Case Studies" },
       { to: "/store", label: "Products" },
-      { to: "/team", label: "Team" },
       { to: "/pricing", label: "Pricing" },
-      { to: "/about", label: "About" },
       { to: "/contact", label: "Contact" },
     ],
   },
   {
     heading: "Resources",
     links: [
-      { to: "/blog", label: "Articles" },
+      { to: "/blog", label: "Blog" },
+      { to: "/about", label: "About SADA" },
+      { to: "/team", label: "Team" },
+      { to: "/blog", label: "Insights" },
       { to: "/blog", label: "Guides" },
-      { to: "/store", label: "Assets" },
-      { to: "/store", label: "Courses" },
     ],
   },
   {

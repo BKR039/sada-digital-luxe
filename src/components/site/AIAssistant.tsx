@@ -128,8 +128,8 @@ export function AIAssistant() {
           open ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"
         }`}
       >
-        <div className="rounded-3xl border border-border bg-card elevated-shadow flex flex-col overflow-hidden h-[640px] max-h-[80vh]">
-          <header className="flex items-center justify-between px-5 py-4 border-b border-border bg-gradient-to-r from-primary/10 to-accent/10">
+        <div className="rounded-3xl border border-border bg-background dark:bg-[hsl(222,47%,8%)] elevated-shadow flex flex-col overflow-hidden h-[640px] max-h-[80vh]">
+          <header className="flex items-center justify-between px-5 py-4 border-b border-border bg-background dark:bg-[hsl(222,47%,10%)]">
             <div className="flex items-center gap-3">
               <div className="size-9 rounded-xl bg-gradient-primary grid place-items-center text-white">
                 <Sparkles className="size-4" />

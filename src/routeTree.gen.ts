@@ -21,6 +21,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as StoreIdRouteImport } from './routes/store.$id'
 import { Route as PortfolioSlugRouteImport } from './routes/portfolio.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AdminTestimonialsRouteImport } from './routes/admin.testimonials'
@@ -90,6 +91,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const StoreIdRoute = StoreIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => StoreRoute,
+} as any)
 const PortfolioSlugRoute = PortfolioSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -141,7 +147,7 @@ export interface FileRoutesByFullPath {
   '/portfolio': typeof PortfolioRouteWithChildren
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
-  '/store': typeof StoreRoute
+  '/store': typeof StoreRouteWithChildren
   '/team': typeof TeamRoute
   '/admin/blog': typeof AdminBlogRoute
   '/admin/contact': typeof AdminContactRoute
@@ -151,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/store/$id': typeof StoreIdRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -162,7 +169,7 @@ export interface FileRoutesByTo {
   '/portfolio': typeof PortfolioRouteWithChildren
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
-  '/store': typeof StoreRoute
+  '/store': typeof StoreRouteWithChildren
   '/team': typeof TeamRoute
   '/admin/blog': typeof AdminBlogRoute
   '/admin/contact': typeof AdminContactRoute
@@ -172,6 +179,7 @@ export interface FileRoutesByTo {
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/store/$id': typeof StoreIdRoute
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
@@ -185,7 +193,7 @@ export interface FileRoutesById {
   '/portfolio': typeof PortfolioRouteWithChildren
   '/pricing': typeof PricingRoute
   '/services': typeof ServicesRoute
-  '/store': typeof StoreRoute
+  '/store': typeof StoreRouteWithChildren
   '/team': typeof TeamRoute
   '/admin/blog': typeof AdminBlogRoute
   '/admin/contact': typeof AdminContactRoute
@@ -195,6 +203,7 @@ export interface FileRoutesById {
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/store/$id': typeof StoreIdRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -219,6 +228,7 @@ export interface FileRouteTypes {
     | '/admin/testimonials'
     | '/blog/$slug'
     | '/portfolio/$slug'
+    | '/store/$id'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -240,6 +250,7 @@ export interface FileRouteTypes {
     | '/admin/testimonials'
     | '/blog/$slug'
     | '/portfolio/$slug'
+    | '/store/$id'
     | '/admin'
   id:
     | '__root__'
@@ -262,6 +273,7 @@ export interface FileRouteTypes {
     | '/admin/testimonials'
     | '/blog/$slug'
     | '/portfolio/$slug'
+    | '/store/$id'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -275,7 +287,7 @@ export interface RootRouteChildren {
   PortfolioRoute: typeof PortfolioRouteWithChildren
   PricingRoute: typeof PricingRoute
   ServicesRoute: typeof ServicesRoute
-  StoreRoute: typeof StoreRoute
+  StoreRoute: typeof StoreRouteWithChildren
   TeamRoute: typeof TeamRoute
 }
 
@@ -364,6 +376,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/store/$id': {
+      id: '/store/$id'
+      path: '/$id'
+      fullPath: '/store/$id'
+      preLoaderRoute: typeof StoreIdRouteImport
+      parentRoute: typeof StoreRoute
     }
     '/portfolio/$slug': {
       id: '/portfolio/$slug'
@@ -468,6 +487,16 @@ const PortfolioRouteWithChildren = PortfolioRoute._addFileChildren(
   PortfolioRouteChildren,
 )
 
+interface StoreRouteChildren {
+  StoreIdRoute: typeof StoreIdRoute
+}
+
+const StoreRouteChildren: StoreRouteChildren = {
+  StoreIdRoute: StoreIdRoute,
+}
+
+const StoreRouteWithChildren = StoreRoute._addFileChildren(StoreRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -478,7 +507,7 @@ const rootRouteChildren: RootRouteChildren = {
   PortfolioRoute: PortfolioRouteWithChildren,
   PricingRoute: PricingRoute,
   ServicesRoute: ServicesRoute,
-  StoreRoute: StoreRoute,
+  StoreRoute: StoreRouteWithChildren,
   TeamRoute: TeamRoute,
 }
 export const routeTree = rootRouteImport

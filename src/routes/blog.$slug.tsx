@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowLeft, Clock, Calendar, ArrowRight } from "lucide-react";
+import { ArrowLeft, Clock, Calendar, ArrowRight, Twitter, Linkedin, Facebook, Link2, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -28,8 +28,10 @@ function PostPage() {
   const [related, setRelated] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     supabase
       .from("blog_posts")
       .select("*")
@@ -60,9 +62,21 @@ function PostPage() {
       const total = h.scrollHeight - h.clientHeight;
       setProgress(total > 0 ? Math.min(100, (h.scrollTop / total) * 100) : 0);
     };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  const shareText = post?.title ?? "";
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {}
+  };
 
   if (loading) {
     return <div className="min-h-[60vh] grid place-items-center text-muted-foreground">Loading…</div>;
@@ -90,7 +104,7 @@ function PostPage() {
         />
       </div>
 
-      {/* JSON-LD article schema */}
+      {/* JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -107,8 +121,10 @@ function PostPage() {
         }}
       />
 
-      <div className="px-4 py-12 md:py-20">
-        <div className="mx-auto max-w-3xl">
+      {/* HERO */}
+      <header className="relative border-b border-border">
+        <div className="absolute inset-0 -z-10 bg-gradient-soft" />
+        <div className="mx-auto max-w-3xl px-4 pt-16 md:pt-24 pb-12">
           <Link
             to="/blog"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-8"
@@ -117,17 +133,26 @@ function PostPage() {
           </Link>
 
           {post.category && (
-            <span className="text-xs font-bold tracking-[0.25em] text-primary uppercase">
+            <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-wide">
               {post.category}
             </span>
           )}
-          <h1 className="mt-4 text-4xl md:text-5xl font-bold leading-[1.1]">{post.title}</h1>
+          <h1 className="mt-5 text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight">
+            {post.title}
+          </h1>
           {post.excerpt && (
-            <p className="mt-5 text-xl text-muted-foreground leading-relaxed">{post.excerpt}</p>
+            <p className="mt-6 text-xl text-muted-foreground leading-relaxed">{post.excerpt}</p>
           )}
 
-          <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-            {post.author && <span className="font-medium text-foreground">{post.author}</span>}
+          <div className="mt-7 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+            {post.author && (
+              <span className="inline-flex items-center gap-2">
+                <span className="size-8 rounded-full bg-gradient-primary text-white grid place-items-center text-xs font-bold">
+                  {post.author.slice(0, 1)}
+                </span>
+                <span className="font-semibold text-foreground">{post.author}</span>
+              </span>
+            )}
             {post.published_at && (
               <span className="inline-flex items-center gap-1.5">
                 <Calendar className="size-3.5" />
@@ -147,72 +172,119 @@ function PostPage() {
         </div>
 
         {post.cover_url && (
-          <div className="mx-auto max-w-5xl mt-12 rounded-3xl overflow-hidden elevated-shadow">
-            <img
-              src={post.cover_url}
-              alt={post.title}
-              className="w-full aspect-[16/9] object-cover"
-              loading="eager"
-            />
+          <div className="mx-auto max-w-5xl px-4 pb-12">
+            <div className="rounded-3xl overflow-hidden elevated-shadow">
+              <img
+                src={post.cover_url}
+                alt={post.title}
+                className="w-full aspect-[16/9] object-cover"
+                loading="eager"
+              />
+            </div>
           </div>
         )}
+      </header>
 
-        <div className="mx-auto max-w-3xl mt-12 prose-content text-lg leading-[1.85] text-foreground/90">
-          {(post.content || "").split("\n").map((line, i) => {
-            const t = line.trim();
-            if (!t) return <div key={i} className="h-3" />;
-            if (t.startsWith("## ")) {
-              return (
-                <h2 key={i} className="text-2xl md:text-3xl font-bold mt-10 mb-4">
-                  {t.slice(3)}
-                </h2>
-              );
-            }
-            if (t.startsWith("### ")) {
-              return (
-                <h3 key={i} className="text-xl md:text-2xl font-bold mt-8 mb-3">
-                  {t.slice(4)}
-                </h3>
-              );
-            }
-            return (
-              <p key={i} className="my-4">
-                {t}
-              </p>
-            );
-          })}
-        </div>
-
-        {post.tags?.length > 0 && (
-          <div className="mx-auto max-w-3xl mt-12 flex flex-wrap gap-2">
-            {post.tags.map((t) => (
-              <span
-                key={t}
-                className="text-xs px-3 py-1.5 rounded-full bg-muted text-muted-foreground"
+      {/* CONTENT + STICKY SHARE */}
+      <div className="relative">
+        <div className="mx-auto max-w-6xl px-4 py-16 grid lg:grid-cols-[64px_1fr] gap-10">
+          {/* Sticky share */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-28 flex flex-col gap-3">
+              <span className="text-[10px] font-bold tracking-widest text-muted-foreground text-center">SHARE</span>
+              <a
+                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Share on X"
+                className="size-11 grid place-items-center rounded-xl border border-border bg-card hover:bg-muted hover:text-primary transition-colors"
               >
-                #{t}
-              </span>
-            ))}
+                <Twitter className="size-4" />
+              </a>
+              <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Share on LinkedIn"
+                className="size-11 grid place-items-center rounded-xl border border-border bg-card hover:bg-muted hover:text-primary transition-colors"
+              >
+                <Linkedin className="size-4" />
+              </a>
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Share on Facebook"
+                className="size-11 grid place-items-center rounded-xl border border-border bg-card hover:bg-muted hover:text-primary transition-colors"
+              >
+                <Facebook className="size-4" />
+              </a>
+              <button
+                onClick={copyLink}
+                aria-label="Copy link"
+                className="size-11 grid place-items-center rounded-xl border border-border bg-card hover:bg-muted hover:text-primary transition-colors"
+              >
+                {copied ? <Check className="size-4 text-primary" /> : <Link2 className="size-4" />}
+              </button>
+            </div>
+          </aside>
+
+          {/* Article body */}
+          <div className="max-w-3xl mx-auto w-full">
+            <ArticleBody content={post.content ?? ""} />
+
+            {post.tags?.length > 0 && (
+              <div className="mt-12 flex flex-wrap gap-2">
+                {post.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="text-xs px-3 py-1.5 rounded-full bg-muted text-muted-foreground"
+                  >
+                    #{t}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {/* Mobile share */}
+            <div className="mt-10 lg:hidden flex items-center gap-3">
+              <span className="text-xs font-bold tracking-widest text-muted-foreground">SHARE</span>
+              <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`} target="_blank" rel="noreferrer" className="size-10 grid place-items-center rounded-xl border border-border bg-card"><Twitter className="size-4" /></a>
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noreferrer" className="size-10 grid place-items-center rounded-xl border border-border bg-card"><Linkedin className="size-4" /></a>
+              <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noreferrer" className="size-10 grid place-items-center rounded-xl border border-border bg-card"><Facebook className="size-4" /></a>
+              <button onClick={copyLink} className="size-10 grid place-items-center rounded-xl border border-border bg-card">{copied ? <Check className="size-4 text-primary" /> : <Link2 className="size-4" />}</button>
+            </div>
+
+            {/* Final CTA */}
+            <div className="mt-16 rounded-3xl glass-strong p-8 md:p-10 text-center">
+              <h3 className="text-2xl md:text-3xl font-bold">
+                Need help implementing these strategies?
+              </h3>
+              <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
+                SADA helps brands turn ideas like these into systems, campaigns, and measurable growth.
+              </p>
+              <Link
+                to="/contact"
+                className="mt-6 inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-gradient-primary text-white font-semibold neon-glow hover:scale-[1.02] transition-transform"
+              >
+                Contact SADA <ArrowRight className="size-4" />
+              </Link>
+            </div>
           </div>
-        )}
-
-        <div className="mx-auto max-w-3xl mt-16 rounded-3xl glass-strong p-8 text-center">
-          <h3 className="text-2xl font-bold">Ready to put this into action?</h3>
-          <p className="mt-2 text-muted-foreground">
-            We help brands like yours ship the work, not just plan it.
-          </p>
-          <Link
-            to="/contact"
-            className="mt-5 inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-primary text-white font-semibold neon-glow hover:scale-[1.02] transition-transform"
-          >
-            Talk to SADA <ArrowRight className="size-4" />
-          </Link>
         </div>
+      </div>
 
-        {related.length > 0 && (
-          <div className="mx-auto max-w-6xl mt-20">
-            <h3 className="text-2xl md:text-3xl font-bold mb-6">Keep reading</h3>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {/* Related */}
+      {related.length > 0 && (
+        <section className="px-4 pb-24">
+          <div className="mx-auto max-w-6xl">
+            <div className="flex items-end justify-between mb-8">
+              <h3 className="text-2xl md:text-3xl font-bold">Keep reading</h3>
+              <Link to="/blog" className="text-sm font-semibold text-primary inline-flex items-center gap-1 hover:gap-2 transition-all">
+                All articles <ArrowRight className="size-4" />
+              </Link>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((r) => (
                 <Link
                   key={r.id}
@@ -244,8 +316,85 @@ function PostPage() {
               ))}
             </div>
           </div>
-        )}
-      </div>
+        </section>
+      )}
     </article>
   );
+}
+
+function ArticleBody({ content }: { content: string }) {
+  const lines = content.split("\n");
+  const blocks: React.ReactNode[] = [];
+  let i = 0;
+  let key = 0;
+
+  while (i < lines.length) {
+    const raw = lines[i];
+    const t = raw.trim();
+
+    if (!t) {
+      i++;
+      continue;
+    }
+
+    if (t.startsWith("## ")) {
+      blocks.push(
+        <h2 key={key++} className="text-3xl md:text-4xl font-bold mt-14 mb-5 tracking-tight">
+          {t.slice(3)}
+        </h2>
+      );
+      i++;
+      continue;
+    }
+    if (t.startsWith("### ")) {
+      blocks.push(
+        <h3 key={key++} className="text-xl md:text-2xl font-bold mt-10 mb-3 tracking-tight">
+          {t.slice(4)}
+        </h3>
+      );
+      i++;
+      continue;
+    }
+    if (t.startsWith("> ")) {
+      blocks.push(
+        <blockquote
+          key={key++}
+          className="my-10 pl-6 border-l-4 border-primary text-xl md:text-2xl font-medium leading-snug text-foreground/90 italic"
+        >
+          {t.slice(2).replace(/^"|"$/g, "")}
+        </blockquote>
+      );
+      i++;
+      continue;
+    }
+    // Numbered / bulleted list grouping
+    if (/^(\d+\.\s|[-*]\s)/.test(t)) {
+      const items: string[] = [];
+      const ordered = /^\d+\./.test(t);
+      while (i < lines.length && /^(\d+\.\s|[-*]\s)/.test(lines[i].trim())) {
+        items.push(lines[i].trim().replace(/^(\d+\.\s|[-*]\s)/, ""));
+        i++;
+      }
+      blocks.push(
+        ordered ? (
+          <ol key={key++} className="my-6 space-y-2 list-decimal pl-6 marker:text-primary marker:font-bold text-lg leading-[1.8]">
+            {items.map((it, idx) => <li key={idx}>{it}</li>)}
+          </ol>
+        ) : (
+          <ul key={key++} className="my-6 space-y-2 list-disc pl-6 marker:text-primary text-lg leading-[1.8]">
+            {items.map((it, idx) => <li key={idx}>{it}</li>)}
+          </ul>
+        )
+      );
+      continue;
+    }
+    blocks.push(
+      <p key={key++} className="my-5 text-lg leading-[1.85] text-foreground/90">
+        {t}
+      </p>
+    );
+    i++;
+  }
+
+  return <div className="prose-content">{blocks}</div>;
 }

@@ -1,42 +1,35 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram, Linkedin, Mail, MessageCircle } from "lucide-react";
 import { Logo } from "./Logo";
+import { useSiteSetting } from "@/lib/site-settings";
 
-const COLUMNS = [
-  {
-    heading: "Company",
-    links: [
-      { to: "/", label: "Home" },
-      { to: "/services", label: "Services" },
-      { to: "/portfolio", label: "Case Studies" },
-      { to: "/store", label: "Products" },
-      { to: "/pricing", label: "Pricing" },
-      { to: "/contact", label: "Contact" },
-    ],
-  },
-  {
-    heading: "Resources",
-    links: [
-      { to: "/blog", label: "Blog" },
-      { to: "/about", label: "About SADA" },
-      { to: "/team", label: "Team" },
-      { to: "/blog", label: "Insights" },
-      { to: "/blog", label: "Guides" },
-    ],
-  },
-  {
-    heading: "Legal",
-    links: [
-      { to: "/", label: "Privacy Policy" },
-      { to: "/", label: "Terms of Service" },
-    ],
-  },
+const LEGAL_LINKS = [
+  { to: "/", label: "Privacy Policy" },
+  { to: "/", label: "Terms of Service" },
 ] as const;
 
 export function Footer() {
+  const { enabled: blogEnabled } = useSiteSetting("blog", false);
+
+  const companyLinks = [
+    { to: "/", label: "Home" },
+    { to: "/services", label: "Services" },
+    { to: "/portfolio", label: "Case Studies" },
+    { to: "/store", label: "Products" },
+    { to: "/pricing", label: "Pricing" },
+    { to: "/about", label: "About" },
+    ...(blogEnabled ? [{ to: "/blog", label: "Blog" }] : []),
+    { to: "/contact", label: "Contact" },
+  ];
+
+  const columns = [
+    { heading: "Company", links: companyLinks },
+    { heading: "Legal", links: LEGAL_LINKS },
+  ];
+
   return (
     <footer className="relative mt-24 border-t border-border bg-gradient-soft">
-      <div className="mx-auto max-w-7xl px-4 py-14 grid gap-10 md:grid-cols-5">
+      <div className="mx-auto max-w-7xl px-4 py-14 grid gap-10 md:grid-cols-4">
         <div className="md:col-span-2">
           <Logo />
           <p className="mt-4 text-muted-foreground max-w-md text-sm">
@@ -55,12 +48,12 @@ export function Footer() {
           </div>
         </div>
 
-        {COLUMNS.map((col) => (
+        {columns.map((col) => (
           <div key={col.heading}>
             <h4 className="text-xs font-bold mb-4 tracking-widest text-muted-foreground">{col.heading.toUpperCase()}</h4>
             <ul className="space-y-2 text-sm">
               {col.links.map((l, i) => (
-                <li key={`${l.to}-${i}`}>
+                <li key={`${l.to}-${l.label}-${i}`}>
                   <Link to={l.to} className="text-muted-foreground hover:text-foreground transition-colors">
                     {l.label}
                   </Link>

@@ -1,13 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { FolderKanban, Users, FileText, ShoppingBag, MessageSquare, Star } from "lucide-react";
+import { FolderKanban, FileText, ShoppingBag, MessageSquare, Star } from "lucide-react";
 
 export const Route = createFileRoute("/admin/")({ component: Overview });
 
 const CARDS = [
   { table: "projects", label: "Projects", Icon: FolderKanban },
-  { table: "team_members", label: "Team", Icon: Users },
   { table: "blog_posts", label: "Posts", Icon: FileText },
   { table: "products", label: "Products", Icon: ShoppingBag },
   { table: "testimonials", label: "Testimonials", Icon: Star },

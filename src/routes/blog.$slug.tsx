@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Clock, Calendar, ArrowRight, Twitter, Linkedin, Facebook, Link2, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useSiteSetting } from "@/lib/site-settings";
 
 export const Route = createFileRoute("/blog/$slug")({
   component: PostPage,
@@ -24,11 +25,17 @@ interface Post {
 
 function PostPage() {
   const { slug } = Route.useParams();
+  const navigate = useNavigate();
+  const { enabled: blogEnabled, loaded: blogSettingLoaded } = useSiteSetting("blog", false);
   const [post, setPost] = useState<Post | null>(null);
   const [related, setRelated] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (blogSettingLoaded && !blogEnabled) navigate({ to: "/" });
+  }, [blogSettingLoaded, blogEnabled, navigate]);
 
   useEffect(() => {
     setLoading(true);
@@ -77,6 +84,8 @@ function PostPage() {
       setTimeout(() => setCopied(false), 1800);
     } catch {}
   };
+
+  if (!blogSettingLoaded || !blogEnabled) return null;
 
   if (loading) {
     return <div className="min-h-[60vh] grid place-items-center text-muted-foreground">Loading…</div>;

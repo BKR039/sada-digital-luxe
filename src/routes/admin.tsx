@@ -2,7 +2,7 @@ import { createFileRoute, Outlet, Link, useNavigate, useRouterState } from "@tan
 import { useEffect } from "react";
 import { useAuth } from "@/lib/auth";
 import { Logo } from "@/components/site/Logo";
-import { LayoutDashboard, FolderKanban, Users, FileText, ShoppingBag, MessageSquare, Star, LogOut, ArrowLeft } from "lucide-react";
+import { LayoutDashboard, FolderKanban, FileText, ShoppingBag, MessageSquare, Star, LogOut, ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   component: AdminLayout,
@@ -11,7 +11,6 @@ export const Route = createFileRoute("/admin")({
 const NAV: { to: string; label: string; Icon: typeof LayoutDashboard; exact?: boolean }[] = [
   { to: "/admin", label: "Overview", Icon: LayoutDashboard, exact: true },
   { to: "/admin/projects", label: "Projects", Icon: FolderKanban },
-  { to: "/admin/team", label: "Team", Icon: Users },
   { to: "/admin/blog", label: "Blog", Icon: FileText },
   { to: "/admin/products", label: "Products", Icon: ShoppingBag },
   { to: "/admin/testimonials", label: "Testimonials", Icon: Star },

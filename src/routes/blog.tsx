@@ -1,8 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Search, Clock, ArrowUpRight, ArrowRight, Sparkles, Mail, Calendar } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useSiteSetting } from "@/lib/site-settings";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({
@@ -52,10 +53,16 @@ const CATEGORIES = [
 ] as const;
 
 function BlogPage() {
+  const navigate = useNavigate();
+  const { enabled: blogEnabled, loaded: blogSettingLoaded } = useSiteSetting("blog", false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<string>("All");
+
+  useEffect(() => {
+    if (blogSettingLoaded && !blogEnabled) navigate({ to: "/" });
+  }, [blogSettingLoaded, blogEnabled, navigate]);
 
   useEffect(() => {
     supabase
@@ -84,6 +91,8 @@ function BlogPage() {
 
   const featured = filtered[0];
   const rest = filtered.slice(1);
+
+  if (!blogSettingLoaded || !blogEnabled) return null;
 
   return (
     <div className="relative">

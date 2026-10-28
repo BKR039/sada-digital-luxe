@@ -330,7 +330,7 @@ function CaseStudyDetail() {
             </div>
             {user && isAdmin && (
               <Link
-                to={"/sada-os" as any}
+                to="/admin"
                 className="text-xs font-semibold px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 transition-colors inline-flex items-center gap-1.5 self-end sm:self-auto"
               >
                 <span>{isAr ? "العودة إلى مساحة العمل" : "Back to Work OS"}</span>

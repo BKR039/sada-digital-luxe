@@ -40,7 +40,7 @@ function Auth() {
       }
     }
 
-    if (user) nav({ to: "/sada-os" as any });
+    if (user) nav({ to: "/admin" });
   }, [user, nav]);
 
   const submit = async (e: React.FormEvent) => {
@@ -55,7 +55,7 @@ function Auth() {
         toast.error(errorMsg);
       } else {
         toast.success(isAr ? "مرحباً بعودتك" : "Welcome back");
-        nav({ to: "/sada-os" as any });
+        nav({ to: "/admin" });
       }
     } catch (err: any) {
       toast.error(err?.message || (isAr ? "فشل تسجيل الدخول." : "Authentication failed."));

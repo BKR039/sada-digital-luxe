@@ -118,7 +118,7 @@ export function ModuleAccessShield({
             <SADAButton
               variant="outline"
               size="sm"
-              onClick={() => nav({ to: "/sada-os" })}
+              onClick={() => nav({ to: "/admin" })}
               className="w-full sm:w-auto cursor-pointer text-xs"
             >
               <Compass className="size-3.5 me-1.5" />

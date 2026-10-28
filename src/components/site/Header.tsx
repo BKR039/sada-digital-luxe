@@ -2,25 +2,31 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
-import { useAuth } from "@/lib/auth";
+import { PrimaryCTA } from "./PrimaryCTA";
 import { useSiteSetting } from "@/lib/site-settings";
+import { useTheme } from "@/lib/theme";
 import { ThemeToggle } from "./ThemeToggle";
-
-const NAV = [
-  { to: "/", label: "Home" },
-  { to: "/services", label: "Services" },
-  { to: "/portfolio", label: "Case Studies" },
-  { to: "/store", label: "Products" },
-  { to: "/pricing", label: "Pricing" },
-  { to: "/about", label: "About" },
-] as const;
+import { LanguageToggle } from "./LanguageToggle";
+import { useTranslation } from "@/i18n";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
-  const { user, isAdmin } = useAuth();
   const { enabled: blogEnabled } = useSiteSetting("blog", false);
+  const { theme } = useTheme();
+  const { t } = useTranslation();
+  const isDark = theme === "dark";
+
+  const navItems = [
+    { to: "/", label: t("nav.home") },
+    { to: "/services", label: t("nav.services") },
+    { to: "/case-studies", label: t("nav.caseStudies") },
+    { to: "/store", label: t("nav.products") },
+    { to: "/pricing", label: t("nav.pricing") },
+    { to: "/about", label: t("nav.about") },
+    ...(blogEnabled ? [{ to: "/blog", label: t("nav.blog") }] : []),
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -33,27 +39,39 @@ export function Header() {
     setOpen(false);
   }, [path]);
 
-  const navItems = blogEnabled ? [...NAV, { to: "/blog", label: "Blog" } as const] : NAV;
+  const isHome = path === "/";
 
   return (
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? "py-2" : "py-3"}`}>
-      <div className="mx-auto max-w-7xl px-4">
+    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? "py-1.5 sm:py-2" : "py-2 sm:py-3"}`}>
+      <div className="mx-auto max-w-7xl px-3 sm:px-4">
         <div
-          className={`rounded-2xl px-4 sm:px-5 py-2.5 flex items-center justify-between transition-all duration-300 border ${
-            scrolled
-              ? "bg-background/80 backdrop-blur-xl border-border soft-shadow"
-              : "bg-background/40 backdrop-blur-md border-transparent"
+          className={`rounded-2xl px-3 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between transition-all duration-300 border ${
+            isDark
+              ? scrolled
+                ? "bg-slate-950/85 backdrop-blur-xl border-white/10 shadow-2xl shadow-black/40"
+                : isHome
+                  ? "bg-white/[0.04] backdrop-blur-md border-white/[0.08]"
+                  : "bg-slate-950/40 backdrop-blur-md border-transparent"
+              : scrolled
+                ? "bg-white/80 backdrop-blur-xl border-white/70 shadow-lg shadow-slate-900/[0.04]"
+                : isHome
+                  ? "bg-white/75 backdrop-blur-xl border-white/70 shadow-sm shadow-slate-900/[0.03]"
+                  : "bg-white/70 backdrop-blur-xl border-white/60 shadow-sm shadow-slate-900/[0.03]"
           }`}
         >
-          <Link to="/" className="shrink-0"><Logo /></Link>
+          <Link to="/" className="shrink-0"><Logo forceDark={isDark} /></Link>
 
           <nav className="hidden lg:flex items-center gap-1">
             {navItems.map((n) => (
               <Link key={n.to} to={n.to}
                 className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  path === n.to
-                    ? "text-foreground bg-muted"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                  isDark
+                    ? path === n.to
+                      ? "text-cyan-400 bg-white/10 font-semibold"
+                      : "text-slate-200 hover:text-white hover:bg-white/10"
+                    : path === n.to
+                      ? "text-primary bg-primary/10 font-semibold"
+                      : "text-slate-700 hover:text-foreground hover:bg-black/5"
                 }`}>
                 {n.label}
               </Link>
@@ -61,47 +79,99 @@ export function Header() {
 
             <Link to="/contact"
               className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
-                path === "/contact"
-                  ? "text-foreground bg-muted"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                isDark
+                  ? path === "/contact"
+                    ? "text-cyan-400 bg-white/10 font-semibold"
+                    : "text-slate-200 hover:text-white hover:bg-white/10"
+                  : path === "/contact"
+                    ? "text-primary bg-primary/10 font-semibold"
+                    : "text-slate-700 hover:text-foreground hover:bg-black/5"
               }`}>
-              Contact
+              {t("nav.contact")}
             </Link>
           </nav>
 
           <div className="flex items-center gap-2">
+            <LanguageToggle />
             <ThemeToggle />
-            {user && isAdmin && (
-              <Link to="/admin" className="hidden sm:inline-flex text-sm px-3 py-2 rounded-lg border border-border hover:bg-muted transition-colors">
-                Admin
-              </Link>
-            )}
-            <Link to="/contact"
-              className="hidden sm:inline-flex text-sm font-semibold px-4 py-2 rounded-xl bg-gradient-primary text-white neon-glow hover:scale-[1.03] transition-transform">
-              Start a Project
-            </Link>
-            <button onClick={() => setOpen(!open)} className="lg:hidden p-2 rounded-lg hover:bg-muted" aria-label="Toggle menu">
+            <PrimaryCTA to="/contact" size="sm" showArrow={false} className="hidden sm:inline-flex">
+              {t("nav.startProject")}
+            </PrimaryCTA>
+            <button
+              onClick={() => setOpen(!open)}
+              className={`lg:hidden p-2 rounded-lg transition-colors ${
+                isDark ? "text-white hover:bg-white/10" : "text-foreground hover:bg-black/5"
+              }`}
+              aria-label="Toggle menu"
+            >
               {open ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>
           </div>
         </div>
 
         {open && (
-          <div className="lg:hidden mt-2 bg-background border border-border rounded-2xl p-3 space-y-1 soft-shadow animate-in fade-in slide-in-from-top-2">
-            {navItems.map((n) => (
-              <Link key={n.to} to={n.to}
-                className={`block px-4 py-3 rounded-lg text-sm font-medium ${path === n.to ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted/60"}`}>
-                {n.label}
-              </Link>
-            ))}
+          <div
+            className={`lg:hidden mt-2.5 border rounded-2xl p-3 sm:p-4 space-y-1.5 shadow-2xl animate-in fade-in slide-in-from-top-2 ${
+              isDark
+                ? "bg-slate-950/98 border-white/15 text-white backdrop-blur-2xl shadow-black/60"
+                : "bg-white/98 border-slate-200/90 text-foreground backdrop-blur-2xl shadow-slate-900/15"
+            }`}
+          >
+            {navItems.map((n) => {
+              const active = path === n.to;
+              return (
+                <Link
+                  key={n.to}
+                  to={n.to}
+                  preload="render"
+                  onClick={() => setOpen(false)}
+                  className={`block px-4 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all ${
+                    active
+                      ? isDark
+                        ? "bg-white/10 text-cyan-400"
+                        : "bg-primary/10 text-primary"
+                      : isDark
+                        ? "text-slate-200 hover:text-white hover:bg-white/5"
+                        : "text-slate-800 hover:text-foreground hover:bg-slate-100/80"
+                  }`}
+                >
+                  {n.label}
+                </Link>
+              );
+            })}
 
-            <Link to="/contact"
-              className={`block px-4 py-3 rounded-lg text-sm font-medium ${path === "/contact" ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted/60"}`}>
-              Contact
-            </Link>
+            {(() => {
+              const active = path === "/contact";
+              return (
+                <Link
+                  to="/contact"
+                  preload="render"
+                  onClick={() => setOpen(false)}
+                  className={`block px-4 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all ${
+                    active
+                      ? isDark
+                        ? "bg-white/10 text-cyan-400"
+                        : "bg-primary/10 text-primary"
+                      : isDark
+                        ? "text-slate-200 hover:text-white hover:bg-white/5"
+                        : "text-slate-800 hover:text-foreground hover:bg-slate-100/80"
+                  }`}
+                >
+                  {t("nav.contact")}
+                </Link>
+              );
+            })()}
 
-            {user && isAdmin && <Link to="/admin" className="block px-4 py-3 rounded-lg text-sm text-primary">Admin Dashboard</Link>}
-            <Link to="/contact" className="block mt-2 text-center bg-gradient-primary text-white py-3 rounded-xl font-semibold">Start a Project</Link>
+            <div className="pt-2">
+              <PrimaryCTA
+                to="/contact"
+                size="md"
+                showArrow={false}
+                className="w-full py-3 justify-center text-center font-semibold rounded-xl"
+              >
+                {t("nav.startProject")}
+              </PrimaryCTA>
+            </div>
           </div>
         )}
       </div>

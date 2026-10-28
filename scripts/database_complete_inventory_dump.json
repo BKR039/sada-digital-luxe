@@ -1,0 +1,4593 @@
+{
+  "meta": {
+    "generatedAt": "2026-10-10T18:10:57.410Z",
+    "host": "mtfkzabiscyleztypqks.supabase.co",
+    "projectRef": "mtfkzabiscyleztypqks",
+    "totalCandidateTables": 53,
+    "tablesLiveFound": 53,
+    "tablesMissingFromLive": 0,
+    "totalCandidateViews": 0,
+    "viewsLiveFound": 0,
+    "totalFunctions": 65,
+    "totalMigrations": 94,
+    "totalPoliciesInMigrations": 312,
+    "totalTriggersInMigrations": 38,
+    "totalIndexesInMigrations": 187,
+    "totalEnumsInTypes": 0
+  },
+  "tables": {
+    "account_audit_logs": {
+      "tableName": "account_audit_logs",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 997,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "actor_id",
+        "actor_email",
+        "target_user_id",
+        "target_email",
+        "action",
+        "metadata",
+        "created_at"
+      ]
+    },
+    "blog_posts": {
+      "tableName": "blog_posts",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 0,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": []
+    },
+    "business_rule_versions": {
+      "tableName": "business_rule_versions",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 111,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 111,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "rule_id",
+        "rule_key",
+        "version",
+        "numeric_value",
+        "boolean_value",
+        "text_value",
+        "json_value",
+        "effective_from",
+        "effective_until",
+        "change_reason",
+        "changed_by",
+        "created_at",
+        "operator",
+        "severity",
+        "applies_to",
+        "metadata"
+      ]
+    },
+    "business_rules": {
+      "tableName": "business_rules",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 27,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 27,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "rule_key",
+        "rule_name",
+        "description",
+        "category",
+        "value_type",
+        "numeric_value",
+        "boolean_value",
+        "text_value",
+        "json_value",
+        "unit",
+        "min_value",
+        "max_value",
+        "is_active",
+        "effective_from",
+        "effective_until",
+        "version",
+        "updated_by",
+        "created_at",
+        "updated_at",
+        "operator",
+        "severity",
+        "applies_to",
+        "default_numeric_value",
+        "default_boolean_value",
+        "default_text_value",
+        "default_json_value",
+        "metadata",
+        "change_reason"
+      ]
+    },
+    "client_communication_logs": {
+      "tableName": "client_communication_logs",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 0,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": []
+    },
+    "client_deliverables": {
+      "tableName": "client_deliverables",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 12,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 12,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "client_id",
+        "package_id",
+        "project_id",
+        "title",
+        "deliverable_type",
+        "period_month",
+        "target_quantity",
+        "done_quantity",
+        "remaining_quantity",
+        "assigned_team_ids",
+        "deadline",
+        "status",
+        "notes",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "client_projects": {
+      "tableName": "client_projects",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 24,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 2,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "title",
+        "client_name",
+        "status",
+        "description",
+        "business_type",
+        "goals",
+        "problems",
+        "requested_services",
+        "timeline",
+        "budget",
+        "original_message",
+        "questionnaire_answers",
+        "contact_submission_id",
+        "deadline",
+        "created_at",
+        "updated_at",
+        "start_date",
+        "provided_services",
+        "last_contact_date",
+        "last_contact_by",
+        "next_followup_date",
+        "followup_owner_id",
+        "followup_status",
+        "followup_summary",
+        "followup_next_action",
+        "lead_id",
+        "client_id"
+      ]
+    },
+    "clients": {
+      "tableName": "clients",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 40,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 40,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "name",
+        "contact_name",
+        "email",
+        "phone",
+        "preferred_channel",
+        "website",
+        "industry",
+        "notes",
+        "status",
+        "relationship_owner_id",
+        "created_at",
+        "updated_at",
+        "client_type",
+        "package_name",
+        "package_config",
+        "billing_start_date",
+        "current_period_month",
+        "monthly_package_price",
+        "default_service_fee",
+        "default_sponsoring_budget",
+        "commission_rate",
+        "commission_recipient_id",
+        "account_manager_id",
+        "sales_owner_id",
+        "package_id",
+        "social_accounts"
+      ]
+    },
+    "contact_submissions": {
+      "tableName": "contact_submissions",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 20,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "name",
+        "email",
+        "phone",
+        "business_name",
+        "service",
+        "budget",
+        "message",
+        "status",
+        "created_at",
+        "converted_project_id",
+        "discovery_data",
+        "questionnaire_answers",
+        "preferred_contact",
+        "path_taken",
+        "client_id"
+      ]
+    },
+    "deals": {
+      "tableName": "deals",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 37,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "title",
+        "contact_name",
+        "contact_email",
+        "contact_phone",
+        "company_name",
+        "stage",
+        "client_id",
+        "package_id",
+        "sales_owner_id",
+        "commission_recipient_id",
+        "deal_value",
+        "service_revenue",
+        "sponsoring_budget",
+        "commission_rate",
+        "expected_close_date",
+        "won_date",
+        "lost_reason",
+        "contract_agreement",
+        "revenue_config",
+        "notes",
+        "created_at",
+        "updated_at",
+        "payment_status",
+        "commission_rule_snapshot",
+        "lead_id",
+        "sale_date"
+      ]
+    },
+    "expense_categories": {
+      "tableName": "expense_categories",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 9,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "name",
+        "description",
+        "color",
+        "icon",
+        "is_system",
+        "sort_order",
+        "created_at"
+      ]
+    },
+    "expense_transactions": {
+      "tableName": "expense_transactions",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 56,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "amount",
+        "currency",
+        "date",
+        "category_id",
+        "category_name",
+        "subcategory",
+        "vendor",
+        "description",
+        "payment_method",
+        "status",
+        "is_recurring",
+        "subscription_id",
+        "salary_payment_id",
+        "team_member_id",
+        "client_id",
+        "project_id",
+        "reference",
+        "receipt_url",
+        "notes",
+        "created_by",
+        "created_at",
+        "updated_at",
+        "allocation",
+        "sponsoring_campaign_id",
+        "commission_id",
+        "account_id",
+        "transaction_type",
+        "period_month"
+      ]
+    },
+    "financial_accounts": {
+      "tableName": "financial_accounts",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 10,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "name",
+        "account_type",
+        "currency",
+        "opening_balance",
+        "current_balance",
+        "account_number",
+        "bank_name",
+        "is_default",
+        "status",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "financial_audit_logs": {
+      "tableName": "financial_audit_logs",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 68,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "actor_id",
+        "actor_name",
+        "actor_role",
+        "action",
+        "entity_type",
+        "entity_id",
+        "details",
+        "created_at"
+      ]
+    },
+    "financial_closing_periods": {
+      "tableName": "financial_closing_periods",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 2,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "period_month",
+        "status",
+        "checklist",
+        "closing_summary",
+        "closed_at",
+        "closed_by",
+        "reopened_at",
+        "reopened_by",
+        "reopen_reason",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "income_transactions": {
+      "tableName": "income_transactions",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 12,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "amount",
+        "currency",
+        "date",
+        "category",
+        "client_id",
+        "project_id",
+        "description",
+        "payment_method",
+        "status",
+        "reference",
+        "receipt_url",
+        "notes",
+        "created_by",
+        "created_at",
+        "updated_at",
+        "allocation",
+        "invoice_id",
+        "account_id",
+        "transaction_type",
+        "period_month"
+      ]
+    },
+    "invoices": {
+      "tableName": "invoices",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 6,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "invoice_number",
+        "client_id",
+        "project_id",
+        "issue_date",
+        "due_date",
+        "service_revenue",
+        "sponsoring_budget",
+        "other_revenue",
+        "subtotal",
+        "tax_amount",
+        "total_amount",
+        "currency",
+        "status",
+        "paid_amount",
+        "items",
+        "notes",
+        "created_by",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "notification_preferences": {
+      "tableName": "notification_preferences",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 1,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "user_id",
+        "task_assigned",
+        "task_due_soon",
+        "task_overdue",
+        "client_approval_required",
+        "invoice_overdue",
+        "payment_received",
+        "commission_eligible",
+        "commission_approved",
+        "salary_paid",
+        "salary_request_pending",
+        "production_tomorrow",
+        "deliverable_behind",
+        "month_end_closing",
+        "created_at",
+        "updated_at",
+        "desktop_push_enabled",
+        "mobile_push_enabled",
+        "messages_enabled",
+        "operations_enabled"
+      ]
+    },
+    "notifications": {
+      "tableName": "notifications",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 118,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "user_id",
+        "role_target",
+        "event_type",
+        "title",
+        "message",
+        "category",
+        "priority",
+        "link_url",
+        "entity_type",
+        "entity_id",
+        "read",
+        "read_at",
+        "created_at",
+        "context_title",
+        "source_module",
+        "metadata",
+        "i18n_key",
+        "i18n_params"
+      ]
+    },
+    "package_addons": {
+      "tableName": "package_addons",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 12,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 12,
+      "workerAccessible": true,
+      "workerCount": 12,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "code",
+        "name",
+        "name_ar",
+        "price",
+        "unit",
+        "percentage_modifier",
+        "category",
+        "description",
+        "description_ar",
+        "is_active",
+        "display_order",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "package_catalog": {
+      "tableName": "package_catalog",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 39,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 31,
+      "workerAccessible": true,
+      "workerCount": 39,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "code",
+        "name",
+        "name_ar",
+        "slug",
+        "description",
+        "description_ar",
+        "category_id",
+        "category_name",
+        "package_type",
+        "billing_type",
+        "price",
+        "currency",
+        "is_active",
+        "is_published",
+        "is_featured",
+        "badge",
+        "badge_ar",
+        "priority",
+        "display_order",
+        "short_description",
+        "short_description_ar",
+        "included_items",
+        "excluded_items",
+        "monthly_reels",
+        "monthly_posts",
+        "monthly_stories",
+        "production_hours",
+        "production_sessions",
+        "platforms",
+        "has_ads_management",
+        "has_website",
+        "has_strategy",
+        "has_community_management",
+        "website_scope",
+        "custom_pricing",
+        "employee_cost",
+        "freelancer_cost",
+        "transport_cost",
+        "subscription_allocation",
+        "commission",
+        "direct_costs",
+        "gross_profit",
+        "gross_margin",
+        "created_at",
+        "updated_at",
+        "created_by",
+        "updated_by"
+      ]
+    },
+    "package_categories": {
+      "tableName": "package_categories",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 9,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 9,
+      "workerAccessible": true,
+      "workerCount": 9,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "code",
+        "name",
+        "name_ar",
+        "slug",
+        "description",
+        "description_ar",
+        "priority",
+        "display_order",
+        "is_active",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "packages": {
+      "tableName": "packages",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 37,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 37,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "name",
+        "description",
+        "selling_price",
+        "services",
+        "deliverables",
+        "target_quantities",
+        "production_hours",
+        "employee_cost",
+        "freelancer_cost",
+        "transport_cost",
+        "subscription_allocation",
+        "commission",
+        "direct_costs",
+        "gross_profit",
+        "gross_margin",
+        "is_active",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "production_bookings": {
+      "tableName": "production_bookings",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 0,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": []
+    },
+    "products": {
+      "tableName": "products",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 0,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": []
+    },
+    "profiles": {
+      "tableName": "profiles",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 410,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 1,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "display_name",
+        "created_at",
+        "updated_at",
+        "status",
+        "phone",
+        "module_permissions"
+      ]
+    },
+    "project_activity": {
+      "tableName": "project_activity",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 174,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 174,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "project_id",
+        "task_id",
+        "actor_id",
+        "action",
+        "details",
+        "created_at",
+        "idempotency_key"
+      ]
+    },
+    "project_members": {
+      "tableName": "project_members",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 2,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 2,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "project_id",
+        "profile_id",
+        "team_member_id",
+        "role",
+        "created_at"
+      ]
+    },
+    "project_tasks": {
+      "tableName": "project_tasks",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 217,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 217,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "project_id",
+        "title",
+        "description",
+        "status",
+        "priority",
+        "assignee_id",
+        "category",
+        "start_date",
+        "end_date",
+        "deadline",
+        "estimated_minutes",
+        "actual_minutes",
+        "notes",
+        "postpone_reason",
+        "sort_order",
+        "created_at",
+        "updated_at",
+        "service",
+        "result_title",
+        "result_links",
+        "result_notes",
+        "previous_assignee_id",
+        "handoff_reason",
+        "waiting_on",
+        "blocked_reason",
+        "completed_at",
+        "assigned_by_id",
+        "client_id",
+        "parent_task_id",
+        "delivery_period",
+        "deadline_alert_enabled",
+        "deadline_alert_days",
+        "deadline_alert_message",
+        "package_id",
+        "deliverable_id",
+        "reviewer_id",
+        "estimated_hours",
+        "actual_hours",
+        "attachments",
+        "revision_count",
+        "labor_cost",
+        "workflow_template_id",
+        "stage_key",
+        "stage_order",
+        "is_stage_locked",
+        "depends_on_stage_order",
+        "commitment_id",
+        "idempotency_key",
+        "scheduled_date",
+        "occurrence_date",
+        "sequence_index",
+        "source_type",
+        "is_reconciliation_managed",
+        "manual_override",
+        "cancelled_reason",
+        "drive_url",
+        "published_urls",
+        "published_at",
+        "published_by",
+        "target_platforms",
+        "created_by",
+        "due_date",
+        "completed_by"
+      ]
+    },
+    "projects": {
+      "tableName": "projects",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 5,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 5,
+      "workerAccessible": true,
+      "workerCount": 5,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "title",
+        "slug",
+        "client",
+        "description",
+        "category",
+        "cover_url",
+        "thumbnail_url",
+        "external_url",
+        "gallery",
+        "services",
+        "results",
+        "challenge",
+        "strategy",
+        "process",
+        "metrics",
+        "before_url",
+        "after_url",
+        "results_summary",
+        "project_date",
+        "tags",
+        "featured",
+        "published",
+        "sort_order",
+        "created_at",
+        "updated_at",
+        "industry",
+        "objective",
+        "deliverables",
+        "testimonial",
+        "team_member_ids",
+        "seo_title",
+        "seo_description",
+        "title_ar",
+        "description_ar",
+        "challenge_ar",
+        "solution_ar",
+        "outcome_ar"
+      ]
+    },
+    "push_subscriptions": {
+      "tableName": "push_subscriptions",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 0,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": []
+    },
+    "rate_limit_buckets": {
+      "tableName": "rate_limit_buckets",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 12,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 12,
+      "typeCols": [],
+      "liveCols": [
+        "key",
+        "action_category",
+        "user_id",
+        "request_count",
+        "window_start",
+        "blocked_until"
+      ]
+    },
+    "reconciliation_audit_logs": {
+      "tableName": "reconciliation_audit_logs",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 0,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": []
+    },
+    "salary_payments": {
+      "tableName": "salary_payments",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 5,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 1,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "team_member_id",
+        "salary_record_id",
+        "salary_request_id",
+        "amount",
+        "currency",
+        "payment_date",
+        "period_start",
+        "period_end",
+        "payment_type",
+        "payment_method",
+        "reference",
+        "status",
+        "receipt_url",
+        "notes",
+        "created_by",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "salary_records": {
+      "tableName": "salary_records",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 7,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 1,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "team_member_id",
+        "base_amount",
+        "currency",
+        "salary_type",
+        "payment_frequency",
+        "effective_date",
+        "next_payment_date",
+        "payment_method",
+        "bank_details",
+        "status",
+        "notes",
+        "created_at",
+        "updated_at",
+        "standard_monthly_hours",
+        "hourly_rate"
+      ]
+    },
+    "salary_requests": {
+      "tableName": "salary_requests",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 5,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "team_member_id",
+        "requested_amount",
+        "currency",
+        "requested_date",
+        "reason",
+        "notes",
+        "status",
+        "reviewed_by",
+        "reviewed_at",
+        "review_notes",
+        "approved_amount",
+        "salary_payment_id",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "sales_commissions": {
+      "tableName": "sales_commissions",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 8,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 4,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "team_member_id",
+        "client_id",
+        "invoice_id",
+        "service_revenue",
+        "commission_rate",
+        "commission_amount",
+        "period_month",
+        "status",
+        "salary_payment_id",
+        "approved_by",
+        "approved_at",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deal_id",
+        "package_id",
+        "package_name",
+        "total_sale_amount",
+        "sponsoring_amount",
+        "commission_rule_snapshot"
+      ]
+    },
+    "security_alerts": {
+      "tableName": "security_alerts",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 7,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "rule_id",
+        "severity",
+        "title",
+        "description",
+        "user_id",
+        "user_email",
+        "session_id",
+        "trigger_evidence",
+        "recommended_action",
+        "status",
+        "resolved_at",
+        "resolved_by",
+        "resolution_notes",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "service_commitments": {
+      "tableName": "service_commitments",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 8,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 8,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "client_id",
+        "package_id",
+        "service_name",
+        "deliverable_type",
+        "quantity",
+        "frequency",
+        "schedule_rule",
+        "start_date",
+        "end_date",
+        "preferred_time",
+        "duration_hours",
+        "assignee_id",
+        "assignment_rule",
+        "default_role",
+        "workflow_template_id",
+        "task_type",
+        "status",
+        "paused_at",
+        "reactivated_at",
+        "notes",
+        "created_at",
+        "updated_at",
+        "deliverable_id"
+      ]
+    },
+    "site_settings": {
+      "tableName": "site_settings",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 1,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 1,
+      "workerAccessible": true,
+      "workerCount": 1,
+      "typeCols": [],
+      "liveCols": [
+        "key",
+        "enabled",
+        "updated_at"
+      ]
+    },
+    "social_reels": {
+      "tableName": "social_reels",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 3,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 3,
+      "workerAccessible": true,
+      "workerCount": 3,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "slug",
+        "instagram_url",
+        "instagram_shortcode",
+        "title",
+        "caption",
+        "thumbnail_url",
+        "category",
+        "display_order",
+        "is_published",
+        "is_featured",
+        "created_at",
+        "updated_at",
+        "title_ar",
+        "description_ar"
+      ]
+    },
+    "sponsoring_campaigns": {
+      "tableName": "sponsoring_campaigns",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 5,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "client_id",
+        "project_id",
+        "invoice_id",
+        "campaign_name",
+        "platform",
+        "budget_tnd",
+        "usd_amount",
+        "purchase_rate",
+        "purchase_cost_tnd",
+        "client_rate",
+        "client_charge_tnd",
+        "margin_tnd",
+        "payment_status",
+        "execution_status",
+        "date",
+        "period_month",
+        "notes",
+        "created_by",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "subscriptions": {
+      "tableName": "subscriptions",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 16,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "name",
+        "vendor",
+        "category_id",
+        "category_name",
+        "amount",
+        "currency",
+        "billing_cycle",
+        "billing_day",
+        "next_billing_date",
+        "payment_method",
+        "status",
+        "notes",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "system_audit_logs": {
+      "tableName": "system_audit_logs",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 722,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "actor_id",
+        "actor_name",
+        "actor_role",
+        "action",
+        "entity_type",
+        "entity_id",
+        "old_values",
+        "new_values",
+        "ip_address",
+        "user_agent",
+        "created_at"
+      ]
+    },
+    "task_handoffs": {
+      "tableName": "task_handoffs",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 0,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": []
+    },
+    "team_members": {
+      "tableName": "team_members",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 370,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 370,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "name",
+        "position",
+        "bio",
+        "photo_url",
+        "socials",
+        "featured",
+        "published",
+        "sort_order",
+        "created_at",
+        "updated_at",
+        "division",
+        "specialties",
+        "email",
+        "is_active",
+        "availability_status",
+        "profile_id",
+        "role",
+        "position_ar",
+        "bio_ar",
+        "employment_type",
+        "user_id",
+        "is_publisher"
+      ]
+    },
+    "testimonials": {
+      "tableName": "testimonials",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 0,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": []
+    },
+    "user_module_permissions": {
+      "tableName": "user_module_permissions",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 317,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 0,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "user_id",
+        "module",
+        "enabled",
+        "actions",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "user_roles": {
+      "tableName": "user_roles",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 379,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 1,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "user_id",
+        "role",
+        "created_at"
+      ]
+    },
+    "user_sessions": {
+      "tableName": "user_sessions",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 112,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 26,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "session_id",
+        "user_id",
+        "user_email",
+        "status",
+        "sign_in_at",
+        "last_activity_at",
+        "expires_at",
+        "revoked_at",
+        "revoked_by",
+        "revocation_reason",
+        "ip_address",
+        "user_agent",
+        "device_type",
+        "browser_name",
+        "os_name",
+        "auth_method",
+        "is_suspicious",
+        "suspicious_reason",
+        "metadata",
+        "created_at",
+        "updated_at",
+        "jwt_session_id"
+      ]
+    },
+    "work_sessions": {
+      "tableName": "work_sessions",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 16,
+      "adminError": null,
+      "anonAccessible": false,
+      "anonCount": null,
+      "workerAccessible": true,
+      "workerCount": 12,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "team_member_id",
+        "profile_id",
+        "client_id",
+        "project_id",
+        "task_id",
+        "session_type",
+        "started_at",
+        "ended_at",
+        "duration_minutes",
+        "description",
+        "hourly_cost_rate",
+        "labor_cost",
+        "is_billable",
+        "status",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "workflow_stages": {
+      "tableName": "workflow_stages",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 7,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 7,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "template_id",
+        "title",
+        "title_ar",
+        "stage_type",
+        "sort_order",
+        "duration_days",
+        "requires_previous_stage",
+        "assignment_rule",
+        "default_assignee_role",
+        "default_assignee_id",
+        "description",
+        "description_ar",
+        "checklist_items",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "workflow_templates": {
+      "tableName": "workflow_templates",
+      "existsInLiveDb": true,
+      "inTypes": false,
+      "inMigrations": true,
+      "liveCount": 4,
+      "adminError": null,
+      "anonAccessible": true,
+      "anonCount": 0,
+      "workerAccessible": true,
+      "workerCount": 4,
+      "typeCols": [],
+      "liveCols": [
+        "id",
+        "task_type",
+        "name",
+        "name_ar",
+        "description",
+        "description_ar",
+        "icon",
+        "color",
+        "is_active",
+        "sort_order",
+        "created_at",
+        "updated_at"
+      ]
+    }
+  },
+  "views": {},
+  "functions": {
+    "admin_analyze_account_dependencies": {
+      "fnName": "admin_analyze_account_dependencies",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_create_account": {
+      "fnName": "admin_create_account",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_delete_account": {
+      "fnName": "admin_delete_account",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_get_auth_user_id_by_email": {
+      "fnName": "admin_get_auth_user_id_by_email",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_get_security_kpis": {
+      "fnName": "admin_get_security_kpis",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_list_account_audit_logs": {
+      "fnName": "admin_list_account_audit_logs",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_list_accounts": {
+      "fnName": "admin_list_accounts",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_list_user_sessions": {
+      "fnName": "admin_list_user_sessions",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_provision_account": {
+      "fnName": "admin_provision_account",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_reactivate_account": {
+      "fnName": "admin_reactivate_account",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_reactivate_account_with_security": {
+      "fnName": "admin_reactivate_account_with_security",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_reset_account_password": {
+      "fnName": "admin_reset_account_password",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_revoke_all_user_sessions": {
+      "fnName": "admin_revoke_all_user_sessions",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_revoke_session": {
+      "fnName": "admin_revoke_session",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_suspend_account": {
+      "fnName": "admin_suspend_account",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_suspend_account_with_sessions": {
+      "fnName": "admin_suspend_account_with_sessions",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_update_account": {
+      "fnName": "admin_update_account",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "admin_update_account_permissions": {
+      "fnName": "admin_update_account_permissions",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "archive_business_rule_version": {
+      "fnName": "archive_business_rule_version",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "autoconfirm_user": {
+      "fnName": "autoconfirm_user",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "check_rate_limit": {
+      "fnName": "check_rate_limit",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "check_subtask_parent_authority": {
+      "fnName": "check_subtask_parent_authority",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "convert_lead_to_sale": {
+      "fnName": "convert_lead_to_sale",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "count_active_super_admins": {
+      "fnName": "count_active_super_admins",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "get_auth_team_member_id": {
+      "fnName": "get_auth_team_member_id",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "get_current_team_member_ids": {
+      "fnName": "get_current_team_member_ids",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "get_effective_user_permissions": {
+      "fnName": "get_effective_user_permissions",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "get_team_member_id": {
+      "fnName": "get_team_member_id",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "graphql": {
+      "fnName": "graphql",
+      "inTypes": true,
+      "inMigrations": false,
+      "args": [
+        "extensions",
+        "operationName",
+        "query",
+        "variables"
+      ],
+      "returns": "Json"
+    },
+    "guard_deals_action_permissions": {
+      "fnName": "guard_deals_action_permissions",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "guard_profiles_module_permissions": {
+      "fnName": "guard_profiles_module_permissions",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "guard_profiles_security_fields": {
+      "fnName": "guard_profiles_security_fields",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "guard_project_tasks_worker_columns": {
+      "fnName": "guard_project_tasks_worker_columns",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "guard_user_sessions_update": {
+      "fnName": "guard_user_sessions_update",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "handle_new_user": {
+      "fnName": "handle_new_user",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "handle_project_task_completed_at": {
+      "fnName": "handle_project_task_completed_at",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "handle_single_featured_reel": {
+      "fnName": "handle_single_featured_reel",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "has_module_access": {
+      "fnName": "has_module_access",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "has_parent_task_authority": {
+      "fnName": "has_parent_task_authority",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "has_permission": {
+      "fnName": "has_permission",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "has_role": {
+      "fnName": "has_role",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "has_sada_access": {
+      "fnName": "has_sada_access",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "is_admin": {
+      "fnName": "is_admin",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "is_session_active": {
+      "fnName": "is_session_active",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "is_super_admin": {
+      "fnName": "is_super_admin",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "notification_priority_weight": {
+      "fnName": "notification_priority_weight",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "prevent_audit_log_deletion": {
+      "fnName": "prevent_audit_log_deletion",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "prevent_audit_log_update": {
+      "fnName": "prevent_audit_log_update",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "prevent_delete_user_sessions": {
+      "fnName": "prevent_delete_user_sessions",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "prevent_referenced_package_deletion": {
+      "fnName": "prevent_referenced_package_deletion",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "prevent_rule_version_deletion": {
+      "fnName": "prevent_rule_version_deletion",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "record_failed_sign_in_attempt": {
+      "fnName": "record_failed_sign_in_attempt",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "record_session_heartbeat": {
+      "fnName": "record_session_heartbeat",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "register_user_session": {
+      "fnName": "register_user_session",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "reset_business_rule_to_default": {
+      "fnName": "reset_business_rule_to_default",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "reset_rate_limit": {
+      "fnName": "reset_rate_limit",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "resolve_and_link_current_team_member": {
+      "fnName": "resolve_and_link_current_team_member",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "respond_to_task_handoff": {
+      "fnName": "respond_to_task_handoff",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "revoke_user_session": {
+      "fnName": "revoke_user_session",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "set_updated_at": {
+      "fnName": "set_updated_at",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "sync_package_catalog_to_packages": {
+      "fnName": "sync_package_catalog_to_packages",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "sync_project_task_canonical_fields": {
+      "fnName": "sync_project_task_canonical_fields",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "trg_auto_link_profile_to_team_member": {
+      "fnName": "trg_auto_link_profile_to_team_member",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "trg_auto_link_team_member_user": {
+      "fnName": "trg_auto_link_team_member_user",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    },
+    "verify_session_and_account": {
+      "fnName": "verify_session_and_account",
+      "inTypes": false,
+      "inMigrations": true,
+      "args": [],
+      "returns": "unknown"
+    }
+  },
+  "policies": [
+    {
+      "policy": "Users view own profile",
+      "table": "profiles",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Users update own profile",
+      "table": "profiles",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Admins view all profiles",
+      "table": "profiles",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Users read own roles",
+      "table": "user_roles",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins read all roles",
+      "table": "user_roles",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage roles",
+      "table": "user_roles",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Public reads published projects",
+      "table": "projects",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins read all projects",
+      "table": "projects",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage projects",
+      "table": "projects",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Public reads published team",
+      "table": "team_members",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins read all team",
+      "table": "team_members",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage team",
+      "table": "team_members",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Public reads published posts",
+      "table": "blog_posts",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins read all posts",
+      "table": "blog_posts",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage posts",
+      "table": "blog_posts",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Public reads published products",
+      "table": "products",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins read all products",
+      "table": "products",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage products",
+      "table": "products",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Public reads published testimonials",
+      "table": "testimonials",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage testimonials",
+      "table": "testimonials",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Anyone submits contact",
+      "table": "contact_submissions",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins read contact",
+      "table": "contact_submissions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage contact",
+      "table": "contact_submissions",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Admins delete contact",
+      "table": "contact_submissions",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Public reads media",
+      "table": "storage",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Admins upload media",
+      "table": "storage",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Admins update media",
+      "table": "storage",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Admins delete media",
+      "table": "storage",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Anyone submits contact",
+      "table": "contact_submissions",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Public reads site settings",
+      "table": "site_settings",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage site settings",
+      "table": "site_settings",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Admins read client_projects",
+      "table": "client_projects",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage client_projects",
+      "table": "client_projects",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Admins read project_tasks",
+      "table": "project_tasks",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage project_tasks",
+      "table": "project_tasks",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Admins read project_activity",
+      "table": "project_activity",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage project_activity",
+      "table": "project_activity",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Anyone submits contact",
+      "table": "contact_submissions",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins read client_communication_logs",
+      "table": "client_communication_logs",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage client_communication_logs",
+      "table": "client_communication_logs",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Public read media",
+      "table": "storage",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Anyone upload media",
+      "table": "storage",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Anyone update media",
+      "table": "storage",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Anyone delete media",
+      "table": "storage",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Anyone manage team_members",
+      "table": "team_members",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Public read media",
+      "table": "storage",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Authenticated upload media",
+      "table": "storage",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Authenticated update media",
+      "table": "storage",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Authenticated delete media",
+      "table": "storage",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Sada access read project_tasks",
+      "table": "project_tasks",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins create project_tasks",
+      "table": "project_tasks",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update project_tasks",
+      "table": "project_tasks",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Workers update assigned project_tasks",
+      "table": "project_tasks",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete project_tasks",
+      "table": "project_tasks",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Sada access read client_projects",
+      "table": "client_projects",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins create client_projects",
+      "table": "client_projects",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update client_projects",
+      "table": "client_projects",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete client_projects",
+      "table": "client_projects",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Admins create team_members",
+      "table": "team_members",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update team_members",
+      "table": "team_members",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete team_members",
+      "table": "team_members",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Super Admins delete contact_submissions",
+      "table": "contact_submissions",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Super Admins manage user_roles",
+      "table": "user_roles",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Sada access read team_members",
+      "table": "team_members",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Sada access read clients",
+      "table": "clients",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins insert clients",
+      "table": "clients",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update clients",
+      "table": "clients",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super admin delete clients",
+      "table": "clients",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Admins create projects",
+      "table": "projects",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update projects",
+      "table": "projects",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete projects",
+      "table": "projects",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Public reads published projects",
+      "table": "projects",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins read all projects",
+      "table": "projects",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Public reads published reels",
+      "table": "social_reels",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins read all reels",
+      "table": "social_reels",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins create reels",
+      "table": "social_reels",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update reels",
+      "table": "social_reels",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete reels",
+      "table": "social_reels",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Sada access read task_handoffs",
+      "table": "task_handoffs",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Sada access insert task_handoffs",
+      "table": "task_handoffs",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Sada access update task_handoffs",
+      "table": "task_handoffs",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Public reads published posts",
+      "table": "blog_posts",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Public reads published products",
+      "table": "products",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Public reads published testimonials",
+      "table": "testimonials",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins read all posts",
+      "table": "blog_posts",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins insert posts",
+      "table": "blog_posts",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update posts",
+      "table": "blog_posts",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super admins delete posts",
+      "table": "blog_posts",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Admins read all products",
+      "table": "products",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins insert products",
+      "table": "products",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update products",
+      "table": "products",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super admins delete products",
+      "table": "products",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Admins read all testimonials",
+      "table": "testimonials",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins insert testimonials",
+      "table": "testimonials",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update testimonials",
+      "table": "testimonials",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super admins delete testimonials",
+      "table": "testimonials",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Super Admins read expense_categories",
+      "table": "expense_categories",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Super Admins insert expense_categories",
+      "table": "expense_categories",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Super Admins update expense_categories",
+      "table": "expense_categories",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete expense_categories",
+      "table": "expense_categories",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Super Admins read subscriptions",
+      "table": "subscriptions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Super Admins insert subscriptions",
+      "table": "subscriptions",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Super Admins update subscriptions",
+      "table": "subscriptions",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete subscriptions",
+      "table": "subscriptions",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Super Admins read expense_transactions",
+      "table": "expense_transactions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Super Admins insert expense_transactions",
+      "table": "expense_transactions",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Super Admins update expense_transactions",
+      "table": "expense_transactions",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete expense_transactions",
+      "table": "expense_transactions",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Super Admins read income_transactions",
+      "table": "income_transactions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Super Admins insert income_transactions",
+      "table": "income_transactions",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Super Admins update income_transactions",
+      "table": "income_transactions",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete income_transactions",
+      "table": "income_transactions",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Read salary_records",
+      "table": "salary_records",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Super Admins insert salary_records",
+      "table": "salary_records",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Super Admins update salary_records",
+      "table": "salary_records",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete salary_records",
+      "table": "salary_records",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Read salary_payments",
+      "table": "salary_payments",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Super Admins insert salary_payments",
+      "table": "salary_payments",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Super Admins update salary_payments",
+      "table": "salary_payments",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete salary_payments",
+      "table": "salary_payments",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Read salary_requests",
+      "table": "salary_requests",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Insert salary_requests",
+      "table": "salary_requests",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Super Admins update salary_requests",
+      "table": "salary_requests",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete salary_requests",
+      "table": "salary_requests",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Super Admins read financial_audit_logs",
+      "table": "financial_audit_logs",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Insert financial_audit_logs",
+      "table": "financial_audit_logs",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Super Admins read account_audit_logs",
+      "table": "account_audit_logs",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Super Admins read financial_accounts",
+      "table": "financial_accounts",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Super Admins manage financial_accounts",
+      "table": "financial_accounts",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Admins read invoices",
+      "table": "invoices",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage invoices",
+      "table": "invoices",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Admins read sponsoring_campaigns",
+      "table": "sponsoring_campaigns",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage sponsoring_campaigns",
+      "table": "sponsoring_campaigns",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Read sales_commissions",
+      "table": "sales_commissions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Super Admins manage sales_commissions",
+      "table": "sales_commissions",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Super Admins read financial_closing_periods",
+      "table": "financial_closing_periods",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Super Admins manage financial_closing_periods",
+      "table": "financial_closing_periods",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Packages are viewable by all authenticated users",
+      "table": "packages",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Packages can be managed by admins",
+      "table": "packages",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Deals viewable by authenticated users",
+      "table": "deals",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Deals manageable by authenticated users",
+      "table": "deals",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Client deliverables viewable by authenticated users",
+      "table": "client_deliverables",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Client deliverables manageable by authenticated users",
+      "table": "client_deliverables",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Production bookings viewable by authenticated users",
+      "table": "production_bookings",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Production bookings manageable by authenticated users",
+      "table": "production_bookings",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Admins manage all work sessions",
+      "table": "work_sessions",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Workers view own work sessions",
+      "table": "work_sessions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Workers insert own work sessions",
+      "table": "work_sessions",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Workers update own work sessions",
+      "table": "work_sessions",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Users read relevant notifications",
+      "table": "notifications",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Users update own notifications",
+      "table": "notifications",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Authenticated can insert notifications",
+      "table": "notifications",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Users can delete own notifications",
+      "table": "notifications",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Users manage own notification preferences",
+      "table": "notification_preferences",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Admins read system_audit_logs",
+      "table": "system_audit_logs",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Authenticated insert system_audit_logs",
+      "table": "system_audit_logs",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Disallow DELETE on system_audit_logs",
+      "table": "system_audit_logs",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Package categories viewable by everyone",
+      "table": "package_categories",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Package categories manageable by admins",
+      "table": "package_categories",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Public packages viewable",
+      "table": "package_catalog",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Package catalog manageable by admins",
+      "table": "package_catalog",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Addons viewable by everyone",
+      "table": "package_addons",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Addons manageable by admins",
+      "table": "package_addons",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Users update own notifications",
+      "table": "notifications",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Authenticated users can read business rules",
+      "table": "business_rules",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Authenticated users can read business rule versions",
+      "table": "business_rule_versions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Super Admin can insert business rules",
+      "table": "business_rules",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Super Admin can update business rules",
+      "table": "business_rules",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admin can delete business rules",
+      "table": "business_rules",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Project members viewable by staff",
+      "table": "project_members",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage project_members",
+      "table": "project_members",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Staff read authorized deals",
+      "table": "deals",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Staff insert authorized deals",
+      "table": "deals",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Staff update authorized deals",
+      "table": "deals",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete deals",
+      "table": "deals",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Workers update assigned project_tasks",
+      "table": "project_tasks",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Workers insert own deal commissions",
+      "table": "sales_commissions",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update sales_commissions",
+      "table": "sales_commissions",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete sales_commissions",
+      "table": "sales_commissions",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Admins read all team_members",
+      "table": "team_members",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Workers view own team_members",
+      "table": "team_members",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Public view published team_members",
+      "table": "team_members",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins create team_members",
+      "table": "team_members",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update team_members",
+      "table": "team_members",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Workers update own non-sensitive profile",
+      "table": "team_members",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete team_members",
+      "table": "team_members",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Admins manage salary_records",
+      "table": "salary_records",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Workers view own salary_records",
+      "table": "salary_records",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage salary_payments",
+      "table": "salary_payments",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Workers view own salary_payments",
+      "table": "salary_payments",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage salary_requests",
+      "table": "salary_requests",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Workers view own salary_requests",
+      "table": "salary_requests",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Workers insert own salary_requests",
+      "table": "salary_requests",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins manage work_sessions",
+      "table": "work_sessions",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Workers view own work_sessions",
+      "table": "work_sessions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Workers insert own work_sessions",
+      "table": "work_sessions",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Workers update own work_sessions",
+      "table": "work_sessions",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete work_sessions",
+      "table": "work_sessions",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Admins read client_projects",
+      "table": "client_projects",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Workers read assigned client_projects",
+      "table": "client_projects",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins create client_projects",
+      "table": "client_projects",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update client_projects",
+      "table": "client_projects",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Workers update assigned client_projects",
+      "table": "client_projects",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete client_projects",
+      "table": "client_projects",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Admins manage salary_records",
+      "table": "salary_records",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Workers view own salary_records",
+      "table": "salary_records",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage salary_payments",
+      "table": "salary_payments",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Workers view own salary_payments",
+      "table": "salary_payments",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins manage salary_requests",
+      "table": "salary_requests",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Workers view own salary_requests",
+      "table": "salary_requests",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Workers insert own salary_requests",
+      "table": "salary_requests",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Workers view own team_members",
+      "table": "team_members",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Workers update own non-sensitive profile",
+      "table": "team_members",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Workers view own salary_records",
+      "table": "salary_records",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Workers view own salary_requests",
+      "table": "salary_requests",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Workers insert own salary_requests",
+      "table": "salary_requests",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Workers view own salary_payments",
+      "table": "salary_payments",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Authenticated users can read workflow templates",
+      "table": "workflow_templates",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Authenticated users can read workflow stages",
+      "table": "workflow_stages",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Admins can insert workflow templates",
+      "table": "workflow_templates",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins can update workflow templates",
+      "table": "workflow_templates",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins can delete workflow templates",
+      "table": "workflow_templates",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Admins can insert workflow stages",
+      "table": "workflow_stages",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins can update workflow stages",
+      "table": "workflow_stages",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Admins can delete workflow stages",
+      "table": "workflow_stages",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "service_commitments_read_authenticated",
+      "table": "service_commitments",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "service_commitments_admin_write",
+      "table": "service_commitments",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Super Admins manage user_module_permissions",
+      "table": "user_module_permissions",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Users view own module permissions",
+      "table": "user_module_permissions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Authorized finance read income_transactions",
+      "table": "income_transactions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Authorized finance insert income_transactions",
+      "table": "income_transactions",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Authorized finance update income_transactions",
+      "table": "income_transactions",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete income_transactions",
+      "table": "income_transactions",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Authorized finance read expense_transactions",
+      "table": "expense_transactions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Authorized finance insert expense_transactions",
+      "table": "expense_transactions",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Authorized finance update expense_transactions",
+      "table": "expense_transactions",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete expense_transactions",
+      "table": "expense_transactions",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Authorized view salary_records",
+      "table": "salary_records",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Authorized view salary_payments",
+      "table": "salary_payments",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Authorized view salary_requests",
+      "table": "salary_requests",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "reconciliation_audit_logs_read",
+      "table": "reconciliation_audit_logs",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "reconciliation_audit_logs_insert",
+      "table": "reconciliation_audit_logs",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Authorized users read relevant notifications",
+      "table": "notifications",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Authorized users update own notifications",
+      "table": "notifications",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Authorized users delete own notifications",
+      "table": "notifications",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Authorized view salary_records",
+      "table": "salary_records",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Authorized insert salary_records",
+      "table": "salary_records",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Authorized update salary_records",
+      "table": "salary_records",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete salary_records",
+      "table": "salary_records",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Authorized view salary_payments",
+      "table": "salary_payments",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Authorized insert salary_payments",
+      "table": "salary_payments",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Authorized update salary_payments",
+      "table": "salary_payments",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete salary_payments",
+      "table": "salary_payments",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Authorized view salary_requests",
+      "table": "salary_requests",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Authorized insert salary_requests",
+      "table": "salary_requests",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Authorized update salary_requests",
+      "table": "salary_requests",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete salary_requests",
+      "table": "salary_requests",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Packages read authenticated",
+      "table": "packages",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Packages admin insert",
+      "table": "packages",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Packages admin update",
+      "table": "packages",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Packages super admin delete",
+      "table": "packages",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Package catalog admin insert",
+      "table": "package_catalog",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Package catalog admin update",
+      "table": "package_catalog",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Package catalog super admin delete",
+      "table": "package_catalog",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Client deliverables read authenticated",
+      "table": "client_deliverables",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Client deliverables admin insert",
+      "table": "client_deliverables",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Client deliverables admin update",
+      "table": "client_deliverables",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Client deliverables super admin delete",
+      "table": "client_deliverables",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Production bookings read authenticated",
+      "table": "production_bookings",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Production bookings admin insert",
+      "table": "production_bookings",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Production bookings admin update",
+      "table": "production_bookings",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Production bookings super admin delete",
+      "table": "production_bookings",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Admins insert clients",
+      "table": "clients",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update clients",
+      "table": "clients",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Admins create client_projects",
+      "table": "client_projects",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update client_projects",
+      "table": "client_projects",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Admins create projects",
+      "table": "projects",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update projects",
+      "table": "projects",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Admins insert posts",
+      "table": "blog_posts",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update posts",
+      "table": "blog_posts",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Admins insert products",
+      "table": "products",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update products",
+      "table": "products",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Admins insert testimonials",
+      "table": "testimonials",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins update testimonials",
+      "table": "testimonials",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Authorized task and subtask insert",
+      "table": "project_tasks",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Sada users read project_activity",
+      "table": "project_activity",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Sada users insert project_activity",
+      "table": "project_activity",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Admins manage project_activity",
+      "table": "project_activity",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Staff read authorized deals",
+      "table": "deals",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Staff insert authorized deals",
+      "table": "deals",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Staff update authorized deals",
+      "table": "deals",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins delete deals",
+      "table": "deals",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Rate limit buckets manageable by system",
+      "table": "rate_limit_buckets",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Users can view own push subscriptions",
+      "table": "push_subscriptions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Users can insert own push subscriptions",
+      "table": "push_subscriptions",
+      "cmd": "INSERT"
+    },
+    {
+      "policy": "Users can update own push subscriptions",
+      "table": "push_subscriptions",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Users can delete own push subscriptions",
+      "table": "push_subscriptions",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Users view their own sessions",
+      "table": "user_sessions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Users update their own session activity",
+      "table": "user_sessions",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Super Admins access security_alerts",
+      "table": "security_alerts",
+      "cmd": "ALL"
+    },
+    {
+      "policy": "Delete blocked on user_sessions",
+      "table": "user_sessions",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Disallow DELETE on system_audit_logs",
+      "table": "system_audit_logs",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Disallow UPDATE on system_audit_logs",
+      "table": "system_audit_logs",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Disallow DELETE on account_audit_logs",
+      "table": "account_audit_logs",
+      "cmd": "DELETE"
+    },
+    {
+      "policy": "Disallow UPDATE on account_audit_logs",
+      "table": "account_audit_logs",
+      "cmd": "UPDATE"
+    },
+    {
+      "policy": "Staff read business rules",
+      "table": "business_rules",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Staff read business rule versions",
+      "table": "business_rule_versions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "service_commitments_read_authenticated",
+      "table": "service_commitments",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Staff read workflow templates",
+      "table": "workflow_templates",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Staff read workflow stages",
+      "table": "workflow_stages",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Users view own module permissions",
+      "table": "user_module_permissions",
+      "cmd": "SELECT"
+    },
+    {
+      "policy": "Workers update assigned project_tasks",
+      "table": "project_tasks",
+      "cmd": "UPDATE"
+    }
+  ],
+  "triggers": [
+    {
+      "trigger": "on_auth_user_created",
+      "table": "auth",
+      "fn": "handle_new_user"
+    },
+    {
+      "trigger": "projects_updated",
+      "table": "projects",
+      "fn": "set_updated_at"
+    },
+    {
+      "trigger": "team_updated",
+      "table": "team_members",
+      "fn": "set_updated_at"
+    },
+    {
+      "trigger": "blog_updated",
+      "table": "blog_posts",
+      "fn": "set_updated_at"
+    },
+    {
+      "trigger": "products_updated",
+      "table": "products",
+      "fn": "set_updated_at"
+    },
+    {
+      "trigger": "site_settings_updated",
+      "table": "site_settings",
+      "fn": "set_updated_at"
+    },
+    {
+      "trigger": "client_projects_updated",
+      "table": "client_projects",
+      "fn": "set_updated_at"
+    },
+    {
+      "trigger": "project_tasks_updated",
+      "table": "project_tasks",
+      "fn": "set_updated_at"
+    },
+    {
+      "trigger": "on_auth_user_autoconfirm",
+      "table": "auth",
+      "fn": "autoconfirm_user"
+    },
+    {
+      "trigger": "trigger_single_featured_reel",
+      "table": "social_reels",
+      "fn": "handle_single_featured_reel"
+    },
+    {
+      "trigger": "testimonials_updated",
+      "table": "testimonials",
+      "fn": "set_updated_at"
+    },
+    {
+      "trigger": "trg_project_tasks_completed_at",
+      "table": "project_tasks",
+      "fn": "handle_project_task_completed_at"
+    },
+    {
+      "trigger": "trg_prevent_delete_system_audit",
+      "table": "system_audit_logs",
+      "fn": "prevent_audit_log_deletion"
+    },
+    {
+      "trigger": "trg_prevent_delete_financial_audit",
+      "table": "financial_audit_logs",
+      "fn": "prevent_audit_log_deletion"
+    },
+    {
+      "trigger": "trg_prevent_delete_account_audit",
+      "table": "account_audit_logs",
+      "fn": "prevent_audit_log_deletion"
+    },
+    {
+      "trigger": "trg_prevent_package_deletion",
+      "table": "package_catalog",
+      "fn": "prevent_referenced_package_deletion"
+    },
+    {
+      "trigger": "trg_sync_package_catalog_to_packages",
+      "table": "package_catalog",
+      "fn": "sync_package_catalog_to_packages"
+    },
+    {
+      "trigger": "trg_archive_business_rule_version",
+      "table": "business_rules",
+      "fn": "archive_business_rule_version"
+    },
+    {
+      "trigger": "trg_prevent_rule_version_deletion",
+      "table": "business_rule_versions",
+      "fn": "prevent_rule_version_deletion"
+    },
+    {
+      "trigger": "DROP",
+      "table": "ON",
+      "fn": "archive_business_rule_version"
+    },
+    {
+      "trigger": "trg_prevent_rule_version_deletion",
+      "table": "business_rule_versions",
+      "fn": "prevent_rule_version_deletion"
+    },
+    {
+      "trigger": "trg_team_members_auto_link",
+      "table": "team_members",
+      "fn": "trg_auto_link_team_member_user"
+    },
+    {
+      "trigger": "trg_profiles_auto_link_team",
+      "table": "profiles",
+      "fn": "trg_auto_link_profile_to_team_member"
+    },
+    {
+      "trigger": "trg_guard_profiles_module_permissions",
+      "table": "profiles",
+      "fn": "guard_profiles_module_permissions"
+    },
+    {
+      "trigger": "trg_guard_project_tasks_worker_columns",
+      "table": "project_tasks",
+      "fn": "guard_project_tasks_worker_columns"
+    },
+    {
+      "trigger": "trg_enforce_subtask_parent_authority",
+      "table": "project_tasks",
+      "fn": "check_subtask_parent_authority"
+    },
+    {
+      "trigger": "trg_sync_project_task_canonical_fields",
+      "table": "project_tasks",
+      "fn": "sync_project_task_canonical_fields"
+    },
+    {
+      "trigger": "trg_guard_deals_action_permissions",
+      "table": "deals",
+      "fn": "guard_deals_action_permissions"
+    },
+    {
+      "trigger": "trg_guard_profiles_security_fields",
+      "table": "profiles",
+      "fn": "guard_profiles_security_fields"
+    },
+    {
+      "trigger": "trg_guard_profiles_security_fields",
+      "table": "profiles",
+      "fn": "guard_profiles_security_fields"
+    },
+    {
+      "trigger": "trg_prevent_delete_user_sessions",
+      "table": "user_sessions",
+      "fn": "prevent_delete_user_sessions"
+    },
+    {
+      "trigger": "trg_guard_user_sessions_update",
+      "table": "user_sessions",
+      "fn": "guard_user_sessions_update"
+    },
+    {
+      "trigger": "trg_prevent_update_system_audit",
+      "table": "system_audit_logs",
+      "fn": "prevent_audit_log_update"
+    },
+    {
+      "trigger": "trg_prevent_update_account_audit",
+      "table": "account_audit_logs",
+      "fn": "prevent_audit_log_update"
+    },
+    {
+      "trigger": "trg_prevent_delete_system_audit",
+      "table": "system_audit_logs",
+      "fn": "prevent_audit_log_deletion"
+    },
+    {
+      "trigger": "trg_prevent_update_system_audit",
+      "table": "system_audit_logs",
+      "fn": "prevent_audit_log_update"
+    },
+    {
+      "trigger": "trg_prevent_delete_account_audit",
+      "table": "account_audit_logs",
+      "fn": "prevent_audit_log_deletion"
+    },
+    {
+      "trigger": "trg_prevent_update_account_audit",
+      "table": "account_audit_logs",
+      "fn": "prevent_audit_log_update"
+    }
+  ],
+  "indexes": [
+    {
+      "index": "blog_posts_published_idx",
+      "table": "blog_posts"
+    },
+    {
+      "index": "blog_posts_category_idx",
+      "table": "blog_posts"
+    },
+    {
+      "index": "projects_featured_idx",
+      "table": "projects"
+    },
+    {
+      "index": "idx_project_tasks_project_id",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_assignee_id",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_deadline",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_status",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_activity_project_id",
+      "table": "project_activity"
+    },
+    {
+      "index": "idx_project_activity_task_id",
+      "table": "project_activity"
+    },
+    {
+      "index": "idx_contact_submissions_converted",
+      "table": "contact_submissions"
+    },
+    {
+      "index": "idx_contact_submissions_path_taken",
+      "table": "contact_submissions"
+    },
+    {
+      "index": "idx_client_projects_start_date",
+      "table": "client_projects"
+    },
+    {
+      "index": "idx_project_tasks_service",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_completed_at",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_previous_assignee",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_assigned_by",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_client_projects_next_followup",
+      "table": "client_projects"
+    },
+    {
+      "index": "idx_client_projects_followup_status",
+      "table": "client_projects"
+    },
+    {
+      "index": "idx_client_comm_logs_project",
+      "table": "client_communication_logs"
+    },
+    {
+      "index": "idx_client_comm_logs_created",
+      "table": "client_communication_logs"
+    },
+    {
+      "index": "idx_team_members_active",
+      "table": "team_members"
+    },
+    {
+      "index": "idx_team_members_published",
+      "table": "team_members"
+    },
+    {
+      "index": "idx_team_members_sort",
+      "table": "team_members"
+    },
+    {
+      "index": "idx_team_members_profile",
+      "table": "team_members"
+    },
+    {
+      "index": "idx_client_projects_lead_id",
+      "table": "client_projects"
+    },
+    {
+      "index": "idx_team_members_role",
+      "table": "team_members"
+    },
+    {
+      "index": "idx_clients_name",
+      "table": "clients"
+    },
+    {
+      "index": "idx_clients_email",
+      "table": "clients"
+    },
+    {
+      "index": "idx_clients_phone",
+      "table": "clients"
+    },
+    {
+      "index": "idx_clients_status",
+      "table": "clients"
+    },
+    {
+      "index": "idx_clients_owner_id",
+      "table": "clients"
+    },
+    {
+      "index": "idx_contact_submissions_client_id",
+      "table": "contact_submissions"
+    },
+    {
+      "index": "idx_client_projects_client_id",
+      "table": "client_projects"
+    },
+    {
+      "index": "idx_client_communication_logs_client_id",
+      "table": "client_communication_logs"
+    },
+    {
+      "index": "idx_social_reels_homepage",
+      "table": "social_reels"
+    },
+    {
+      "index": "idx_social_reels_slug",
+      "table": "social_reels"
+    },
+    {
+      "index": "idx_social_reels_single_featured",
+      "table": "social_reels"
+    },
+    {
+      "index": "idx_clients_client_type",
+      "table": "clients"
+    },
+    {
+      "index": "idx_project_tasks_client_id",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_parent_task_id",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_delivery_period",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_task_handoffs_task_id",
+      "table": "task_handoffs"
+    },
+    {
+      "index": "idx_task_handoffs_from_assignee",
+      "table": "task_handoffs"
+    },
+    {
+      "index": "idx_task_handoffs_to_assignee",
+      "table": "task_handoffs"
+    },
+    {
+      "index": "idx_task_handoffs_assigner",
+      "table": "task_handoffs"
+    },
+    {
+      "index": "idx_task_handoffs_status",
+      "table": "task_handoffs"
+    },
+    {
+      "index": "blog_posts_featured_idx",
+      "table": "blog_posts"
+    },
+    {
+      "index": "blog_posts_schedule_idx",
+      "table": "blog_posts"
+    },
+    {
+      "index": "products_slug_key",
+      "table": "products"
+    },
+    {
+      "index": "products_featured_idx",
+      "table": "products"
+    },
+    {
+      "index": "products_published_idx",
+      "table": "products"
+    },
+    {
+      "index": "testimonials_client_idx",
+      "table": "testimonials"
+    },
+    {
+      "index": "testimonials_project_idx",
+      "table": "testimonials"
+    },
+    {
+      "index": "testimonials_featured_idx",
+      "table": "testimonials"
+    },
+    {
+      "index": "testimonials_published_idx",
+      "table": "testimonials"
+    },
+    {
+      "index": "idx_expense_categories_name",
+      "table": "expense_categories"
+    },
+    {
+      "index": "idx_expense_categories_sort",
+      "table": "expense_categories"
+    },
+    {
+      "index": "idx_subscriptions_status",
+      "table": "subscriptions"
+    },
+    {
+      "index": "idx_subscriptions_next_billing",
+      "table": "subscriptions"
+    },
+    {
+      "index": "idx_salary_records_member",
+      "table": "salary_records"
+    },
+    {
+      "index": "idx_salary_records_status",
+      "table": "salary_records"
+    },
+    {
+      "index": "idx_salary_payments_member",
+      "table": "salary_payments"
+    },
+    {
+      "index": "idx_salary_payments_date",
+      "table": "salary_payments"
+    },
+    {
+      "index": "idx_salary_payments_status",
+      "table": "salary_payments"
+    },
+    {
+      "index": "idx_salary_requests_member",
+      "table": "salary_requests"
+    },
+    {
+      "index": "idx_salary_requests_status",
+      "table": "salary_requests"
+    },
+    {
+      "index": "idx_salary_requests_date",
+      "table": "salary_requests"
+    },
+    {
+      "index": "idx_expense_transactions_date",
+      "table": "expense_transactions"
+    },
+    {
+      "index": "idx_expense_transactions_cat",
+      "table": "expense_transactions"
+    },
+    {
+      "index": "idx_expense_transactions_status",
+      "table": "expense_transactions"
+    },
+    {
+      "index": "idx_expense_transactions_salary_pay",
+      "table": "expense_transactions"
+    },
+    {
+      "index": "idx_expense_transactions_client",
+      "table": "expense_transactions"
+    },
+    {
+      "index": "idx_expense_transactions_project",
+      "table": "expense_transactions"
+    },
+    {
+      "index": "idx_income_transactions_date",
+      "table": "income_transactions"
+    },
+    {
+      "index": "idx_income_transactions_client",
+      "table": "income_transactions"
+    },
+    {
+      "index": "idx_income_transactions_project",
+      "table": "income_transactions"
+    },
+    {
+      "index": "idx_income_transactions_status",
+      "table": "income_transactions"
+    },
+    {
+      "index": "idx_financial_audit_logs_created",
+      "table": "financial_audit_logs"
+    },
+    {
+      "index": "idx_financial_audit_logs_actor",
+      "table": "financial_audit_logs"
+    },
+    {
+      "index": "idx_financial_audit_logs_entity",
+      "table": "financial_audit_logs"
+    },
+    {
+      "index": "idx_profiles_status",
+      "table": "profiles"
+    },
+    {
+      "index": "idx_account_audit_target",
+      "table": "account_audit_logs"
+    },
+    {
+      "index": "idx_account_audit_action",
+      "table": "account_audit_logs"
+    },
+    {
+      "index": "idx_account_audit_created",
+      "table": "account_audit_logs"
+    },
+    {
+      "index": "idx_financial_accounts_status",
+      "table": "financial_accounts"
+    },
+    {
+      "index": "idx_clients_commission_recipient",
+      "table": "clients"
+    },
+    {
+      "index": "idx_invoices_client",
+      "table": "invoices"
+    },
+    {
+      "index": "idx_invoices_status",
+      "table": "invoices"
+    },
+    {
+      "index": "idx_invoices_issue_date",
+      "table": "invoices"
+    },
+    {
+      "index": "idx_invoices_due_date",
+      "table": "invoices"
+    },
+    {
+      "index": "idx_sponsoring_client",
+      "table": "sponsoring_campaigns"
+    },
+    {
+      "index": "idx_sponsoring_status",
+      "table": "sponsoring_campaigns"
+    },
+    {
+      "index": "idx_sponsoring_date",
+      "table": "sponsoring_campaigns"
+    },
+    {
+      "index": "idx_sponsoring_period",
+      "table": "sponsoring_campaigns"
+    },
+    {
+      "index": "idx_commissions_member",
+      "table": "sales_commissions"
+    },
+    {
+      "index": "idx_commissions_client",
+      "table": "sales_commissions"
+    },
+    {
+      "index": "idx_commissions_period",
+      "table": "sales_commissions"
+    },
+    {
+      "index": "idx_commissions_status",
+      "table": "sales_commissions"
+    },
+    {
+      "index": "idx_closing_periods_month",
+      "table": "financial_closing_periods"
+    },
+    {
+      "index": "idx_closing_periods_status",
+      "table": "financial_closing_periods"
+    },
+    {
+      "index": "idx_income_transactions_invoice",
+      "table": "income_transactions"
+    },
+    {
+      "index": "idx_income_transactions_account",
+      "table": "income_transactions"
+    },
+    {
+      "index": "idx_income_transactions_allocation",
+      "table": "income_transactions"
+    },
+    {
+      "index": "idx_income_transactions_period",
+      "table": "income_transactions"
+    },
+    {
+      "index": "idx_expense_transactions_sponsoring",
+      "table": "expense_transactions"
+    },
+    {
+      "index": "idx_expense_transactions_commission",
+      "table": "expense_transactions"
+    },
+    {
+      "index": "idx_expense_transactions_account",
+      "table": "expense_transactions"
+    },
+    {
+      "index": "idx_expense_transactions_allocation",
+      "table": "expense_transactions"
+    },
+    {
+      "index": "idx_expense_transactions_period",
+      "table": "expense_transactions"
+    },
+    {
+      "index": "idx_clients_account_manager",
+      "table": "clients"
+    },
+    {
+      "index": "idx_clients_sales_owner",
+      "table": "clients"
+    },
+    {
+      "index": "idx_clients_industry",
+      "table": "clients"
+    },
+    {
+      "index": "idx_clients_status",
+      "table": "clients"
+    },
+    {
+      "index": "idx_work_sessions_member",
+      "table": "work_sessions"
+    },
+    {
+      "index": "idx_work_sessions_client",
+      "table": "work_sessions"
+    },
+    {
+      "index": "idx_work_sessions_project",
+      "table": "work_sessions"
+    },
+    {
+      "index": "idx_work_sessions_task",
+      "table": "work_sessions"
+    },
+    {
+      "index": "idx_work_sessions_started_at",
+      "table": "work_sessions"
+    },
+    {
+      "index": "idx_notifications_user_read",
+      "table": "notifications"
+    },
+    {
+      "index": "idx_notifications_role_created",
+      "table": "notifications"
+    },
+    {
+      "index": "idx_notifications_event_type",
+      "table": "notifications"
+    },
+    {
+      "index": "idx_system_audit_action",
+      "table": "system_audit_logs"
+    },
+    {
+      "index": "idx_system_audit_entity",
+      "table": "system_audit_logs"
+    },
+    {
+      "index": "idx_system_audit_actor",
+      "table": "system_audit_logs"
+    },
+    {
+      "index": "idx_system_audit_created",
+      "table": "system_audit_logs"
+    },
+    {
+      "index": "idx_deals_package_id",
+      "table": "deals"
+    },
+    {
+      "index": "idx_clients_package_id",
+      "table": "clients"
+    },
+    {
+      "index": "idx_business_rules_key",
+      "table": "business_rules"
+    },
+    {
+      "index": "idx_business_rules_category",
+      "table": "business_rules"
+    },
+    {
+      "index": "idx_business_rule_versions_rule_id",
+      "table": "business_rule_versions"
+    },
+    {
+      "index": "idx_business_rule_versions_key",
+      "table": "business_rule_versions"
+    },
+    {
+      "index": "idx_project_members_project_id",
+      "table": "project_members"
+    },
+    {
+      "index": "idx_project_members_profile_id",
+      "table": "project_members"
+    },
+    {
+      "index": "idx_project_members_team_member_id",
+      "table": "project_members"
+    },
+    {
+      "index": "idx_deals_sales_owner_id",
+      "table": "deals"
+    },
+    {
+      "index": "idx_deals_stage",
+      "table": "deals"
+    },
+    {
+      "index": "idx_sales_commissions_deal_id",
+      "table": "sales_commissions"
+    },
+    {
+      "index": "idx_sales_commissions_team_member_id",
+      "table": "sales_commissions"
+    },
+    {
+      "index": "idx_sales_commissions_deal_id_unique",
+      "table": "sales_commissions"
+    },
+    {
+      "index": "idx_team_members_user_id",
+      "table": "team_members"
+    },
+    {
+      "index": "idx_team_members_profile_id",
+      "table": "team_members"
+    },
+    {
+      "index": "idx_service_commitments_client_id",
+      "table": "service_commitments"
+    },
+    {
+      "index": "idx_service_commitments_status",
+      "table": "service_commitments"
+    },
+    {
+      "index": "idx_service_commitments_workflow_template_id",
+      "table": "service_commitments"
+    },
+    {
+      "index": "idx_project_tasks_commitment_id",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_idempotency_key",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_user_module_permissions_user",
+      "table": "user_module_permissions"
+    },
+    {
+      "index": "idx_user_module_permissions_module",
+      "table": "user_module_permissions"
+    },
+    {
+      "index": "idx_service_commitments_deliverable_id",
+      "table": "service_commitments"
+    },
+    {
+      "index": "idx_project_tasks_commitment_occurrence",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_deliverable_id",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_idempotency_key_unique",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_commitment_occurrence_seq_unique",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_reconcile_guard",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_source_type",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_reconciliation_audit_client",
+      "table": "reconciliation_audit_logs"
+    },
+    {
+      "index": "idx_project_tasks_published_by",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_published_at",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_category_status",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_notifications_priority_created",
+      "table": "notifications"
+    },
+    {
+      "index": "idx_notifications_user_priority_created",
+      "table": "notifications"
+    },
+    {
+      "index": "idx_project_activity_idempotency_key",
+      "table": "project_activity"
+    },
+    {
+      "index": "idx_project_tasks_parent_sort",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_stage_lookup",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_team_members_publisher_active",
+      "table": "team_members"
+    },
+    {
+      "index": "idx_project_tasks_parent_task_id",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_created_by",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_due_date",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_project_tasks_completed_by",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_user_module_permissions_user_module",
+      "table": "user_module_permissions"
+    },
+    {
+      "index": "idx_deals_commission_recipient_id",
+      "table": "deals"
+    },
+    {
+      "index": "idx_deals_sales_owner_stage",
+      "table": "deals"
+    },
+    {
+      "index": "idx_project_tasks_assignee_status",
+      "table": "project_tasks"
+    },
+    {
+      "index": "idx_rate_limit_buckets_lookup",
+      "table": "rate_limit_buckets"
+    },
+    {
+      "index": "idx_rate_limit_buckets_cleanup",
+      "table": "rate_limit_buckets"
+    },
+    {
+      "index": "idx_push_subscriptions_user_id",
+      "table": "push_subscriptions"
+    },
+    {
+      "index": "idx_push_subscriptions_active",
+      "table": "push_subscriptions"
+    },
+    {
+      "index": "idx_user_sessions_user_status",
+      "table": "user_sessions"
+    },
+    {
+      "index": "idx_user_sessions_session_id",
+      "table": "user_sessions"
+    },
+    {
+      "index": "idx_user_sessions_last_activity",
+      "table": "user_sessions"
+    },
+    {
+      "index": "idx_user_sessions_created_at",
+      "table": "user_sessions"
+    },
+    {
+      "index": "idx_security_alerts_status",
+      "table": "security_alerts"
+    },
+    {
+      "index": "idx_security_alerts_severity",
+      "table": "security_alerts"
+    },
+    {
+      "index": "idx_security_alerts_user",
+      "table": "security_alerts"
+    },
+    {
+      "index": "idx_security_alerts_created_at",
+      "table": "security_alerts"
+    },
+    {
+      "index": "idx_user_sessions_jwt_session_id",
+      "table": "user_sessions"
+    },
+    {
+      "index": "idx_user_sessions_session_lookup",
+      "table": "user_sessions"
+    }
+  ],
+  "enums": {}
+}

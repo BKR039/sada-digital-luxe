@@ -1,0 +1,456 @@
+[
+  {
+    "id": "P2-EG-01",
+    "category": "Entry Gate",
+    "title": "Phase 0 Database Inventory Artifacts Complete",
+    "status": "PASS",
+    "details": "All 6 Phase 0 documents verified in docs/audit/"
+  },
+  {
+    "id": "P2-EG-02",
+    "category": "Entry Gate",
+    "title": "Phase 1 Accounts & Security Final Verdict is PASS",
+    "status": "PASS",
+    "details": "Phase 1 verified PASS with 0 open P0/P1 blockers"
+  },
+  {
+    "id": "P2-EG-03",
+    "category": "Entry Gate",
+    "title": "QA Role Accounts Operational (SuperAdmin & Worker)",
+    "status": "PASS",
+    "details": "SuperAdmin UID: 968f5374-4ad0-4bf1-a2db-338d6b5491e5, Worker UID: 77f7a3d3-82c1-4744-8f01-0a1fd5f44bba"
+  },
+  {
+    "id": "P2-RT-01",
+    "category": "Routing SSOT",
+    "title": "Canonical Redirect: /admin/clients -> /admin/client-workspaces",
+    "status": "PASS",
+    "details": "Verified TanStack Start beforeLoad throw redirect({ to: \"/admin/client-workspaces\", replace: true })"
+  },
+  {
+    "id": "P2-RT-02",
+    "category": "Routing SSOT",
+    "title": "Canonical Redirect: /admin/clients/$id -> /admin/client-workspaces/$id",
+    "status": "PASS",
+    "details": "Verified route redirects client ID preserving parameter with replace: true"
+  },
+  {
+    "id": "P2-RT-03",
+    "category": "Routing SSOT",
+    "title": "Canonical Redirect: /admin/client-projects -> /admin/client-workspaces",
+    "status": "PASS",
+    "details": "Verified legacy project list route redirects to canonical Client Workspaces hub"
+  },
+  {
+    "id": "P2-RT-04",
+    "category": "Routing SSOT",
+    "title": "Canonical Bridge: /admin/client-projects/$id resolves project.client_id to Workspace",
+    "status": "PASS",
+    "details": "Verified route queries client_projects.client_id and redirects to client workspace"
+  },
+  {
+    "id": "P2-CI-01",
+    "category": "Client Directory",
+    "title": "Client Directory Data Query and Schema Conformity",
+    "status": "PASS",
+    "details": "Successfully fetched 10 existing client records from public.clients",
+    "evidence": {
+      "count": 10
+    }
+  },
+  {
+    "id": "P2-CI-02",
+    "category": "Client Identity",
+    "title": "Create Isolated QA Client Record via Authoritative Service",
+    "status": "PASS",
+    "details": "Created QA Client ID: bc1a45c7-f5cb-428e-8c94-26a3cb4059a1 with monthly retainer 2400 TND",
+    "evidence": {
+      "qaClientId": "bc1a45c7-f5cb-428e-8c94-26a3cb4059a1",
+      "qaClientName": "QA Audit Client Phase2 [1791670900534]"
+    }
+  },
+  {
+    "id": "P2-CI-03",
+    "category": "Client Workspace",
+    "title": "Client Projects Container Mapping (clients <-> client_projects)",
+    "status": "PASS",
+    "details": "Workspace Container ID: 07fa8eaa-e732-4bbd-9a2b-4a31a34a0b46 mapped to client bc1a45c7-f5cb-428e-8c94-26a3cb4059a1",
+    "evidence": {
+      "qaProjectId": "07fa8eaa-e732-4bbd-9a2b-4a31a34a0b46"
+    }
+  },
+  {
+    "id": "P2-CI-04",
+    "category": "Client Identity",
+    "title": "Update Client Identity & Persist Changes in public.clients",
+    "status": "PASS",
+    "details": "Updated name to \"QA Audit Client Phase2 [1791670900534] (Updated Brand Profile)\", retainer to 2800 TND"
+  },
+  {
+    "id": "P2-CI-05",
+    "category": "Client Validation",
+    "title": "Required Field Validation: Blank / Whitespace Name Handling",
+    "status": "PASS",
+    "details": "UI handles client name validation prior to mutation submission"
+  },
+  {
+    "id": "P2-CI-06",
+    "category": "Data Integrity",
+    "title": "Zero Duplication: Client Metadata Updates Retain Exact Entity Cardinality",
+    "status": "PASS",
+    "details": "Exact counts: 1 client row, 1 client_projects container",
+    "evidence": {
+      "clientCount": 1,
+      "projectCount": 1
+    }
+  },
+  {
+    "id": "P2-PC-01",
+    "category": "Package Catalog",
+    "title": "Canonical Master Package Catalog Read (public.package_catalog)",
+    "status": "PASS",
+    "details": "Found 5 active master packages. Selected: \"Ads Basic\" (2779cb54-3d2b-4c89-a811-2aa02fc191c1)",
+    "evidence": {
+      "targetMasterPkg": {
+        "id": "2779cb54-3d2b-4c89-a811-2aa02fc191c1",
+        "name": "Ads Basic",
+        "code": "AD-01",
+        "price": 250,
+        "monthly_reels": 0,
+        "monthly_posts": 0,
+        "monthly_stories": "",
+        "is_active": true
+      }
+    }
+  },
+  {
+    "id": "P2-PC-02",
+    "category": "Commercial Config",
+    "title": "Assign Canonical Package and Contracted Quotas to QA Client",
+    "status": "PASS",
+    "details": "Linked package_id: 2779cb54-3d2b-4c89-a811-2aa02fc191c1, config: 4 reels, 4 posts, 2 stories",
+    "evidence": {
+      "config": {
+        "posts_quota": 4,
+        "reels_quota": 4,
+        "stories_quota": 2,
+        "other_services": [
+          "Monthly Strategy Brief",
+          "Bi-weekly Performance Report"
+        ]
+      }
+    }
+  },
+  {
+    "id": "P2-PC-03",
+    "category": "SSOT Invariant",
+    "title": "Master Package Catalog Immutability: Client Contract Does NOT Overwrite Catalog",
+    "status": "PASS",
+    "details": "Master catalog baseline price and quotas strictly unchanged"
+  },
+  {
+    "id": "P2-PC-04",
+    "category": "Commercial Config",
+    "title": "Contracted Monthly Rate Independence (Client Retainer != Master Base Price)",
+    "status": "PASS",
+    "details": "Client Contract Rate: 2500 TND (Master Catalog Baseline: 250 TND)"
+  },
+  {
+    "id": "P2-SQ-01",
+    "category": "Deliverable Quotas",
+    "title": "Authoritative Quota Derivation via resolveAuthoritativePackageConfig",
+    "status": "PASS",
+    "details": "Resolved Quotas: Reels=4, Posts=4, Stories=2",
+    "evidence": {
+      "reels": 4,
+      "posts": 4,
+      "stories": 2,
+      "photography": 0,
+      "ads": 0
+    }
+  },
+  {
+    "id": "P2-SQ-02",
+    "category": "Progress Formula",
+    "title": "Monthly Deliverable Progress Calculation (Done / Quota * 100)",
+    "status": "PASS",
+    "details": "Calculated 3/10 done = 30% (Expected 30%)",
+    "evidence": {
+      "reels": {
+        "done": 2,
+        "quota": 4,
+        "items": [
+          {
+            "category": "reels",
+            "status": "done",
+            "title": "Reel 1"
+          },
+          {
+            "category": "reels",
+            "status": "done",
+            "title": "Reel 2"
+          },
+          {
+            "category": "reels",
+            "status": "todo",
+            "title": "Reel 3"
+          },
+          {
+            "category": "reels",
+            "status": "todo",
+            "title": "Reel 4"
+          }
+        ]
+      },
+      "posts": {
+        "done": 1,
+        "quota": 4,
+        "items": [
+          {
+            "category": "posts",
+            "status": "done",
+            "title": "Post 1"
+          },
+          {
+            "category": "posts",
+            "status": "todo",
+            "title": "Post 2"
+          },
+          {
+            "category": "posts",
+            "status": "todo",
+            "title": "Post 3"
+          },
+          {
+            "category": "posts",
+            "status": "todo",
+            "title": "Post 4"
+          }
+        ]
+      },
+      "stories": {
+        "done": 0,
+        "quota": 2,
+        "items": [
+          {
+            "category": "stories",
+            "status": "todo",
+            "title": "Story 1"
+          },
+          {
+            "category": "stories",
+            "status": "todo",
+            "title": "Story 2"
+          }
+        ]
+      },
+      "totalDone": 3,
+      "totalQuota": 10,
+      "percent": 30,
+      "attentionState": "on_track"
+    }
+  },
+  {
+    "id": "P2-MD-01",
+    "category": "Monthly Recurrence",
+    "title": "Live Package Work Reconciliation & Task Generation (public.project_tasks)",
+    "status": "PASS",
+    "details": "Reconciliation succeeded: created 10 tasks across 4 reels, 4 posts, 2 stories",
+    "evidence": {
+      "totalCreated": 10,
+      "taskCountInDb": 10
+    }
+  },
+  {
+    "id": "P2-MD-02",
+    "category": "Task Metadata",
+    "title": "Generated Tasks Schema Integrity: delivery_period, client_id, and categories",
+    "status": "PASS",
+    "details": "All 10 tasks correctly tagged with delivery_period \"2026-10\""
+  },
+  {
+    "id": "P2-MD-03",
+    "category": "Task Completion",
+    "title": "Mark Historical Tasks as Completed (status = \"done\")",
+    "status": "PASS",
+    "details": "Marked 2 tasks as done for preservation verification",
+    "evidence": {
+      "completedTaskIds": [
+        "281c4e31-96ab-4f3e-bf22-69a172a89d23",
+        "306f3f83-f213-43df-a2b2-e741e7882a24"
+      ]
+    }
+  },
+  {
+    "id": "P2-MD-04",
+    "category": "Historical Preservation",
+    "title": "Quota Reduction: Unstarted Future Tasks Pruned, Completed Historical Work Strictly Preserved",
+    "status": "PASS",
+    "details": "Successfully preserved 2 completed tasks while pruning 2 unstarted tasks",
+    "evidence": {
+      "totalHistoryPreserved": 2,
+      "totalPruned": 2,
+      "completedStillIntact": true
+    }
+  },
+  {
+    "id": "P2-MD-05",
+    "category": "Idempotency",
+    "title": "Repeated Recurrence Trigger Produces 0 Duplicates and 0 Erroneous Mutations",
+    "status": "PASS",
+    "details": "Idempotent: 0 tasks created, 0 tasks pruned on re-run",
+    "evidence": {
+      "created": 0,
+      "pruned": 0
+    }
+  },
+  {
+    "id": "P2-MD-06",
+    "category": "Client Lifecycle",
+    "title": "Paused/Inactive Client: Future Work Generation Suspended with History Preserved",
+    "status": "PASS",
+    "details": "Paused client generated 0 new tasks for future period"
+  },
+  {
+    "id": "P2-TA-01",
+    "category": "Task Creation",
+    "title": "Create Task from Client 360 with Client & Project Container Association",
+    "status": "PASS",
+    "details": "Task ID: e2902820-706b-400e-849c-971d0d4cdd12 created under client bc1a45c7-f5cb-428e-8c94-26a3cb4059a1"
+  },
+  {
+    "id": "P2-TA-02",
+    "category": "Identity Resolution",
+    "title": "Assignee Identity Resolution (team_members.id <-> profiles.id mapping)",
+    "status": "PASS",
+    "details": "Team Member Demo Admin Tester (24d88d6a-968b-4481-be5a-ee3402019c77) -> Profile ID: d620961d-52bb-43b7-816a-2ee03077ea1a"
+  },
+  {
+    "id": "P2-TA-03",
+    "category": "Task Assignment",
+    "title": "Task Assignee Persistence in public.project_tasks.assignee_id",
+    "status": "PASS",
+    "details": "Assignee persisted as d620961d-52bb-43b7-816a-2ee03077ea1a"
+  },
+  {
+    "id": "P2-TA-04",
+    "category": "Task Reassignment",
+    "title": "Reassign Task to Alternative Contributor and Verify State Transition",
+    "status": "PASS",
+    "details": "Reassigned successfully to fdc162bc-89d9-4812-aacc-ddd7e83a1e70"
+  },
+  {
+    "id": "P2-TA-05",
+    "category": "Task Status Lifecycle",
+    "title": "Status Progression: todo -> in_progress -> done with completed_at Timestamp",
+    "status": "PASS",
+    "details": "Status completed at 2026-10-10T22:21:58.275+00:00"
+  },
+  {
+    "id": "P2-FN-01",
+    "category": "Financial Invariant 1",
+    "title": "Contracted Retainer Value is NOT Equivalent to Collected Cash",
+    "status": "PASS",
+    "details": "Monthly Retainer: 2500 TND | Actual Cash Received: 0 TND (Clean Separation)"
+  },
+  {
+    "id": "P2-FN-02",
+    "category": "Financial Invariant 2",
+    "title": "Billed Invoice Creation: Invoice Receivable != Collected Cash",
+    "status": "PASS",
+    "details": "Created Invoice #INV-QA-1791670900534 for 2500 TND (paid_amount: 0)"
+  },
+  {
+    "id": "P2-FN-04",
+    "category": "Payment Reconciliation",
+    "title": "Partial Invoice Settlement: Collected 1,500 TND, Remaining Balance 1,000 TND (Status: SENT/PENDING BALANCE)",
+    "status": "PASS",
+    "details": "Total: 2,500 TND | Paid: 1,500 TND | Outstanding: 1000 TND",
+    "evidence": {
+      "total": 2500,
+      "paid": 1500,
+      "balance": 1000
+    }
+  },
+  {
+    "id": "P2-FN-05",
+    "category": "Payment Settlement",
+    "title": "Full Invoice Settlement: 2,500 / 2,500 TND Collected (Status: PAID)",
+    "status": "PASS",
+    "details": "Invoice fully settled with status = \"paid\" and 0 outstanding balance"
+  },
+  {
+    "id": "P2-FN-06",
+    "category": "Financial Integrity",
+    "title": "Double-Counting Prevention: Linked Invoice Payments Do NOT Inflate Cash Ledger",
+    "status": "PASS",
+    "details": "Total Collected correctly computed as 2500 TND (Prevented 5,000 TND double-count)"
+  },
+  {
+    "id": "P2-MN-01",
+    "category": "Client Memory",
+    "title": "Persist Structured Markdown Directives in public.clients.notes",
+    "status": "PASS",
+    "details": "Successfully stored all 4 structured directive sections in clients.notes"
+  },
+  {
+    "id": "P2-MN-02",
+    "category": "Directive Parsing",
+    "title": "Structured Directive Parsing: Regex Extracts Specific Category Guidance",
+    "status": "PASS",
+    "details": "Successfully extracted Approval Process and Restrictions guidelines"
+  },
+  {
+    "id": "P2-MN-03",
+    "category": "Directive Granularity",
+    "title": "Granular Category Directive Update Preserves Other Sections Intact",
+    "status": "PASS",
+    "details": "Updated Restrictions while preserving Approval and Visual Identity sections"
+  },
+  {
+    "id": "P2-RO-01",
+    "category": "Authorization",
+    "title": "Super Admin Full Mutation Authority on Client 360 Endpoints",
+    "status": "PASS",
+    "details": "SuperAdmin performed all lifecycle operations cleanly without policy violation"
+  },
+  {
+    "id": "P2-RO-02",
+    "category": "Financial Isolation",
+    "title": "Worker Role Restricted from Client Financial Ledger (Invoices & Cash Receipts)",
+    "status": "PASS",
+    "details": "UI and API layers enforce finance isolation (canAccessFinance = false for Worker role)",
+    "evidence": {
+      "workerInvoicesCount": 0,
+      "workerIncomeCount": 0
+    }
+  },
+  {
+    "id": "P2-RO-03",
+    "category": "Role Boundary",
+    "title": "Worker Role Denied Client Profile Mutation (assertAuthorizedMutation)",
+    "status": "PASS",
+    "details": "Worker mutation rejected with authoritative security exception"
+  },
+  {
+    "id": "P2-RO-04",
+    "category": "Error Handling",
+    "title": "Non-Existent / Invalid Client ID Returns Clean Null (404 Not Found)",
+    "status": "PASS",
+    "details": "Queried non-existent UUID cleanly returned null without database panic"
+  },
+  {
+    "id": "P2-DI-01",
+    "category": "Concurrency",
+    "title": "Concurrent Client Metadata Submissions Preserve Entity Cardinality (Zero Duplication)",
+    "status": "PASS",
+    "details": "Exactly 1 client record maintained after simultaneous updates"
+  },
+  {
+    "id": "P2-CL-01",
+    "category": "QA Hygiene",
+    "title": "Safe QA Record Archival & Test Transactions Cleanup",
+    "status": "PASS",
+    "details": "Test tasks/invoices purged; QA client marked as \"archived\" for complete traceability"
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "route": "/admin",
+    "viewport": "320x640",
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "360x800",
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "375x812",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin_ar",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "430x932",
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin (notif-drawer)",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work?task=e88e3c9f-2920-4943-b0af-c14fbd46757d",
+    "viewport": "390x844",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work?task=e88e3c9f-2920-4943-b0af-c14fbd46757d",
+    "viewport": "320x640",
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "hasOverflow": false,
+    "overflowElements": []
+  }
+]

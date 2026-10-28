@@ -6,6 +6,8 @@ import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { arSA } from "date-fns/locale";
+import { getActiveLanguage } from "@/lib/date-locale";
 
 function Calendar({
   className,
@@ -15,14 +17,21 @@ function Calendar({
   buttonVariant = "ghost",
   formatters,
   components,
+  locale,
+  dir,
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>["variant"];
 }) {
+  const isArabic = getActiveLanguage() === "ar";
+  const activeLocale = locale || (isArabic ? arSA : undefined);
+  const activeDir = dir || (isArabic ? "rtl" : "ltr");
   const defaultClassNames = getDefaultClassNames();
 
   return (
     <DayPicker
+      locale={activeLocale}
+      dir={activeDir}
       showOutsideDays={showOutsideDays}
       className={cn(
         "bg-background group/calendar p-3 [--cell-size:2rem] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",

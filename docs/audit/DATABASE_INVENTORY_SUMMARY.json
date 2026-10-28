@@ -1,0 +1,1336 @@
+{
+  "meta": {
+    "auditVersion": "1.0.0-phase0",
+    "generatedAt": "2026-10-10T18:15:21.262Z",
+    "environment": {
+      "host": "mtfkzabiscyleztypqks.supabase.co",
+      "projectRef": "mtfkzabiscyleztypqks",
+      "classification": "Supabase Cloud PostgreSQL 15 (Production / Staging)",
+      "readOnlyAudit": true,
+      "modificationsMade": 0
+    },
+    "counts": {
+      "totalCandidateTables": 53,
+      "liveTablesVerified": 53,
+      "liveViewsVerified": 0,
+      "totalFunctionsAndRPCs": 65,
+      "totalMigrations": 94,
+      "totalRLSPolicies": 312,
+      "totalTriggers": 38,
+      "totalIndexes": 187,
+      "totalStorageBuckets": 1,
+      "totalApplicationRoutes": 60,
+      "routesWithVerifiedDbDependencies": 38
+    }
+  },
+  "tables": [
+    {
+      "name": "account_audit_logs",
+      "liveRowCount": 997,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 1,
+      "rlsPoliciesCount": 1,
+      "triggersCount": 4,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "blog_posts",
+      "liveRowCount": 0,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 0,
+      "rlsPoliciesCount": 10,
+      "triggersCount": 1,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "business_rule_versions",
+      "liveRowCount": 111,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 111,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "id",
+      "foreignKeysCount": 2,
+      "rlsPoliciesCount": 2,
+      "triggersCount": 2,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "business_rules",
+      "liveRowCount": 27,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 27,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "id",
+      "foreignKeysCount": 1,
+      "rlsPoliciesCount": 5,
+      "triggersCount": 2,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "client_communication_logs",
+      "liveRowCount": 0,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 3,
+      "rlsPoliciesCount": 2,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "client_deliverables",
+      "liveRowCount": 12,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 12,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "id",
+      "foreignKeysCount": 4,
+      "rlsPoliciesCount": 6,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "client_projects",
+      "liveRowCount": 24,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 2,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 4,
+      "rlsPoliciesCount": 14,
+      "triggersCount": 1,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "clients",
+      "liveRowCount": 40,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 40,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 5,
+      "rlsPoliciesCount": 6,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "contact_submissions",
+      "liveRowCount": 20,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 2,
+      "rlsPoliciesCount": 5,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "deals",
+      "liveRowCount": 37,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 6,
+      "rlsPoliciesCount": 10,
+      "triggersCount": 1,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "expense_categories",
+      "liveRowCount": 9,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 0,
+      "rlsPoliciesCount": 4,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "expense_transactions",
+      "liveRowCount": 56,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 8,
+      "rlsPoliciesCount": 8,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "financial_accounts",
+      "liveRowCount": 10,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 0,
+      "rlsPoliciesCount": 2,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "financial_audit_logs",
+      "liveRowCount": 68,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 1,
+      "rlsPoliciesCount": 2,
+      "triggersCount": 1,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "financial_closing_periods",
+      "liveRowCount": 2,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 2,
+      "rlsPoliciesCount": 2,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "income_transactions",
+      "liveRowCount": 12,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 4,
+      "rlsPoliciesCount": 8,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "invoices",
+      "liveRowCount": 6,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 3,
+      "rlsPoliciesCount": 2,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "notification_preferences",
+      "liveRowCount": 1,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "user_id",
+      "foreignKeysCount": 1,
+      "rlsPoliciesCount": 1,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "notifications",
+      "liveRowCount": 118,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 1,
+      "rlsPoliciesCount": 8,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "package_addons",
+      "liveRowCount": 12,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 12,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 12,
+      "primaryKey": "id",
+      "foreignKeysCount": 0,
+      "rlsPoliciesCount": 2,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "package_catalog",
+      "liveRowCount": 39,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 39,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 31,
+      "primaryKey": "id",
+      "foreignKeysCount": 3,
+      "rlsPoliciesCount": 5,
+      "triggersCount": 2,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "package_categories",
+      "liveRowCount": 9,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 9,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 9,
+      "primaryKey": "id",
+      "foreignKeysCount": 0,
+      "rlsPoliciesCount": 2,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "packages",
+      "liveRowCount": 37,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 37,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "id",
+      "foreignKeysCount": 0,
+      "rlsPoliciesCount": 6,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "production_bookings",
+      "liveRowCount": 0,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "id",
+      "foreignKeysCount": 6,
+      "rlsPoliciesCount": 6,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "products",
+      "liveRowCount": 0,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 0,
+      "rlsPoliciesCount": 10,
+      "triggersCount": 1,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "profiles",
+      "liveRowCount": 410,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 1,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 1,
+      "rlsPoliciesCount": 3,
+      "triggersCount": 4,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "project_activity",
+      "liveRowCount": 174,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 174,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 3,
+      "rlsPoliciesCount": 5,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "project_members",
+      "liveRowCount": 2,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 2,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 3,
+      "rlsPoliciesCount": 2,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "project_tasks",
+      "liveRowCount": 217,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 217,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 13,
+      "rlsPoliciesCount": 10,
+      "triggersCount": 5,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "projects",
+      "liveRowCount": 5,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 5,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 5,
+      "primaryKey": "id",
+      "foreignKeysCount": 0,
+      "rlsPoliciesCount": 9,
+      "triggersCount": 1,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "push_subscriptions",
+      "liveRowCount": 0,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "id",
+      "foreignKeysCount": 1,
+      "rlsPoliciesCount": 4,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "rate_limit_buckets",
+      "liveRowCount": 12,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 12,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "key, window_start",
+      "foreignKeysCount": 0,
+      "rlsPoliciesCount": 0,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "reconciliation_audit_logs",
+      "liveRowCount": 0,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "id",
+      "foreignKeysCount": 5,
+      "rlsPoliciesCount": 2,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "salary_payments",
+      "liveRowCount": 5,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 1,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 4,
+      "rlsPoliciesCount": 14,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "salary_records",
+      "liveRowCount": 7,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 1,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 1,
+      "rlsPoliciesCount": 14,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "salary_requests",
+      "liveRowCount": 5,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 3,
+      "rlsPoliciesCount": 17,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "sales_commissions",
+      "liveRowCount": 8,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 4,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 6,
+      "rlsPoliciesCount": 5,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "security_alerts",
+      "liveRowCount": 7,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "id",
+      "foreignKeysCount": 3,
+      "rlsPoliciesCount": 0,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "service_commitments",
+      "liveRowCount": 8,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 8,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "id",
+      "foreignKeysCount": 5,
+      "rlsPoliciesCount": 3,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "site_settings",
+      "liveRowCount": 1,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 1,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 1,
+      "primaryKey": "key",
+      "foreignKeysCount": 0,
+      "rlsPoliciesCount": 2,
+      "triggersCount": 1,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "social_reels",
+      "liveRowCount": 3,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 3,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 3,
+      "primaryKey": "id",
+      "foreignKeysCount": 0,
+      "rlsPoliciesCount": 4,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "sponsoring_campaigns",
+      "liveRowCount": 5,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 4,
+      "rlsPoliciesCount": 2,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "subscriptions",
+      "liveRowCount": 16,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 1,
+      "rlsPoliciesCount": 4,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "system_audit_logs",
+      "liveRowCount": 722,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 1,
+      "rlsPoliciesCount": 3,
+      "triggersCount": 4,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "task_handoffs",
+      "liveRowCount": 0,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "id",
+      "foreignKeysCount": 7,
+      "rlsPoliciesCount": 3,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "team_members",
+      "liveRowCount": 370,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 370,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 2,
+      "rlsPoliciesCount": 17,
+      "triggersCount": 1,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "testimonials",
+      "liveRowCount": 0,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 2,
+      "rlsPoliciesCount": 9,
+      "triggersCount": 1,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "user_module_permissions",
+      "liveRowCount": 317,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 0,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 1,
+      "rlsPoliciesCount": 3,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "user_roles",
+      "liveRowCount": 379,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 1,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 1,
+      "rlsPoliciesCount": 4,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "user_sessions",
+      "liveRowCount": 112,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 26,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "id",
+      "foreignKeysCount": 2,
+      "rlsPoliciesCount": 2,
+      "triggersCount": 2,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "work_sessions",
+      "liveRowCount": 16,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 12,
+      "anonymousAccessible": false,
+      "anonymousRowCount": null,
+      "primaryKey": "id",
+      "foreignKeysCount": 5,
+      "rlsPoliciesCount": 9,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "workflow_stages",
+      "liveRowCount": 7,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 7,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "id",
+      "foreignKeysCount": 2,
+      "rlsPoliciesCount": 5,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "workflow_templates",
+      "liveRowCount": 4,
+      "superAdminAccessible": true,
+      "workerAccessible": true,
+      "workerRowCount": 4,
+      "anonymousAccessible": true,
+      "anonymousRowCount": 0,
+      "primaryKey": "id",
+      "foreignKeysCount": 0,
+      "rlsPoliciesCount": 5,
+      "triggersCount": 0,
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    }
+  ],
+  "entities": [
+    {
+      "name": "User Accounts & Roles",
+      "canonicalTable": "public.profiles + public.user_roles",
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "Granular Permissions",
+      "canonicalTable": "public.user_module_permissions",
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "Client CRM & Workspaces",
+      "canonicalTable": "public.clients + public.client_projects",
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "Master Package Catalog",
+      "canonicalTable": "public.package_catalog",
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "Tasks, Subtasks & Workflows",
+      "canonicalTable": "public.project_tasks",
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "Sales Pipeline & Commissions",
+      "canonicalTable": "public.deals + public.sales_commissions",
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "Financial Treasury & Cash Ledger",
+      "canonicalTable": "public.financial_accounts + public.income_transactions",
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "Worker Salaries & Compensation",
+      "canonicalTable": "public.salary_records + public.salary_payments",
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "Business Rules Engine",
+      "canonicalTable": "public.business_rules",
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "Session Control & Security",
+      "canonicalTable": "public.user_sessions",
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "name": "Immutable Audit Trail",
+      "canonicalTable": "public.system_audit_logs",
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    }
+  ],
+  "routes": [
+    {
+      "path": "/about",
+      "file": "about.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 1,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/accounts",
+      "file": "admin.accounts.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 7,
+      "tablesWrittenCount": 3,
+      "rpcsCount": 21
+    },
+    {
+      "path": "/admin/analytics",
+      "file": "admin.analytics.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 11,
+      "tablesWrittenCount": 2,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/blog/:id",
+      "file": "admin.blog.$id.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 4,
+      "tablesWrittenCount": 2,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/blog",
+      "file": "admin.blog.index.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 5,
+      "tablesWrittenCount": 3,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/blog",
+      "file": "admin.blog.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/business-rules",
+      "file": "admin.business-rules.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 8,
+      "tablesWrittenCount": 2,
+      "rpcsCount": 3
+    },
+    {
+      "path": "/admin/calendar",
+      "file": "admin.calendar.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 7,
+      "tablesWrittenCount": 3,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/client-projects/:id",
+      "file": "admin.client-projects.$id.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 1,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/client-projects",
+      "file": "admin.client-projects.index.tsx",
+      "status": "VERIFIED_DERIVED_PROJECTION",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/client-projects",
+      "file": "admin.client-projects.tsx",
+      "status": "VERIFIED_DERIVED_PROJECTION",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/client-workspaces/:id",
+      "file": "admin.client-workspaces.$id.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 20,
+      "tablesWrittenCount": 12,
+      "rpcsCount": 4
+    },
+    {
+      "path": "/admin/client-workspaces",
+      "file": "admin.client-workspaces.index.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 14,
+      "tablesWrittenCount": 10,
+      "rpcsCount": 3
+    },
+    {
+      "path": "/admin/client-workspaces",
+      "file": "admin.client-workspaces.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/clients/:id",
+      "file": "admin.clients.$id.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/clients",
+      "file": "admin.clients.index.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/clients",
+      "file": "admin.clients.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/commissions",
+      "file": "admin.commissions.tsx",
+      "status": "VERIFIED_DERIVED_PROJECTION",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/contact",
+      "file": "admin.contact.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 4,
+      "tablesWrittenCount": 2,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/deals",
+      "file": "admin.deals.tsx",
+      "status": "VERIFIED_DERIVED_PROJECTION",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/finance",
+      "file": "admin.finance.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 19,
+      "tablesWrittenCount": 13,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin",
+      "file": "admin.index.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 12,
+      "tablesWrittenCount": 3,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/my-salary",
+      "file": "admin.my-salary.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 20,
+      "tablesWrittenCount": 14,
+      "rpcsCount": 3
+    },
+    {
+      "path": "/admin/my-work",
+      "file": "admin.my-work.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 9,
+      "tablesWrittenCount": 5,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/packages",
+      "file": "admin.packages.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 6,
+      "tablesWrittenCount": 4,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/products/:id",
+      "file": "admin.products.$id.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 4,
+      "tablesWrittenCount": 2,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/products",
+      "file": "admin.products.index.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 4,
+      "tablesWrittenCount": 2,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/products",
+      "file": "admin.products.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/projects/:id",
+      "file": "admin.projects.$id.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 5,
+      "tablesWrittenCount": 3,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/projects",
+      "file": "admin.projects.index.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 4,
+      "tablesWrittenCount": 2,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/projects",
+      "file": "admin.projects.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/reels",
+      "file": "admin.reels.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 4,
+      "tablesWrittenCount": 2,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/salary",
+      "file": "admin.salary.tsx",
+      "status": "VERIFIED_DERIVED_PROJECTION",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/sales",
+      "file": "admin.sales.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/settings/business-rules",
+      "file": "admin.settings.business-rules.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin/team-workload",
+      "file": "admin.team-workload.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 5,
+      "tablesWrittenCount": 2,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/testimonials/:id",
+      "file": "admin.testimonials.$id.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 6,
+      "tablesWrittenCount": 2,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/testimonials",
+      "file": "admin.testimonials.index.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 5,
+      "tablesWrittenCount": 2,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/testimonials",
+      "file": "admin.testimonials.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/admin",
+      "file": "admin.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 3,
+      "tablesWrittenCount": 1,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/admin/workflow-templates",
+      "file": "admin.workflow-templates.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 6,
+      "tablesWrittenCount": 5,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/auth",
+      "file": "auth.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 3,
+      "tablesWrittenCount": 1,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/blog/:slug",
+      "file": "blog.$slug.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 2,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/blog",
+      "file": "blog.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 2,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/case-studies/:slug",
+      "file": "case-studies.$slug.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 5,
+      "tablesWrittenCount": 1,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/case-studies",
+      "file": "case-studies.index.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 1,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/case-studies",
+      "file": "case-studies.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/contact",
+      "file": "contact.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/",
+      "file": "index.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/portfolio/:slug",
+      "file": "portfolio.$slug.tsx",
+      "status": "VERIFIED_DERIVED_PROJECTION",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/portfolio",
+      "file": "portfolio.tsx",
+      "status": "VERIFIED_DERIVED_PROJECTION",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/pricing",
+      "file": "pricing.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 3,
+      "tablesWrittenCount": 3,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/products/:id",
+      "file": "products.$id.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/products",
+      "file": "products.tsx",
+      "status": "HARDCODED_OR_MOCKED",
+      "tablesReadCount": 0,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/reset-password",
+      "file": "reset-password.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 3,
+      "tablesWrittenCount": 1,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/sada-os",
+      "file": "sada-os.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 3,
+      "tablesWrittenCount": 1,
+      "rpcsCount": 2
+    },
+    {
+      "path": "/services",
+      "file": "services.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 1,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/store/:id",
+      "file": "store.$id.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 1,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/store",
+      "file": "store.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 1,
+      "tablesWrittenCount": 0,
+      "rpcsCount": 0
+    },
+    {
+      "path": "/__root",
+      "file": "__root.tsx",
+      "status": "VERIFIED_CANONICAL_SOURCE",
+      "tablesReadCount": 3,
+      "tablesWrittenCount": 1,
+      "rpcsCount": 2
+    }
+  ],
+  "risks": [
+    {
+      "id": "RISK-01",
+      "severity": "HIGH",
+      "title": "Schema drift between types.ts (35 tables) and live schema (53 tables)"
+    },
+    {
+      "id": "RISK-02",
+      "severity": "MEDIUM",
+      "title": "Legacy public.packages table retention alongside canonical package_catalog"
+    },
+    {
+      "id": "RISK-03",
+      "severity": "MEDIUM",
+      "title": "Dual identity attributes across profiles and team_members"
+    },
+    {
+      "id": "RISK-04",
+      "severity": "LOW",
+      "title": "8 tables with 0 rows in current live environment"
+    },
+    {
+      "id": "RISK-05",
+      "severity": "LOW",
+      "title": "Semantic naming overlap between public.projects (CMS) and public.client_projects (Work OS)"
+    }
+  ]
+}

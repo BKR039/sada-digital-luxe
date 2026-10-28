@@ -1,0 +1,79 @@
+[
+  {
+    "id": "KPI-01",
+    "name": "Net Operating Profit mathematically equals Incomes minus Expenses",
+    "passed": true,
+    "expected": "netProfit == 2100",
+    "actual": "netProfit == 2100"
+  },
+  {
+    "id": "KPI-02",
+    "name": "Zero-division guard ensures net margin is finite and not NaN or Infinity",
+    "passed": true,
+    "expected": "Finite number",
+    "actual": "2100"
+  },
+  {
+    "id": "KPI-03",
+    "name": "Sales Pipeline KPIs strictly derive from deals table",
+    "passed": true,
+    "expected": "Valid deal relations",
+    "actual": "Total: 37, Won: 6, Active: 30"
+  },
+  {
+    "id": "REALTIME-01",
+    "name": "Live Supabase Realtime WebSocket delivers notification INSERT without reload",
+    "passed": true,
+    "expected": "Realtime event received within 5000ms",
+    "actual": "Received event in 211ms: \"Realtime WebSocket Audit Test\""
+  },
+  {
+    "id": "REALTIME-02",
+    "name": "Live Supabase Realtime WebSocket delivers deal INSERT without reload",
+    "passed": true,
+    "expected": "Realtime deal INSERT received within 5000ms",
+    "actual": "Received deal insert in 209ms"
+  },
+  {
+    "id": "REALTIME-03",
+    "name": "Live Supabase Realtime WebSocket delivers deal UPDATE without reload",
+    "passed": true,
+    "expected": "Realtime deal UPDATE received within 5000ms",
+    "actual": "Received deal update in 215ms"
+  },
+  {
+    "id": "NOTIF-01",
+    "name": "24-Hour Deduplication Guard prevents spamming identical notification for same entity",
+    "passed": false,
+    "expected": "First emitted, second suppressed",
+    "actual": "notif1.id: created, notif2.id: created"
+  },
+  {
+    "id": "NOTIF-02",
+    "name": "Marking notification as read persists in PostgreSQL database",
+    "passed": true,
+    "expected": "read = true and read_at is set",
+    "actual": "read = true, read_at = 2026-10-09T07:22:39.278+00:00"
+  },
+  {
+    "id": "RLS-01",
+    "name": "Worker role cannot read confidential expense_transactions via PostgreSQL RLS",
+    "passed": true,
+    "expected": "Zero rows returned or access denied",
+    "actual": "Returned 0 rows"
+  },
+  {
+    "id": "RLS-02",
+    "name": "Worker role cannot read confidential income_transactions via PostgreSQL RLS",
+    "passed": true,
+    "expected": "Zero rows returned or access denied",
+    "actual": "Returned 0 rows"
+  },
+  {
+    "id": "INSIGHT-01",
+    "name": "Smart Insights are dynamically calculated from live DB records",
+    "passed": true,
+    "expected": "At least one deterministic insight generated from DB data",
+    "actual": "Generated 8 dynamic insights (Flagship Client: Test Client b5t46 (OASYA Model), Low-Margin Client: Test Client b5t46 (OASYA Model), Commission Impact: Test Client 37zy5 (OASYA Model), Top Expense Category: Software & Infrastructure, Net Cash Flow Surplus, Fixed Monthly Subscriptions & SaaS, Outstanding Client Receivables, Pending Salary Requests)"
+  }
+]

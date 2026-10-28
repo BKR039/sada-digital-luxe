@@ -1,0 +1,178 @@
+[
+  {
+    "id": "UX-01",
+    "category": "K. UI/UX & Responsive",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Desktop 1440x900 Dark Overview Mounts Cleanly",
+    "status": "PASS",
+    "details": "Mounted overview with KPIs and live telemetry header",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\desktop_1440x900_dark_overview.png"
+  },
+  {
+    "id": "UX-02",
+    "category": "K. UI/UX & Responsive",
+    "viewport": "1440x900",
+    "theme": "light",
+    "locale": "ar",
+    "title": "Desktop 1440x900 Light Mode RTL Layout Consistency",
+    "status": "PASS",
+    "details": "RTL direction active, Arabic typography applied",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\desktop_1440x900_light_rtl_overview.png"
+  },
+  {
+    "id": "UX-03",
+    "category": "A. Account Directory",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Accounts Directory Tab Renders Filters and Table",
+    "status": "PASS",
+    "details": "Search bar, role dropdown, and accounts table visible",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\desktop_tab_accounts_directory.png"
+  },
+  {
+    "id": "UX-04",
+    "category": "F. Sessions & Devices",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Active Sessions Tab Renders Device Rows",
+    "status": "PASS",
+    "details": "Sessions table and revocation controls rendered",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\desktop_tab_sessions.png"
+  },
+  {
+    "id": "UX-05",
+    "category": "H. Audit Logs",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "locale": "en",
+    "title": "System Audit Logs & Security Alerts Tab Displays Records",
+    "status": "PASS",
+    "details": "Audit records with actor/target and alerts rendered",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\desktop_tab_audit_and_alerts.png"
+  },
+  {
+    "id": "UX-06",
+    "category": "A. Account Directory",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Account Details Drawer: Identity & Profile Tab",
+    "status": "PASS",
+    "details": "Drawer opens with target user details, editable fields and role dropdown",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\drawer_tab_1_identity.png"
+  },
+  {
+    "id": "UX-07",
+    "category": "D. Module Permissions",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Account Details Drawer: Module Permissions Tab",
+    "status": "PASS",
+    "details": "Module permission switches rendered with operational presets",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\drawer_tab_2_permissions.png"
+  },
+  {
+    "id": "UX-08",
+    "category": "F. Sessions & Devices",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Account Details Drawer: Active Sessions Tab",
+    "status": "PASS",
+    "details": "Per-user session list and revoke buttons displayed",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\drawer_tab_3_sessions.png"
+  },
+  {
+    "id": "UX-09",
+    "category": "H. Audit Logs",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Account Details Drawer: Activity Logs Tab",
+    "status": "PASS",
+    "details": "User activity history rendered with timestamps",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\drawer_tab_4_activity.png"
+  },
+  {
+    "id": "UX-10",
+    "category": "G. Security Alerts",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Account Details Drawer: Security & Alerts Tab",
+    "status": "PASS",
+    "details": "Security incidents and anomalies for user displayed",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\drawer_tab_5_security.png"
+  },
+  {
+    "id": "UX-11",
+    "category": "E. Account Lifecycle",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Account Details Drawer: Danger Zone Tab",
+    "status": "PASS",
+    "details": "Emergency suspension, reactivation, and sign-out everywhere actions mounted",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\drawer_tab_6_danger.png"
+  },
+  {
+    "id": "UX-12",
+    "category": "B. Account Creation",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Create Account Modal Step 1 (Identity & Role)",
+    "status": "PASS",
+    "details": "Dialog opens with full name, email, role selector, and division fields",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\modal_create_account_step1.png"
+  },
+  {
+    "id": "UX-13",
+    "category": "K. UI/UX & Responsive",
+    "viewport": "1280x800",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Desktop 1280x800 Viewport Renders without Horizontal Overflow",
+    "status": "PASS",
+    "details": "Layout adapts seamlessly with proportional padding and readable cards",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\desktop_1280x800_accounts.png"
+  },
+  {
+    "id": "UX-14",
+    "category": "K. UI/UX & Responsive",
+    "viewport": "768x1024",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Tablet 768x1024 Viewport Responsive Layout",
+    "status": "PASS",
+    "details": "KPI grid wraps cleanly, table scrolls horizontally with sticky controls",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\tablet_768x1024_accounts.png"
+  },
+  {
+    "id": "UX-15",
+    "category": "K. UI/UX & Responsive",
+    "viewport": "390x844",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Mobile 390x844 Viewport Mobile Friendly Layout",
+    "status": "PASS",
+    "details": "Mobile navigation preserved, touch targets accessible",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\mobile_390x844_accounts.png"
+  },
+  {
+    "id": "UX-16",
+    "category": "K. UI/UX & Responsive",
+    "viewport": "375x667",
+    "theme": "dark",
+    "locale": "en",
+    "title": "Compact Mobile 375x667 Viewport Layout",
+    "status": "PASS",
+    "details": "No text clipping, responsive typography maintains hierarchy",
+    "screenshot": "B:\\Work\\DIGITOUS\\SADA\\SADA Website\\sada-digital-luxe\\scripts\\screenshots\\phase1_audit\\mobile_375x667_accounts.png"
+  }
+]

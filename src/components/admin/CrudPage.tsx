@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Plus, Trash2, Pencil, X, Search } from "lucide-react";
 import { MediaUpload, MediaUploadMulti } from "@/components/media/MediaUpload";
 import { SmartMedia } from "@/components/media/SmartMedia";
+import { SADADatePicker, SADASwitch, SADAInput, SADATextarea, SADACounter, SADADialog, SADAConfirmDialog } from "@/components/ui/sada-ui";
 
 export interface FieldDef {
   name: string;
@@ -70,10 +71,21 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
     setOpen(false); setEditing(null); setDraft({}); load();
   };
 
-  const remove = async (id: string) => {
-    if (!confirm("Delete this item?")) return;
-    const { error } = await (supabase as any).from(table).delete().eq("id", id);
-    if (error) toast.error(error.message); else { toast.success("Deleted"); load(); }
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
+
+  const confirmDelete = async () => {
+    if (!deleteTargetId) return;
+    setDeleting(true);
+    const { error } = await (supabase as any).from(table).delete().eq("id", deleteTargetId);
+    setDeleting(false);
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success("Deleted");
+      setDeleteTargetId(null);
+      load();
+    }
   };
 
   const filtered = q
@@ -116,58 +128,137 @@ export function CrudPage({ table, title, fields, display, orderBy = "created_at"
                 </div>
               </div>
               <div className="flex gap-2 shrink-0">
-                <button onClick={() => openEdit(r)} className="size-9 grid place-items-center rounded-lg border border-border bg-card hover:bg-primary hover:text-white hover:border-primary transition-colors" aria-label="Edit"><Pencil className="size-4" /></button>
-                <button onClick={() => remove(r.id)} className="size-9 grid place-items-center rounded-lg border border-border bg-card hover:bg-destructive hover:text-white hover:border-destructive transition-colors" aria-label="Delete"><Trash2 className="size-4" /></button>
+                <button onClick={() => openEdit(r)} className="size-9 grid place-items-center rounded-lg border border-border bg-card hover:bg-primary hover:text-white hover:border-primary transition-colors cursor-pointer" aria-label="Edit"><Pencil className="size-4" /></button>
+                <button onClick={() => setDeleteTargetId(r.id)} className="size-9 grid place-items-center rounded-lg border border-border bg-card hover:bg-destructive hover:text-white hover:border-destructive transition-colors cursor-pointer" aria-label="Delete"><Trash2 className="size-4" /></button>
               </div>
             </div>
           );
         })}
       </div>
 
-      {open && (
-        <div className="fixed inset-0 z-50 grid place-items-center p-4 bg-foreground/40 backdrop-blur-md animate-in fade-in" onClick={() => setOpen(false)}>
-          <form onSubmit={save} onClick={(e) => e.stopPropagation()} className="bg-card border border-border rounded-3xl elevated-shadow w-full max-w-2xl max-h-[92vh] overflow-y-auto animate-in zoom-in-95 fade-in">
-            <div className="flex items-center justify-between sticky top-0 bg-card/95 backdrop-blur px-6 py-4 z-10 rounded-t-3xl border-b border-border">
-              <h2 className="font-display text-xl font-bold">{editing ? "Edit" : "New"} {title.replace(/s$/, "")}</h2>
-              <button type="button" onClick={() => setOpen(false)} className="size-8 grid place-items-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"><X className="size-4" /></button>
-            </div>
-            <div className="space-y-4 px-6 py-5">
-              {fields.map((f) => (
-                <label key={f.name} className="block">
-                  <span className="text-xs uppercase tracking-wider text-muted-foreground">{f.label}{f.required && " *"}</span>
-                  <div className="mt-1.5">
-                    {f.type === "media" ? (
-                      <MediaUpload value={draft[f.name] ?? ""} onChange={(v) => setField(f.name, v)} folder={f.folder || table} label={f.placeholder || `Upload ${f.label}`} />
-                    ) : f.type === "media-list" ? (
-                      <MediaUploadMulti value={draft[f.name] || []} onChange={(v) => setField(f.name, v)} folder={f.folder || table} />
-                    ) : f.type === "textarea" ? (
-                      <textarea name={f.name} defaultValue={editing?.[f.name] ?? ""} required={f.required} rows={4} placeholder={f.placeholder} className="w-full bg-background border border-border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all" />
-                    ) : f.type === "boolean" ? (
-                      <input type="checkbox" name={f.name} defaultChecked={editing?.[f.name] ?? false} className="size-5 accent-primary" />
-                    ) : f.type === "tags" ? (
-                      <input name={f.name} defaultValue={(editing?.[f.name] || []).join(", ")} placeholder={f.placeholder || "comma, separated"} className="w-full bg-background border border-border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all" />
-                    ) : f.type === "json" ? (
-                      <textarea name={f.name} defaultValue={editing?.[f.name] ? JSON.stringify(editing[f.name], null, 2) : ""} rows={4} placeholder={f.placeholder || '{ "instagram": "https://..." }'}
-                        onBlur={(e) => { try { setField(f.name, e.target.value ? JSON.parse(e.target.value) : {}); } catch { /* keep raw */ } }}
-                        className="w-full bg-background border border-border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all font-mono text-xs" />
-                    ) : (
-                      <input type={f.type === "number" ? "number" : f.type === "date" ? "date" : f.type === "url" ? "url" : "text"}
-                        step="any" name={f.name} placeholder={f.placeholder}
-                        defaultValue={editing?.[f.name] ?? ""} required={f.required}
-                        className="w-full bg-background border border-border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all" />
-                    )}
-                    {f.help && <div className="text-[11px] text-muted-foreground mt-1">{f.help}</div>}
+      <SADADialog
+        open={open}
+        onOpenChange={(isOpen) => {
+          setOpen(isOpen);
+          if (!isOpen) {
+            setEditing(null);
+            setDraft({});
+          }
+        }}
+        size="large"
+        title={`${editing ? "Edit" : "New"} ${title.replace(/s$/, "")}`}
+        footer={
+          <div className="flex gap-2.5 justify-end w-full">
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                setEditing(null);
+                setDraft({});
+              }}
+              className="px-4 py-2 rounded-xl border border-border text-foreground hover:bg-muted transition-colors text-xs font-semibold cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              form="crud-form"
+              className="bg-primary text-white px-5 py-2 rounded-xl text-xs font-semibold hover:opacity-90 transition-opacity cursor-pointer"
+            >
+              Save changes
+            </button>
+          </div>
+        }
+      >
+        <form id="crud-form" onSubmit={save} className="space-y-4">
+          {fields.map((f) => (
+            <label key={f.name} className="block">
+              <span className="text-xs uppercase tracking-wider text-muted-foreground">{f.label}{f.required && " *"}</span>
+              <div className="mt-1.5">
+                {f.type === "media" ? (
+                  <MediaUpload value={draft[f.name] ?? ""} onChange={(v) => setField(f.name, v)} folder={f.folder || table} label={f.placeholder || `Upload ${f.label}`} />
+                ) : f.type === "media-list" ? (
+                  <MediaUploadMulti value={draft[f.name] || []} onChange={(v) => setField(f.name, v)} folder={f.folder || table} />
+                ) : f.type === "textarea" ? (
+                  <SADATextarea
+                    name={f.name}
+                    defaultValue={editing?.[f.name] ?? ""}
+                    required={f.required}
+                    rows={4}
+                    placeholder={f.placeholder}
+                    onChange={(e) => setField(f.name, e.target.value)}
+                  />
+                ) : f.type === "boolean" ? (
+                  <div className="pt-1">
+                    <SADASwitch
+                      id={`crud-bool-${f.name}`}
+                      name={f.name}
+                      checked={Boolean(draft[f.name] ?? editing?.[f.name] ?? false)}
+                      onCheckedChange={(val) => setField(f.name, val)}
+                      label={f.label}
+                    />
                   </div>
-                </label>
-              ))}
-            </div>
-            <div className="flex gap-3 justify-end sticky bottom-0 bg-card/95 backdrop-blur px-6 py-4 rounded-b-3xl border-t border-border">
-              <button type="button" onClick={() => setOpen(false)} className="px-5 py-2.5 rounded-xl border border-border text-foreground hover:bg-muted transition-colors">Cancel</button>
-              <button type="submit" className="bg-gradient-primary text-white px-6 py-2.5 rounded-xl font-semibold neon-glow hover:scale-[1.03] transition-transform">Save changes</button>
-            </div>
-          </form>
-        </div>
-      )}
+                ) : f.type === "number" ? (
+                  <SADACounter
+                    name={f.name}
+                    value={draft[f.name] !== undefined ? Number(draft[f.name]) : (editing?.[f.name] !== undefined ? Number(editing[f.name]) : 0)}
+                    onChange={(val) => setField(f.name, val)}
+                    className="w-full"
+                  />
+                ) : f.type === "tags" ? (
+                  <SADAInput
+                    name={f.name}
+                    defaultValue={(editing?.[f.name] || []).join(", ")}
+                    placeholder={f.placeholder || "comma, separated"}
+                    onChange={(e) => setField(f.name, e.target.value.split(",").map(t => t.trim()).filter(Boolean))}
+                  />
+                ) : f.type === "json" ? (
+                  <SADATextarea
+                    name={f.name}
+                    defaultValue={editing?.[f.name] ? JSON.stringify(editing[f.name], null, 2) : ""}
+                    rows={4}
+                    placeholder={f.placeholder || '{ "instagram": "https://..." }'}
+                    onBlur={(e) => {
+                      if (!e.target.value.trim()) { setField(f.name, null); return; }
+                      try { setField(f.name, JSON.parse(e.target.value)); }
+                      catch { toast.error(`${f.label} is not valid JSON — this field won't be saved until it's fixed.`); }
+                    }}
+                    className="font-mono text-xs"
+                  />
+                ) : f.type === "date" ? (
+                  <SADADatePicker
+                    name={f.name}
+                    value={draft[f.name] ?? editing?.[f.name] ?? ""}
+                    onChange={(val) => setField(f.name, val)}
+                    placeholder={f.placeholder || `Select ${f.label.toLowerCase()}...`}
+                  />
+                ) : (
+                  <SADAInput
+                    type={f.type === "url" ? "url" : "text"}
+                    name={f.name}
+                    placeholder={f.placeholder}
+                    defaultValue={editing?.[f.name] ?? ""}
+                    required={f.required}
+                    onChange={(e) => setField(f.name, e.target.value)}
+                  />
+                )}
+                {f.help && <div className="text-[11px] text-muted-foreground mt-1">{f.help}</div>}
+              </div>
+            </label>
+          ))}
+        </form>
+      </SADADialog>
+
+      <SADAConfirmDialog
+        open={Boolean(deleteTargetId)}
+        onOpenChange={(isOpen) => !isOpen && setDeleteTargetId(null)}
+        title="Delete Item?"
+        description="Are you sure you want to permanently delete this item? This action cannot be undone."
+        confirmLabel={deleting ? "Deleting…" : "Delete Item"}
+        variant="destructive"
+        isLoading={deleting}
+        onConfirm={confirmDelete}
+      />
     </div>
   );
 }

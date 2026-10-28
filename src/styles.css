@@ -2,6 +2,115 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* ============================================================
+   SADA CANONICAL ARABIC TYPOGRAPHY: THMANYAH SERIF TEXT
+   Family: "Thmanyah Serif Text"
+   Source: /fonts/thmanyahseriftext-*.otf
+   ============================================================ */
+
+/* Light (300) & Ultra-Light fallback (200) */
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyahseriftext-Light.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyahseriftext-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Regular (400) */
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyahseriftext-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Medium (500) */
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyahseriftext-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold (700) & SemiBold mapping (600) */
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyahseriftext-Bold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyahseriftext-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Black (900) & ExtraBold mapping (800) */
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyahseriftext-Black.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyahseriftext-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Aliases for 'Thmanyah' brand name */
+@font-face {
+  font-family: 'Thmanyah';
+  src: url('/fonts/thmanyahseriftext-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah';
+  src: url('/fonts/thmanyahseriftext-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah';
+  src: url('/fonts/thmanyahseriftext-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah';
+  src: url('/fonts/thmanyahseriftext-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah';
+  src: url('/fonts/thmanyahseriftext-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -32,49 +141,69 @@
   --color-glow: var(--glow);
   --color-cyan: var(--cyan);
   --font-display: var(--font-display);
+  --font-heading: var(--font-display);
   --font-sans: var(--font-sans);
+  --font-arabic: var(--font-arabic);
+  --font-thmanyah: var(--font-thmanyah);
+  --font-felfel: var(--font-felfel);
 }
 
-/* LIGHT — default. Apple/Stripe inspired clean white with SADA blues. */
+/* LIGHT — SADA Design System v2 Canonical Tokens. */
 :root {
-  --radius: 1rem;
-  --background: oklch(0.99 0.005 250);            /* near-white */
-  --foreground: oklch(0.18 0.04 260);             /* dark navy */
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.04 260);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.04 260);
-  --primary: oklch(0.62 0.22 252);                /* electric blue */
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.97 0.01 250);              /* very light gray */
-  --secondary-foreground: oklch(0.22 0.05 260);
-  --muted: oklch(0.96 0.012 250);
-  --muted-foreground: oklch(0.46 0.03 258);
-  --accent: oklch(0.7 0.16 230);                  /* cyan */
-  --accent-foreground: oklch(0.13 0.04 260);
+  --radius: 0.75rem;                              /* 12px canonical --radius-md */
+
+  /* SADA Design System v2 Primitives & Semantics */
+  --sada-primary: #0167ea;                        /* SADA blue-800 · #0167EA */
+  --sada-cyan: #18c7f7;                           /* SADA cyan-500 · #18C7F7 */
+  --sada-blue-glow: rgba(1, 103, 234, 0.42);
+  --sada-cyan-glow: rgba(24, 199, 247, 0.38);
+  --sada-gradient: linear-gradient(135deg, #18c7f7 0%, #0167ea 100%);
+  --sada-gradient-hover: linear-gradient(135deg, #33cdf8 0%, #1b6dff 100%);
+
+  --background: #f7fafc;                          /* near-white canvas */
+  --foreground: #1a1f27;                          /* SADA ink · #1A1F27 */
+  --card: #ffffff;                                /* SADA slate-0 */
+  --card-foreground: #1a1f27;
+  --popover: #ffffff;
+  --popover-foreground: #1a1f27;
+  --primary: var(--sada-primary);                 /* canonical SADA blue */
+  --primary-foreground: #ffffff;
+  --secondary: #f1f4fd;                           /* SADA blue-100 */
+  --secondary-foreground: #0b4db8;
+  --muted: #f1f5f9;
+  --muted-foreground: #5c636e;                    /* SADA slate-700 · #5C636E */
+  --accent: var(--sada-primary);
+  --accent-foreground: #ffffff;
   --destructive: oklch(0.62 0.24 27);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.92 0.01 255);
-  --input: oklch(0.96 0.01 255);
-  --ring: oklch(0.62 0.22 252);
-  --glow: oklch(0.7 0.22 250);
-  --cyan: oklch(0.78 0.15 220);
+  --destructive-foreground: #ffffff;
+  --border: #dcdcdc;                             /* SADA border-hairline · #DCDCDC */
+  --input: #dcdcdc;
+  --ring: var(--sada-primary);
+  --glow: var(--sada-blue-glow);
+  --cyan: var(--sada-cyan);
 
-  --font-display: 'Sora', 'Space Grotesk', system-ui, sans-serif;
-  --font-sans: 'Manrope', 'Inter', system-ui, sans-serif;
-  --font-accent: 'Orbitron', 'Sora', system-ui, sans-serif;
+  --font-display: 'Sora', 'Space Grotesk', 'Thmanyah Serif Text', system-ui, sans-serif;
+  --font-sans: 'Manrope', 'Inter', 'Thmanyah Serif Text', system-ui, sans-serif;
+  --font-accent: 'Orbitron', 'Sora', 'Thmanyah Serif Text', system-ui, sans-serif;
+  --font-arabic: 'Thmanyah Serif Text', 'Manrope', 'Sora', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-thmanyah: 'Thmanyah Serif Text', system-ui, sans-serif;
+  --font-felfel: 'Thmanyah Serif Text', system-ui, sans-serif;
 
-  --gradient-primary: linear-gradient(135deg, oklch(0.62 0.22 252) 0%, oklch(0.78 0.15 220) 100%);
-  --gradient-soft: linear-gradient(180deg, oklch(0.99 0.005 250) 0%, oklch(0.96 0.015 240) 100%);
-  --gradient-text: linear-gradient(135deg, oklch(0.55 0.24 256) 0%, oklch(0.7 0.16 230) 100%);
-  --gradient-hero: radial-gradient(900px 500px at 100% -10%, oklch(0.78 0.15 220 / 0.18), transparent 60%),
-                   radial-gradient(700px 400px at -10% 110%, oklch(0.62 0.22 252 / 0.14), transparent 55%);
+  --gradient-primary: var(--sada-gradient);
+  --gradient-soft: linear-gradient(180deg, #f7fafc 0%, #f1f4fd 100%);
+  --gradient-text: linear-gradient(135deg, #18c7f7 0%, #0167ea 100%);
+  --gradient-hero: radial-gradient(900px 500px at 100% -10%, rgba(24, 199, 247, 0.08), transparent 60%),
+                   radial-gradient(700px 400px at -10% 110%, rgba(1, 103, 234, 0.06), transparent 55%);
 
-  --shadow-soft: 0 1px 2px oklch(0.2 0.05 260 / 0.04), 0 8px 24px -12px oklch(0.2 0.05 260 / 0.12);
-  --shadow-card: 0 1px 0 oklch(1 0 0 / 0.6) inset, 0 1px 2px oklch(0.2 0.05 260 / 0.04), 0 12px 32px -16px oklch(0.2 0.05 260 / 0.18);
-  --shadow-glow: 0 10px 30px -10px oklch(0.62 0.22 252 / 0.45);
-  --shadow-glow-cyan: 0 14px 40px -14px oklch(0.7 0.16 230 / 0.5);
-  --shadow-elevated: 0 24px 60px -24px oklch(0.2 0.05 260 / 0.22);
+  --shadow-soft: 0 1px 2px rgba(26, 31, 39, 0.04), 0 8px 24px -12px rgba(26, 31, 39, 0.08);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 1px 3px rgba(26, 31, 39, 0.04), 0 12px 32px -16px rgba(26, 31, 39, 0.08);
+  --shadow-glow: 0 8px 24px -6px rgba(1, 103, 234, 0.55);
+  --shadow-glow-cyan: 0 12px 36px -10px rgba(24, 199, 247, 0.45);
+  --shadow-elevated: 0 20px 50px -20px rgba(26, 31, 39, 0.14);
+
+  /* SADA Skeleton Tokens */
+  --sada-skeleton-base: color-mix(in oklab, var(--muted) 88%, transparent);
+  --sada-skeleton-shimmer-highlight: rgba(255, 255, 255, 0.65);
 }
 
 /* DARK — luxury navy retained, SADA blue identity */
@@ -96,6 +225,9 @@
   --border: oklch(0.3 0.04 260 / 0.5);
   --input: oklch(0.22 0.04 260 / 0.6);
   --ring: oklch(0.66 0.22 250);
+
+  --sada-skeleton-base: color-mix(in oklab, var(--muted) 82%, var(--card));
+  --sada-skeleton-shimmer-highlight: oklch(0.98 0.005 260 / 0.07);
 
   --gradient-soft: linear-gradient(180deg, oklch(0.14 0.04 260) 0%, oklch(0.18 0.05 260) 100%);
   --gradient-text: linear-gradient(135deg, #ffffff 0%, oklch(0.82 0.18 220) 60%, oklch(0.66 0.22 250) 100%);
@@ -119,18 +251,179 @@
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
+
+/* ============================================================
+   SADA GLOBAL ARABIC TYPOGRAPHY SYSTEM (THMANYAH SERIF TEXT CANONICAL)
+   - When active language is Arabic / RTL: Thmanyah Serif Text is the canonical UI font
+   - When active language is English: English typography (Sora/Manrope) is unchanged
+   - Mixed content: Arabic characters render with Thmanyah Serif Text, Latin retains Manrope/Sora
+   ============================================================ */
+html[dir="rtl"],
+html[lang="ar"],
+[dir="rtl"],
+.rtl {
+  --font-sans: var(--font-arabic);
+  --font-display: var(--font-arabic);
+  --font-heading: var(--font-arabic);
+  --font-accent: var(--font-arabic);
+  font-family: var(--font-arabic);
+}
+
+html[dir="rtl"] body,
+html[lang="ar"] body,
+[dir="rtl"] body,
+html[dir="rtl"] button,
+html[dir="rtl"] input:not(.font-mono):not([type="number"]),
+html[dir="rtl"] textarea,
+html[dir="rtl"] select,
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3,
+html[dir="rtl"] h4,
+html[dir="rtl"] h5,
+html[dir="rtl"] h6,
+html[dir="rtl"] p,
+html[dir="rtl"] span:not(.font-mono),
+html[dir="rtl"] a,
+html[dir="rtl"] label,
+html[dir="rtl"] table,
+html[dir="rtl"] th,
+html[dir="rtl"] td,
+html[dir="rtl"] [class*="font-display"],
+html[dir="rtl"] [class*="font-sans"],
+html[dir="rtl"] [class*="font-heading"],
+html[dir="rtl"] .btn,
+[dir="rtl"] button,
+[dir="rtl"] input:not(.font-mono):not([type="number"]),
+[dir="rtl"] textarea,
+[dir="rtl"] select,
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6,
+[dir="rtl"] p,
+[dir="rtl"] a,
+[dir="rtl"] label,
+[dir="rtl"] [role="dialog"],
+[dir="rtl"] [role="menu"],
+[dir="rtl"] [role="listbox"],
+[dir="rtl"] [role="tooltip"],
+[dir="rtl"] [role="combobox"],
+[dir="rtl"] [role="tab"],
+[dir="rtl"] [data-radix-popper-content-wrapper],
+[dir="rtl"] [data-radix-portal],
+html[dir="rtl"] [data-radix-popper-content-wrapper],
+html[dir="rtl"] [data-radix-portal] {
+  font-family: var(--font-arabic);
+}
+
+.font-thmanyah {
+  font-family: var(--font-arabic) !important;
+}
+
+.font-arabic {
+  font-family: var(--font-arabic) !important;
+}
+
+  /* RTL & Arabic Typography Engineering — SADA Design System */
+  [dir="rtl"],
+  html[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+  }
+
+  [dir="rtl"] body {
+    text-align: right;
+    letter-spacing: normal !important;
+  }
+
+  /* Ensure cursive Arabic script ligatures remain intact without letter-spacing distortion */
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4,
+  [dir="rtl"] h5,
+  [dir="rtl"] h6,
+  [dir="rtl"] .font-display,
+  [dir="rtl"] .font-accent,
+  [dir="rtl"] [class*="tracking-"] {
+    letter-spacing: 0 !important;
+  }
+
+  /* Balanced vertical line-height for Arabic typography */
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3 {
+    line-height: 1.4;
+  }
+
+  [dir="rtl"] p,
+  [dir="rtl"] span,
+  [dir="rtl"] li,
+  [dir="rtl"] label,
+  [dir="rtl"] input,
+  [dir="rtl"] textarea,
+  [dir="rtl"] select,
+  [dir="rtl"] button {
+    line-height: 1.65;
+  }
+
+  /* Directional flipping for progression arrows */
+  [dir="rtl"] .rtl-flip {
+    transform: scaleX(-1);
+  }
+
+  /* Table alignment in RTL */
+  [dir="rtl"] th,
+  [dir="rtl"] td {
+    text-align: right;
+  }
+
+  /* Flip text-left in RTL except for code and technical fields */
+  [dir="rtl"] .text-left:not(.ltr-force):not([dir="ltr"]) {
+    text-align: right;
+  }
+
+  [dir="rtl"] .text-right:not(.ltr-force):not([dir="ltr"]) {
+    text-align: left;
+  }
+
+  /* Semantic LTR preservation for technical input fields and code */
+  [dir="rtl"] input[type="email"],
+  [dir="rtl"] input[type="tel"],
+  [dir="rtl"] input[type="url"],
+  [dir="rtl"] input[type="number"],
+  [dir="rtl"] .font-mono:not(.rtl-force),
+  [dir="rtl"] code,
+  [dir="rtl"] pre,
+  [dir="rtl"] .ltr-force {
+    direction: ltr !important;
+    text-align: left !important;
+  }
+
+  /* Eradicate native browser number spinners globally */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
   /* Apply theme transition briefly when toggling, not on every paint */
   html.theme-transitioning,
-  html.theme-transitioning body {
-    transition: background-color 220ms ease, color 220ms ease !important;
-  }
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: var(--gradient-hero);
-    pointer-events: none;
-    z-index: 0;
+  html.theme-transitioning body,
+  html.theme-transitioning header,
+  html.theme-transitioning nav,
+  html.theme-transitioning section,
+  html.theme-transitioning article,
+  html.theme-transitioning .sada-hero,
+  html.theme-transitioning .sada-card {
+    transition: background-color 240ms ease, color 240ms ease, border-color 240ms ease, box-shadow 240ms ease !important;
   }
   h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: -0.025em; font-weight: 700; }
   h1 { letter-spacing: -0.035em; }
@@ -208,6 +501,133 @@
     transition: opacity 300ms ease;
   }
   .glow-border:hover::before { opacity: 1; }
+
+  /* ============================================================
+     SADA CANONICAL PRICING CARD & LIQUID GLASS SYSTEM
+     - Liquid glass with subtle inset highlight
+     - Controlled depth, smooth GPU hover elevation (-4px)
+     - Soft atmospheric blue diffusion for recommended/featured
+     - Micro-interaction: Subtle moving light reflection through glass
+     ============================================================ */
+  .sada-pricing-card {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 240ms cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 240ms ease;
+    overflow: hidden;
+  }
+
+  .dark .sada-pricing-card {
+    background: oklch(0.18 0.045 260 / 0.75);
+    backdrop-filter: blur(14px) saturate(145%);
+    -webkit-backdrop-filter: blur(14px) saturate(145%);
+    border: 1px solid oklch(0.6 0.15 240 / 0.18);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08),
+                0 12px 36px -16px rgba(0, 0, 0, 0.65);
+  }
+
+  /* Micro-interaction: Subtle light reflection moving across glass on hover */
+  .sada-pricing-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.04) 50%,
+      transparent 100%
+    );
+    transform: skewX(-20deg);
+    pointer-events: none;
+    transition: left 650ms cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+  }
+
+  .dark .sada-pricing-card::before {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      oklch(0.82 0.18 220 / 0.06) 50%,
+      transparent 100%
+    );
+  }
+
+  .sada-pricing-card:hover::before {
+    left: 160%;
+  }
+
+  .sada-pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .dark .sada-pricing-card:hover {
+    border-color: oklch(0.66 0.22 250 / 0.45);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14),
+                0 20px 48px -12px rgba(0, 0, 0, 0.8),
+                0 0 40px -10px oklch(0.66 0.22 250 / 0.2);
+  }
+
+  /* Tier-specific accent glows */
+  .sada-pricing-recommended {
+    border-color: oklch(0.66 0.22 250 / 0.5);
+  }
+  .dark .sada-pricing-recommended {
+    border-color: oklch(0.66 0.22 250 / 0.55);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14),
+                0 16px 40px -12px rgba(0, 0, 0, 0.75),
+                0 0 35px -8px oklch(0.66 0.22 250 / 0.22);
+  }
+
+  .sada-pricing-featured {
+    border-color: oklch(0.7 0.18 240 / 0.4);
+  }
+  .dark .sada-pricing-featured {
+    border-color: oklch(0.7 0.18 240 / 0.45);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12),
+                0 14px 38px -12px rgba(0, 0, 0, 0.7);
+  }
+
+  .sada-pricing-premium {
+    border-color: oklch(0.6 0.15 240 / 0.35);
+  }
+  .dark .sada-pricing-premium {
+    border-color: oklch(0.6 0.15 240 / 0.4);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 14px 38px -14px rgba(0, 0, 0, 0.75);
+  }
+
+  /* Environmental atmospheric soft blue diffusion */
+  .sada-pricing-card-ambient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 500px 240px at 50% -20px,
+      oklch(0.66 0.22 250 / 0.1),
+      transparent 70%
+    );
+    opacity: 0.85;
+    transition: opacity 240ms ease;
+  }
+
+  .dark .sada-pricing-recommended .sada-pricing-card-ambient {
+    background: radial-gradient(
+      ellipse 600px 280px at 50% -30px,
+      oklch(0.82 0.18 220 / 0.14),
+      transparent 75%
+    );
+  }
+
+  .sada-pricing-card:hover .sada-pricing-card-ambient {
+    opacity: 1;
+  }
 }
 
 @keyframes float {
@@ -263,7 +683,7 @@ main > section { content-visibility: auto; contain-intrinsic-size: 1px 600px; }
 #sada-splash.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 .sada-splash-mark {
   display: flex; gap: 10px;
-  font-family: 'Sora', system-ui, sans-serif;
+  font-family: var(--font-display);
   font-weight: 700; font-size: 28px; letter-spacing: 0.32em;
   background: var(--gradient-text);
   -webkit-background-clip: text; background-clip: text; color: transparent;
@@ -305,3 +725,1179 @@ main > section { content-visibility: auto; contain-intrinsic-size: 1px 600px; }
   background-color: var(--primary);
   color: var(--primary-foreground);
 }
+
+/* ============================================================================
+   HOMEPAGE HERO — SADA Visual Integration & Dual-Theme Showcase.
+   Scoped strictly to `.sada-hero`. Integrates seamlessly with the fixed header
+   to form one unified canvas in both LIGHT and DARK themes.
+   ============================================================================ */
+.sada-hero {
+  /* LIGHT THEME (default) */
+  --sh-fg: #1a1f27;
+  --sh-muted: #5c636e;
+  --sh-border: #dcdcdc;
+  --sh-primary: var(--sada-primary);
+  --sh-cyan: var(--sada-cyan);
+  --sh-surface: #f7fafc;
+  --sh-card-bg: #020912;
+  --sh-card-border: rgba(1, 103, 234, 0.16);
+  --sh-card-shadow: 0 14px 36px -10px rgba(2, 9, 18, 0.22);
+  --sh-card-hover-shadow: 0 20px 48px -10px rgba(1, 103, 234, 0.32);
+  --sh-card-hover-border: rgba(1, 103, 234, 0.55);
+  --sh-sec-bg: rgba(255, 255, 255, 0.82);
+  --sh-sec-fg: #1a1f27;
+  --sh-sec-border: rgba(220, 220, 220, 0.9);
+  --sh-sec-hover-bg: #ffffff;
+  --sh-sec-hover-border: var(--sada-primary);
+  --sh-reassurance: #5c636e;
+  --sh-headline-glow: 0 0 28px rgba(1, 103, 234, 0.16);
+
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: calc(100svh - 60px);
+  overflow: hidden;
+  background-color: var(--sh-surface);
+  color: var(--sh-fg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(92px, 10vh, 120px) clamp(20px, 3.5vw, 64px) clamp(28px, 3.5vh, 44px);
+}
+
+.dark .sada-hero {
+  /* DARK THEME (baseline preserved) */
+  --sh-fg: #f8fafc;
+  --sh-muted: rgba(148, 163, 184, 0.88);
+  --sh-border: rgba(255, 255, 255, 0.12);
+  --sh-primary: var(--sada-primary);
+  --sh-cyan: #38bdf8;
+  --sh-surface: #07090e;
+  --sh-card-bg: #070b14;
+  --sh-card-border: rgba(255, 255, 255, 0.12);
+  --sh-card-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.6);
+  --sh-card-hover-shadow: 0 20px 44px -8px rgba(0, 0, 0, 0.75), 0 0 24px -4px rgba(1, 103, 234, 0.35);
+  --sh-card-hover-border: rgba(56, 189, 248, 0.4);
+  --sh-sec-bg: rgba(255, 255, 255, 0.04);
+  --sh-sec-fg: #f1f5f9;
+  --sh-sec-border: rgba(255, 255, 255, 0.12);
+  --sh-sec-hover-bg: rgba(255, 255, 255, 0.08);
+  --sh-sec-hover-border: rgba(56, 189, 248, 0.4);
+  --sh-reassurance: rgba(148, 163, 184, 0.75);
+  --sh-headline-glow: 0 0 36px rgba(56, 189, 248, 0.28);
+}
+
+/* Atmospheric lighting — continuous deep canvas with subtle cyan/blue glow */
+.sada-hero .sada-atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 85% 55% at 50% 18%, rgba(1, 103, 234, 0.07), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 50% 68%, rgba(24, 199, 247, 0.05), transparent 65%),
+    radial-gradient(ellipse 60% 40% at 85% 25%, rgba(1, 103, 234, 0.04), transparent 60%),
+    var(--sh-surface);
+}
+
+.dark .sada-hero .sada-atmosphere {
+  background:
+    radial-gradient(ellipse 65% 35% at 50% 0%, rgba(1, 103, 234, 0.18), transparent 75%),
+    radial-gradient(ellipse 55% 45% at 50% 40%, rgba(1, 103, 234, 0.12), transparent 72%),
+    radial-gradient(ellipse 45% 30% at 85% 15%, rgba(24, 199, 247, 0.09), transparent 65%),
+    radial-gradient(ellipse 70% 35% at 50% 100%, rgba(11, 77, 184, 0.10), transparent 75%),
+    #07090e;
+}
+
+/* Subtle technical grid — continuous across the whole canvas, softly masked */
+.sada-hero .sada-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image:
+    linear-gradient(to right, rgba(1, 103, 234, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(1, 103, 234, 0.045) 1px, transparent 1px);
+  background-size: 52px 52px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 42%, black 25%, transparent 80%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 42%, black 25%, transparent 80%);
+}
+
+.dark .sada-hero .sada-grid {
+  opacity: 0.70;
+  background-image:
+    linear-gradient(to right, rgba(56, 189, 248, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.055) 1px, transparent 1px);
+}
+
+/* Central Copy Block */
+.sada-hero .sada-copy {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sada-hero .sada-eyebrow {
+  margin: 0 0 14px;
+  color: var(--sh-primary);
+  font-family: var(--font-display);
+  font-size: clamp(10.5px, 0.82vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.sada-hero .sada-headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(50px, 5.2vw, 82px);
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--sh-fg);
+  max-width: 960px;
+}
+
+.sada-hero .sada-description {
+  max-width: 660px;
+  margin: 18px auto 0;
+  color: var(--sh-muted);
+  font-size: clamp(15.5px, 1.25vw, 19px);
+  line-height: 1.58;
+}
+
+.sada-hero .sada-services {
+  margin: 16px 0 0;
+  color: var(--sh-primary);
+  font-size: clamp(10.5px, 0.85vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  opacity: 0.95;
+}
+
+.dark .sada-hero .sada-services {
+  color: rgba(125, 211, 252, 0.88);
+}
+
+.sada-hero .sada-services i {
+  font-style: normal;
+  color: var(--sh-cyan);
+  opacity: 0.75;
+  margin: 0 5px;
+}
+
+.sada-hero .sada-ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.sada-hero .sada-secondary-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-weight: 600;
+  white-space: nowrap;
+  min-height: 52px;
+  padding: 0 clamp(26px, 2.2vw, 32px);
+  font-size: clamp(14px, 0.98vw, 15px);
+  letter-spacing: 0.02em;
+  color: var(--sh-sec-fg);
+  background: var(--sh-sec-bg);
+  border: 1px solid var(--sh-sec-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 2px 8px -2px rgba(26, 31, 39, 0.06);
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms ease, border-color 300ms ease, background-color 300ms ease;
+}
+
+.sada-hero .sada-secondary-cta:hover {
+  background: var(--sh-sec-hover-bg);
+  border-color: var(--sh-sec-hover-border);
+  transform: scale(1.03);
+}
+
+.sada-hero .sada-reassurance {
+  margin: 12px 0 0;
+  color: var(--sh-reassurance);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+/* Creative Showcase & Real Photographic Cards */
+.sada-hero .sada-showcase {
+  margin: clamp(36px, 4.4vh, 54px) auto 0;
+  width: min(1180px, 100%);
+}
+
+.sada-hero .sada-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 22px);
+}
+
+.sada-hero .sada-card {
+  position: relative;
+  min-height: clamp(185px, 20.5vh, 220px);
+  height: clamp(185px, 20.5vh, 220px);
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid var(--sh-card-border);
+  background: var(--sh-card-bg);
+  box-shadow: var(--sh-card-shadow);
+  transition: transform 450ms cubic-bezier(0.22, 0.68, 0.2, 1), border-color 450ms ease, box-shadow 450ms ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.sada-hero .sada-card-visual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.sada-hero .sada-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.96) contrast(1.05) saturate(1.02);
+  transform: scale(1);
+  transition: transform 500ms cubic-bezier(0.22, 0.68, 0.2, 1), filter 450ms ease;
+}
+
+.dark .sada-hero .sada-card-img {
+  filter: brightness(0.92) contrast(1.05) saturate(1.02);
+}
+
+/* Card scrim: DEEP NAVY / DARK BLUE gradient transitioning into almost black-blue at the bottom.
+   NO WHITE GRADIENT across both themes. */
+.sada-hero .sada-card-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(5, 20, 38, 0) 25%,
+    rgba(5, 20, 38, 0.55) 58%,
+    rgba(3, 12, 25, 0.92) 84%,
+    rgba(2, 9, 18, 1) 100%
+  );
+}
+
+.dark .sada-hero .sada-card-scrim {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(5, 20, 38, 0) 25%,
+    rgba(5, 20, 38, 0.60) 58%,
+    rgba(3, 12, 25, 0.94) 84%,
+    rgba(2, 9, 18, 1) 100%
+  );
+}
+
+.sada-hero .sada-card-body {
+  position: relative;
+  z-index: 1;
+  padding: 14px 16px 14px;
+}
+
+.sada-hero .sada-card-number {
+  color: #38bdf8;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  display: inline-block;
+  margin-bottom: 3px;
+}
+
+.sada-hero .sada-card h2 {
+  margin: 0 0 3px;
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sada-hero .sada-card p {
+  margin: 0;
+  color: rgba(226, 232, 240, 0.85);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+/* Card Hover State */
+.sada-hero .sada-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--sh-card-hover-border);
+  box-shadow: var(--sh-card-hover-shadow);
+}
+
+.sada-hero .sada-card:hover .sada-card-img {
+  transform: scale(1.03);
+  filter: brightness(1) contrast(1.08) saturate(1.08);
+}
+
+/* Proof statistics underneath showcase */
+.sada-hero .sada-proof {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 2vw, 24px);
+  margin: clamp(18px, 2.8vh, 28px) auto 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.sada-hero .sada-proof li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.sada-hero .sada-proof li:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.sada-hero .sada-proof strong {
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sada-hero .sada-proof span {
+  color: var(--muted-foreground);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Staggered entrance animations */
+.sada-hero .entrance {
+  animation: sada-rise 700ms cubic-bezier(0.22, 0.68, 0.2, 1) both;
+}
+
+.sada-hero .entrance-eyebrow { animation-delay: 150ms; }
+.sada-hero .entrance-headline { animation-delay: 240ms; }
+.sada-hero .entrance-description { animation-delay: 330ms; }
+.sada-hero .entrance-ctas { animation-delay: 420ms; }
+.sada-hero .entrance-card { animation-delay: calc(500ms + var(--card-index) * 85ms); }
+.sada-hero .entrance-proof { animation-delay: 880ms; }
+
+@keyframes sada-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tablet Layout */
+@media (max-width: 1024px) {
+  .sada-hero {
+    min-height: auto;
+    padding-top: 96px;
+  }
+  .sada-hero .sada-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile Layout */
+@media (max-width: 640px) {
+  .sada-hero {
+    min-height: auto;
+    padding: 78px 14px 20px;
+  }
+  .sada-hero .sada-copy {
+    padding: 8px 0 0;
+  }
+  .sada-hero .sada-headline {
+    font-size: clamp(27px, 8vw, 38px);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+  }
+  .sada-hero .sada-description {
+    max-width: 360px;
+    padding: 0 4px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-top: 12px;
+  }
+  .sada-hero .sada-services {
+    margin-top: 12px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+  }
+  .sada-hero .sada-ctas {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .sada-hero .sada-primary-cta,
+  .sada-hero .sada-secondary-cta {
+    width: 100%;
+    min-height: 46px;
+    font-size: 14px;
+  }
+  .sada-hero .sada-showcase {
+    margin-top: 22px;
+  }
+  .sada-hero .sada-card-grid {
+    display: flex;
+    width: calc(100% + 14px);
+    overflow-x: auto;
+    padding: 0 14px 8px 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    gap: 12px;
+  }
+  .sada-hero .sada-card-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .sada-hero .sada-card {
+    flex: 0 0 min(68vw, 230px);
+    min-height: 170px;
+    height: 170px;
+    scroll-snap-align: start;
+    border-radius: 14px;
+  }
+  .sada-hero .sada-card-body {
+    padding: 10px 12px 10px;
+  }
+  .sada-hero .sada-card h2 {
+    font-size: 11.5px;
+  }
+  .sada-hero .sada-card p {
+    font-size: 9.5px;
+  }
+  .sada-hero .sada-proof {
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    margin-top: 16px;
+  }
+  .sada-hero .sada-proof li {
+    padding: 4px 12px;
+  }
+  .sada-hero .sada-proof strong {
+    font-size: 12.5px;
+  }
+  .sada-hero .sada-proof span {
+    font-size: 10px;
+  }
+}
+/* ===================== end homepage hero ===================== */
+
+/* ============================================================
+   SADA CANONICAL ADMIN APPLICATION SHELL & SIDEBAR
+   Persistent two-column layout on desktop, overlay drawer on mobile.
+   Fully mirrors in LTR / RTL without hardcoded physical coordinates.
+   ============================================================ */
+.admin-shell {
+  display: flex !important;
+  width: 100% !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.admin-sidebar {
+  width: 280px !important;
+  min-width: 280px !important;
+  max-width: 280px !important;
+  flex-shrink: 0 !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  border-inline-end: 1px solid var(--border) !important;
+  background-color: var(--card) !important;
+  position: relative !important;
+  z-index: 30;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s ease !important;
+}
+
+.admin-main {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  position: relative !important;
+}
+
+/* Mobile drawer behavior (< 768px) */
+@media (max-width: 767.98px) {
+  .admin-sidebar {
+    display: none !important;
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    inset-inline-start: 0 !important;
+    z-index: 50 !important;
+    box-shadow: var(--shadow-elevated) !important;
+    transform: translateX(-100%);
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  [dir="rtl"] .admin-sidebar,
+  html[dir="rtl"] .admin-sidebar,
+  .rtl .admin-sidebar {
+    transform: translateX(100%);
+  }
+
+  .admin-sidebar.is-open {
+    display: flex !important;
+    transform: translateX(0) !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Desktop persistent enforcement (>= 768px) */
+@media (min-width: 768px) {
+  .admin-sidebar {
+    position: relative !important;
+    transform: none !important;
+    inset-inline-start: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    box-shadow: none !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    display: flex !important;
+  }
+}
+
+/* ============================================================
+   SADA CANONICAL WINDOW PRESENTATION SYSTEM
+   Fast, calm, predictable, GPU-friendly transitions
+   ============================================================ */
+
+/* Dialog Backdrop: clean, almost-instant opacity fade */
+@keyframes sada-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes sada-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Dialog Content: Clean pop-out (pure opacity fade, zero directional movement, zero layout shift) */
+@keyframes sada-dialog-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes sada-dialog-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+
+:root {
+  --sada-drawer-slide: 16px;
+}
+[dir="rtl"],
+html[dir="rtl"],
+.rtl {
+  --sada-drawer-slide: -16px;
+}
+
+/* Drawer Right / Inline-End (Direction-aware slide: +16px in LTR, -16px in RTL) */
+@keyframes sada-drawer-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(var(--sada-drawer-slide, 16px));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes sada-drawer-out-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(var(--sada-drawer-slide, 16px));
+  }
+}
+
+/* Drawer Bottom / Mobile Sheet (Slide in from bottom) */
+@keyframes sada-drawer-in-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes sada-drawer-out-bottom {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+/* Reduced Motion: eliminate transforms, instant/pure opacity transitions */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes sada-dialog-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes sada-dialog-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  @keyframes sada-drawer-in-right {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes sada-drawer-out-right {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  @keyframes sada-drawer-in-bottom {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes sada-drawer-out-bottom {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+}
+
+/* ============================================================
+   SADA PREMIUM SKELETON & SHIMMER SYSTEM
+   - GPU-accelerated horizontal sweep via transform: translateX
+   - 2.2s silky smooth cubic-bezier easing curve
+   - Zero layout shift, strictly preserving structural dimensions
+   - Automatic adaptation to dark and light palettes
+   - Reduced-motion safe (instant static opacity)
+   ============================================================ */
+@keyframes sada-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.sada-skeleton-base {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--sada-skeleton-base);
+}
+
+.sada-skeleton-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--sada-skeleton-shimmer-highlight) 50%,
+    transparent 100%
+  );
+  animation: sada-shimmer 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes sada-shimmer {
+    0%, 100% {
+      transform: translateX(0);
+      opacity: 0.85;
+    }
+  }
+  .sada-skeleton-shimmer::after {
+    animation: none !important;
+    background: transparent !important;
+  }
+}
+
+/* Sleek custom scrollbar for SADA windows, drawers, and command surfaces */
+.sada-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--muted-foreground) 28%, transparent) transparent;
+}
+.sada-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.sada-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sada-scrollbar::-webkit-scrollbar-thumb {
+  background-color: color-mix(in oklab, var(--muted-foreground) 28%, transparent);
+  border-radius: 9999px;
+}
+.sada-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in oklab, var(--muted-foreground) 50%, transparent);
+}
+
+/* ============================================================
+   SADA CANONICAL NUMERICAL TYPOGRAPHY SYSTEM
+   Single Source of Truth: Financial Command Center
+   - Primary KPI & Headline Figures: Sora (var(--font-display)), bold, tracking-tight, tabular-nums
+   - Secondary Metrics & Waterfalls: Sora (var(--font-display)), bold/semibold, tabular-nums
+   - Financial Tables & Ledger Data: Monospace / Tabular figures with vertical column alignment
+   - Badges & Percentages: Tabular-nums with font-semibold
+   ============================================================ */
+
+/* Global Tabular Numeral Utility */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* SADA Canonical Number Base Token */
+.sada-number {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 1. Large Financial KPI (Financial Command Center Primary Figures) */
+.sada-num-kpi {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  line-height: 1.15;
+  text-rendering: optimizeLegibility;
+}
+
+/* 2. Secondary Financial Metric & Waterfall Rows */
+.sada-num-metric {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* 3. Financial Table & Data Cells (Exact Vertical Alignment) */
+.sada-num-table {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: 0;
+  text-rendering: optimizeLegibility;
+}
+
+/* 4. Percentages, Ratios & Badges */
+.sada-num-percent {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.01em;
+  text-rendering: optimizeLegibility;
+}
+
+/* 5. Monospace Numerical Figures */
+.sada-num-mono {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* 6. Universal SADA Button Single-Line & Icon Alignment Contract */
+.sada-button {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  text-wrap: nowrap !important;
+  word-break: keep-all !important;
+}
+
+.sada-button * {
+  white-space: nowrap !important;
+  text-wrap: nowrap !important;
+}
+
+.sada-button > svg,
+.sada-button svg {
+  flex-shrink: 0 !important;
+  pointer-events: none;
+}
+
+/* ============================================================
+   SADA OS — PWA & MOBILE WEB APP ENHANCEMENTS (Phase 9)
+   - Safe-area insets for notched iPhones and gesture home bars
+   - Standalone display-mode adjustments
+   - Touch targets and mobile viewport ergonomics
+   ============================================================ */
+
+/* Safe area inset utilities */
+.pb-safe {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px)) !important;
+}
+
+.pt-safe {
+  padding-top: max(0.75rem, env(safe-area-inset-top, 0px)) !important;
+}
+
+.mb-safe {
+  margin-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* Standalone PWA app shell enhancements */
+@media all and (display-mode: standalone) {
+  /* Prevent rubber-band effect interfering with app experience */
+  body {
+    overscroll-behavior-y: none;
+  }
+
+  /* Scope user-select: none strictly to app chrome and controls, preserving content selection */
+  #sada-mobile-bottom-nav,
+  .admin-sidebar,
+  button,
+  [role="button"],
+  .no-select {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Explicitly guarantee text selection across inputs, content, task descriptions, and notes */
+  input,
+  textarea,
+  [contenteditable="true"],
+  .selectable-text,
+  p,
+  span,
+  h1, h2, h3, h4, h5, h6,
+  article {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  /* Status bar clearance when in standalone window */
+  .admin-shell {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
+/* Mobile smooth scrolling, touch tap highlight, and responsive typography */
+@media (max-width: 767.98px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .admin-main {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    padding-top: 4.25rem !important;
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* Compact responsive typography for mobile viewports */
+  .admin-main h1,
+  .admin-main .font-display.text-2xl,
+  .admin-main .font-display.text-3xl {
+    font-size: clamp(1.15rem, 4.8vw, 1.45rem) !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  .admin-main h2 {
+    font-size: 1.05rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .admin-main h3 {
+    font-size: 0.95rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .admin-main p.text-xs,
+  .admin-main p.text-sm {
+    font-size: 0.75rem !important;
+    line-height: 1.35 !important;
+  }
+
+  /* Compact badges */
+  .admin-main [data-sada-badge] {
+    font-size: 0.65rem !important;
+    padding: 0.15rem 0.45rem !important;
+  }
+
+  /* Compact KPI numbers on mobile */
+  .admin-main .text-3xl,
+  .admin-main .text-4xl,
+  .admin-main .sada-num-kpi {
+    font-size: 1.4rem !important;
+    line-height: 1.15 !important;
+  }
+
+  /* Mobile touch targets: minimum 44px for primary interactions */
+  button, a, input, select {
+    touch-action: manipulation;
+  }
+
+  /* Horizontal swipeable metric row helper */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ============================================================
+   SADA OS — NOTIFICATION EXPERIENCE 2.0 ANIMATIONS
+   Restrained, elegant alert micro-interactions with prefers-reduced-motion
+   ============================================================ */
+
+@keyframes sada-bell-ring {
+  0% { transform: rotate(0); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-12deg); }
+  30% { transform: rotate(10deg); }
+  40% { transform: rotate(-8deg); }
+  50% { transform: rotate(6deg); }
+  60% { transform: rotate(-4deg); }
+  70% { transform: rotate(2deg); }
+  80%, 100% { transform: rotate(0); }
+}
+
+@keyframes sada-alert-halo {
+  0% { transform: scale(0.92); opacity: 0.85; }
+  60% { transform: scale(1.45); opacity: 0; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+.sada-arrival-ring {
+  animation: sada-bell-ring 1.6s ease-in-out 1 forwards;
+  transform-origin: top center;
+}
+
+.sada-arrival-halo {
+  animation: sada-alert-halo 2.2s cubic-bezier(0, 0, 0.2, 1) 1 forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sada-arrival-ring,
+  .sada-arrival-halo {
+    animation: none !important;
+  }
+}
+
+/* ============================================================
+   SADA CANONICAL CLIENT WORKSPACE STICKY NAVIGATION SURFACE
+   100% solid, fully opaque structural surface preventing any
+   content or text bleed underneath during scrolling
+   ============================================================ */
+.sada-workspace-sticky-nav {
+  position: sticky !important;
+  z-index: 30 !important;
+  background-color: #f7fafc !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.dark .sada-workspace-sticky-nav {
+  background-color: #07090e !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ============================================================
+   SADA OS OPERATIONAL SCROLLBAR
+   Subtle, precision scrollbar for internal panel scrolling
+   ============================================================ */
+.sada-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.sada-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sada-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.25);
+  border-radius: 9999px;
+}
+.sada-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(150, 150, 150, 0.45);
+}
+.sada-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(150, 150, 150, 0.25) transparent;
+}
+
+/* ============================================================
+   SADA OS GLOBAL SELECTION CONTROLS ACCESSIBILITY & CONTRAST
+   Native inputs and Radix selection controls baseline
+   ============================================================ */
+input[type="checkbox"]:not([class*="sr-only"]) {
+  accent-color: var(--sada-primary);
+  cursor: pointer;
+}
+input[type="radio"]:not([class*="sr-only"]) {
+  accent-color: var(--sada-primary);
+  cursor: pointer;
+}
+
+/* ============================================================
+   SADA KANBAN HORIZONTAL TRACK & DISCOVERABLE SCROLLBAR
+   ============================================================ */
+.kanban-horizontal-track {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary) / 0.35) hsl(var(--muted) / 0.4);
+}
+.kanban-horizontal-track::-webkit-scrollbar {
+  height: 8px;
+}
+.kanban-horizontal-track::-webkit-scrollbar-track {
+  background: hsl(var(--muted) / 0.4);
+  border-radius: 9999px;
+  margin: 0 4px;
+}
+.kanban-horizontal-track::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.35);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.kanban-horizontal-track::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.65);
+}
+
+/* ============================================================
+   SADA OS NOTIFICATION TOAST STACK & RESPONSIVE RULES
+   ============================================================ */
+[data-sonner-toaster] {
+  --width: min(380px, calc(100vw - 24px));
+  z-index: 999999 !important;
+  pointer-events: none;
+}
+
+[data-sonner-toaster] [data-sonner-toast] {
+  pointer-events: auto;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 12px 32px rgb(15 23 42 / 16%) !important;
+  padding: 14px 16px !important;
+  width: var(--width) !important;
+  max-width: 100% !important;
+  overflow-wrap: anywhere !important;
+  box-sizing: border-box !important;
+}
+
+[data-sonner-toaster] [data-sonner-toast] [data-title] {
+  color: inherit !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  line-height: 1.45 !important;
+}
+
+[data-sonner-toaster] [data-sonner-toast] [data-description] {
+  color: var(--muted-foreground) !important;
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+}
+
+/* Smooth stacked appearance without clipping */
+[data-sonner-toaster][data-expanded='true'] [data-sonner-toast] {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.24s ease !important;
+}
+
+/* Mobile responsive containment (320px - 640px) */
+@media (max-width: 640px) {
+  [data-sonner-toaster] {
+    --width: calc(100vw - 24px) !important;
+    left: 12px !important;
+    right: 12px !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding-top: max(env(safe-area-inset-top), 8px);
+  }
+
+  [data-sonner-toaster] [data-sonner-toast] {
+    width: 100% !important;
+  }
+}
+
+/* Respect user's motion preference */
+@media (prefers-reduced-motion: reduce) {
+  [data-sonner-toaster],
+  [data-sonner-toaster] *,
+  [data-sonner-toast] {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+

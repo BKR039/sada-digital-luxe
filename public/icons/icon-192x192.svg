@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <radialGradient id="sadaBg192" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#121826" />
+      <stop offset="60%" stop-color="#07090E" />
+      <stop offset="100%" stop-color="#040508" />
+    </radialGradient>
+    <linearGradient id="sadaAccent192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#818CF8" />
+      <stop offset="100%" stop-color="#C084FC" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded rect -->
+  <rect width="192" height="192" rx="42" fill="url(#sadaBg192)" />
+  <rect width="188" height="188" x="2" y="2" rx="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
+
+  <!-- SADA Emblem -->
+  <g transform="translate(41, 46)">
+    <!-- Top rounded brand bar -->
+    <path d="M 0 16 C 0 7 7 0 16 0 L 94 0 C 103 0 110 7 110 16 L 110 20 L 0 20 Z" fill="#FFFFFF" />
+    
+    <!-- Identity ribs -->
+    <rect x="0" y="26" width="110" height="5" rx="2.5" fill="#FFFFFF" opacity="0.95" />
+    <rect x="0" y="36" width="110" height="4" rx="2" fill="#FFFFFF" opacity="0.85" />
+    <rect x="0" y="45" width="110" height="4" rx="2" fill="url(#sadaAccent192)" />
+    <rect x="0" y="54" width="110" height="4" rx="2" fill="#FFFFFF" opacity="0.85" />
+    <rect x="0" y="63" width="110" height="5" rx="2.5" fill="#FFFFFF" opacity="0.95" />
+
+    <!-- Bottom brand bar -->
+    <path d="M 0 73 L 110 73 L 110 77 C 110 86 103 93 94 93 L 16 93 C 7 93 0 86 0 77 Z" fill="#FFFFFF" />
+  </g>
+
+  <!-- SADA OS wordmark -->
+  <g transform="translate(96, 164)">
+    <text text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="14" letter-spacing="3" fill="#FFFFFF">SADA OS</text>
+  </g>
+</svg>

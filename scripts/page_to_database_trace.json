@@ -1,0 +1,2171 @@
+{
+  "totalRoutes": 60,
+  "services": {
+    "account-service.ts": {
+      "tablesRead": [
+        "profiles",
+        "user_module_permissions"
+      ],
+      "tablesWritten": [],
+      "rpcsCalled": [
+        "admin_list_accounts",
+        "admin_get_auth_user_id_by_email",
+        "admin_reset_account_password",
+        "admin_provision_account",
+        "admin_delete_account",
+        "admin_update_account",
+        "admin_suspend_account_with_sessions",
+        "admin_reactivate_account_with_security",
+        "admin_analyze_account_dependencies",
+        "admin_list_account_audit_logs",
+        "admin_update_account_permissions"
+      ],
+      "businessRulesAccessed": []
+    },
+    "analytics-service.ts": {
+      "tablesRead": [
+        "package_catalog",
+        "project_tasks",
+        "work_sessions",
+        "team_members",
+        "deals",
+        "production_bookings",
+        "client_deliverables",
+        "client_projects"
+      ],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "audit-service.ts": {
+      "tablesRead": [
+        "system_audit_logs"
+      ],
+      "tablesWritten": [
+        "system_audit_logs"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "auth-recovery-service.ts": {
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "auth.tsx": {
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles"
+      ],
+      "tablesWritten": [
+        "user_sessions"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": []
+    },
+    "browser-notification-badge.ts": {
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "browser-push-service.ts": {
+      "tablesRead": [],
+      "tablesWritten": [
+        "push_subscriptions"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "business-rules-intelligence-service.ts": {
+      "tablesRead": [
+        "project_tasks",
+        "business_rule_versions",
+        "salary_requests",
+        "deals"
+      ],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [
+        "sponsoring_purchase_rate",
+        "sponsoring_client_rate",
+        "low_profit_client_margin_percent",
+        "client_medium_profit_margin_percent",
+        "client_high_profit_margin_percent",
+        "client_high_profit_amount_tnd",
+        "client_medium_profit_amount_tnd",
+        "task_due_soon_days"
+      ]
+    },
+    "business-rules-service.ts": {
+      "tablesRead": [
+        "business_rules",
+        "business_rule_versions"
+      ],
+      "tablesWritten": [
+        "business_rules"
+      ],
+      "rpcsCalled": [
+        "reset_business_rule_to_default"
+      ],
+      "businessRulesAccessed": []
+    },
+    "client-service.ts": {
+      "tablesRead": [
+        "clients"
+      ],
+      "tablesWritten": [
+        "clients"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "content-service.ts": {
+      "tablesRead": [
+        "projects",
+        "blog_posts",
+        "products",
+        "testimonials"
+      ],
+      "tablesWritten": [
+        "projects",
+        "blog_posts",
+        "products",
+        "testimonials"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "date-locale.ts": {
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "error-capture.ts": {
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "error-page.ts": {
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "finance-service.ts": {
+      "tablesRead": [
+        "income_transactions",
+        "expense_transactions",
+        "expense_categories",
+        "subscriptions",
+        "salary_records",
+        "salary_payments",
+        "salary_requests",
+        "invoices",
+        "sponsoring_campaigns",
+        "sales_commissions",
+        "financial_accounts",
+        "financial_closing_periods",
+        "clients",
+        "financial_audit_logs",
+        "team_members",
+        "work_sessions"
+      ],
+      "tablesWritten": [
+        "financial_audit_logs",
+        "income_transactions",
+        "financial_accounts",
+        "expense_transactions",
+        "salary_records",
+        "salary_payments",
+        "salary_requests",
+        "sponsoring_campaigns",
+        "invoices",
+        "sales_commissions",
+        "financial_closing_periods",
+        "subscriptions"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [
+        "sponsoring_purchase_rate",
+        "sponsoring_client_rate",
+        "initial_commission_rate",
+        "client_high_profit_amount_tnd",
+        "client_high_profit_margin_percent",
+        "low_profit_client_margin_percent",
+        "minimum_net_margin_for_sponsoring_efficiency",
+        "high_commission_amount",
+        "high_fixed_burn_revenue_percent",
+        "max_salary_advance_percent"
+      ]
+    },
+    "notification-context.tsx": {
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "notification-service.ts": {
+      "tablesRead": [
+        "notifications",
+        "notification_preferences",
+        "project_tasks",
+        "invoices",
+        "production_bookings",
+        "client_deliverables",
+        "profiles",
+        "team_members"
+      ],
+      "tablesWritten": [
+        "notifications",
+        "notification_preferences",
+        "project_activity"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [
+        "notification_deduplication_hours",
+        "task_due_soon_days"
+      ]
+    },
+    "package-reconciliation-service.ts": {
+      "tablesRead": [
+        "clients",
+        "project_tasks",
+        "client_projects",
+        "client_deliverables"
+      ],
+      "tablesWritten": [
+        "clients",
+        "client_deliverables",
+        "project_tasks",
+        "reconciliation_audit_logs"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "package-service.ts": {
+      "tablesRead": [
+        "package_categories",
+        "package_catalog",
+        "package_addons"
+      ],
+      "tablesWritten": [
+        "package_catalog",
+        "package_addons",
+        "package_categories"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "permissions.ts": {
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "publishing-workflow-service.ts": {
+      "tablesRead": [
+        "profiles",
+        "user_roles",
+        "team_members",
+        "clients",
+        "project_tasks",
+        "project_activity"
+      ],
+      "tablesWritten": [
+        "team_members",
+        "project_tasks",
+        "project_activity"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "pwa-service.ts": {
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "rate-limiter.ts": {
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "recurring-scheduling-service.ts": {
+      "tablesRead": [
+        "service_commitments",
+        "business_rules",
+        "clients",
+        "project_tasks",
+        "client_projects"
+      ],
+      "tablesWritten": [
+        "service_commitments",
+        "business_rules",
+        "project_tasks"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "route-permission-registry.ts": {
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "sales-service.ts": {
+      "tablesRead": [
+        "package_catalog",
+        "deals",
+        "clients",
+        "sales_commissions",
+        "client_deliverables",
+        "project_tasks",
+        "production_bookings"
+      ],
+      "tablesWritten": [
+        "deals",
+        "clients",
+        "invoices",
+        "sales_commissions",
+        "client_deliverables",
+        "client_projects",
+        "project_tasks",
+        "production_bookings"
+      ],
+      "rpcsCalled": [
+        "convert_lead_to_sale"
+      ],
+      "businessRulesAccessed": [
+        "initial_commission_rate",
+        "initial_commission_duration_months",
+        "renewal_commission_rate",
+        "upsell_commission_rate"
+      ]
+    },
+    "security-center-service.ts": {
+      "tablesRead": [
+        "security_alerts",
+        "system_audit_logs",
+        "account_audit_logs"
+      ],
+      "tablesWritten": [
+        "security_alerts"
+      ],
+      "rpcsCalled": [
+        "register_user_session",
+        "record_session_heartbeat",
+        "verify_session_and_account",
+        "admin_get_security_kpis",
+        "admin_list_user_sessions",
+        "admin_revoke_session",
+        "admin_revoke_all_user_sessions",
+        "admin_suspend_account_with_sessions",
+        "admin_reactivate_account_with_security",
+        "record_failed_sign_in_attempt"
+      ],
+      "businessRulesAccessed": []
+    },
+    "security-isolation-service.ts": {
+      "tablesRead": [
+        "user_roles",
+        "profiles",
+        "team_members",
+        "user_module_permissions"
+      ],
+      "tablesWritten": [],
+      "rpcsCalled": [
+        "is_super_admin",
+        "is_admin",
+        "verify_session_and_account",
+        "get_effective_user_permissions"
+      ],
+      "businessRulesAccessed": []
+    },
+    "site-settings.ts": {
+      "tablesRead": [
+        "site_settings"
+      ],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "smart-match-service.ts": {
+      "tablesRead": [
+        "package_catalog",
+        "deals"
+      ],
+      "tablesWritten": [
+        "contact_submissions",
+        "deals"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "task-execution-service.ts": {
+      "tablesRead": [
+        "project_tasks",
+        "project_activity"
+      ],
+      "tablesWritten": [
+        "project_activity",
+        "project_tasks"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "team-cost-service.ts": {
+      "tablesRead": [
+        "salary_records",
+        "team_members",
+        "work_sessions",
+        "project_tasks",
+        "sales_commissions",
+        "salary_requests",
+        "salary_payments",
+        "clients",
+        "client_projects",
+        "invoices",
+        "financial_accounts",
+        "sponsoring_campaigns"
+      ],
+      "tablesWritten": [
+        "work_sessions",
+        "project_tasks",
+        "invoices",
+        "income_transactions",
+        "financial_accounts",
+        "sales_commissions",
+        "expense_transactions",
+        "sponsoring_campaigns",
+        "salary_payments",
+        "salary_requests"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [
+        "standard_monthly_working_hours"
+      ]
+    },
+    "theme.tsx": {
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "utils.ts": {
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    },
+    "workflow-service.ts": {
+      "tablesRead": [
+        "business_rules",
+        "workflow_templates",
+        "project_tasks"
+      ],
+      "tablesWritten": [
+        "business_rules",
+        "workflow_templates",
+        "project_tasks",
+        "project_activity"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": []
+    }
+  },
+  "routes": [
+    {
+      "routeFile": "about.tsx",
+      "path": "/about",
+      "importedServices": [],
+      "tablesRead": [
+        "team_members"
+      ],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [
+        "site/CTA"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.accounts.tsx",
+      "path": "/admin/accounts",
+      "importedServices": [
+        "account-service.ts",
+        "audit-service.ts",
+        "auth.tsx",
+        "security-center-service.ts"
+      ],
+      "tablesRead": [
+        "profiles",
+        "user_module_permissions",
+        "system_audit_logs",
+        "team_members",
+        "user_roles",
+        "security_alerts",
+        "account_audit_logs"
+      ],
+      "tablesWritten": [
+        "system_audit_logs",
+        "user_sessions",
+        "security_alerts"
+      ],
+      "rpcsCalled": [
+        "admin_list_accounts",
+        "admin_get_auth_user_id_by_email",
+        "admin_reset_account_password",
+        "admin_provision_account",
+        "admin_delete_account",
+        "admin_update_account",
+        "admin_suspend_account_with_sessions",
+        "admin_reactivate_account_with_security",
+        "admin_analyze_account_dependencies",
+        "admin_list_account_audit_logs",
+        "admin_update_account_permissions",
+        "resolve_and_link_current_team_member",
+        "get_team_member_id",
+        "register_user_session",
+        "record_session_heartbeat",
+        "verify_session_and_account",
+        "admin_get_security_kpis",
+        "admin_list_user_sessions",
+        "admin_revoke_session",
+        "admin_revoke_all_user_sessions",
+        "record_failed_sign_in_attempt"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "accounts.view",
+      "components": [
+        "admin/accounts/AccountsHeader",
+        "admin/accounts/AccountsKPICards",
+        "admin/accounts/AccountsTable",
+        "admin/accounts/CreateAccountModal",
+        "admin/accounts/AccountDetailsDrawer",
+        "admin/security/SecurityControlCenterNav",
+        "admin/security/SecurityOverviewTab",
+        "admin/security/LiveSessionsTab",
+        "admin/security/UserActivityTab",
+        "admin/security/SecurityAndAuditTab",
+        "admin/security/EmergencyActionModals",
+        "ui/sada-ui",
+        "ui/sada-button"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.analytics.tsx",
+      "path": "/admin/analytics",
+      "importedServices": [
+        "analytics-service.ts",
+        "audit-service.ts",
+        "auth.tsx"
+      ],
+      "tablesRead": [
+        "package_catalog",
+        "project_tasks",
+        "work_sessions",
+        "team_members",
+        "deals",
+        "production_bookings",
+        "client_deliverables",
+        "client_projects",
+        "system_audit_logs",
+        "profiles",
+        "user_roles"
+      ],
+      "tablesWritten": [
+        "system_audit_logs",
+        "user_sessions"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "analytics.view",
+      "components": [
+        "admin/AnalyticsDrillDownModal",
+        "admin/AnalyticsSectionNav",
+        "admin/analytics/ExecutiveCommandToolbar",
+        "admin/analytics/ExecutiveCommandStrip",
+        "admin/analytics/ExecutiveBriefingSection",
+        "admin/analytics/FinancialTrendsChart",
+        "admin/analytics/CashFlowTreasuryView",
+        "admin/analytics/ExpenseBreakdownView",
+        "admin/analytics/RevenueSourcesBreakdown",
+        "admin/analytics/OperationsIntelligenceView",
+        "admin/analytics/ReceivablesObligationsView",
+        "ui/button",
+        "ui/badge",
+        "ui/tabs",
+        "ui/sada-ui"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.blog.$id.tsx",
+      "path": "/admin/blog/:id",
+      "importedServices": [
+        "auth.tsx",
+        "permissions.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "blog_posts"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "blog_posts"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "content_cms.view",
+      "components": [
+        "media/MediaUpload",
+        "ui/alert-dialog",
+        "ui/dialog",
+        "ui/sada-select",
+        "ui/sada-date-time-picker",
+        "admin/content/ContentEditorShell",
+        "admin/content/content-utils",
+        "site/ArticleContent"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.blog.index.tsx",
+      "path": "/admin/blog",
+      "importedServices": [
+        "auth.tsx",
+        "permissions.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "site_settings",
+        "blog_posts"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "site_settings",
+        "blog_posts"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "content_cms.view",
+      "components": [
+        "ui/alert-dialog",
+        "media/SmartMedia",
+        "admin/content/ContentShell",
+        "admin/content/content-utils"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.blog.tsx",
+      "path": "/admin/blog",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "content_cms.view",
+      "components": [],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "admin.business-rules.tsx",
+      "path": "/admin/business-rules",
+      "importedServices": [
+        "auth.tsx",
+        "business-rules-intelligence-service.ts",
+        "business-rules-service.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "project_tasks",
+        "business_rule_versions",
+        "salary_requests",
+        "deals",
+        "business_rules"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "business_rules"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id",
+        "reset_business_rule_to_default"
+      ],
+      "businessRulesAccessed": [
+        "sponsoring_purchase_rate",
+        "sponsoring_client_rate",
+        "low_profit_client_margin_percent",
+        "client_medium_profit_margin_percent",
+        "client_high_profit_margin_percent",
+        "client_high_profit_amount_tnd",
+        "client_medium_profit_amount_tnd",
+        "task_due_soon_days"
+      ],
+      "moduleName": "",
+      "requiredPermission": "business_rules.view",
+      "components": [
+        "ui/sada-ui",
+        "admin/business-rules/BusinessRulesExecutiveOverview",
+        "admin/business-rules/BusinessRuleCard",
+        "admin/business-rules/AdvancedRuleEditorModal",
+        "admin/business-rules/RuleVersionHistoryModal",
+        "admin/business-rules/BusinessRulesSmartInsightsPanel"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.calendar.tsx",
+      "path": "/admin/calendar",
+      "importedServices": [
+        "auth.tsx",
+        "date-locale.ts",
+        "permissions.ts",
+        "task-execution-service.ts",
+        "utils.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "project_tasks",
+        "project_activity",
+        "client_projects",
+        "task_handoffs"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "project_activity",
+        "project_tasks"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "calendar.view",
+      "components": [
+        "admin/CalendarGrid",
+        "admin/TaskModal",
+        "admin/TaskDetailModal",
+        "admin/project-utils",
+        "admin/project-utils",
+        "ui/popover",
+        "ui/command",
+        "ui/sada-combobox",
+        "ui/sada-select",
+        "ui/sada-button",
+        "ui/sada-page-skeletons",
+        "ui/sada-dialog"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.client-projects.$id.tsx",
+      "path": "/admin/client-projects/:id",
+      "importedServices": [],
+      "tablesRead": [
+        "client_projects"
+      ],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "clients.view",
+      "components": [],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.client-projects.index.tsx",
+      "path": "/admin/client-projects",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "clients.view",
+      "components": [],
+      "status": "VERIFIED_DERIVED_PROJECTION"
+    },
+    {
+      "routeFile": "admin.client-projects.tsx",
+      "path": "/admin/client-projects",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "clients.view",
+      "components": [],
+      "status": "VERIFIED_DERIVED_PROJECTION"
+    },
+    {
+      "routeFile": "admin.client-workspaces.$id.tsx",
+      "path": "/admin/client-workspaces/:id",
+      "importedServices": [
+        "auth.tsx",
+        "business-rules-service.ts",
+        "package-reconciliation-service.ts",
+        "permissions.ts",
+        "recurring-scheduling-service.ts",
+        "sales-service.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "business_rules",
+        "business_rule_versions",
+        "clients",
+        "project_tasks",
+        "client_projects",
+        "client_deliverables",
+        "service_commitments",
+        "package_catalog",
+        "deals",
+        "sales_commissions",
+        "production_bookings",
+        "invoices",
+        "sponsoring_campaigns",
+        "income_transactions",
+        "expense_transactions",
+        "financial_accounts",
+        "expense_categories"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "business_rules",
+        "clients",
+        "client_deliverables",
+        "project_tasks",
+        "reconciliation_audit_logs",
+        "service_commitments",
+        "deals",
+        "invoices",
+        "sales_commissions",
+        "client_projects",
+        "production_bookings"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id",
+        "reset_business_rule_to_default",
+        "convert_lead_to_sale"
+      ],
+      "businessRulesAccessed": [
+        "initial_commission_rate",
+        "initial_commission_duration_months",
+        "renewal_commission_rate",
+        "upsell_commission_rate"
+      ],
+      "moduleName": "",
+      "requiredPermission": "clients.view",
+      "components": [
+        "admin/project-utils",
+        "admin/CalendarGrid",
+        "ui/sada-dialog",
+        "ui/sada-select",
+        "ui/sada-combobox",
+        "ui/sada-date-picker",
+        "ui/sada-ui",
+        "admin/ServiceCommitmentModal",
+        "admin/TaskModal",
+        "admin/TaskDetailModal",
+        "admin/finance/RecordIncomeModal",
+        "admin/finance/RecordExpenseModal",
+        "admin/finance/CreateInvoiceModal",
+        "admin/finance/RecordInvoicePaymentModal",
+        "admin/finance/CreateSponsoringModal"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.client-workspaces.index.tsx",
+      "path": "/admin/client-workspaces",
+      "importedServices": [
+        "auth.tsx",
+        "business-rules-service.ts",
+        "package-reconciliation-service.ts",
+        "package-service.ts",
+        "permissions.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "business_rules",
+        "business_rule_versions",
+        "clients",
+        "project_tasks",
+        "client_projects",
+        "client_deliverables",
+        "package_categories",
+        "package_catalog",
+        "package_addons",
+        "invoices",
+        "sponsoring_campaigns"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "business_rules",
+        "clients",
+        "client_deliverables",
+        "project_tasks",
+        "reconciliation_audit_logs",
+        "package_catalog",
+        "package_addons",
+        "package_categories",
+        "client_projects"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id",
+        "reset_business_rule_to_default"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "clients.view",
+      "components": [
+        "admin/project-utils",
+        "ui/sada-select",
+        "ui/sada-combobox",
+        "ui/sada-date-picker",
+        "ui/sada-ui"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.client-workspaces.tsx",
+      "path": "/admin/client-workspaces",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "clients.view",
+      "components": [],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "admin.clients.$id.tsx",
+      "path": "/admin/clients/:id",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "clients.view",
+      "components": [],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "admin.clients.index.tsx",
+      "path": "/admin/clients",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "clients.view",
+      "components": [],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "admin.clients.tsx",
+      "path": "/admin/clients",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "clients.view",
+      "components": [],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "admin.commissions.tsx",
+      "path": "/admin/commissions",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "sales.view",
+      "components": [],
+      "status": "VERIFIED_DERIVED_PROJECTION"
+    },
+    {
+      "routeFile": "admin.contact.tsx",
+      "path": "/admin/contact",
+      "importedServices": [
+        "auth.tsx"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "contact_submissions"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "contact_submissions"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "inquiries.view",
+      "components": [
+        "admin/ConvertToProjectModal",
+        "discovery/discovery-utils",
+        "ui/sada-confirm-dialog",
+        "ui/sada-ui"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.deals.tsx",
+      "path": "/admin/deals",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "sales.view",
+      "components": [],
+      "status": "VERIFIED_DERIVED_PROJECTION"
+    },
+    {
+      "routeFile": "admin.finance.tsx",
+      "path": "/admin/finance",
+      "importedServices": [
+        "auth.tsx",
+        "finance-service.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "income_transactions",
+        "expense_transactions",
+        "expense_categories",
+        "subscriptions",
+        "salary_records",
+        "salary_payments",
+        "salary_requests",
+        "invoices",
+        "sponsoring_campaigns",
+        "sales_commissions",
+        "financial_accounts",
+        "financial_closing_periods",
+        "clients",
+        "financial_audit_logs",
+        "work_sessions",
+        "client_projects"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "financial_audit_logs",
+        "income_transactions",
+        "financial_accounts",
+        "expense_transactions",
+        "salary_records",
+        "salary_payments",
+        "salary_requests",
+        "sponsoring_campaigns",
+        "invoices",
+        "sales_commissions",
+        "financial_closing_periods",
+        "subscriptions"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [
+        "sponsoring_purchase_rate",
+        "sponsoring_client_rate",
+        "initial_commission_rate",
+        "client_high_profit_amount_tnd",
+        "client_high_profit_margin_percent",
+        "low_profit_client_margin_percent",
+        "minimum_net_margin_for_sponsoring_efficiency",
+        "high_commission_amount",
+        "high_fixed_burn_revenue_percent",
+        "max_salary_advance_percent"
+      ],
+      "moduleName": "",
+      "requiredPermission": "finance.view",
+      "components": [
+        "admin/finance/FinanceHeader",
+        "admin/finance/FinanceKPICards",
+        "admin/finance/FinanceOverviewChart",
+        "admin/finance/FinanceInsightsSection",
+        "admin/finance/FinanceRevenueAndProfitSummary",
+        "admin/finance/FinanceDrillDownModal",
+        "admin/finance/CanonicalLedgerView",
+        "admin/finance/InvoicesRevenueView",
+        "admin/finance/SponsoringEngineView",
+        "admin/finance/CashFlowAccountsView",
+        "admin/finance/ClientProfitabilityView",
+        "admin/finance/CommissionsView",
+        "admin/finance/MonthlyClosingView",
+        "admin/finance/ExpenseTable",
+        "admin/finance/IncomeTable",
+        "admin/finance/RecordIncomeModal",
+        "admin/finance/SalariesView",
+        "admin/finance/SalaryRequestsView",
+        "admin/finance/SubscriptionsView",
+        "admin/finance/FinanceSectionNav",
+        "admin/ModuleAccessShield",
+        "ui/sada-ui",
+        "ui/tabs"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.index.tsx",
+      "path": "/admin",
+      "importedServices": [
+        "analytics-service.ts",
+        "auth.tsx",
+        "date-locale.ts"
+      ],
+      "tablesRead": [
+        "package_catalog",
+        "project_tasks",
+        "work_sessions",
+        "team_members",
+        "deals",
+        "production_bookings",
+        "client_deliverables",
+        "client_projects",
+        "profiles",
+        "user_roles",
+        "clients",
+        "sales_commissions"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "project_tasks",
+        "project_activity"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "dashboard.view",
+      "components": [
+        "admin/project-utils",
+        "admin/TaskModal",
+        "admin/TaskDetailModal",
+        "admin/ClientFollowupModal",
+        "admin/ExecutiveCommandCenter",
+        "admin/AnalyticsDrillDownModal",
+        "ui/popover",
+        "ui/command",
+        "ui/sada-ui"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.my-salary.tsx",
+      "path": "/admin/my-salary",
+      "importedServices": [
+        "auth.tsx",
+        "business-rules-service.ts",
+        "date-locale.ts",
+        "finance-service.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "business_rules",
+        "business_rule_versions",
+        "income_transactions",
+        "expense_transactions",
+        "expense_categories",
+        "subscriptions",
+        "salary_records",
+        "salary_payments",
+        "salary_requests",
+        "invoices",
+        "sponsoring_campaigns",
+        "sales_commissions",
+        "financial_accounts",
+        "financial_closing_periods",
+        "clients",
+        "financial_audit_logs",
+        "work_sessions"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "business_rules",
+        "financial_audit_logs",
+        "income_transactions",
+        "financial_accounts",
+        "expense_transactions",
+        "salary_records",
+        "salary_payments",
+        "salary_requests",
+        "sponsoring_campaigns",
+        "invoices",
+        "sales_commissions",
+        "financial_closing_periods",
+        "subscriptions"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id",
+        "reset_business_rule_to_default"
+      ],
+      "businessRulesAccessed": [
+        "sponsoring_purchase_rate",
+        "sponsoring_client_rate",
+        "initial_commission_rate",
+        "client_high_profit_amount_tnd",
+        "client_high_profit_margin_percent",
+        "low_profit_client_margin_percent",
+        "minimum_net_margin_for_sponsoring_efficiency",
+        "high_commission_amount",
+        "high_fixed_burn_revenue_percent",
+        "max_salary_advance_percent"
+      ],
+      "moduleName": "",
+      "requiredPermission": "compensation.view",
+      "components": [
+        "ui/sada-ui"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.my-work.tsx",
+      "path": "/admin/my-work",
+      "importedServices": [
+        "auth.tsx",
+        "date-locale.ts",
+        "permissions.ts",
+        "task-execution-service.ts",
+        "workflow-service.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "project_tasks",
+        "project_activity",
+        "business_rules",
+        "workflow_templates",
+        "clients",
+        "client_projects"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "project_activity",
+        "project_tasks",
+        "business_rules",
+        "workflow_templates"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "tasks.view",
+      "components": [
+        "admin/project-utils",
+        "admin/TaskDetailModal",
+        "ui/sada-combobox",
+        "ui/sada-select",
+        "ui/sada-ui"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.packages.tsx",
+      "path": "/admin/packages",
+      "importedServices": [
+        "auth.tsx",
+        "package-service.ts",
+        "permissions.ts",
+        "utils.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "package_categories",
+        "package_catalog",
+        "package_addons"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "package_catalog",
+        "package_addons",
+        "package_categories"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "packages.view",
+      "components": [
+        "admin/packages/PackageEditorDrawer",
+        "ui/sada-ui"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.products.$id.tsx",
+      "path": "/admin/products/:id",
+      "importedServices": [
+        "auth.tsx",
+        "permissions.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "products"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "products"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "content_cms.view",
+      "components": [
+        "media/MediaUpload",
+        "ui/alert-dialog",
+        "ui/dialog",
+        "ui/sada-select",
+        "ui/sada-ui",
+        "admin/content/ContentEditorShell",
+        "admin/content/content-utils"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.products.index.tsx",
+      "path": "/admin/products",
+      "importedServices": [
+        "auth.tsx",
+        "permissions.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "products"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "products"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "content_cms.view",
+      "components": [
+        "ui/alert-dialog",
+        "media/SmartMedia",
+        "admin/content/ContentShell",
+        "admin/content/content-utils"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.products.tsx",
+      "path": "/admin/products",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "content_cms.view",
+      "components": [],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "admin.projects.$id.tsx",
+      "path": "/admin/projects/:id",
+      "importedServices": [
+        "auth.tsx",
+        "permissions.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "testimonials",
+        "projects"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "projects",
+        "testimonials"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "content_cms.view",
+      "components": [
+        "media/MediaUpload",
+        "ui/alert-dialog",
+        "ui/dialog",
+        "ui/sada-date-picker",
+        "ui/sada-combobox",
+        "ui/sada-ui"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.projects.index.tsx",
+      "path": "/admin/projects",
+      "importedServices": [
+        "auth.tsx",
+        "permissions.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "projects"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "projects"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "content_cms.view",
+      "components": [
+        "ui/alert-dialog",
+        "media/SmartMedia",
+        "ui/sada-select",
+        "ui/sada-ui"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.projects.tsx",
+      "path": "/admin/projects",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "content_cms.view",
+      "components": [],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "admin.reels.tsx",
+      "path": "/admin/reels",
+      "importedServices": [
+        "auth.tsx"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "social_reels"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "social_reels"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "content_cms.view",
+      "components": [
+        "media/MediaUpload",
+        "ui/sada-ui",
+        "media/SmartMedia",
+        "ui/dialog",
+        "ui/alert-dialog",
+        "ui/sada-ui"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.salary.tsx",
+      "path": "/admin/salary",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "compensation.view",
+      "components": [],
+      "status": "VERIFIED_DERIVED_PROJECTION"
+    },
+    {
+      "routeFile": "admin.sales.tsx",
+      "path": "/admin/sales",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "sales.view",
+      "components": [
+        "admin/SalesWorkspaceView"
+      ],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "admin.settings.business-rules.tsx",
+      "path": "/admin/settings/business-rules",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "business_rules.view",
+      "components": [],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "admin.team-workload.tsx",
+      "path": "/admin/team-workload",
+      "importedServices": [
+        "auth.tsx"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "project_tasks",
+        "client_projects"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "project_tasks"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "team.view",
+      "components": [
+        "admin/project-utils",
+        "admin/TaskModal",
+        "admin/TeamMemberModal",
+        "admin/MemberWorkspaceModal",
+        "ui/sada-combobox",
+        "ui/sada-ui"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.testimonials.$id.tsx",
+      "path": "/admin/testimonials/:id",
+      "importedServices": [
+        "auth.tsx",
+        "permissions.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "clients",
+        "projects",
+        "testimonials"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "testimonials"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "content_cms.view",
+      "components": [
+        "media/MediaUpload",
+        "ui/alert-dialog",
+        "ui/dialog",
+        "ui/sada-select",
+        "ui/sada-combobox",
+        "ui/sada-counter",
+        "admin/content/ContentEditorShell",
+        "admin/content/content-utils"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.testimonials.index.tsx",
+      "path": "/admin/testimonials",
+      "importedServices": [
+        "auth.tsx",
+        "permissions.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "testimonials",
+        "projects"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "testimonials"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "content_cms.view",
+      "components": [
+        "ui/alert-dialog",
+        "media/SmartMedia",
+        "admin/content/ContentShell",
+        "admin/content/content-utils"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.testimonials.tsx",
+      "path": "/admin/testimonials",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "content_cms.view",
+      "components": [],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "admin.tsx",
+      "path": "/admin",
+      "importedServices": [
+        "auth.tsx",
+        "notification-context.tsx",
+        "permissions.ts",
+        "theme.tsx"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles"
+      ],
+      "tablesWritten": [
+        "user_sessions"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "dashboard.view",
+      "components": [
+        "admin/ModuleAccessShield",
+        "site/Logo",
+        "admin/NotificationCenter",
+        "admin/GlobalSearchModal",
+        "admin/SADAMobileBottomNav",
+        "admin/PWAInstallBanner",
+        "ui/sada-ui"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "admin.workflow-templates.tsx",
+      "path": "/admin/workflow-templates",
+      "importedServices": [
+        "auth.tsx",
+        "workflow-service.ts"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "business_rules",
+        "workflow_templates",
+        "project_tasks"
+      ],
+      "tablesWritten": [
+        "user_sessions",
+        "business_rules",
+        "workflow_templates",
+        "project_tasks",
+        "project_activity"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "workflows.view",
+      "components": [
+        "ui/sada-ui",
+        "ui/sada-select"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "auth.tsx",
+      "path": "/auth",
+      "importedServices": [
+        "auth-recovery-service.ts",
+        "auth.tsx"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles"
+      ],
+      "tablesWritten": [
+        "user_sessions"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [
+        "site/Logo"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "blog.$slug.tsx",
+      "path": "/blog/:slug",
+      "importedServices": [
+        "site-settings.ts"
+      ],
+      "tablesRead": [
+        "site_settings",
+        "blog_posts"
+      ],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [
+        "site/ArticleContent"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "blog.tsx",
+      "path": "/blog",
+      "importedServices": [
+        "site-settings.ts"
+      ],
+      "tablesRead": [
+        "site_settings",
+        "blog_posts"
+      ],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "case-studies.$slug.tsx",
+      "path": "/case-studies/:slug",
+      "importedServices": [
+        "auth.tsx"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles",
+        "projects",
+        "testimonials"
+      ],
+      "tablesWritten": [
+        "user_sessions"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [
+        "media/SmartMedia",
+        "media/MediaGallery",
+        "site/CTA"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "case-studies.index.tsx",
+      "path": "/case-studies",
+      "importedServices": [],
+      "tablesRead": [
+        "projects"
+      ],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [
+        "media/SmartMedia"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "case-studies.tsx",
+      "path": "/case-studies",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "contact.tsx",
+      "path": "/contact",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [
+        "contact/SmartMatcherShell"
+      ],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "index.tsx",
+      "path": "/",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [
+        "site/Hero"
+      ],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "portfolio.$slug.tsx",
+      "path": "/portfolio/:slug",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [],
+      "status": "VERIFIED_DERIVED_PROJECTION"
+    },
+    {
+      "routeFile": "portfolio.tsx",
+      "path": "/portfolio",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [],
+      "status": "VERIFIED_DERIVED_PROJECTION"
+    },
+    {
+      "routeFile": "pricing.tsx",
+      "path": "/pricing",
+      "importedServices": [
+        "package-service.ts"
+      ],
+      "tablesRead": [
+        "package_categories",
+        "package_catalog",
+        "package_addons"
+      ],
+      "tablesWritten": [
+        "package_catalog",
+        "package_addons",
+        "package_categories"
+      ],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [
+        "packages/PublicPackageCard",
+        "packages/PackageDetailsModal",
+        "packages/package-utils",
+        "ui/sada-ui"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "products.$id.tsx",
+      "path": "/products/:id",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "products.tsx",
+      "path": "/products",
+      "importedServices": [],
+      "tablesRead": [],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [],
+      "status": "HARDCODED_OR_MOCKED"
+    },
+    {
+      "routeFile": "reset-password.tsx",
+      "path": "/reset-password",
+      "importedServices": [
+        "auth-recovery-service.ts",
+        "auth.tsx"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles"
+      ],
+      "tablesWritten": [
+        "user_sessions"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [
+        "site/Logo"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "sada-os.tsx",
+      "path": "/sada-os",
+      "importedServices": [
+        "auth.tsx",
+        "permissions.ts",
+        "theme.tsx"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles"
+      ],
+      "tablesWritten": [
+        "user_sessions"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "dashboard.view",
+      "components": [
+        "ui/sada-ui",
+        "admin/ModuleAccessShield",
+        "site/Logo"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "services.tsx",
+      "path": "/services",
+      "importedServices": [],
+      "tablesRead": [
+        "projects"
+      ],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [
+        "media/SmartMedia",
+        "site/CTA"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "store.$id.tsx",
+      "path": "/store/:id",
+      "importedServices": [],
+      "tablesRead": [
+        "products"
+      ],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [
+        "media/SmartMedia",
+        "media/MediaGallery"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "store.tsx",
+      "path": "/store",
+      "importedServices": [],
+      "tablesRead": [
+        "products"
+      ],
+      "tablesWritten": [],
+      "rpcsCalled": [],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [
+        "media/SmartMedia"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    },
+    {
+      "routeFile": "__root.tsx",
+      "path": "/__root",
+      "importedServices": [
+        "auth.tsx",
+        "pwa-service.ts",
+        "theme.tsx"
+      ],
+      "tablesRead": [
+        "team_members",
+        "profiles",
+        "user_roles"
+      ],
+      "tablesWritten": [
+        "user_sessions"
+      ],
+      "rpcsCalled": [
+        "resolve_and_link_current_team_member",
+        "get_team_member_id"
+      ],
+      "businessRulesAccessed": [],
+      "moduleName": "",
+      "requiredPermission": "",
+      "components": [
+        "site/SiteLayout",
+        "ui/sonner"
+      ],
+      "status": "VERIFIED_CANONICAL_SOURCE"
+    }
+  ]
+}

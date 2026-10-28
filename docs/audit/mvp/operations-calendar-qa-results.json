@@ -1,0 +1,184 @@
+{
+  "suite": "SADA OS Operations Calendar MVP Certification Suite",
+  "date": "2026-10-15T22:39:16.259Z",
+  "totalTests": 35,
+  "passed": 35,
+  "failed": 0,
+  "results": [
+    {
+      "category": "SSOT",
+      "name": "public.project_tasks is canonical task table and readable by admin",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "Canonical task inventory verified: 239 records found",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "Invariant: no parallel 'calendar_events' table exists",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "Invariant: no parallel 'scheduled_events' table exists",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "Active team members verified: 381",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "Profiles directory verified: 428",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "Active projects verified: 24",
+      "status": "PASS"
+    },
+    {
+      "category": "SECURITY",
+      "name": "Worker scope correctly restricts tasks (5 assigned vs 239 total)",
+      "status": "PASS"
+    },
+    {
+      "category": "SECURITY",
+      "name": "Anonymous requests cannot query arbitrary project_tasks without session",
+      "status": "PASS"
+    },
+    {
+      "category": "IDENTITY",
+      "name": "resolveToProfileId properly maps team_member 'Demo Admin Tester' to profile_id 'd620961d-52bb-43b7-816a-2ee03077ea1a'",
+      "status": "PASS"
+    },
+    {
+      "category": "IDENTITY",
+      "name": "resolveToProfileId properly maps team_member 'Fresh Demo Admin Updated' to profile_id 'fdc162bc-89d9-4812-aacc-ddd7e83a1e70'",
+      "status": "PASS"
+    },
+    {
+      "category": "IDENTITY",
+      "name": "resolveToProfileId properly maps team_member 'Security Admin NoFinance' to profile_id '462f3d57-72e3-4d1e-bb5a-66b1771f578c'",
+      "status": "PASS"
+    },
+    {
+      "category": "IDENTITY",
+      "name": "resolveToProfileId safely handles unlinked team_member 'Super Admin'",
+      "status": "PASS"
+    },
+    {
+      "category": "IDENTITY",
+      "name": "resolveToProfileId properly maps team_member 'Test Operations Admin' to profile_id '2a1eebe2-c040-440e-a57b-f2a4c86e2fa2'",
+      "status": "PASS"
+    },
+    {
+      "category": "METRICS",
+      "name": "Today active deliverables count: 1",
+      "status": "PASS"
+    },
+    {
+      "category": "METRICS",
+      "name": "Overdue tasks count: 51",
+      "status": "PASS"
+    },
+    {
+      "category": "METRICS",
+      "name": "Due soon tasks count: 5",
+      "status": "PASS"
+    },
+    {
+      "category": "METRICS",
+      "name": "Completed tasks count: 59",
+      "status": "PASS"
+    },
+    {
+      "category": "METRICS",
+      "name": "Accounts metric correctly resolves clients across tasks & projects: 18 unique clients",
+      "status": "PASS"
+    },
+    {
+      "category": "FILTERS",
+      "name": "Filter by client 'Maison Carthage Luxury' returns 102 tasks",
+      "status": "PASS"
+    },
+    {
+      "category": "FILTERS",
+      "name": "Filter by status 'todo' returns 172 tasks",
+      "status": "PASS"
+    },
+    {
+      "category": "FILTERS",
+      "name": "Reset Filters restores full canonical dataset",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport mobile_320x640 (320x640) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport mobile_360x800 (360x800) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport mobile_375x812 (375x812) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport mobile_390x844 (390x844) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "THEME",
+      "name": "Viewport mobile_390x844 Light English: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport mobile_430x932 (430x932) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport tablet_768x1024 (768x1024) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport desktop_1024x768 (1024x768) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport desktop_1280x800 (1280x800) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport desktop_1440x900 (1440x900) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "THEME",
+      "name": "Viewport desktop_1440x900 Light English: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "SECURITY_UI",
+      "name": "Worker view strictly hides 'New Task' creation button",
+      "status": "PASS"
+    },
+    {
+      "category": "SECURITY_UI",
+      "name": "Worker view is locked to 'My Calendar'",
+      "status": "PASS"
+    }
+  ]
+}

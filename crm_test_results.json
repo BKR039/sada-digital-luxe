@@ -1,0 +1,275 @@
+[
+  {
+    "num": 1,
+    "name": "clients table exists in remote schema",
+    "status": "PASS",
+    "expected": "Table accessible",
+    "actual": "Accessible"
+  },
+  {
+    "num": 2,
+    "name": "RLS enabled on clients",
+    "status": "PASS",
+    "expected": "0 rows or error",
+    "actual": "0 rows returned"
+  },
+  {
+    "num": 3,
+    "name": "Anonymous INSERT blocked by RLS",
+    "status": "PASS",
+    "expected": "RLS error / rejected",
+    "actual": "Blocked by policy"
+  },
+  {
+    "num": 4,
+    "name": "Admin can read clients",
+    "status": "PASS",
+    "expected": "Admin reads records",
+    "actual": "34 records read"
+  },
+  {
+    "num": 5,
+    "name": "Worker access: Read allowed, Delete blocked",
+    "status": "PASS",
+    "expected": "Read ok, Delete rejected",
+    "actual": "Read: 34 rows, Delete blocked: true"
+  },
+  {
+    "num": 6,
+    "name": "Super Admin can delete unlinked client",
+    "status": "PASS",
+    "expected": "Deleted successfully",
+    "actual": "Deleted 1 row"
+  },
+  {
+    "num": 7,
+    "name": "Admin creates client with full details",
+    "status": "PASS",
+    "expected": "Created client record",
+    "actual": "ID: 2f217226-6551-4901-a367-b1b7b6e0c64e"
+  },
+  {
+    "num": 8,
+    "name": "Admin updates client profile",
+    "status": "PASS",
+    "expected": "High Luxury & Resorts",
+    "actual": "High Luxury & Resorts"
+  },
+  {
+    "num": 9,
+    "name": "Normalize email helper",
+    "status": "PASS",
+    "expected": "amira.bensalem@carthage-luxury.tn",
+    "actual": "amira.bensalem@carthage-luxury.tn"
+  },
+  {
+    "num": 10,
+    "name": "Normalize phone helper",
+    "status": "PASS",
+    "expected": "+21671123456",
+    "actual": "+21671123456"
+  },
+  {
+    "num": 11,
+    "name": "Existing client detection logic (email match)",
+    "status": "PASS",
+    "expected": "Match c-101",
+    "actual": "Found 1 match: Maison Carthage Luxury"
+  },
+  {
+    "num": 12,
+    "name": "Create new client during conversion",
+    "status": "PASS",
+    "expected": "Client created",
+    "actual": "Sidi Bou Said Artisans"
+  },
+  {
+    "num": 13,
+    "name": "Inquiry links to client_id",
+    "status": "PASS",
+    "expected": "2f217226-6551-4901-a367-b1b7b6e0c64e",
+    "actual": "2f217226-6551-4901-a367-b1b7b6e0c64e"
+  },
+  {
+    "num": 14,
+    "name": "Inquiry -> Project -> Client linkage",
+    "status": "PASS",
+    "expected": "Linked client & inquiry",
+    "actual": "Client: 2f217226-6551-4901-a367-b1b7b6e0c64e, Inq: 033b90fd-f4bb-43be-881d-a12a2d9bdfee"
+  },
+  {
+    "num": 15,
+    "name": "Repeat inquiry links to existing client",
+    "status": "PASS",
+    "expected": "2f217226-6551-4901-a367-b1b7b6e0c64e",
+    "actual": "2f217226-6551-4901-a367-b1b7b6e0c64e"
+  },
+  {
+    "num": 16,
+    "name": "Repeat project links to existing client",
+    "status": "PASS",
+    "expected": "2f217226-6551-4901-a367-b1b7b6e0c64e",
+    "actual": "2f217226-6551-4901-a367-b1b7b6e0c64e"
+  },
+  {
+    "num": 17,
+    "name": "Multiple projects under one client",
+    "status": "PASS",
+    "expected": ">= 2 projects",
+    "actual": "2 projects found"
+  },
+  {
+    "num": 18,
+    "name": "Multiple inquiries under one client",
+    "status": "PASS",
+    "expected": ">= 2 inquiries",
+    "actual": "2 inquiries found"
+  },
+  {
+    "num": 19,
+    "name": "Conservative deduplication detects exact match",
+    "status": "PASS",
+    "expected": "1 match (no duplicate creation)",
+    "actual": "1 match found"
+  },
+  {
+    "num": 20,
+    "name": "Ambiguous criteria does NOT auto-merge",
+    "status": "PASS",
+    "expected": "0 matches",
+    "actual": "0 matches"
+  },
+  {
+    "num": 21,
+    "name": "Project Lead assigned with valid profile FK",
+    "status": "PASS",
+    "expected": "86d3e638-6310-4722-ad30-bc5e4a2a646a",
+    "actual": "86d3e638-6310-4722-ad30-bc5e4a2a646a"
+  },
+  {
+    "num": 22,
+    "name": "Task assignment to profile ID under client project",
+    "status": "PASS",
+    "expected": "86d3e638-6310-4722-ad30-bc5e4a2a646a",
+    "actual": "86d3e638-6310-4722-ad30-bc5e4a2a646a"
+  },
+  {
+    "num": 23,
+    "name": "Deterministic starter tasks generated",
+    "status": "PASS",
+    "expected": "> 0 tasks",
+    "actual": "11 tasks generated"
+  },
+  {
+    "num": 24,
+    "name": "Client follow-up status tracked on project",
+    "status": "PASS",
+    "expected": "waiting_for_client",
+    "actual": "waiting_for_client"
+  },
+  {
+    "num": 25,
+    "name": "Project activity logs CRM client context",
+    "status": "PASS",
+    "expected": "Activity logged",
+    "actual": "created"
+  },
+  {
+    "num": 26,
+    "name": "Public access to private clients blocked",
+    "status": "PASS",
+    "expected": "0 rows returned",
+    "actual": "0 rows returned"
+  },
+  {
+    "num": 27,
+    "name": "Client deletion blocked when projects exist (ON DELETE RESTRICT)",
+    "status": "PASS",
+    "expected": "Foreign key RESTRICT error",
+    "actual": "update or delete on table \"clients\" violates foreign key constraint \"client_projects_client_id_fkey\" on table \"client_projects\""
+  },
+  {
+    "num": 28,
+    "name": "No orphan clients in database",
+    "status": "PASS",
+    "expected": ">= 3 valid clients",
+    "actual": "36 clients"
+  },
+  {
+    "num": 29,
+    "name": "0 orphan projects (all projects linked to client_id)",
+    "status": "PASS",
+    "expected": "0 orphan projects",
+    "actual": "0 orphan projects"
+  },
+  {
+    "num": 30,
+    "name": "0 invalid client foreign keys in client_projects",
+    "status": "PASS",
+    "expected": "0 invalid FKs",
+    "actual": "0 invalid FKs"
+  },
+  {
+    "num": 31,
+    "name": "Regression: 'Edit first Café 707 Reel' preserved under Café 707",
+    "status": "PASS",
+    "expected": "Sarah assignee, Boubakar delegator, client linked",
+    "actual": "Assignee: 63a69ae6-4737-4645-9f25-e45e2a3f1726, Delegator: f4184256-97c4-4f81-9346-176ec5dfb43a, Client: 0159b219-605e-4020-9d73-34117263541e"
+  },
+  {
+    "num": 32,
+    "name": "Canonical Client Creation (CRM owners, package quotas, financial params)",
+    "status": "PASS",
+    "expected": "Client created with valid ID",
+    "actual": "Created ID: dc2e7821-31bb-435c-9471-36c4836451e5"
+  },
+  {
+    "num": 33,
+    "name": "Canonical Client Update (profile, notes, rate update)",
+    "status": "PASS",
+    "expected": "contact_name updated, rate updated to 2800",
+    "actual": "Contact: Tariq Mansour (CEO), Rate: 2800"
+  },
+  {
+    "num": 34,
+    "name": "Canonical Client Assignment (Account Manager & Sales Owner integrity)",
+    "status": "PASS",
+    "expected": "AM: f4184256-97c4-4f81-9346-176ec5dfb43a, Sales: 63a69ae6-4737-4645-9f25-e45e2a3f1726",
+    "actual": "AM: f4184256-97c4-4f81-9346-176ec5dfb43a, Sales: 63a69ae6-4737-4645-9f25-e45e2a3f1726"
+  },
+  {
+    "num": 35,
+    "name": "Client Financial Linkage (Invoices and Sponsoring attach directly to client_id)",
+    "status": "PASS",
+    "expected": "Invoice & Sponsoring campaign linked to client_id",
+    "actual": "Invoice: 9b282216-8918-411f-94a9-33816b4b8669, Sponsoring: 45f0e0ad-f063-4352-a823-dca159ca2eef"
+  },
+  {
+    "num": 36,
+    "name": "Dynamic Financial Derivations (Profit, Margin, Health strictly computed, never manually stored)",
+    "status": "PASS",
+    "expected": "No manual profit/margin columns; Net Profit: 1790 TND, Health: HIGH PROFIT",
+    "actual": "Calculated Profit: 1790 TND (47.1%), Health: HIGH PROFIT"
+  },
+  {
+    "num": 37,
+    "name": "RBAC: Worker CANNOT delete client record",
+    "status": "PASS",
+    "expected": "Delete rejected / 0 rows affected",
+    "actual": "Blocked by policy"
+  },
+  {
+    "num": 38,
+    "name": "IDOR Protection: Anonymous / public cannot access client by ID",
+    "status": "PASS",
+    "expected": "0 rows returned",
+    "actual": "0 rows returned"
+  },
+  {
+    "num": 39,
+    "name": "Zero Duplicate Client Systems (public.clients is sole canonical authority)",
+    "status": "PASS",
+    "expected": "Single canonical public.clients entity across SADA OS",
+    "actual": "Verified: public.clients anchors CRM, invoices, sponsoring, workspaces"
+  }
+]

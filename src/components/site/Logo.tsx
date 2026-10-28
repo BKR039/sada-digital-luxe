@@ -1,10 +1,14 @@
-import logo from "@/assets/sada-mark.png";
+import logoLight from "@/assets/sada-logo-light.svg";
+import logoDark from "@/assets/sada-logo-dark.svg";
+import { useTheme } from "@/lib/theme";
 
-export function Logo({ className = "" }: { className?: string }) {
+export function Logo({ className = "", forceDark = false }: { className?: string; forceDark?: boolean }) {
+  const { theme } = useTheme();
+  const isDark = forceDark || theme === "dark";
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
-      <img src={logo} alt="SADA" className="h-8 w-auto" />
-      <span className="font-display text-xl font-bold tracking-[0.18em] text-foreground">SADA</span>
+    <div className={`flex items-center ${className}`}>
+      <img src={isDark ? logoDark : logoLight} alt="SADA" className="h-8 w-auto" />
     </div>
   );
 }
+

@@ -1,0 +1,362 @@
+[
+  {
+    "route": "/admin",
+    "viewport": "320x640",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work",
+    "viewport": "320x640",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "360x800",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work",
+    "viewport": "360x800",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "375x812",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work",
+    "viewport": "375x812",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "390x844",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "390x844",
+    "theme": "dark",
+    "lang": "en",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work",
+    "viewport": "390x844",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "430x932",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work",
+    "viewport": "430x932",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 430,
+    "clientWidth": 430,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "600x800",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 600,
+    "clientWidth": 600,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work",
+    "viewport": "600x800",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 600,
+    "clientWidth": 600,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "768x1024",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work",
+    "viewport": "768x1024",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "1024x768",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work",
+    "viewport": "1024x768",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "1280x800",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work",
+    "viewport": "1280x800",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "1440x900",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin",
+    "viewport": "1440x900",
+    "theme": "dark",
+    "lang": "en",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work",
+    "viewport": "1440x900",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin (rtl)",
+    "viewport": "360x800",
+    "theme": "light",
+    "lang": "ar",
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work (rtl)",
+    "viewport": "360x800",
+    "theme": "light",
+    "lang": "ar",
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin (rtl)",
+    "viewport": "390x844",
+    "theme": "light",
+    "lang": "ar",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work (rtl)",
+    "viewport": "390x844",
+    "theme": "light",
+    "lang": "ar",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "TaskDetailModal (light en)",
+    "viewport": "360x800",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "TaskDetailModal (light ar)",
+    "viewport": "360x800",
+    "theme": "light",
+    "lang": "ar",
+    "scrollWidth": 360,
+    "clientWidth": 360,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "TaskDetailModal (light en)",
+    "viewport": "390x844",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "TaskDetailModal (light ar)",
+    "viewport": "390x844",
+    "theme": "light",
+    "lang": "ar",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "AttentionDrawer",
+    "viewport": "390x844",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/my-work (worker role)",
+    "viewport": "390x844",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/finance",
+    "viewport": "390x844",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/sales",
+    "viewport": "390x844",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "/admin/packages",
+    "viewport": "390x844",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  },
+  {
+    "route": "PackageEditorDrawer (open)",
+    "viewport": "390x844",
+    "theme": "light",
+    "lang": "en",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "hasOverflow": false,
+    "overflowElements": []
+  }
+]

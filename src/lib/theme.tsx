@@ -1,23 +1,39 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = "light" | "dark";
-const ThemeCtx = createContext<{ theme: Theme; toggle: () => void; setTheme: (t: Theme) => void }>({
+export type Theme = "light" | "dark";
+
+interface ThemeContextValue {
+  theme: Theme;
+  toggle: () => void;
+  setTheme: (t: Theme) => void;
+}
+
+const ThemeCtx = createContext<ThemeContextValue>({
   theme: "light",
   toggle: () => {},
   setTheme: () => {},
 });
 
+function getInitialTheme(): Theme {
+  if (typeof window === "undefined") return "light";
+  try {
+    const saved = localStorage.getItem("sada-theme") as Theme | null;
+    if (saved === "light" || saved === "dark") return saved;
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+  } catch {}
+  return "light";
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("sada-theme") as Theme | null;
-      const initial: Theme = saved ?? "light";
-      setThemeState(initial);
-      document.documentElement.classList.toggle("dark", initial === "dark");
-    } catch {}
-  }, []);
+    // Keep html class in sync
+    const isDark = theme === "dark";
+    document.documentElement.classList.toggle("dark", isDark);
+  }, [theme]);
 
   const setTheme = (t: Theme) => {
     setThemeState(t);

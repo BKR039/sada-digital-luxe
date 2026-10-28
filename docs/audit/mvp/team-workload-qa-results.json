@@ -1,0 +1,264 @@
+{
+  "suite": "SADA OS Team Management & Workload MVP Certification Suite",
+  "date": "2026-10-16T12:56:01.436Z",
+  "totalTests": 51,
+  "passed": 51,
+  "failed": 0,
+  "results": [
+    {
+      "category": "SSOT",
+      "name": "public.team_members is canonical staff directory",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "Exact team_members count: 386 (baseline: 386)",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "public.profiles is canonical identity source",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "Exact profiles count: 428 (baseline: 428)",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "public.project_tasks is canonical deliverable source",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "Exact project_tasks count: 239 (baseline: 239)",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "public.salary_records is canonical compensation source",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "Exact salary_records count: 8 (baseline: 8)",
+      "status": "PASS"
+    },
+    {
+      "category": "SSOT",
+      "name": "Canonical tasks with validated profiles.id assignees verified: 179 active mappings",
+      "status": "PASS"
+    },
+    {
+      "category": "IDENTITY_RESOLVER",
+      "name": "resolveToProfileId correctly maps team_member.id -> profile_id (d620961d-52bb-43b7-816a-2ee03077ea1a)",
+      "status": "PASS"
+    },
+    {
+      "category": "IDENTITY_RESOLVER",
+      "name": "resolveToProfileId safely returns null for team member without profile_id to prevent FK crash",
+      "status": "PASS"
+    },
+    {
+      "category": "RECONCILIATION",
+      "name": "Active Team count: 381 (expected: 381)",
+      "status": "PASS"
+    },
+    {
+      "category": "RECONCILIATION",
+      "name": "Active Tasks count: 180 (expected: 180)",
+      "status": "PASS"
+    },
+    {
+      "category": "RECONCILIATION",
+      "name": "Active Unassigned Deliverables KPI count: 57 (expected: 57)",
+      "status": "PASS"
+    },
+    {
+      "category": "RECONCILIATION",
+      "name": "Tab 3 Unassigned Tasks list count (57) strictly matches KPI Card (57)",
+      "status": "PASS"
+    },
+    {
+      "category": "RECONCILIATION",
+      "name": "Overdue Deliverables count: 51 (expected: 51)",
+      "status": "PASS"
+    },
+    {
+      "category": "RECONCILIATION",
+      "name": "Blocked Deliverables count: 2 (expected: 2)",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_SYNC",
+      "name": "Published staff query succeeds",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_SYNC",
+      "name": "Published team projection returns exactly 379 members (expected: 379)",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_SYNC_RLS_AUDIT",
+      "name": "RLS Audit: Anonymous query on team_members triggers known 'has_sada_access' permission denial (Documented in Defect Register)",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_SYNC",
+      "name": "Unpublished staff rows: 2",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_SYNC",
+      "name": "Inactive staff rows: 5",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_SYNC",
+      "name": "Zero unpublished members leaked to public /about",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_SYNC",
+      "name": "Zero inactive members leaked to public /about",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_SYNC",
+      "name": "Public team members projection contains position_ar attribute for Arabic RTL rendering",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_SYNC",
+      "name": "hourly_cost is not selected by public query",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_SYNC",
+      "name": "Operational email is not selected by public query",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_VISIBILITY_CONTRACT",
+      "name": "Database baseline: Raw team_members table contains unconfigured email accounts (4 found)",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_VISIBILITY_CONTRACT",
+      "name": "Contract Invariant: Zero unconfigured email accounts (e.g. qa.superadmin@sada.agency) pass the public profile contract",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_VISIBILITY_CONTRACT",
+      "name": "Contract Invariant: Zero unconfigured Account Specialists pass public contract (7 excluded)",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_VISIBILITY_CONTRACT",
+      "name": "Contract Invariant: Real, configured public profiles correctly resolved (count: 2)",
+      "status": "PASS"
+    },
+    {
+      "category": "PUBLIC_VISIBILITY_CONTRACT",
+      "name": "Real configured team profile (Sarah Chen) is present on public website",
+      "status": "PASS"
+    },
+    {
+      "category": "SECURITY",
+      "name": "Anonymous user receives 0 salary records (RLS enforced)",
+      "status": "PASS"
+    },
+    {
+      "category": "SECURITY",
+      "name": "Worker receives 1 salary records (horizontal compensation leakage prevented)",
+      "status": "PASS"
+    },
+    {
+      "category": "SECURITY",
+      "name": "Super Admin has full access to all 8 salary records",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport mobile_320x640 (320x640) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport mobile_360x800 (360x800) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport mobile_375x812 (375x812) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport mobile_390x844 (390x844) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "THEME",
+      "name": "Viewport mobile_390x844 Light English: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport mobile_430x932 (430x932) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport tablet_768x1024 (768x1024) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport desktop_1024x768 (1024x768) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport desktop_1280x800 (1280x800) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE",
+      "name": "Viewport desktop_1440x900 (1440x900) Dark Arabic: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "THEME",
+      "name": "Viewport desktop_1440x900 Light English: 0px horizontal overflow (detected: 0px)",
+      "status": "PASS"
+    },
+    {
+      "category": "INTERACTION",
+      "name": "Tab 2 (Team Roster) rendered successfully",
+      "status": "PASS"
+    },
+    {
+      "category": "INTERACTION",
+      "name": "Tab 3 (Unassigned Tasks) rendered successfully with bulk assignment bar",
+      "status": "PASS"
+    },
+    {
+      "category": "INTERACTION",
+      "name": "Add Team Member Modal opened and rendered bilingual fields",
+      "status": "PASS"
+    },
+    {
+      "category": "RESPONSIVE_MODAL",
+      "name": "Add Member Modal at 320px width has 0px horizontal overflow",
+      "status": "PASS"
+    },
+    {
+      "category": "SECURITY_UI",
+      "name": "Worker accessing /admin/team-workload is greeted with Access Restricted banner and Go to My Work link",
+      "status": "PASS"
+    }
+  ]
+}

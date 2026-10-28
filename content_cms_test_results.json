@@ -1,0 +1,611 @@
+{
+  "generatedAt": "2026-09-24T16:20:09.843Z",
+  "passed": 88,
+  "failed": 0,
+  "records": [
+    {
+      "id": 1,
+      "section": "SCHEMA",
+      "name": "blog_posts.featured exists",
+      "status": "PASS",
+      "details": "blog_posts.featured is missing"
+    },
+    {
+      "id": 2,
+      "section": "SCHEMA",
+      "name": "blog_posts.seo_title exists",
+      "status": "PASS",
+      "details": "blog_posts.seo_title is missing"
+    },
+    {
+      "id": 3,
+      "section": "SCHEMA",
+      "name": "blog_posts.og_image_url exists",
+      "status": "PASS",
+      "details": "blog_posts.og_image_url is missing"
+    },
+    {
+      "id": 4,
+      "section": "SCHEMA",
+      "name": "blog_posts.cover_alt exists",
+      "status": "PASS",
+      "details": "blog_posts.cover_alt is missing"
+    },
+    {
+      "id": 5,
+      "section": "SCHEMA",
+      "name": "blog_posts.published_at exists",
+      "status": "PASS",
+      "details": "blog_posts.published_at is missing"
+    },
+    {
+      "id": 6,
+      "section": "SCHEMA",
+      "name": "blog_posts.slug exists",
+      "status": "PASS",
+      "details": "blog_posts.slug is missing"
+    },
+    {
+      "id": 7,
+      "section": "SCHEMA",
+      "name": "blog_posts.content exists",
+      "status": "PASS",
+      "details": "blog_posts.content is missing"
+    },
+    {
+      "id": 8,
+      "section": "SCHEMA",
+      "name": "blog_posts.excerpt exists",
+      "status": "PASS",
+      "details": "blog_posts.excerpt is missing"
+    },
+    {
+      "id": 9,
+      "section": "SCHEMA",
+      "name": "products.slug exists",
+      "status": "PASS",
+      "details": "products.slug is missing"
+    },
+    {
+      "id": 10,
+      "section": "SCHEMA",
+      "name": "products.featured exists",
+      "status": "PASS",
+      "details": "products.featured is missing"
+    },
+    {
+      "id": 11,
+      "section": "SCHEMA",
+      "name": "products.full_description exists",
+      "status": "PASS",
+      "details": "products.full_description is missing"
+    },
+    {
+      "id": 12,
+      "section": "SCHEMA",
+      "name": "products.gallery exists",
+      "status": "PASS",
+      "details": "products.gallery is missing"
+    },
+    {
+      "id": 13,
+      "section": "SCHEMA",
+      "name": "products.includes exists",
+      "status": "PASS",
+      "details": "products.includes is missing"
+    },
+    {
+      "id": 14,
+      "section": "SCHEMA",
+      "name": "products.features exists",
+      "status": "PASS",
+      "details": "products.features is missing"
+    },
+    {
+      "id": 15,
+      "section": "SCHEMA",
+      "name": "products.audience exists",
+      "status": "PASS",
+      "details": "products.audience is missing"
+    },
+    {
+      "id": 16,
+      "section": "SCHEMA",
+      "name": "products.details exists",
+      "status": "PASS",
+      "details": "products.details is missing"
+    },
+    {
+      "id": 17,
+      "section": "SCHEMA",
+      "name": "products.preview_url exists",
+      "status": "PASS",
+      "details": "products.preview_url is missing"
+    },
+    {
+      "id": 18,
+      "section": "SCHEMA",
+      "name": "products.cta_label exists",
+      "status": "PASS",
+      "details": "products.cta_label is missing"
+    },
+    {
+      "id": 19,
+      "section": "SCHEMA",
+      "name": "products.seo_title exists",
+      "status": "PASS",
+      "details": "products.seo_title is missing"
+    },
+    {
+      "id": 20,
+      "section": "SCHEMA",
+      "name": "products.seo_description exists",
+      "status": "PASS",
+      "details": "products.seo_description is missing"
+    },
+    {
+      "id": 21,
+      "section": "SCHEMA",
+      "name": "products.og_image_url exists",
+      "status": "PASS",
+      "details": "products.og_image_url is missing"
+    },
+    {
+      "id": 22,
+      "section": "SCHEMA",
+      "name": "testimonials.role exists",
+      "status": "PASS",
+      "details": "testimonials.role is missing"
+    },
+    {
+      "id": 23,
+      "section": "SCHEMA",
+      "name": "testimonials.short_quote exists",
+      "status": "PASS",
+      "details": "testimonials.short_quote is missing"
+    },
+    {
+      "id": 24,
+      "section": "SCHEMA",
+      "name": "testimonials.language exists",
+      "status": "PASS",
+      "details": "testimonials.language is missing"
+    },
+    {
+      "id": 25,
+      "section": "SCHEMA",
+      "name": "testimonials.service exists",
+      "status": "PASS",
+      "details": "testimonials.service is missing"
+    },
+    {
+      "id": 26,
+      "section": "SCHEMA",
+      "name": "testimonials.featured exists",
+      "status": "PASS",
+      "details": "testimonials.featured is missing"
+    },
+    {
+      "id": 27,
+      "section": "SCHEMA",
+      "name": "testimonials.client_id exists",
+      "status": "PASS",
+      "details": "testimonials.client_id is missing"
+    },
+    {
+      "id": 28,
+      "section": "SCHEMA",
+      "name": "testimonials.project_id exists",
+      "status": "PASS",
+      "details": "testimonials.project_id is missing"
+    },
+    {
+      "id": 29,
+      "section": "SCHEMA",
+      "name": "testimonials.updated_at exists",
+      "status": "PASS",
+      "details": "testimonials.updated_at is missing"
+    },
+    {
+      "id": 30,
+      "section": "PUBLIC",
+      "name": "Anonymous can query blog_posts",
+      "status": "PASS"
+    },
+    {
+      "id": 31,
+      "section": "PUBLIC",
+      "name": "No unpublished article is readable anonymously",
+      "status": "PASS",
+      "details": "0 draft article(s) exposed"
+    },
+    {
+      "id": 32,
+      "section": "PUBLIC",
+      "name": "No scheduled (future-dated) article is readable anonymously",
+      "status": "PASS",
+      "details": "0 scheduled article(s) exposed before their publish time"
+    },
+    {
+      "id": 33,
+      "section": "PUBLIC",
+      "name": "Anonymous can query products",
+      "status": "PASS"
+    },
+    {
+      "id": 34,
+      "section": "PUBLIC",
+      "name": "No unpublished product is readable anonymously",
+      "status": "PASS",
+      "details": "0 draft product(s) exposed"
+    },
+    {
+      "id": 35,
+      "section": "PUBLIC",
+      "name": "Anonymous can query testimonials",
+      "status": "PASS"
+    },
+    {
+      "id": 36,
+      "section": "PUBLIC",
+      "name": "No unpublished client proof is readable anonymously",
+      "status": "PASS",
+      "details": "0 draft testimonial(s) exposed"
+    },
+    {
+      "id": 37,
+      "section": "SECURITY",
+      "name": "Anonymous INSERT on blog_posts is rejected",
+      "status": "PASS",
+      "details": "Anonymous insert succeeded — public write policy is too permissive"
+    },
+    {
+      "id": 38,
+      "section": "SECURITY",
+      "name": "Anonymous INSERT on products is rejected",
+      "status": "PASS",
+      "details": "Anonymous insert succeeded — public write policy is too permissive"
+    },
+    {
+      "id": 39,
+      "section": "SECURITY",
+      "name": "Anonymous INSERT on testimonials is rejected",
+      "status": "PASS",
+      "details": "Anonymous insert succeeded — public write policy is too permissive"
+    },
+    {
+      "id": 40,
+      "section": "SECURITY",
+      "name": "Anonymous UPDATE on blog_posts changes nothing",
+      "status": "PASS",
+      "details": "Anonymous update appears to have succeeded"
+    },
+    {
+      "id": 41,
+      "section": "SECURITY",
+      "name": "Anonymous DELETE on blog_posts removes nothing",
+      "status": "PASS",
+      "details": "0 row(s) deleted anonymously"
+    },
+    {
+      "id": 42,
+      "section": "SECURITY",
+      "name": "Anonymous DELETE on products removes nothing",
+      "status": "PASS",
+      "details": "0 row(s) deleted anonymously"
+    },
+    {
+      "id": 43,
+      "section": "SECURITY",
+      "name": "Anonymous DELETE on testimonials removes nothing",
+      "status": "PASS",
+      "details": "0 row(s) deleted anonymously"
+    },
+    {
+      "id": 44,
+      "section": "RELATIONSHIPS",
+      "name": "testimonials.project_id is queryable (case study link)",
+      "status": "PASS"
+    },
+    {
+      "id": 45,
+      "section": "RELATIONSHIPS",
+      "name": "testimonials.client_id is queryable (CRM client link)",
+      "status": "PASS"
+    },
+    {
+      "id": 46,
+      "section": "RELATIONSHIPS",
+      "name": "Linking to clients does not expose the CRM client table publicly",
+      "status": "PASS",
+      "details": "0 CRM client row(s) visible anonymously"
+    },
+    {
+      "id": 47,
+      "section": "RELATIONSHIPS",
+      "name": "Published client proof links resolve to real case studies",
+      "status": "PASS",
+      "details": "0 testimonial(s) reference a case study that is not publicly visible"
+    },
+    {
+      "id": 48,
+      "section": "INTEGRITY",
+      "name": "Every publicly visible article has a slug",
+      "status": "PASS",
+      "details": "0 article(s) without a slug cannot be opened"
+    },
+    {
+      "id": 49,
+      "section": "INTEGRITY",
+      "name": "Article slugs are unique",
+      "status": "PASS",
+      "details": "Duplicate slugs found among publicly visible articles"
+    },
+    {
+      "id": 50,
+      "section": "INTEGRITY",
+      "name": "Every publicly visible article has body content",
+      "status": "PASS",
+      "details": "0 published article(s) have an empty body"
+    },
+    {
+      "id": 51,
+      "section": "INTEGRITY",
+      "name": "Every publicly visible product has a purchase link",
+      "status": "PASS",
+      "details": "0 published product(s) have no Gumroad URL"
+    },
+    {
+      "id": 52,
+      "section": "INTEGRITY",
+      "name": "Product purchase links are absolute URLs",
+      "status": "PASS",
+      "details": "0 product(s) have a malformed Gumroad URL"
+    },
+    {
+      "id": 53,
+      "section": "INTEGRITY",
+      "name": "Product slugs are unique",
+      "status": "PASS",
+      "details": "Duplicate slugs found among publicly visible products"
+    },
+    {
+      "id": 54,
+      "section": "INTEGRITY",
+      "name": "Every published client quote has a name and the quote itself",
+      "status": "PASS",
+      "details": "0 published testimonial(s) are incomplete"
+    },
+    {
+      "id": 55,
+      "section": "PUBLIC-SURFACE",
+      "name": "/blog listing query succeeds",
+      "status": "PASS"
+    },
+    {
+      "id": 56,
+      "section": "PUBLIC-SURFACE",
+      "name": "/store listing query succeeds",
+      "status": "PASS"
+    },
+    {
+      "id": 57,
+      "section": "PUBLIC-SURFACE",
+      "name": "Homepage client proof query succeeds",
+      "status": "PASS"
+    },
+    {
+      "id": 58,
+      "section": "RBAC",
+      "name": "Super Admin / Admin / Worker sessions established",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "id": 59,
+      "section": "RBAC",
+      "name": "Admin can create a blog draft",
+      "status": "PASS"
+    },
+    {
+      "id": 60,
+      "section": "LIFECYCLE",
+      "name": "A draft article is invisible to the public",
+      "status": "PASS",
+      "details": "Draft article was readable anonymously"
+    },
+    {
+      "id": 61,
+      "section": "RBAC",
+      "name": "Worker cannot read unpublished articles",
+      "status": "PASS",
+      "details": "Worker could read an unpublished article"
+    },
+    {
+      "id": 62,
+      "section": "RBAC",
+      "name": "Worker cannot edit an article",
+      "status": "PASS",
+      "details": "Worker updated an article"
+    },
+    {
+      "id": 63,
+      "section": "RBAC",
+      "name": "Worker cannot create an article",
+      "status": "PASS",
+      "details": "Worker created an article"
+    },
+    {
+      "id": 64,
+      "section": "LIFECYCLE",
+      "name": "A scheduled article stays private until its publish time",
+      "status": "PASS",
+      "details": "A future-dated article was readable anonymously"
+    },
+    {
+      "id": 65,
+      "section": "RBAC",
+      "name": "Admin can publish an article",
+      "status": "PASS"
+    },
+    {
+      "id": 66,
+      "section": "LIFECYCLE",
+      "name": "A published article becomes publicly readable",
+      "status": "PASS",
+      "details": "Published article was not visible anonymously"
+    },
+    {
+      "id": 67,
+      "section": "LIFECYCLE",
+      "name": "The public article route query resolves it by slug",
+      "status": "PASS",
+      "details": "Published article could not be fetched by slug"
+    },
+    {
+      "id": 68,
+      "section": "LIFECYCLE",
+      "name": "Unpublishing removes an article from public reach",
+      "status": "PASS",
+      "details": "Unpublished article was still readable anonymously"
+    },
+    {
+      "id": 69,
+      "section": "RBAC",
+      "name": "Admin CANNOT permanently delete an article",
+      "status": "PASS",
+      "details": "Admin deleted an article — permanent deletion must be Super Admin only"
+    },
+    {
+      "id": 70,
+      "section": "RBAC",
+      "name": "Worker CANNOT permanently delete an article",
+      "status": "PASS",
+      "details": "Worker deleted an article"
+    },
+    {
+      "id": 71,
+      "section": "RBAC",
+      "name": "Super Admin CAN permanently delete an article",
+      "status": "PASS",
+      "details": "Super Admin delete affected no rows"
+    },
+    {
+      "id": 72,
+      "section": "RBAC",
+      "name": "Admin can create a product draft",
+      "status": "PASS"
+    },
+    {
+      "id": 73,
+      "section": "LIFECYCLE",
+      "name": "A draft product is invisible to the public",
+      "status": "PASS",
+      "details": "Draft product was readable anonymously"
+    },
+    {
+      "id": 74,
+      "section": "LIFECYCLE",
+      "name": "A published product becomes publicly readable",
+      "status": "PASS",
+      "details": "Published product was not visible anonymously"
+    },
+    {
+      "id": 75,
+      "section": "LIFECYCLE",
+      "name": "The product page query resolves it by slug",
+      "status": "PASS",
+      "details": "Product slug did not round-trip"
+    },
+    {
+      "id": 76,
+      "section": "LIFECYCLE",
+      "name": "Gumroad remains the purchase destination",
+      "status": "PASS",
+      "details": "Gumroad URL missing from the public product record"
+    },
+    {
+      "id": 77,
+      "section": "LIFECYCLE",
+      "name": "Unpublishing removes a product from public reach",
+      "status": "PASS",
+      "details": "Unpublished product was still readable anonymously"
+    },
+    {
+      "id": 78,
+      "section": "RBAC",
+      "name": "Admin CANNOT permanently delete a product",
+      "status": "PASS",
+      "details": "Admin deleted a product — permanent deletion must be Super Admin only"
+    },
+    {
+      "id": 79,
+      "section": "RBAC",
+      "name": "Super Admin CAN permanently delete a product",
+      "status": "PASS",
+      "details": "Super Admin delete affected no rows"
+    },
+    {
+      "id": 80,
+      "section": "RBAC",
+      "name": "Admin can create client proof",
+      "status": "PASS"
+    },
+    {
+      "id": 81,
+      "section": "LIFECYCLE",
+      "name": "Draft client proof is invisible to the public",
+      "status": "PASS",
+      "details": "Draft testimonial was readable anonymously"
+    },
+    {
+      "id": 82,
+      "section": "LIFECYCLE",
+      "name": "Published client proof becomes publicly readable",
+      "status": "PASS",
+      "details": "Published testimonial was not visible anonymously"
+    },
+    {
+      "id": 83,
+      "section": "RELATIONSHIPS",
+      "name": "Client proof stores a case study reference, not a copied quote",
+      "status": "PASS",
+      "details": "project_id did not round-trip — the case study link is not being persisted"
+    },
+    {
+      "id": 84,
+      "section": "RBAC",
+      "name": "Worker cannot edit client proof",
+      "status": "PASS",
+      "details": "Worker edited a testimonial"
+    },
+    {
+      "id": 85,
+      "section": "LIFECYCLE",
+      "name": "Unpublishing removes client proof from public reach",
+      "status": "PASS",
+      "details": "Unpublished testimonial was still readable anonymously"
+    },
+    {
+      "id": 86,
+      "section": "RBAC",
+      "name": "Admin CANNOT permanently delete client proof",
+      "status": "PASS",
+      "details": "Admin deleted a testimonial — permanent deletion must be Super Admin only"
+    },
+    {
+      "id": 87,
+      "section": "RBAC",
+      "name": "Super Admin CAN permanently delete client proof",
+      "status": "PASS",
+      "details": "Super Admin delete affected no rows"
+    },
+    {
+      "id": 88,
+      "section": "CLEANUP",
+      "name": "All probe records removed from the database",
+      "status": "PASS",
+      "details": "0 probe record(s) could not be deleted — check manually"
+    }
+  ]
+}

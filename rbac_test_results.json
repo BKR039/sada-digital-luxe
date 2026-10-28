@@ -1,0 +1,686 @@
+[
+  {
+    "category": "Identities",
+    "name": "Super Admin role in user_roles",
+    "role": "Super Admin",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "super_admin",
+    "actual": "super_admin"
+  },
+  {
+    "category": "Identities",
+    "name": "Admin role in user_roles",
+    "role": "Admin",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "admin",
+    "actual": "admin"
+  },
+  {
+    "category": "Identities",
+    "name": "Sarah Chen role in user_roles",
+    "role": "Worker",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "worker",
+    "actual": "worker"
+  },
+  {
+    "category": "Identities",
+    "name": "Karim Mansour role in user_roles",
+    "role": "Worker",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "worker",
+    "actual": "worker"
+  },
+  {
+    "category": "Identities",
+    "name": "Sarah team member bridge",
+    "role": "Worker",
+    "layer": "Engine",
+    "status": "PASS",
+    "expected": "worker",
+    "actual": "worker"
+  },
+  {
+    "category": "Identities",
+    "name": "Super Admin team member bridge",
+    "role": "Super Admin",
+    "layer": "Engine",
+    "status": "PASS",
+    "expected": "super_admin",
+    "actual": "super_admin"
+  },
+  {
+    "category": "Matrix",
+    "name": "View own task",
+    "role": "Worker",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "View own task",
+    "role": "Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "View own task",
+    "role": "Super Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "View other task",
+    "role": "Worker",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "View other task",
+    "role": "Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "View other task",
+    "role": "Super Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Update own task progress",
+    "role": "Worker",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Update other task progress",
+    "role": "Worker",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Update any task progress",
+    "role": "Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Update any task progress",
+    "role": "Super Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Edit task definition",
+    "role": "Worker",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Edit task definition",
+    "role": "Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Edit task definition",
+    "role": "Super Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Assign task",
+    "role": "Worker",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Assign task",
+    "role": "Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Assign task",
+    "role": "Super Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Create task",
+    "role": "Worker",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Create task",
+    "role": "Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Create task",
+    "role": "Super Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Create project",
+    "role": "Worker",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Create project",
+    "role": "Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Create project",
+    "role": "Super Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Role management",
+    "role": "Worker",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Role management",
+    "role": "Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Role management",
+    "role": "Super Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Delete task",
+    "role": "Worker",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Delete task",
+    "role": "Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Delete task",
+    "role": "Super Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Delete project",
+    "role": "Worker",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Delete project",
+    "role": "Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Delete project",
+    "role": "Super Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Delete client",
+    "role": "Worker",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Delete client",
+    "role": "Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Delete client",
+    "role": "Super Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Matrix",
+    "name": "Delete team member",
+    "role": "Worker",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Delete team member",
+    "role": "Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "false",
+    "actual": "false"
+  },
+  {
+    "category": "Matrix",
+    "name": "Delete team member",
+    "role": "Super Admin",
+    "layer": "UI",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  },
+  {
+    "category": "Action Guards",
+    "name": "Worker blocked by assertCanEditTaskDefinition",
+    "role": "Worker",
+    "layer": "Action",
+    "status": "PASS",
+    "expected": "thrown",
+    "actual": "thrown"
+  },
+  {
+    "category": "Action Guards",
+    "name": "Worker blocked by assertCanDelete",
+    "role": "Worker",
+    "layer": "Action",
+    "status": "PASS",
+    "expected": "thrown",
+    "actual": "thrown"
+  },
+  {
+    "category": "Action Guards",
+    "name": "Admin blocked by assertCanDelete",
+    "role": "Admin",
+    "layer": "Action",
+    "status": "PASS",
+    "expected": "thrown",
+    "actual": "thrown"
+  },
+  {
+    "category": "Action Guards",
+    "name": "Super Admin allowed by assertCanDelete",
+    "role": "Super Admin",
+    "layer": "Action",
+    "status": "PASS",
+    "expected": "allowed",
+    "actual": "allowed"
+  },
+  {
+    "category": "Sanitization",
+    "name": "Worker payload strips title",
+    "role": "Worker",
+    "layer": "Action",
+    "status": "PASS",
+    "expected": "undefined",
+    "actual": "undefined"
+  },
+  {
+    "category": "Sanitization",
+    "name": "Worker payload strips deadline",
+    "role": "Worker",
+    "layer": "Action",
+    "status": "PASS",
+    "expected": "undefined",
+    "actual": "undefined"
+  },
+  {
+    "category": "Sanitization",
+    "name": "Worker payload strips priority",
+    "role": "Worker",
+    "layer": "Action",
+    "status": "PASS",
+    "expected": "undefined",
+    "actual": "undefined"
+  },
+  {
+    "category": "Sanitization",
+    "name": "Worker payload strips assignee",
+    "role": "Worker",
+    "layer": "Action",
+    "status": "PASS",
+    "expected": "undefined",
+    "actual": "undefined"
+  },
+  {
+    "category": "Sanitization",
+    "name": "Worker payload preserves actual_minutes",
+    "role": "Worker",
+    "layer": "Action",
+    "status": "PASS",
+    "expected": "45",
+    "actual": "45"
+  },
+  {
+    "category": "RLS",
+    "name": "Admin can create task in database",
+    "role": "Admin",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "created",
+    "actual": "created"
+  },
+  {
+    "category": "RLS",
+    "name": "Worker direct task INSERT rejected by RLS",
+    "role": "Worker",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "blocked/error",
+    "actual": "new row violates row-level security policy for table \"project_tasks\""
+  },
+  {
+    "category": "RLS",
+    "name": "Worker can update assigned task execution in database",
+    "role": "Worker",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "1 row updated",
+    "actual": "1 row updated"
+  },
+  {
+    "category": "RLS",
+    "name": "Worker cannot update another worker's task in database",
+    "role": "Worker",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "0 rows / rejected",
+    "actual": "0 rows updated"
+  },
+  {
+    "category": "RLS",
+    "name": "Worker DELETE task rejected by Postgres RLS",
+    "role": "Worker",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "0 rows / error",
+    "actual": "0 rows deleted"
+  },
+  {
+    "category": "RLS",
+    "name": "Admin DELETE task rejected by Postgres RLS (Super Admin Only)",
+    "role": "Admin",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "0 rows / error",
+    "actual": "0 rows deleted"
+  },
+  {
+    "category": "RLS",
+    "name": "Worker DELETE project rejected by Postgres RLS",
+    "role": "Worker",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "0 rows / error",
+    "actual": "0 rows deleted"
+  },
+  {
+    "category": "RLS",
+    "name": "Admin DELETE project rejected by Postgres RLS",
+    "role": "Admin",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "0 rows / error",
+    "actual": "0 rows deleted"
+  },
+  {
+    "category": "RLS",
+    "name": "Worker DELETE team member rejected by Postgres RLS",
+    "role": "Worker",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "0 rows / error",
+    "actual": "0 rows deleted"
+  },
+  {
+    "category": "RLS",
+    "name": "Admin DELETE team member rejected by Postgres RLS",
+    "role": "Admin",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "0 rows / error",
+    "actual": "0 rows deleted"
+  },
+  {
+    "category": "RLS",
+    "name": "Admin cannot elevate to Super Admin in user_roles",
+    "role": "Admin",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "blocked/error",
+    "actual": "new row violates row-level security policy for table \"user_roles\""
+  },
+  {
+    "category": "RLS",
+    "name": "Super Admin can permanently DELETE task",
+    "role": "Super Admin",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "1 row deleted",
+    "actual": "1 row deleted"
+  },
+  {
+    "category": "RLS",
+    "name": "Super Admin can create team member",
+    "role": "Super Admin",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "created",
+    "actual": "created"
+  },
+  {
+    "category": "RLS",
+    "name": "Super Admin can permanently DELETE team member",
+    "role": "Super Admin",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "1 row deleted",
+    "actual": "1 row deleted"
+  },
+  {
+    "category": "RLS",
+    "name": "Admin DELETE contact submission rejected by Postgres RLS",
+    "role": "Admin",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "0 rows / error",
+    "actual": "0 rows deleted"
+  },
+  {
+    "category": "RLS",
+    "name": "Super Admin can permanently DELETE contact submission",
+    "role": "Super Admin",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "1 row deleted",
+    "actual": "1 row deleted"
+  },
+  {
+    "category": "FK Integrity",
+    "name": "Invalid assignee_id FK rejected by database",
+    "role": "Admin",
+    "layer": "FK",
+    "status": "PASS",
+    "expected": "FK violation error",
+    "actual": "insert or update on table \"project_tasks\" violates foreign key constraint \"project_tasks_assignee_id_fkey\""
+  },
+  {
+    "category": "FK Integrity",
+    "name": "resolveToProfileId translates team_member.id -> profile.id",
+    "role": "System",
+    "layer": "FK",
+    "status": "PASS",
+    "expected": "63a69ae6-4737-4645-9f25-e45e2a3f1726",
+    "actual": "63a69ae6-4737-4645-9f25-e45e2a3f1726"
+  },
+  {
+    "category": "Project Lead",
+    "name": "Worker cannot change project lead in database",
+    "role": "Worker",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "0 rows / error",
+    "actual": "0 rows updated"
+  },
+  {
+    "category": "Project Lead",
+    "name": "Admin can update project lead in database",
+    "role": "Admin",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "1 row updated",
+    "actual": "1 row updated"
+  },
+  {
+    "category": "Workload",
+    "name": "Real Café 707 task exists in database",
+    "role": "System",
+    "layer": "RLS",
+    "status": "PASS",
+    "expected": "found",
+    "actual": "Reel Production — Café 707 Signature Blend"
+  },
+  {
+    "category": "Workload",
+    "name": "Café 707 task assigned to Sarah's profile ID",
+    "role": "Worker",
+    "layer": "FK",
+    "status": "PASS",
+    "expected": "63a69ae6-4737-4645-9f25-e45e2a3f1726",
+    "actual": "63a69ae6-4737-4645-9f25-e45e2a3f1726"
+  },
+  {
+    "category": "Workload",
+    "name": "Task counted in Sarah's active workload (not unassigned)",
+    "role": "Worker",
+    "layer": "Engine",
+    "status": "PASS",
+    "expected": ">=1 active task",
+    "actual": "1"
+  },
+  {
+    "category": "Oversight",
+    "name": "Overdue detector flags past-due unfinished task",
+    "role": "System",
+    "layer": "Engine",
+    "status": "PASS",
+    "expected": "true",
+    "actual": "true"
+  }
+]

@@ -1,0 +1,415 @@
+[
+  {
+    "timestamp": "2026-09-30T19:19:49.030Z",
+    "category": "Public Routes",
+    "test": "/",
+    "status": "PASS",
+    "details": "Loaded OK (200) - Title: SADA — Where Real Identity Begins"
+  },
+  {
+    "timestamp": "2026-09-30T19:19:50.616Z",
+    "category": "Public Routes",
+    "test": "/services",
+    "status": "PASS",
+    "details": "Loaded OK (200) - Title: Services — Marketing, Development & Production | SADA"
+  },
+  {
+    "timestamp": "2026-09-30T19:19:52.244Z",
+    "category": "Public Routes",
+    "test": "/portfolio",
+    "status": "PASS",
+    "details": "Loaded OK (200) - Title: Case Studies — Selected Work | SADA"
+  },
+  {
+    "timestamp": "2026-09-30T19:19:54.592Z",
+    "category": "Public Routes",
+    "test": "/pricing",
+    "status": "PASS",
+    "details": "Loaded OK (200) - Title: Pricing & Package Catalog — SADA Creative Agency"
+  },
+  {
+    "timestamp": "2026-09-30T19:19:55.941Z",
+    "category": "Public Routes",
+    "test": "/about",
+    "status": "PASS",
+    "details": "Loaded OK (200) - Title: About SADA — Marketing, Development & Production"
+  },
+  {
+    "timestamp": "2026-09-30T19:19:57.173Z",
+    "category": "Public Routes",
+    "test": "/blog",
+    "status": "PASS",
+    "details": "Loaded OK (200) - Title: Insights, Strategies & Digital Growth — SADA Blog"
+  },
+  {
+    "timestamp": "2026-09-30T19:19:58.975Z",
+    "category": "Public Routes",
+    "test": "/contact",
+    "status": "PASS",
+    "details": "Loaded OK (200) - Title: Smart Package Matcher & Contact — SADA Creative Agency"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:00.113Z",
+    "category": "Public Routes",
+    "test": "/auth",
+    "status": "PASS",
+    "details": "Loaded OK (200) - Title: SADA — Where Real Identity Begins"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:00.409Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:00.473Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/analytics",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/analytics without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:00.561Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/accounts",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/accounts without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:00.666Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/finance",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/finance without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:00.764Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/packages",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/packages without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:00.858Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/deals",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/deals without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:00.964Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/clients",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/clients without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:01.234Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/client-projects",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/client-projects without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:01.475Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/calendar",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/calendar without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:01.710Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/reels",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/reels without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:02.087Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/testimonials",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/testimonials without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:02.275Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/blog",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/blog without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:02.625Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/contact",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/contact without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:02.720Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/my-work",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/my-work without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:02.810Z",
+    "category": "RBAC Anonymous",
+    "test": "/admin/my-salary",
+    "status": "FAIL",
+    "details": "LEAK: Anonymous user can view /admin/my-salary without redirect!"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:04.234Z",
+    "category": "RBAC Admin",
+    "test": "/admin/accounts",
+    "status": "FAIL",
+    "details": "VIOLATION: Admin was able to view Super Admin page: /admin/accounts"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:04.368Z",
+    "category": "RBAC Admin",
+    "test": "/admin/finance",
+    "status": "FAIL",
+    "details": "VIOLATION: Admin was able to view Super Admin page: /admin/finance"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:04.463Z",
+    "category": "RBAC Admin",
+    "test": "/admin/packages",
+    "status": "PASS",
+    "details": "Admin allowed to access /admin/packages"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:04.573Z",
+    "category": "RBAC Admin",
+    "test": "/admin/deals",
+    "status": "PASS",
+    "details": "Admin allowed to access /admin/deals"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:04.673Z",
+    "category": "RBAC Admin",
+    "test": "/admin/clients",
+    "status": "PASS",
+    "details": "Admin allowed to access /admin/clients"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:04.774Z",
+    "category": "RBAC Admin",
+    "test": "/admin/calendar",
+    "status": "PASS",
+    "details": "Admin allowed to access /admin/calendar"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:06.368Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin",
+    "status": "PASS",
+    "details": "Super Admin can access Dashboard"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:06.443Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/analytics",
+    "status": "PASS",
+    "details": "Super Admin can access Analytics"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:06.554Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/accounts",
+    "status": "PASS",
+    "details": "Super Admin can access Accounts (Super Admin Only)"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:06.672Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/finance",
+    "status": "PASS",
+    "details": "Super Admin can access Finance (Super Admin Only)"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:06.764Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/packages",
+    "status": "PASS",
+    "details": "Super Admin can access Packages CMS"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:06.851Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/deals",
+    "status": "PASS",
+    "details": "Super Admin can access Deals / Sales Pipeline"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:06.945Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/clients",
+    "status": "PASS",
+    "details": "Super Admin can access Clients"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:07.029Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/client-projects",
+    "status": "PASS",
+    "details": "Super Admin can access Projects"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:07.137Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/calendar",
+    "status": "PASS",
+    "details": "Super Admin can access Calendar"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:07.259Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/reels",
+    "status": "PASS",
+    "details": "Super Admin can access Reels CMS"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:07.361Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/testimonials",
+    "status": "PASS",
+    "details": "Super Admin can access Testimonials CMS"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:07.447Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/blog",
+    "status": "PASS",
+    "details": "Super Admin can access Blog CMS"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:07.628Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/contact",
+    "status": "PASS",
+    "details": "Super Admin can access Inquiries"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:07.727Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/my-work",
+    "status": "PASS",
+    "details": "Super Admin can access Worker My Work"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:07.842Z",
+    "category": "RBAC Super Admin",
+    "test": "/admin/my-salary",
+    "status": "PASS",
+    "details": "Super Admin can access Worker My Salary"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:08.072Z",
+    "category": "Contact Page",
+    "test": "Smart Matcher Presence",
+    "status": "FAIL",
+    "details": "Smart Matcher found on /contact: false"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:08.927Z",
+    "category": "Admin Packages",
+    "test": "Catalog Listing",
+    "status": "WARN",
+    "details": "Found 0 package elements rendered"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:08.928Z",
+    "category": "Admin Packages",
+    "test": "Open Create Drawer",
+    "status": "WARN",
+    "details": "Could not locate Create Package button via text"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:10.625Z",
+    "category": "Button Wrapping",
+    "test": "/pricing @ Mobile 375px",
+    "status": "PASS",
+    "details": "All button text and icons aligned without awkward wrapping"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:12.083Z",
+    "category": "Button Wrapping",
+    "test": "/pricing @ Tablet 768px",
+    "status": "PASS",
+    "details": "All button text and icons aligned without awkward wrapping"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:14.529Z",
+    "category": "Button Wrapping",
+    "test": "/pricing @ Desktop 1280px",
+    "status": "PASS",
+    "details": "All button text and icons aligned without awkward wrapping"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:16.128Z",
+    "category": "Button Wrapping",
+    "test": "/pricing @ Desktop 1920px",
+    "status": "PASS",
+    "details": "All button text and icons aligned without awkward wrapping"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:16.376Z",
+    "category": "Button Wrapping",
+    "test": "/contact @ Mobile 375px",
+    "status": "PASS",
+    "details": "All button text and icons aligned without awkward wrapping"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:16.775Z",
+    "category": "Button Wrapping",
+    "test": "/contact @ Tablet 768px",
+    "status": "PASS",
+    "details": "All button text and icons aligned without awkward wrapping"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:17.009Z",
+    "category": "Button Wrapping",
+    "test": "/contact @ Desktop 1280px",
+    "status": "PASS",
+    "details": "All button text and icons aligned without awkward wrapping"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:17.208Z",
+    "category": "Button Wrapping",
+    "test": "/contact @ Desktop 1920px",
+    "status": "PASS",
+    "details": "All button text and icons aligned without awkward wrapping"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:17.334Z",
+    "category": "Button Wrapping",
+    "test": "/admin/packages @ Mobile 375px",
+    "status": "PASS",
+    "details": "All button text and icons aligned without awkward wrapping"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:17.476Z",
+    "category": "Button Wrapping",
+    "test": "/admin/packages @ Tablet 768px",
+    "status": "PASS",
+    "details": "All button text and icons aligned without awkward wrapping"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:17.597Z",
+    "category": "Button Wrapping",
+    "test": "/admin/packages @ Desktop 1280px",
+    "status": "PASS",
+    "details": "All button text and icons aligned without awkward wrapping"
+  },
+  {
+    "timestamp": "2026-09-30T19:20:17.745Z",
+    "category": "Button Wrapping",
+    "test": "/admin/packages @ Desktop 1920px",
+    "status": "PASS",
+    "details": "All button text and icons aligned without awkward wrapping"
+  }
+]

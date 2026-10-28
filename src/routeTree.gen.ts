@@ -14,20 +14,61 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as ProductsRouteImport } from './routes/products'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SadaOsRouteImport } from './routes/sada-os'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as StoreRouteImport } from './routes/store'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAccountsRouteImport } from './routes/admin.accounts'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as AdminBlogRouteImport } from './routes/admin.blog'
+import { Route as AdminBusinessRulesRouteImport } from './routes/admin.business-rules'
+import { Route as AdminCalendarRouteImport } from './routes/admin.calendar'
+import { Route as AdminClientProjectsRouteImport } from './routes/admin.client-projects'
+import { Route as AdminClientWorkspacesRouteImport } from './routes/admin.client-workspaces'
+import { Route as AdminClientsRouteImport } from './routes/admin.clients'
+import { Route as AdminCommissionsRouteImport } from './routes/admin.commissions'
 import { Route as AdminContactRouteImport } from './routes/admin.contact'
+import { Route as AdminDealsRouteImport } from './routes/admin.deals'
+import { Route as AdminFinanceRouteImport } from './routes/admin.finance'
+import { Route as AdminMySalaryRouteImport } from './routes/admin.my-salary'
+import { Route as AdminMyWorkRouteImport } from './routes/admin.my-work'
+import { Route as AdminPackagesRouteImport } from './routes/admin.packages'
 import { Route as AdminProductsRouteImport } from './routes/admin.products'
 import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
+import { Route as AdminReelsRouteImport } from './routes/admin.reels'
+import { Route as AdminSalaryRouteImport } from './routes/admin.salary'
+import { Route as AdminSalesRouteImport } from './routes/admin.sales'
+import { Route as AdminSiteContentRouteImport } from './routes/admin.site-content'
+import { Route as AdminTeamWorkloadRouteImport } from './routes/admin.team-workload'
 import { Route as AdminTestimonialsRouteImport } from './routes/admin.testimonials'
+import { Route as AdminWorkflowTemplatesRouteImport } from './routes/admin.workflow-templates'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies.index'
+import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies.$slug'
 import { Route as PortfolioSlugRouteImport } from './routes/portfolio.$slug'
+import { Route as ProductsIdRouteImport } from './routes/products.$id'
 import { Route as StoreIdRouteImport } from './routes/store.$id'
+import { Route as AdminBlogIndexRouteImport } from './routes/admin.blog.index'
+import { Route as AdminBlogIdRouteImport } from './routes/admin.blog.$id'
+import { Route as AdminClientProjectsIndexRouteImport } from './routes/admin.client-projects.index'
+import { Route as AdminClientProjectsIdRouteImport } from './routes/admin.client-projects.$id'
+import { Route as AdminClientWorkspacesIndexRouteImport } from './routes/admin.client-workspaces.index'
+import { Route as AdminClientWorkspacesIdRouteImport } from './routes/admin.client-workspaces.$id'
+import { Route as AdminClientsIndexRouteImport } from './routes/admin.clients.index'
+import { Route as AdminClientsIdRouteImport } from './routes/admin.clients.$id'
+import { Route as AdminProductsIndexRouteImport } from './routes/admin.products.index'
+import { Route as AdminProductsIdRouteImport } from './routes/admin.products.$id'
+import { Route as AdminProjectsIndexRouteImport } from './routes/admin.projects.index'
+import { Route as AdminProjectsIdRouteImport } from './routes/admin.projects.$id'
+import { Route as AdminSettingsBusinessRulesRouteImport } from './routes/admin.settings.business-rules'
+import { Route as AdminTestimonialsIndexRouteImport } from './routes/admin.testimonials.index'
+import { Route as AdminTestimonialsIdRouteImport } from './routes/admin.testimonials.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -54,6 +95,11 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CaseStudiesRoute = CaseStudiesRouteImport.update({
+  id: '/case-studies',
+  path: '/case-studies',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -67,6 +113,21 @@ const PortfolioRoute = PortfolioRouteImport.update({
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SadaOsRoute = SadaOsRouteImport.update({
+  id: '/sada-os',
+  path: '/sada-os',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesRoute = ServicesRouteImport.update({
@@ -84,14 +145,79 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAccountsRoute = AdminAccountsRouteImport.update({
+  id: '/accounts',
+  path: '/accounts',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminBlogRoute = AdminBlogRouteImport.update({
   id: '/blog',
   path: '/blog',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminBusinessRulesRoute = AdminBusinessRulesRouteImport.update({
+  id: '/business-rules',
+  path: '/business-rules',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCalendarRoute = AdminCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminClientProjectsRoute = AdminClientProjectsRouteImport.update({
+  id: '/client-projects',
+  path: '/client-projects',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminClientWorkspacesRoute = AdminClientWorkspacesRouteImport.update({
+  id: '/client-workspaces',
+  path: '/client-workspaces',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminClientsRoute = AdminClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCommissionsRoute = AdminCommissionsRouteImport.update({
+  id: '/commissions',
+  path: '/commissions',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminContactRoute = AdminContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDealsRoute = AdminDealsRouteImport.update({
+  id: '/deals',
+  path: '/deals',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFinanceRoute = AdminFinanceRouteImport.update({
+  id: '/finance',
+  path: '/finance',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMySalaryRoute = AdminMySalaryRouteImport.update({
+  id: '/my-salary',
+  path: '/my-salary',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMyWorkRoute = AdminMyWorkRouteImport.update({
+  id: '/my-work',
+  path: '/my-work',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPackagesRoute = AdminPackagesRouteImport.update({
+  id: '/packages',
+  path: '/packages',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminProductsRoute = AdminProductsRouteImport.update({
@@ -104,9 +230,39 @@ const AdminProjectsRoute = AdminProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminReelsRoute = AdminReelsRouteImport.update({
+  id: '/reels',
+  path: '/reels',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSalaryRoute = AdminSalaryRouteImport.update({
+  id: '/salary',
+  path: '/salary',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSalesRoute = AdminSalesRouteImport.update({
+  id: '/sales',
+  path: '/sales',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSiteContentRoute = AdminSiteContentRouteImport.update({
+  id: '/site-content',
+  path: '/site-content',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTeamWorkloadRoute = AdminTeamWorkloadRouteImport.update({
+  id: '/team-workload',
+  path: '/team-workload',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminTestimonialsRoute = AdminTestimonialsRouteImport.update({
   id: '/testimonials',
   path: '/testimonials',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminWorkflowTemplatesRoute = AdminWorkflowTemplatesRouteImport.update({
+  id: '/workflow-templates',
+  path: '/workflow-templates',
   getParentRoute: () => AdminRoute,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
@@ -114,15 +270,108 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const CaseStudiesIndexRoute = CaseStudiesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CaseStudiesRoute,
+} as any)
+const CaseStudiesSlugRoute = CaseStudiesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CaseStudiesRoute,
+} as any)
 const PortfolioSlugRoute = PortfolioSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => PortfolioRoute,
 } as any)
+const ProductsIdRoute = ProductsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ProductsRoute,
+} as any)
 const StoreIdRoute = StoreIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => StoreRoute,
+} as any)
+const AdminBlogIndexRoute = AdminBlogIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminBlogRoute,
+} as any)
+const AdminBlogIdRoute = AdminBlogIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminBlogRoute,
+} as any)
+const AdminClientProjectsIndexRoute =
+  AdminClientProjectsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AdminClientProjectsRoute,
+  } as any)
+const AdminClientProjectsIdRoute = AdminClientProjectsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminClientProjectsRoute,
+} as any)
+const AdminClientWorkspacesIndexRoute =
+  AdminClientWorkspacesIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AdminClientWorkspacesRoute,
+  } as any)
+const AdminClientWorkspacesIdRoute = AdminClientWorkspacesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminClientWorkspacesRoute,
+} as any)
+const AdminClientsIndexRoute = AdminClientsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminClientsRoute,
+} as any)
+const AdminClientsIdRoute = AdminClientsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminClientsRoute,
+} as any)
+const AdminProductsIndexRoute = AdminProductsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminProductsRoute,
+} as any)
+const AdminProductsIdRoute = AdminProductsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminProductsRoute,
+} as any)
+const AdminProjectsIndexRoute = AdminProjectsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminProjectsRoute,
+} as any)
+const AdminProjectsIdRoute = AdminProjectsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminProjectsRoute,
+} as any)
+const AdminSettingsBusinessRulesRoute =
+  AdminSettingsBusinessRulesRouteImport.update({
+    id: '/settings/business-rules',
+    path: '/settings/business-rules',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminTestimonialsIndexRoute = AdminTestimonialsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminTestimonialsRoute,
+} as any)
+const AdminTestimonialsIdRoute = AdminTestimonialsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminTestimonialsRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -131,20 +380,61 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
+  '/case-studies': typeof CaseStudiesRouteWithChildren
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRouteWithChildren
   '/pricing': typeof PricingRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/reset-password': typeof ResetPasswordRoute
+  '/sada-os': typeof SadaOsRoute
   '/services': typeof ServicesRoute
   '/store': typeof StoreRouteWithChildren
-  '/admin/blog': typeof AdminBlogRoute
+  '/admin/accounts': typeof AdminAccountsRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/blog': typeof AdminBlogRouteWithChildren
+  '/admin/business-rules': typeof AdminBusinessRulesRoute
+  '/admin/calendar': typeof AdminCalendarRoute
+  '/admin/client-projects': typeof AdminClientProjectsRouteWithChildren
+  '/admin/client-workspaces': typeof AdminClientWorkspacesRouteWithChildren
+  '/admin/clients': typeof AdminClientsRouteWithChildren
+  '/admin/commissions': typeof AdminCommissionsRoute
   '/admin/contact': typeof AdminContactRoute
-  '/admin/products': typeof AdminProductsRoute
-  '/admin/projects': typeof AdminProjectsRoute
-  '/admin/testimonials': typeof AdminTestimonialsRoute
+  '/admin/deals': typeof AdminDealsRoute
+  '/admin/finance': typeof AdminFinanceRoute
+  '/admin/my-salary': typeof AdminMySalaryRoute
+  '/admin/my-work': typeof AdminMyWorkRoute
+  '/admin/packages': typeof AdminPackagesRoute
+  '/admin/products': typeof AdminProductsRouteWithChildren
+  '/admin/projects': typeof AdminProjectsRouteWithChildren
+  '/admin/reels': typeof AdminReelsRoute
+  '/admin/salary': typeof AdminSalaryRoute
+  '/admin/sales': typeof AdminSalesRoute
+  '/admin/site-content': typeof AdminSiteContentRoute
+  '/admin/team-workload': typeof AdminTeamWorkloadRoute
+  '/admin/testimonials': typeof AdminTestimonialsRouteWithChildren
+  '/admin/workflow-templates': typeof AdminWorkflowTemplatesRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/products/$id': typeof ProductsIdRoute
   '/store/$id': typeof StoreIdRoute
   '/admin/': typeof AdminIndexRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
+  '/admin/blog/$id': typeof AdminBlogIdRoute
+  '/admin/client-projects/$id': typeof AdminClientProjectsIdRoute
+  '/admin/client-workspaces/$id': typeof AdminClientWorkspacesIdRoute
+  '/admin/clients/$id': typeof AdminClientsIdRoute
+  '/admin/products/$id': typeof AdminProductsIdRoute
+  '/admin/projects/$id': typeof AdminProjectsIdRoute
+  '/admin/settings/business-rules': typeof AdminSettingsBusinessRulesRoute
+  '/admin/testimonials/$id': typeof AdminTestimonialsIdRoute
+  '/admin/blog/': typeof AdminBlogIndexRoute
+  '/admin/client-projects/': typeof AdminClientProjectsIndexRoute
+  '/admin/client-workspaces/': typeof AdminClientWorkspacesIndexRoute
+  '/admin/clients/': typeof AdminClientsIndexRoute
+  '/admin/products/': typeof AdminProductsIndexRoute
+  '/admin/projects/': typeof AdminProjectsIndexRoute
+  '/admin/testimonials/': typeof AdminTestimonialsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -154,17 +444,50 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRouteWithChildren
   '/pricing': typeof PricingRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/reset-password': typeof ResetPasswordRoute
+  '/sada-os': typeof SadaOsRoute
   '/services': typeof ServicesRoute
   '/store': typeof StoreRouteWithChildren
-  '/admin/blog': typeof AdminBlogRoute
+  '/admin/accounts': typeof AdminAccountsRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/business-rules': typeof AdminBusinessRulesRoute
+  '/admin/calendar': typeof AdminCalendarRoute
+  '/admin/commissions': typeof AdminCommissionsRoute
   '/admin/contact': typeof AdminContactRoute
-  '/admin/products': typeof AdminProductsRoute
-  '/admin/projects': typeof AdminProjectsRoute
-  '/admin/testimonials': typeof AdminTestimonialsRoute
+  '/admin/deals': typeof AdminDealsRoute
+  '/admin/finance': typeof AdminFinanceRoute
+  '/admin/my-salary': typeof AdminMySalaryRoute
+  '/admin/my-work': typeof AdminMyWorkRoute
+  '/admin/packages': typeof AdminPackagesRoute
+  '/admin/reels': typeof AdminReelsRoute
+  '/admin/salary': typeof AdminSalaryRoute
+  '/admin/sales': typeof AdminSalesRoute
+  '/admin/site-content': typeof AdminSiteContentRoute
+  '/admin/team-workload': typeof AdminTeamWorkloadRoute
+  '/admin/workflow-templates': typeof AdminWorkflowTemplatesRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/products/$id': typeof ProductsIdRoute
   '/store/$id': typeof StoreIdRoute
   '/admin': typeof AdminIndexRoute
+  '/case-studies': typeof CaseStudiesIndexRoute
+  '/admin/blog/$id': typeof AdminBlogIdRoute
+  '/admin/client-projects/$id': typeof AdminClientProjectsIdRoute
+  '/admin/client-workspaces/$id': typeof AdminClientWorkspacesIdRoute
+  '/admin/clients/$id': typeof AdminClientsIdRoute
+  '/admin/products/$id': typeof AdminProductsIdRoute
+  '/admin/projects/$id': typeof AdminProjectsIdRoute
+  '/admin/settings/business-rules': typeof AdminSettingsBusinessRulesRoute
+  '/admin/testimonials/$id': typeof AdminTestimonialsIdRoute
+  '/admin/blog': typeof AdminBlogIndexRoute
+  '/admin/client-projects': typeof AdminClientProjectsIndexRoute
+  '/admin/client-workspaces': typeof AdminClientWorkspacesIndexRoute
+  '/admin/clients': typeof AdminClientsIndexRoute
+  '/admin/products': typeof AdminProductsIndexRoute
+  '/admin/projects': typeof AdminProjectsIndexRoute
+  '/admin/testimonials': typeof AdminTestimonialsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -173,20 +496,61 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
   '/blog': typeof BlogRouteWithChildren
+  '/case-studies': typeof CaseStudiesRouteWithChildren
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRouteWithChildren
   '/pricing': typeof PricingRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/reset-password': typeof ResetPasswordRoute
+  '/sada-os': typeof SadaOsRoute
   '/services': typeof ServicesRoute
   '/store': typeof StoreRouteWithChildren
-  '/admin/blog': typeof AdminBlogRoute
+  '/admin/accounts': typeof AdminAccountsRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/blog': typeof AdminBlogRouteWithChildren
+  '/admin/business-rules': typeof AdminBusinessRulesRoute
+  '/admin/calendar': typeof AdminCalendarRoute
+  '/admin/client-projects': typeof AdminClientProjectsRouteWithChildren
+  '/admin/client-workspaces': typeof AdminClientWorkspacesRouteWithChildren
+  '/admin/clients': typeof AdminClientsRouteWithChildren
+  '/admin/commissions': typeof AdminCommissionsRoute
   '/admin/contact': typeof AdminContactRoute
-  '/admin/products': typeof AdminProductsRoute
-  '/admin/projects': typeof AdminProjectsRoute
-  '/admin/testimonials': typeof AdminTestimonialsRoute
+  '/admin/deals': typeof AdminDealsRoute
+  '/admin/finance': typeof AdminFinanceRoute
+  '/admin/my-salary': typeof AdminMySalaryRoute
+  '/admin/my-work': typeof AdminMyWorkRoute
+  '/admin/packages': typeof AdminPackagesRoute
+  '/admin/products': typeof AdminProductsRouteWithChildren
+  '/admin/projects': typeof AdminProjectsRouteWithChildren
+  '/admin/reels': typeof AdminReelsRoute
+  '/admin/salary': typeof AdminSalaryRoute
+  '/admin/sales': typeof AdminSalesRoute
+  '/admin/site-content': typeof AdminSiteContentRoute
+  '/admin/team-workload': typeof AdminTeamWorkloadRoute
+  '/admin/testimonials': typeof AdminTestimonialsRouteWithChildren
+  '/admin/workflow-templates': typeof AdminWorkflowTemplatesRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/products/$id': typeof ProductsIdRoute
   '/store/$id': typeof StoreIdRoute
   '/admin/': typeof AdminIndexRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
+  '/admin/blog/$id': typeof AdminBlogIdRoute
+  '/admin/client-projects/$id': typeof AdminClientProjectsIdRoute
+  '/admin/client-workspaces/$id': typeof AdminClientWorkspacesIdRoute
+  '/admin/clients/$id': typeof AdminClientsIdRoute
+  '/admin/products/$id': typeof AdminProductsIdRoute
+  '/admin/projects/$id': typeof AdminProjectsIdRoute
+  '/admin/settings/business-rules': typeof AdminSettingsBusinessRulesRoute
+  '/admin/testimonials/$id': typeof AdminTestimonialsIdRoute
+  '/admin/blog/': typeof AdminBlogIndexRoute
+  '/admin/client-projects/': typeof AdminClientProjectsIndexRoute
+  '/admin/client-workspaces/': typeof AdminClientWorkspacesIndexRoute
+  '/admin/clients/': typeof AdminClientsIndexRoute
+  '/admin/products/': typeof AdminProductsIndexRoute
+  '/admin/projects/': typeof AdminProjectsIndexRoute
+  '/admin/testimonials/': typeof AdminTestimonialsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -196,20 +560,61 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/blog'
+    | '/case-studies'
     | '/contact'
     | '/portfolio'
     | '/pricing'
+    | '/products'
+    | '/reset-password'
+    | '/sada-os'
     | '/services'
     | '/store'
+    | '/admin/accounts'
+    | '/admin/analytics'
     | '/admin/blog'
+    | '/admin/business-rules'
+    | '/admin/calendar'
+    | '/admin/client-projects'
+    | '/admin/client-workspaces'
+    | '/admin/clients'
+    | '/admin/commissions'
     | '/admin/contact'
+    | '/admin/deals'
+    | '/admin/finance'
+    | '/admin/my-salary'
+    | '/admin/my-work'
+    | '/admin/packages'
     | '/admin/products'
     | '/admin/projects'
+    | '/admin/reels'
+    | '/admin/salary'
+    | '/admin/sales'
+    | '/admin/site-content'
+    | '/admin/team-workload'
     | '/admin/testimonials'
+    | '/admin/workflow-templates'
     | '/blog/$slug'
+    | '/case-studies/$slug'
     | '/portfolio/$slug'
+    | '/products/$id'
     | '/store/$id'
     | '/admin/'
+    | '/case-studies/'
+    | '/admin/blog/$id'
+    | '/admin/client-projects/$id'
+    | '/admin/client-workspaces/$id'
+    | '/admin/clients/$id'
+    | '/admin/products/$id'
+    | '/admin/projects/$id'
+    | '/admin/settings/business-rules'
+    | '/admin/testimonials/$id'
+    | '/admin/blog/'
+    | '/admin/client-projects/'
+    | '/admin/client-workspaces/'
+    | '/admin/clients/'
+    | '/admin/products/'
+    | '/admin/projects/'
+    | '/admin/testimonials/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -219,17 +624,50 @@ export interface FileRouteTypes {
     | '/contact'
     | '/portfolio'
     | '/pricing'
+    | '/products'
+    | '/reset-password'
+    | '/sada-os'
     | '/services'
     | '/store'
-    | '/admin/blog'
+    | '/admin/accounts'
+    | '/admin/analytics'
+    | '/admin/business-rules'
+    | '/admin/calendar'
+    | '/admin/commissions'
     | '/admin/contact'
+    | '/admin/deals'
+    | '/admin/finance'
+    | '/admin/my-salary'
+    | '/admin/my-work'
+    | '/admin/packages'
+    | '/admin/reels'
+    | '/admin/salary'
+    | '/admin/sales'
+    | '/admin/site-content'
+    | '/admin/team-workload'
+    | '/admin/workflow-templates'
+    | '/blog/$slug'
+    | '/case-studies/$slug'
+    | '/portfolio/$slug'
+    | '/products/$id'
+    | '/store/$id'
+    | '/admin'
+    | '/case-studies'
+    | '/admin/blog/$id'
+    | '/admin/client-projects/$id'
+    | '/admin/client-workspaces/$id'
+    | '/admin/clients/$id'
+    | '/admin/products/$id'
+    | '/admin/projects/$id'
+    | '/admin/settings/business-rules'
+    | '/admin/testimonials/$id'
+    | '/admin/blog'
+    | '/admin/client-projects'
+    | '/admin/client-workspaces'
+    | '/admin/clients'
     | '/admin/products'
     | '/admin/projects'
     | '/admin/testimonials'
-    | '/blog/$slug'
-    | '/portfolio/$slug'
-    | '/store/$id'
-    | '/admin'
   id:
     | '__root__'
     | '/'
@@ -237,20 +675,61 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/blog'
+    | '/case-studies'
     | '/contact'
     | '/portfolio'
     | '/pricing'
+    | '/products'
+    | '/reset-password'
+    | '/sada-os'
     | '/services'
     | '/store'
+    | '/admin/accounts'
+    | '/admin/analytics'
     | '/admin/blog'
+    | '/admin/business-rules'
+    | '/admin/calendar'
+    | '/admin/client-projects'
+    | '/admin/client-workspaces'
+    | '/admin/clients'
+    | '/admin/commissions'
     | '/admin/contact'
+    | '/admin/deals'
+    | '/admin/finance'
+    | '/admin/my-salary'
+    | '/admin/my-work'
+    | '/admin/packages'
     | '/admin/products'
     | '/admin/projects'
+    | '/admin/reels'
+    | '/admin/salary'
+    | '/admin/sales'
+    | '/admin/site-content'
+    | '/admin/team-workload'
     | '/admin/testimonials'
+    | '/admin/workflow-templates'
     | '/blog/$slug'
+    | '/case-studies/$slug'
     | '/portfolio/$slug'
+    | '/products/$id'
     | '/store/$id'
     | '/admin/'
+    | '/case-studies/'
+    | '/admin/blog/$id'
+    | '/admin/client-projects/$id'
+    | '/admin/client-workspaces/$id'
+    | '/admin/clients/$id'
+    | '/admin/products/$id'
+    | '/admin/projects/$id'
+    | '/admin/settings/business-rules'
+    | '/admin/testimonials/$id'
+    | '/admin/blog/'
+    | '/admin/client-projects/'
+    | '/admin/client-workspaces/'
+    | '/admin/clients/'
+    | '/admin/products/'
+    | '/admin/projects/'
+    | '/admin/testimonials/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -259,9 +738,13 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
   BlogRoute: typeof BlogRouteWithChildren
+  CaseStudiesRoute: typeof CaseStudiesRouteWithChildren
   ContactRoute: typeof ContactRoute
   PortfolioRoute: typeof PortfolioRouteWithChildren
   PricingRoute: typeof PricingRoute
+  ProductsRoute: typeof ProductsRouteWithChildren
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  SadaOsRoute: typeof SadaOsRoute
   ServicesRoute: typeof ServicesRoute
   StoreRoute: typeof StoreRouteWithChildren
 }
@@ -303,6 +786,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/case-studies': {
+      id: '/case-studies'
+      path: '/case-studies'
+      fullPath: '/case-studies'
+      preLoaderRoute: typeof CaseStudiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -322,6 +812,27 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sada-os': {
+      id: '/sada-os'
+      path: '/sada-os'
+      fullPath: '/sada-os'
+      preLoaderRoute: typeof SadaOsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services': {
@@ -345,6 +856,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/accounts': {
+      id: '/admin/accounts'
+      path: '/accounts'
+      fullPath: '/admin/accounts'
+      preLoaderRoute: typeof AdminAccountsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/blog': {
       id: '/admin/blog'
       path: '/blog'
@@ -352,11 +877,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBlogRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/business-rules': {
+      id: '/admin/business-rules'
+      path: '/business-rules'
+      fullPath: '/admin/business-rules'
+      preLoaderRoute: typeof AdminBusinessRulesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/calendar': {
+      id: '/admin/calendar'
+      path: '/calendar'
+      fullPath: '/admin/calendar'
+      preLoaderRoute: typeof AdminCalendarRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/client-projects': {
+      id: '/admin/client-projects'
+      path: '/client-projects'
+      fullPath: '/admin/client-projects'
+      preLoaderRoute: typeof AdminClientProjectsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/client-workspaces': {
+      id: '/admin/client-workspaces'
+      path: '/client-workspaces'
+      fullPath: '/admin/client-workspaces'
+      preLoaderRoute: typeof AdminClientWorkspacesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/clients': {
+      id: '/admin/clients'
+      path: '/clients'
+      fullPath: '/admin/clients'
+      preLoaderRoute: typeof AdminClientsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/commissions': {
+      id: '/admin/commissions'
+      path: '/commissions'
+      fullPath: '/admin/commissions'
+      preLoaderRoute: typeof AdminCommissionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/contact': {
       id: '/admin/contact'
       path: '/contact'
       fullPath: '/admin/contact'
       preLoaderRoute: typeof AdminContactRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/deals': {
+      id: '/admin/deals'
+      path: '/deals'
+      fullPath: '/admin/deals'
+      preLoaderRoute: typeof AdminDealsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/finance': {
+      id: '/admin/finance'
+      path: '/finance'
+      fullPath: '/admin/finance'
+      preLoaderRoute: typeof AdminFinanceRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/my-salary': {
+      id: '/admin/my-salary'
+      path: '/my-salary'
+      fullPath: '/admin/my-salary'
+      preLoaderRoute: typeof AdminMySalaryRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/my-work': {
+      id: '/admin/my-work'
+      path: '/my-work'
+      fullPath: '/admin/my-work'
+      preLoaderRoute: typeof AdminMyWorkRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/packages': {
+      id: '/admin/packages'
+      path: '/packages'
+      fullPath: '/admin/packages'
+      preLoaderRoute: typeof AdminPackagesRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/products': {
@@ -373,11 +975,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProjectsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/reels': {
+      id: '/admin/reels'
+      path: '/reels'
+      fullPath: '/admin/reels'
+      preLoaderRoute: typeof AdminReelsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/salary': {
+      id: '/admin/salary'
+      path: '/salary'
+      fullPath: '/admin/salary'
+      preLoaderRoute: typeof AdminSalaryRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/sales': {
+      id: '/admin/sales'
+      path: '/sales'
+      fullPath: '/admin/sales'
+      preLoaderRoute: typeof AdminSalesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/site-content': {
+      id: '/admin/site-content'
+      path: '/site-content'
+      fullPath: '/admin/site-content'
+      preLoaderRoute: typeof AdminSiteContentRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/team-workload': {
+      id: '/admin/team-workload'
+      path: '/team-workload'
+      fullPath: '/admin/team-workload'
+      preLoaderRoute: typeof AdminTeamWorkloadRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/testimonials': {
       id: '/admin/testimonials'
       path: '/testimonials'
       fullPath: '/admin/testimonials'
       preLoaderRoute: typeof AdminTestimonialsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/workflow-templates': {
+      id: '/admin/workflow-templates'
+      path: '/workflow-templates'
+      fullPath: '/admin/workflow-templates'
+      preLoaderRoute: typeof AdminWorkflowTemplatesRouteImport
       parentRoute: typeof AdminRoute
     }
     '/blog/$slug': {
@@ -387,12 +1031,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/case-studies/': {
+      id: '/case-studies/'
+      path: '/'
+      fullPath: '/case-studies/'
+      preLoaderRoute: typeof CaseStudiesIndexRouteImport
+      parentRoute: typeof CaseStudiesRoute
+    }
+    '/case-studies/$slug': {
+      id: '/case-studies/$slug'
+      path: '/$slug'
+      fullPath: '/case-studies/$slug'
+      preLoaderRoute: typeof CaseStudiesSlugRouteImport
+      parentRoute: typeof CaseStudiesRoute
+    }
     '/portfolio/$slug': {
       id: '/portfolio/$slug'
       path: '/$slug'
       fullPath: '/portfolio/$slug'
       preLoaderRoute: typeof PortfolioSlugRouteImport
       parentRoute: typeof PortfolioRoute
+    }
+    '/products/$id': {
+      id: '/products/$id'
+      path: '/$id'
+      fullPath: '/products/$id'
+      preLoaderRoute: typeof ProductsIdRouteImport
+      parentRoute: typeof ProductsRoute
     }
     '/store/$id': {
       id: '/store/$id'
@@ -401,25 +1066,267 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StoreIdRouteImport
       parentRoute: typeof StoreRoute
     }
+    '/admin/blog/': {
+      id: '/admin/blog/'
+      path: '/'
+      fullPath: '/admin/blog/'
+      preLoaderRoute: typeof AdminBlogIndexRouteImport
+      parentRoute: typeof AdminBlogRoute
+    }
+    '/admin/blog/$id': {
+      id: '/admin/blog/$id'
+      path: '/$id'
+      fullPath: '/admin/blog/$id'
+      preLoaderRoute: typeof AdminBlogIdRouteImport
+      parentRoute: typeof AdminBlogRoute
+    }
+    '/admin/client-projects/': {
+      id: '/admin/client-projects/'
+      path: '/'
+      fullPath: '/admin/client-projects/'
+      preLoaderRoute: typeof AdminClientProjectsIndexRouteImport
+      parentRoute: typeof AdminClientProjectsRoute
+    }
+    '/admin/client-projects/$id': {
+      id: '/admin/client-projects/$id'
+      path: '/$id'
+      fullPath: '/admin/client-projects/$id'
+      preLoaderRoute: typeof AdminClientProjectsIdRouteImport
+      parentRoute: typeof AdminClientProjectsRoute
+    }
+    '/admin/client-workspaces/': {
+      id: '/admin/client-workspaces/'
+      path: '/'
+      fullPath: '/admin/client-workspaces/'
+      preLoaderRoute: typeof AdminClientWorkspacesIndexRouteImport
+      parentRoute: typeof AdminClientWorkspacesRoute
+    }
+    '/admin/client-workspaces/$id': {
+      id: '/admin/client-workspaces/$id'
+      path: '/$id'
+      fullPath: '/admin/client-workspaces/$id'
+      preLoaderRoute: typeof AdminClientWorkspacesIdRouteImport
+      parentRoute: typeof AdminClientWorkspacesRoute
+    }
+    '/admin/clients/': {
+      id: '/admin/clients/'
+      path: '/'
+      fullPath: '/admin/clients/'
+      preLoaderRoute: typeof AdminClientsIndexRouteImport
+      parentRoute: typeof AdminClientsRoute
+    }
+    '/admin/clients/$id': {
+      id: '/admin/clients/$id'
+      path: '/$id'
+      fullPath: '/admin/clients/$id'
+      preLoaderRoute: typeof AdminClientsIdRouteImport
+      parentRoute: typeof AdminClientsRoute
+    }
+    '/admin/products/': {
+      id: '/admin/products/'
+      path: '/'
+      fullPath: '/admin/products/'
+      preLoaderRoute: typeof AdminProductsIndexRouteImport
+      parentRoute: typeof AdminProductsRoute
+    }
+    '/admin/products/$id': {
+      id: '/admin/products/$id'
+      path: '/$id'
+      fullPath: '/admin/products/$id'
+      preLoaderRoute: typeof AdminProductsIdRouteImport
+      parentRoute: typeof AdminProductsRoute
+    }
+    '/admin/projects/': {
+      id: '/admin/projects/'
+      path: '/'
+      fullPath: '/admin/projects/'
+      preLoaderRoute: typeof AdminProjectsIndexRouteImport
+      parentRoute: typeof AdminProjectsRoute
+    }
+    '/admin/projects/$id': {
+      id: '/admin/projects/$id'
+      path: '/$id'
+      fullPath: '/admin/projects/$id'
+      preLoaderRoute: typeof AdminProjectsIdRouteImport
+      parentRoute: typeof AdminProjectsRoute
+    }
+    '/admin/settings/business-rules': {
+      id: '/admin/settings/business-rules'
+      path: '/settings/business-rules'
+      fullPath: '/admin/settings/business-rules'
+      preLoaderRoute: typeof AdminSettingsBusinessRulesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/testimonials/': {
+      id: '/admin/testimonials/'
+      path: '/'
+      fullPath: '/admin/testimonials/'
+      preLoaderRoute: typeof AdminTestimonialsIndexRouteImport
+      parentRoute: typeof AdminTestimonialsRoute
+    }
+    '/admin/testimonials/$id': {
+      id: '/admin/testimonials/$id'
+      path: '/$id'
+      fullPath: '/admin/testimonials/$id'
+      preLoaderRoute: typeof AdminTestimonialsIdRouteImport
+      parentRoute: typeof AdminTestimonialsRoute
+    }
   }
 }
 
+interface AdminBlogRouteChildren {
+  AdminBlogIdRoute: typeof AdminBlogIdRoute
+  AdminBlogIndexRoute: typeof AdminBlogIndexRoute
+}
+
+const AdminBlogRouteChildren: AdminBlogRouteChildren = {
+  AdminBlogIdRoute: AdminBlogIdRoute,
+  AdminBlogIndexRoute: AdminBlogIndexRoute,
+}
+
+const AdminBlogRouteWithChildren = AdminBlogRoute._addFileChildren(
+  AdminBlogRouteChildren,
+)
+
+interface AdminClientProjectsRouteChildren {
+  AdminClientProjectsIdRoute: typeof AdminClientProjectsIdRoute
+  AdminClientProjectsIndexRoute: typeof AdminClientProjectsIndexRoute
+}
+
+const AdminClientProjectsRouteChildren: AdminClientProjectsRouteChildren = {
+  AdminClientProjectsIdRoute: AdminClientProjectsIdRoute,
+  AdminClientProjectsIndexRoute: AdminClientProjectsIndexRoute,
+}
+
+const AdminClientProjectsRouteWithChildren =
+  AdminClientProjectsRoute._addFileChildren(AdminClientProjectsRouteChildren)
+
+interface AdminClientWorkspacesRouteChildren {
+  AdminClientWorkspacesIdRoute: typeof AdminClientWorkspacesIdRoute
+  AdminClientWorkspacesIndexRoute: typeof AdminClientWorkspacesIndexRoute
+}
+
+const AdminClientWorkspacesRouteChildren: AdminClientWorkspacesRouteChildren = {
+  AdminClientWorkspacesIdRoute: AdminClientWorkspacesIdRoute,
+  AdminClientWorkspacesIndexRoute: AdminClientWorkspacesIndexRoute,
+}
+
+const AdminClientWorkspacesRouteWithChildren =
+  AdminClientWorkspacesRoute._addFileChildren(
+    AdminClientWorkspacesRouteChildren,
+  )
+
+interface AdminClientsRouteChildren {
+  AdminClientsIdRoute: typeof AdminClientsIdRoute
+  AdminClientsIndexRoute: typeof AdminClientsIndexRoute
+}
+
+const AdminClientsRouteChildren: AdminClientsRouteChildren = {
+  AdminClientsIdRoute: AdminClientsIdRoute,
+  AdminClientsIndexRoute: AdminClientsIndexRoute,
+}
+
+const AdminClientsRouteWithChildren = AdminClientsRoute._addFileChildren(
+  AdminClientsRouteChildren,
+)
+
+interface AdminProductsRouteChildren {
+  AdminProductsIdRoute: typeof AdminProductsIdRoute
+  AdminProductsIndexRoute: typeof AdminProductsIndexRoute
+}
+
+const AdminProductsRouteChildren: AdminProductsRouteChildren = {
+  AdminProductsIdRoute: AdminProductsIdRoute,
+  AdminProductsIndexRoute: AdminProductsIndexRoute,
+}
+
+const AdminProductsRouteWithChildren = AdminProductsRoute._addFileChildren(
+  AdminProductsRouteChildren,
+)
+
+interface AdminProjectsRouteChildren {
+  AdminProjectsIdRoute: typeof AdminProjectsIdRoute
+  AdminProjectsIndexRoute: typeof AdminProjectsIndexRoute
+}
+
+const AdminProjectsRouteChildren: AdminProjectsRouteChildren = {
+  AdminProjectsIdRoute: AdminProjectsIdRoute,
+  AdminProjectsIndexRoute: AdminProjectsIndexRoute,
+}
+
+const AdminProjectsRouteWithChildren = AdminProjectsRoute._addFileChildren(
+  AdminProjectsRouteChildren,
+)
+
+interface AdminTestimonialsRouteChildren {
+  AdminTestimonialsIdRoute: typeof AdminTestimonialsIdRoute
+  AdminTestimonialsIndexRoute: typeof AdminTestimonialsIndexRoute
+}
+
+const AdminTestimonialsRouteChildren: AdminTestimonialsRouteChildren = {
+  AdminTestimonialsIdRoute: AdminTestimonialsIdRoute,
+  AdminTestimonialsIndexRoute: AdminTestimonialsIndexRoute,
+}
+
+const AdminTestimonialsRouteWithChildren =
+  AdminTestimonialsRoute._addFileChildren(AdminTestimonialsRouteChildren)
+
 interface AdminRouteChildren {
-  AdminBlogRoute: typeof AdminBlogRoute
+  AdminAccountsRoute: typeof AdminAccountsRoute
+  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
+  AdminBlogRoute: typeof AdminBlogRouteWithChildren
+  AdminBusinessRulesRoute: typeof AdminBusinessRulesRoute
+  AdminCalendarRoute: typeof AdminCalendarRoute
+  AdminClientProjectsRoute: typeof AdminClientProjectsRouteWithChildren
+  AdminClientWorkspacesRoute: typeof AdminClientWorkspacesRouteWithChildren
+  AdminClientsRoute: typeof AdminClientsRouteWithChildren
+  AdminCommissionsRoute: typeof AdminCommissionsRoute
   AdminContactRoute: typeof AdminContactRoute
-  AdminProductsRoute: typeof AdminProductsRoute
-  AdminProjectsRoute: typeof AdminProjectsRoute
-  AdminTestimonialsRoute: typeof AdminTestimonialsRoute
+  AdminDealsRoute: typeof AdminDealsRoute
+  AdminFinanceRoute: typeof AdminFinanceRoute
+  AdminMySalaryRoute: typeof AdminMySalaryRoute
+  AdminMyWorkRoute: typeof AdminMyWorkRoute
+  AdminPackagesRoute: typeof AdminPackagesRoute
+  AdminProductsRoute: typeof AdminProductsRouteWithChildren
+  AdminProjectsRoute: typeof AdminProjectsRouteWithChildren
+  AdminReelsRoute: typeof AdminReelsRoute
+  AdminSalaryRoute: typeof AdminSalaryRoute
+  AdminSalesRoute: typeof AdminSalesRoute
+  AdminSiteContentRoute: typeof AdminSiteContentRoute
+  AdminTeamWorkloadRoute: typeof AdminTeamWorkloadRoute
+  AdminTestimonialsRoute: typeof AdminTestimonialsRouteWithChildren
+  AdminWorkflowTemplatesRoute: typeof AdminWorkflowTemplatesRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminSettingsBusinessRulesRoute: typeof AdminSettingsBusinessRulesRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
-  AdminBlogRoute: AdminBlogRoute,
+  AdminAccountsRoute: AdminAccountsRoute,
+  AdminAnalyticsRoute: AdminAnalyticsRoute,
+  AdminBlogRoute: AdminBlogRouteWithChildren,
+  AdminBusinessRulesRoute: AdminBusinessRulesRoute,
+  AdminCalendarRoute: AdminCalendarRoute,
+  AdminClientProjectsRoute: AdminClientProjectsRouteWithChildren,
+  AdminClientWorkspacesRoute: AdminClientWorkspacesRouteWithChildren,
+  AdminClientsRoute: AdminClientsRouteWithChildren,
+  AdminCommissionsRoute: AdminCommissionsRoute,
   AdminContactRoute: AdminContactRoute,
-  AdminProductsRoute: AdminProductsRoute,
-  AdminProjectsRoute: AdminProjectsRoute,
-  AdminTestimonialsRoute: AdminTestimonialsRoute,
+  AdminDealsRoute: AdminDealsRoute,
+  AdminFinanceRoute: AdminFinanceRoute,
+  AdminMySalaryRoute: AdminMySalaryRoute,
+  AdminMyWorkRoute: AdminMyWorkRoute,
+  AdminPackagesRoute: AdminPackagesRoute,
+  AdminProductsRoute: AdminProductsRouteWithChildren,
+  AdminProjectsRoute: AdminProjectsRouteWithChildren,
+  AdminReelsRoute: AdminReelsRoute,
+  AdminSalaryRoute: AdminSalaryRoute,
+  AdminSalesRoute: AdminSalesRoute,
+  AdminSiteContentRoute: AdminSiteContentRoute,
+  AdminTeamWorkloadRoute: AdminTeamWorkloadRoute,
+  AdminTestimonialsRoute: AdminTestimonialsRouteWithChildren,
+  AdminWorkflowTemplatesRoute: AdminWorkflowTemplatesRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AdminSettingsBusinessRulesRoute: AdminSettingsBusinessRulesRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
@@ -434,6 +1341,20 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
+interface CaseStudiesRouteChildren {
+  CaseStudiesSlugRoute: typeof CaseStudiesSlugRoute
+  CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
+}
+
+const CaseStudiesRouteChildren: CaseStudiesRouteChildren = {
+  CaseStudiesSlugRoute: CaseStudiesSlugRoute,
+  CaseStudiesIndexRoute: CaseStudiesIndexRoute,
+}
+
+const CaseStudiesRouteWithChildren = CaseStudiesRoute._addFileChildren(
+  CaseStudiesRouteChildren,
+)
+
 interface PortfolioRouteChildren {
   PortfolioSlugRoute: typeof PortfolioSlugRoute
 }
@@ -444,6 +1365,18 @@ const PortfolioRouteChildren: PortfolioRouteChildren = {
 
 const PortfolioRouteWithChildren = PortfolioRoute._addFileChildren(
   PortfolioRouteChildren,
+)
+
+interface ProductsRouteChildren {
+  ProductsIdRoute: typeof ProductsIdRoute
+}
+
+const ProductsRouteChildren: ProductsRouteChildren = {
+  ProductsIdRoute: ProductsIdRoute,
+}
+
+const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
+  ProductsRouteChildren,
 )
 
 interface StoreRouteChildren {
@@ -462,9 +1395,13 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
   BlogRoute: BlogRouteWithChildren,
+  CaseStudiesRoute: CaseStudiesRouteWithChildren,
   ContactRoute: ContactRoute,
   PortfolioRoute: PortfolioRouteWithChildren,
   PricingRoute: PricingRoute,
+  ProductsRoute: ProductsRouteWithChildren,
+  ResetPasswordRoute: ResetPasswordRoute,
+  SadaOsRoute: SadaOsRoute,
   ServicesRoute: ServicesRoute,
   StoreRoute: StoreRouteWithChildren,
 }

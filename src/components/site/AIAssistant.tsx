@@ -116,19 +116,19 @@ export function AIAssistant() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Open SADA AI assistant"
-        className={`fixed bottom-5 right-5 z-50 size-14 rounded-full bg-gradient-primary text-white shadow-lg hover:scale-110 transition-all grid place-items-center neon-glow ${open ? "opacity-0 pointer-events-none scale-90" : "opacity-100"}`}
+        className={`fixed bottom-4 end-4 sm:bottom-6 sm:end-6 z-40 size-12 sm:size-14 rounded-full bg-gradient-primary text-white shadow-xl hover:scale-105 active:scale-95 transition-all grid place-items-center neon-glow ${open ? "opacity-0 pointer-events-none scale-90" : "opacity-100"}`}
       >
-        <MessageCircle className="size-6" />
-        <span className="absolute -top-1 -right-1 size-3 rounded-full bg-emerald-400 ring-2 ring-background animate-pulse" />
+        <MessageCircle className="size-5 sm:size-6" />
+        <span className="absolute top-0.5 end-0.5 size-2 sm:size-2.5 rounded-full bg-emerald-400 ring-2 ring-background animate-pulse" />
       </button>
 
       {/* Panel */}
       <div
-        className={`fixed bottom-5 right-5 z-50 w-[calc(100vw-2.5rem)] sm:w-[400px] max-h-[640px] origin-bottom-right transition-all duration-300 ${
+        className={`fixed inset-x-3 bottom-3 sm:inset-x-auto sm:end-6 sm:bottom-6 z-50 w-auto sm:w-[400px] max-h-[85vh] sm:max-h-[620px] origin-bottom-right transition-all duration-300 ${
           open ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"
         }`}
       >
-        <div className="rounded-3xl border border-border bg-background dark:bg-[hsl(222,47%,8%)] elevated-shadow flex flex-col overflow-hidden h-[640px] max-h-[80vh]">
+        <div className="rounded-2xl sm:rounded-3xl border border-border bg-background dark:bg-[hsl(222,47%,8%)] elevated-shadow flex flex-col overflow-hidden h-[540px] max-h-[82vh]">
           <header className="flex items-center justify-between px-5 py-4 border-b border-border bg-background dark:bg-[hsl(222,47%,10%)]">
             <div className="flex items-center gap-3">
               <div className="size-9 rounded-xl bg-gradient-primary grid place-items-center text-white">

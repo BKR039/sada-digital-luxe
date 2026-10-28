@@ -1,0 +1,205 @@
+[
+  {
+    "section": "FK Integrity",
+    "item": "project_tasks.assignee_id -> profiles.id",
+    "status": "PASS",
+    "expected": "0 invalid",
+    "actual": "0 invalid",
+    "evidence": []
+  },
+  {
+    "section": "FK Integrity",
+    "item": "project_tasks.assigned_by_id -> profiles.id",
+    "status": "PASS",
+    "expected": "0 invalid",
+    "actual": "0 invalid",
+    "evidence": []
+  },
+  {
+    "section": "FK Integrity",
+    "item": "client_projects.lead_id -> profiles.id",
+    "status": "PASS",
+    "expected": "0 invalid",
+    "actual": "0 invalid",
+    "evidence": []
+  },
+  {
+    "section": "FK Integrity",
+    "item": "team_members.profile_id -> profiles.id",
+    "status": "PASS",
+    "expected": "0 invalid",
+    "actual": "0 invalid",
+    "evidence": []
+  },
+  {
+    "section": "FK Integrity",
+    "item": "project_tasks.project_id -> client_projects.id",
+    "status": "PASS",
+    "expected": "0 invalid",
+    "actual": "0 invalid",
+    "evidence": []
+  },
+  {
+    "section": "FK Integrity",
+    "item": "project_activity.project_id -> client_projects.id",
+    "status": "PASS",
+    "expected": "0 invalid",
+    "actual": "0 invalid",
+    "evidence": []
+  },
+  {
+    "section": "Data Integrity",
+    "item": "No duplicate team members",
+    "status": "PASS",
+    "expected": "0 duplicates",
+    "actual": "0 duplicates",
+    "evidence": []
+  },
+  {
+    "section": "Inquiry Conversion",
+    "item": "Inquiry converted to project with Project Lead and contact linkage",
+    "status": "PASS",
+    "expected": "project created",
+    "actual": "id: 949a9b06-729b-48c0-8497-f8f64a4dbab2, lead: 63a69ae6-4737-4645-9f25-e45e2a3f1726"
+  },
+  {
+    "section": "Inquiry Conversion",
+    "item": "No data loss during inquiry conversion (linked contact_submission_id, lead, scope)",
+    "status": "PASS",
+    "expected": "all fields matched",
+    "actual": "100% matched"
+  },
+  {
+    "section": "Project Lead",
+    "item": "Project Lead independent from task assignee (Lead: Sarah, Task Assignee: Specialist)",
+    "status": "PASS",
+    "expected": "independent",
+    "actual": "Lead: 63a69ae6-4737-4645-9f25-e45e2a3f1726, Assignee: fc4e5cbc-371d-46e8-8c48-45eac5790503"
+  },
+  {
+    "section": "Project Lead",
+    "item": "Backward compatibility with NULL Project Lead",
+    "status": "PASS",
+    "expected": "lead_id null allowed",
+    "actual": "null allowed"
+  },
+  {
+    "section": "Starter Tasks",
+    "item": "Deterministic specialist matching produces valid profile FKs",
+    "status": "PASS",
+    "expected": "all profile IDs valid",
+    "actual": "5 tasks generated with valid profile FKs"
+  },
+  {
+    "section": "Starter Tasks",
+    "item": "Relative milestone deadlines distributed across project window",
+    "status": "PASS",
+    "expected": "all deadlines set",
+    "actual": "deadlines properly calculated"
+  },
+  {
+    "section": "Starter Tasks",
+    "item": "Fallback to Project Lead when no specialty match is available",
+    "status": "PASS",
+    "expected": "fallback to lead",
+    "actual": "all tasks defaulted to Project Lead"
+  },
+  {
+    "section": "Task Lifecycle",
+    "item": "State machine transition (todo -> in_progress -> blocked -> done)",
+    "status": "PASS",
+    "expected": "done",
+    "actual": "done"
+  },
+  {
+    "section": "Task Lifecycle",
+    "item": "Project progress calculation reflects completed work",
+    "status": "PASS",
+    "expected": "100%",
+    "actual": "100%"
+  },
+  {
+    "section": "Task Assignment",
+    "item": "Admin can reassign task with handoff tracking",
+    "status": "PASS",
+    "expected": "reassigned with handoff reason",
+    "actual": "Assigned: fc4e5cbc-371d-46e8-8c48-45eac5790503, Previous: 63a69ae6-4737-4645-9f25-e45e2a3f1726"
+  },
+  {
+    "section": "Café 707",
+    "item": "Real production task 'Edit first Café 707 Reel' preserved",
+    "status": "PASS",
+    "expected": "found",
+    "actual": "Edit first Café 707 Reel"
+  },
+  {
+    "section": "Café 707",
+    "item": "Café 707 project lead context intact",
+    "status": "PASS",
+    "expected": "project found",
+    "actual": "caffe 707 instagram campaign"
+  },
+  {
+    "section": "Café 707",
+    "item": "Café 707 task assigned to Sarah's profiles.id",
+    "status": "PASS",
+    "expected": "63a69ae6-4737-4645-9f25-e45e2a3f1726",
+    "actual": "63a69ae6-4737-4645-9f25-e45e2a3f1726"
+  },
+  {
+    "section": "Café 707",
+    "item": "Task properly counted in Sarah's active workload (not unassigned)",
+    "status": "PASS",
+    "expected": ">=1 active task",
+    "actual": "1"
+  },
+  {
+    "section": "Oversight",
+    "item": "Overdue tasks count reconciliation",
+    "status": "PASS",
+    "expected": "0",
+    "actual": "0"
+  },
+  {
+    "section": "Oversight",
+    "item": "Blocked tasks count reconciliation",
+    "status": "PASS",
+    "expected": "1",
+    "actual": "1"
+  },
+  {
+    "section": "Oversight",
+    "item": "Unassigned tasks count reconciliation",
+    "status": "PASS",
+    "expected": "16",
+    "actual": "16"
+  },
+  {
+    "section": "Project Health",
+    "item": "Deterministic health evaluates overdue milestone to 'at risk' or 'overdue'",
+    "status": "PASS",
+    "expected": "at_risk | overdue",
+    "actual": "overdue"
+  },
+  {
+    "section": "Security",
+    "item": "Public anonymous cannot access internal client_projects data",
+    "status": "PASS",
+    "expected": "blocked/empty",
+    "actual": "column client_projects.client_email does not exist"
+  },
+  {
+    "section": "Security",
+    "item": "Public anonymous cannot access internal project_tasks data",
+    "status": "PASS",
+    "expected": "blocked/empty",
+    "actual": "column project_tasks.result_link does not exist"
+  },
+  {
+    "section": "Security",
+    "item": "Public anonymous cannot access project_activity audit log",
+    "status": "PASS",
+    "expected": "blocked/empty",
+    "actual": "0 rows returned"
+  }
+]

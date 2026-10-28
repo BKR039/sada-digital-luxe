@@ -1,0 +1,287 @@
+{
+  "fontAssetChecks": [
+    {
+      "url": "/fonts/thmanyahseriftext-Light.otf",
+      "status": 200,
+      "loaded": true
+    },
+    {
+      "url": "/fonts/thmanyahseriftext-Regular.otf",
+      "status": 200,
+      "loaded": true
+    },
+    {
+      "url": "/fonts/thmanyahseriftext-Medium.otf",
+      "status": 200,
+      "loaded": true
+    },
+    {
+      "url": "/fonts/thmanyahseriftext-Bold.otf",
+      "status": 200,
+      "loaded": true
+    },
+    {
+      "url": "/fonts/thmanyahseriftext-Black.otf",
+      "status": 200,
+      "loaded": true
+    }
+  ],
+  "fontWeightsLoaded": [
+    {
+      "family": "Thmanyah Serif Text",
+      "weight": "200",
+      "status": "loaded"
+    },
+    {
+      "family": "Thmanyah Serif Text",
+      "weight": "300",
+      "status": "loaded"
+    },
+    {
+      "family": "Thmanyah Serif Text",
+      "weight": "400",
+      "status": "loaded"
+    },
+    {
+      "family": "Thmanyah Serif Text",
+      "weight": "500",
+      "status": "loaded"
+    },
+    {
+      "family": "Thmanyah Serif Text",
+      "weight": "600",
+      "status": "loaded"
+    },
+    {
+      "family": "Thmanyah Serif Text",
+      "weight": "700",
+      "status": "loaded"
+    },
+    {
+      "family": "Thmanyah Serif Text",
+      "weight": "800",
+      "status": "loaded"
+    },
+    {
+      "family": "Thmanyah Serif Text",
+      "weight": "900",
+      "status": "loaded"
+    },
+    {
+      "family": "Thmanyah",
+      "weight": "300",
+      "status": "unloaded"
+    },
+    {
+      "family": "Thmanyah",
+      "weight": "400",
+      "status": "unloaded"
+    },
+    {
+      "family": "Thmanyah",
+      "weight": "500",
+      "status": "unloaded"
+    },
+    {
+      "family": "Thmanyah",
+      "weight": "700",
+      "status": "unloaded"
+    },
+    {
+      "family": "Thmanyah",
+      "weight": "900",
+      "status": "unloaded"
+    }
+  ],
+  "mixedContentTests": [
+    {
+      "text": "إدارة المشاريع",
+      "computedFont": "\"Thmanyah Serif Text\", Manrope, Sora, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "renderedWidth": 81.90625,
+      "dir": "rtl",
+      "passed": true
+    },
+    {
+      "text": "Project Management",
+      "computedFont": "\"Thmanyah Serif Text\", Manrope, Sora, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "renderedWidth": 160.828125,
+      "dir": "rtl",
+      "passed": true
+    },
+    {
+      "text": "مرحبا Boubakar",
+      "computedFont": "\"Thmanyah Serif Text\", Manrope, Sora, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "renderedWidth": 160.828125,
+      "dir": "rtl",
+      "passed": true
+    },
+    {
+      "text": "5 مشاريع جديدة",
+      "computedFont": "\"Thmanyah Serif Text\", Manrope, Sora, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "renderedWidth": 160.828125,
+      "dir": "rtl",
+      "passed": true
+    },
+    {
+      "text": "السعر: 2300 TND",
+      "computedFont": "\"Thmanyah Serif Text\", Manrope, Sora, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "renderedWidth": 160.828125,
+      "dir": "rtl",
+      "passed": true
+    },
+    {
+      "text": "إدارة المحتوى Content Management",
+      "computedFont": "\"Thmanyah Serif Text\", Manrope, Sora, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+      "renderedWidth": 253.953125,
+      "dir": "rtl",
+      "passed": true
+    }
+  ],
+  "viewportAudits": [
+    {
+      "viewport": "1440x900",
+      "route": "Public Home",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": [
+        "6 button(s) have internal text clipping/overflow"
+      ]
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Public Services",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": [
+        "6 button(s) have internal text clipping/overflow"
+      ]
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Public Pricing",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": [
+        "6 button(s) have internal text clipping/overflow"
+      ]
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Public About",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": [
+        "6 button(s) have internal text clipping/overflow"
+      ]
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Public SADA OS",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": []
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Admin Dashboard",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": []
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Admin Clients",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": []
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Admin Sales",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": []
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Admin Tasks / My Work",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": []
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Admin Calendar",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": []
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Admin Finance",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": []
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Admin Accounts",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": []
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Admin Packages",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": []
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Admin Projects",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": []
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Admin Analytics",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": []
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Admin Business Rules / Settings",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": []
+    },
+    {
+      "viewport": "1440x900",
+      "route": "Admin Workflow Templates",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasHorizontalOverflow": false,
+      "issues": []
+    }
+  ],
+  "physicsIssues": []
+}

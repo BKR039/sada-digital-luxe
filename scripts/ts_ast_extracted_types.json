@@ -1,0 +1,2859 @@
+{
+  "tables": {
+    "account_audit_logs": {
+      "name": "account_audit_logs",
+      "columns": {
+        "action": {
+          "type": "string",
+          "nullable": false
+        },
+        "actor_email": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "actor_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "metadata": {
+          "type": "Json",
+          "nullable": false
+        },
+        "target_email": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "target_user_id": {
+          "type": "string | null",
+          "nullable": true
+        }
+      },
+      "relationships": []
+    },
+    "blog_posts": {
+      "name": "blog_posts",
+      "columns": {
+        "author": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "category": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "content": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "content_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "cover_alt": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "cover_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "excerpt": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "excerpt_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "featured": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "og_image_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "published": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "published_at": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "reading_minutes": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "seo_description": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "seo_title": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "slug": {
+          "type": "string",
+          "nullable": false
+        },
+        "tags": {
+          "type": "string[]",
+          "nullable": false
+        },
+        "title": {
+          "type": "string",
+          "nullable": false
+        },
+        "title_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "client_communication_logs": {
+      "name": "client_communication_logs",
+      "columns": {
+        "client_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "contact_method": {
+          "type": "string",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "next_action": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "next_followup_date": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "project_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "summary": {
+          "type": "string",
+          "nullable": false
+        },
+        "team_member_id": {
+          "type": "string | null",
+          "nullable": true
+        }
+      },
+      "relationships": []
+    },
+    "client_deliverables": {
+      "name": "client_deliverables",
+      "columns": {
+        "assigned_team_ids": {
+          "type": "string[] | null",
+          "nullable": true
+        },
+        "client_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "deadline": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "deliverable_type": {
+          "type": "string",
+          "nullable": false
+        },
+        "done_quantity": {
+          "type": "number",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "package_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "period_month": {
+          "type": "string",
+          "nullable": false
+        },
+        "project_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "remaining_quantity": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "target_quantity": {
+          "type": "number",
+          "nullable": false
+        },
+        "title": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "client_projects": {
+      "name": "client_projects",
+      "columns": {
+        "budget": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "business_type": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "client_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "client_name": {
+          "type": "string",
+          "nullable": false
+        },
+        "contact_submission_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "deadline": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "description": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "followup_next_action": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "followup_owner_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "followup_status": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "followup_summary": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "goals": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "last_contact_by": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "last_contact_date": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "lead_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "next_followup_date": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "original_message": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "problems": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "provided_services": {
+          "type": "string[] | null",
+          "nullable": true
+        },
+        "questionnaire_answers": {
+          "type": "Json | null",
+          "nullable": true
+        },
+        "requested_services": {
+          "type": "string[] | null",
+          "nullable": true
+        },
+        "start_date": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "timeline": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "title": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "clients": {
+      "name": "clients",
+      "columns": {
+        "account_manager_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "billing_start_date": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "client_type": {
+          "type": "string",
+          "nullable": false
+        },
+        "commission_rate": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "commission_recipient_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "contact_name": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "current_period_month": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "default_service_fee": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "default_sponsoring_budget": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "email": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "industry": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "monthly_package_price": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "name": {
+          "type": "string",
+          "nullable": false
+        },
+        "notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "package_config": {
+          "type": "Json | null",
+          "nullable": true
+        },
+        "package_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "package_name": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "phone": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "preferred_channel": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "relationship_owner_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "sales_owner_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "website": {
+          "type": "string | null",
+          "nullable": true
+        }
+      },
+      "relationships": []
+    },
+    "contact_submissions": {
+      "name": "contact_submissions",
+      "columns": {
+        "budget": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "business_name": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "client_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "converted_project_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "discovery_data": {
+          "type": "Json | null",
+          "nullable": true
+        },
+        "email": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "message": {
+          "type": "string",
+          "nullable": false
+        },
+        "name": {
+          "type": "string",
+          "nullable": false
+        },
+        "path_taken": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "phone": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "preferred_contact": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "questionnaire_answers": {
+          "type": "Json | null",
+          "nullable": true
+        },
+        "service": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "deals": {
+      "name": "deals",
+      "columns": {
+        "client_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "commission_rate": {
+          "type": "number",
+          "nullable": false
+        },
+        "commission_recipient_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "company_name": {
+          "type": "string",
+          "nullable": false
+        },
+        "contact_email": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "contact_name": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "contact_phone": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "contract_agreement": {
+          "type": "Json | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "deal_value": {
+          "type": "number",
+          "nullable": false
+        },
+        "expected_close_date": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "lost_reason": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "package_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "revenue_config": {
+          "type": "Json | null",
+          "nullable": true
+        },
+        "sales_owner_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "service_revenue": {
+          "type": "number",
+          "nullable": false
+        },
+        "sponsoring_budget": {
+          "type": "number",
+          "nullable": false
+        },
+        "stage": {
+          "type": "string",
+          "nullable": false
+        },
+        "title": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "won_date": {
+          "type": "string | null",
+          "nullable": true
+        }
+      },
+      "relationships": []
+    },
+    "expense_categories": {
+      "name": "expense_categories",
+      "columns": {
+        "color": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "description": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "icon": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "is_system": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "name": {
+          "type": "string",
+          "nullable": false
+        },
+        "sort_order": {
+          "type": "number",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "expense_transactions": {
+      "name": "expense_transactions",
+      "columns": {
+        "account_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "allocation": {
+          "type": "string",
+          "nullable": false
+        },
+        "amount": {
+          "type": "number",
+          "nullable": false
+        },
+        "category_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "category_name": {
+          "type": "string",
+          "nullable": false
+        },
+        "client_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "commission_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "created_by": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "currency": {
+          "type": "string",
+          "nullable": false
+        },
+        "date": {
+          "type": "string",
+          "nullable": false
+        },
+        "description": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "is_recurring": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "payment_method": {
+          "type": "string",
+          "nullable": false
+        },
+        "period_month": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "project_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "receipt_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "reference": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "salary_payment_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "sponsoring_campaign_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "subcategory": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "subscription_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "team_member_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "transaction_type": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "vendor": {
+          "type": "string | null",
+          "nullable": true
+        }
+      },
+      "relationships": []
+    },
+    "financial_accounts": {
+      "name": "financial_accounts",
+      "columns": {
+        "account_number": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "account_type": {
+          "type": "string",
+          "nullable": false
+        },
+        "bank_name": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "currency": {
+          "type": "string",
+          "nullable": false
+        },
+        "current_balance": {
+          "type": "number",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "is_default": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "name": {
+          "type": "string",
+          "nullable": false
+        },
+        "opening_balance": {
+          "type": "number",
+          "nullable": false
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "financial_audit_logs": {
+      "name": "financial_audit_logs",
+      "columns": {
+        "action": {
+          "type": "string",
+          "nullable": false
+        },
+        "actor_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "actor_name": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "actor_role": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "details": {
+          "type": "Json | null",
+          "nullable": true
+        },
+        "entity_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "entity_type": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "financial_closing_periods": {
+      "name": "financial_closing_periods",
+      "columns": {
+        "checklist": {
+          "type": "Json",
+          "nullable": false
+        },
+        "closed_at": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "closed_by": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "closing_summary": {
+          "type": "Json | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "period_month": {
+          "type": "string",
+          "nullable": false
+        },
+        "reopen_reason": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "reopened_at": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "reopened_by": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "income_transactions": {
+      "name": "income_transactions",
+      "columns": {
+        "account_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "allocation": {
+          "type": "string",
+          "nullable": false
+        },
+        "amount": {
+          "type": "number",
+          "nullable": false
+        },
+        "category": {
+          "type": "string",
+          "nullable": false
+        },
+        "client_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "created_by": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "currency": {
+          "type": "string",
+          "nullable": false
+        },
+        "date": {
+          "type": "string",
+          "nullable": false
+        },
+        "description": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "invoice_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "payment_method": {
+          "type": "string",
+          "nullable": false
+        },
+        "period_month": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "project_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "receipt_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "reference": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "transaction_type": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "invoices": {
+      "name": "invoices",
+      "columns": {
+        "client_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "created_by": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "currency": {
+          "type": "string",
+          "nullable": false
+        },
+        "due_date": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "invoice_number": {
+          "type": "string",
+          "nullable": false
+        },
+        "issue_date": {
+          "type": "string",
+          "nullable": false
+        },
+        "items": {
+          "type": "Json",
+          "nullable": false
+        },
+        "notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "other_revenue": {
+          "type": "number",
+          "nullable": false
+        },
+        "paid_amount": {
+          "type": "number",
+          "nullable": false
+        },
+        "project_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "service_revenue": {
+          "type": "number",
+          "nullable": false
+        },
+        "sponsoring_budget": {
+          "type": "number",
+          "nullable": false
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "subtotal": {
+          "type": "number",
+          "nullable": false
+        },
+        "tax_amount": {
+          "type": "number",
+          "nullable": false
+        },
+        "total_amount": {
+          "type": "number",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "packages": {
+      "name": "packages",
+      "columns": {
+        "commission": {
+          "type": "number",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "deliverables": {
+          "type": "Json",
+          "nullable": false
+        },
+        "description": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "direct_costs": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "employee_cost": {
+          "type": "number",
+          "nullable": false
+        },
+        "freelancer_cost": {
+          "type": "number",
+          "nullable": false
+        },
+        "gross_margin": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "gross_profit": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "is_active": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "name": {
+          "type": "string",
+          "nullable": false
+        },
+        "production_hours": {
+          "type": "number",
+          "nullable": false
+        },
+        "selling_price": {
+          "type": "number",
+          "nullable": false
+        },
+        "services": {
+          "type": "string[]",
+          "nullable": false
+        },
+        "subscription_allocation": {
+          "type": "number",
+          "nullable": false
+        },
+        "target_quantities": {
+          "type": "Json",
+          "nullable": false
+        },
+        "transport_cost": {
+          "type": "number",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "production_bookings": {
+      "name": "production_bookings",
+      "columns": {
+        "brief": {
+          "type": "Json",
+          "nullable": false
+        },
+        "client_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "client_notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "created_by": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "date": {
+          "type": "string",
+          "nullable": false
+        },
+        "deal_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "duration_hours": {
+          "type": "number",
+          "nullable": false
+        },
+        "edit_preview_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "internal_notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "location": {
+          "type": "string",
+          "nullable": false
+        },
+        "package_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "production_type": {
+          "type": "string",
+          "nullable": false
+        },
+        "project_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "raw_upload_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "stage": {
+          "type": "string",
+          "nullable": false
+        },
+        "team_member_ids": {
+          "type": "string[] | null",
+          "nullable": true
+        },
+        "time": {
+          "type": "string",
+          "nullable": false
+        },
+        "title": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "products": {
+      "name": "products",
+      "columns": {
+        "audience": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "category": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "cta_label": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "currency": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "description": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "description_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "details": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "details_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "featured": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "features": {
+          "type": "string[]",
+          "nullable": false
+        },
+        "full_description": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "full_description_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "gallery": {
+          "type": "Json",
+          "nullable": false
+        },
+        "gumroad_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "includes": {
+          "type": "string[]",
+          "nullable": false
+        },
+        "og_image_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "preview_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "price": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "published": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "seo_description": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "seo_title": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "slug": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "sort_order": {
+          "type": "number",
+          "nullable": false
+        },
+        "thumbnail_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "title": {
+          "type": "string",
+          "nullable": false
+        },
+        "title_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "profiles": {
+      "name": "profiles",
+      "columns": {
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "display_name": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "phone": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "project_activity": {
+      "name": "project_activity",
+      "columns": {
+        "action": {
+          "type": "string",
+          "nullable": false
+        },
+        "actor_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "details": {
+          "type": "Json | null",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "project_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "task_id": {
+          "type": "string | null",
+          "nullable": true
+        }
+      },
+      "relationships": []
+    },
+    "project_tasks": {
+      "name": "project_tasks",
+      "columns": {
+        "actual_hours": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "actual_minutes": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "assigned_by_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "assignee_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "attachments": {
+          "type": "Json | null",
+          "nullable": true
+        },
+        "blocked_reason": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "category": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "client_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "completed_at": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "completed_by": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "created_by": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "deadline": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "deadline_alert_days": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "deadline_alert_enabled": {
+          "type": "boolean | null",
+          "nullable": true
+        },
+        "deadline_alert_message": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "deliverable_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "delivery_period": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "description": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "due_date": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "end_date": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "estimated_hours": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "estimated_minutes": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "handoff_reason": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "labor_cost": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "package_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "parent_task_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "postpone_reason": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "previous_assignee_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "priority": {
+          "type": "Database[\"public\"][\"Enums\"][\"task_priority\"]",
+          "nullable": false
+        },
+        "project_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "result_links": {
+          "type": "string[] | null",
+          "nullable": true
+        },
+        "result_notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "result_title": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "reviewer_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "revision_count": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "service": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "sort_order": {
+          "type": "number",
+          "nullable": false
+        },
+        "start_date": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "status": {
+          "type": "Database[\"public\"][\"Enums\"][\"task_status\"]",
+          "nullable": false
+        },
+        "title": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "waiting_on": {
+          "type": "string | null",
+          "nullable": true
+        }
+      },
+      "relationships": []
+    },
+    "projects": {
+      "name": "projects",
+      "columns": {
+        "after_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "before_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "category": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "challenge": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "challenge_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "client": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "cover_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "deliverables": {
+          "type": "string[]",
+          "nullable": false
+        },
+        "description": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "description_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "external_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "featured": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "gallery": {
+          "type": "Json | null",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "industry": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "metrics": {
+          "type": "Json",
+          "nullable": false
+        },
+        "objective": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "outcome_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "process": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "project_date": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "published": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "results": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "results_summary": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "seo_description": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "seo_title": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "services": {
+          "type": "string[] | null",
+          "nullable": true
+        },
+        "slug": {
+          "type": "string",
+          "nullable": false
+        },
+        "solution_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "sort_order": {
+          "type": "number",
+          "nullable": false
+        },
+        "strategy": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "tags": {
+          "type": "string[] | null",
+          "nullable": true
+        },
+        "team_member_ids": {
+          "type": "string[] | null",
+          "nullable": true
+        },
+        "testimonial": {
+          "type": "Json | null",
+          "nullable": true
+        },
+        "thumbnail_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "title": {
+          "type": "string",
+          "nullable": false
+        },
+        "title_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "salary_payments": {
+      "name": "salary_payments",
+      "columns": {
+        "amount": {
+          "type": "number",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "created_by": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "currency": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "payment_date": {
+          "type": "string",
+          "nullable": false
+        },
+        "payment_method": {
+          "type": "string",
+          "nullable": false
+        },
+        "payment_type": {
+          "type": "string",
+          "nullable": false
+        },
+        "period_end": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "period_start": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "receipt_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "reference": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "salary_record_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "salary_request_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "team_member_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "salary_records": {
+      "name": "salary_records",
+      "columns": {
+        "bank_details": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "base_amount": {
+          "type": "number",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "currency": {
+          "type": "string",
+          "nullable": false
+        },
+        "effective_date": {
+          "type": "string",
+          "nullable": false
+        },
+        "hourly_rate": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "next_payment_date": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "payment_frequency": {
+          "type": "string",
+          "nullable": false
+        },
+        "payment_method": {
+          "type": "string",
+          "nullable": false
+        },
+        "salary_type": {
+          "type": "string",
+          "nullable": false
+        },
+        "standard_monthly_hours": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "team_member_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "salary_requests": {
+      "name": "salary_requests",
+      "columns": {
+        "approved_amount": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "currency": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "reason": {
+          "type": "string",
+          "nullable": false
+        },
+        "requested_amount": {
+          "type": "number",
+          "nullable": false
+        },
+        "requested_date": {
+          "type": "string",
+          "nullable": false
+        },
+        "review_notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "reviewed_at": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "reviewed_by": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "salary_payment_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "team_member_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "sales_commissions": {
+      "name": "sales_commissions",
+      "columns": {
+        "approved_at": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "approved_by": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "client_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "commission_amount": {
+          "type": "number",
+          "nullable": false
+        },
+        "commission_rate": {
+          "type": "number",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "invoice_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "period_month": {
+          "type": "string",
+          "nullable": false
+        },
+        "salary_payment_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "service_revenue": {
+          "type": "number",
+          "nullable": false
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "team_member_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "site_settings": {
+      "name": "site_settings",
+      "columns": {
+        "enabled": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "key": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "social_reels": {
+      "name": "social_reels",
+      "columns": {
+        "caption": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "category": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "description_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "display_order": {
+          "type": "number",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "instagram_shortcode": {
+          "type": "string",
+          "nullable": false
+        },
+        "instagram_url": {
+          "type": "string",
+          "nullable": false
+        },
+        "is_featured": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "is_published": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "slug": {
+          "type": "string",
+          "nullable": false
+        },
+        "thumbnail_url": {
+          "type": "string",
+          "nullable": false
+        },
+        "title": {
+          "type": "string",
+          "nullable": false
+        },
+        "title_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "sponsoring_campaigns": {
+      "name": "sponsoring_campaigns",
+      "columns": {
+        "budget_tnd": {
+          "type": "number",
+          "nullable": false
+        },
+        "campaign_name": {
+          "type": "string",
+          "nullable": false
+        },
+        "client_charge_tnd": {
+          "type": "number",
+          "nullable": false
+        },
+        "client_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "client_rate": {
+          "type": "number",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "created_by": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "date": {
+          "type": "string",
+          "nullable": false
+        },
+        "execution_status": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "invoice_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "margin_tnd": {
+          "type": "number",
+          "nullable": false
+        },
+        "notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "payment_status": {
+          "type": "string",
+          "nullable": false
+        },
+        "period_month": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "platform": {
+          "type": "string",
+          "nullable": false
+        },
+        "project_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "purchase_cost_tnd": {
+          "type": "number",
+          "nullable": false
+        },
+        "purchase_rate": {
+          "type": "number",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "usd_amount": {
+          "type": "number",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "subscriptions": {
+      "name": "subscriptions",
+      "columns": {
+        "amount": {
+          "type": "number",
+          "nullable": false
+        },
+        "billing_cycle": {
+          "type": "string",
+          "nullable": false
+        },
+        "billing_day": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "category_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "category_name": {
+          "type": "string",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "currency": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "name": {
+          "type": "string",
+          "nullable": false
+        },
+        "next_billing_date": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "notes": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "payment_method": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "vendor": {
+          "type": "string | null",
+          "nullable": true
+        }
+      },
+      "relationships": []
+    },
+    "task_handoffs": {
+      "name": "task_handoffs",
+      "columns": {
+        "assigner_approved_at": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "assigner_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "from_assignee_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "new_assignee_accepted_at": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "project_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "rejected_at": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "rejected_by_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "rejection_reason": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "request_reason": {
+          "type": "string",
+          "nullable": false
+        },
+        "requested_by_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "task_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "to_assignee_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "team_members": {
+      "name": "team_members",
+      "columns": {
+        "availability_status": {
+          "type": "string",
+          "nullable": false
+        },
+        "bio": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "bio_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "division": {
+          "type": "string",
+          "nullable": false
+        },
+        "email": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "employment_type": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "featured": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "is_active": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "name": {
+          "type": "string",
+          "nullable": false
+        },
+        "photo_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "position": {
+          "type": "string",
+          "nullable": false
+        },
+        "position_ar": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "profile_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "published": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "role": {
+          "type": "string",
+          "nullable": false
+        },
+        "socials": {
+          "type": "Json | null",
+          "nullable": true
+        },
+        "sort_order": {
+          "type": "number",
+          "nullable": false
+        },
+        "specialties": {
+          "type": "string[] | null",
+          "nullable": true
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "testimonials": {
+      "name": "testimonials",
+      "columns": {
+        "client_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "client_name": {
+          "type": "string",
+          "nullable": false
+        },
+        "company": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "featured": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "language": {
+          "type": "string",
+          "nullable": false
+        },
+        "photo_url": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "project_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "published": {
+          "type": "boolean",
+          "nullable": false
+        },
+        "rating": {
+          "type": "number",
+          "nullable": false
+        },
+        "review": {
+          "type": "string",
+          "nullable": false
+        },
+        "role": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "service": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "short_quote": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "sort_order": {
+          "type": "number",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "user_roles": {
+      "name": "user_roles",
+      "columns": {
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "role": {
+          "type": "Database[\"public\"][\"Enums\"][\"app_role\"]",
+          "nullable": false
+        },
+        "user_id": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    },
+    "work_sessions": {
+      "name": "work_sessions",
+      "columns": {
+        "client_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "created_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "description": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "duration_minutes": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "ended_at": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "hourly_cost_rate": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "id": {
+          "type": "string",
+          "nullable": false
+        },
+        "is_billable": {
+          "type": "boolean | null",
+          "nullable": true
+        },
+        "labor_cost": {
+          "type": "number | null",
+          "nullable": true
+        },
+        "profile_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "project_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "session_type": {
+          "type": "string",
+          "nullable": false
+        },
+        "started_at": {
+          "type": "string",
+          "nullable": false
+        },
+        "status": {
+          "type": "string",
+          "nullable": false
+        },
+        "task_id": {
+          "type": "string | null",
+          "nullable": true
+        },
+        "team_member_id": {
+          "type": "string",
+          "nullable": false
+        },
+        "updated_at": {
+          "type": "string",
+          "nullable": false
+        }
+      },
+      "relationships": []
+    }
+  },
+  "functions": {
+    "admin_analyze_account_dependencies": {
+      "name": "admin_analyze_account_dependencies",
+      "args": {
+        "_user_id": "string"
+      },
+      "returns": "Json"
+    },
+    "admin_create_account": {
+      "name": "admin_create_account",
+      "args": {
+        "_create_team_member": "boolean",
+        "_display_name": "string",
+        "_division": "string",
+        "_email": "string",
+        "_password": "string",
+        "_phone": "string",
+        "_position": "string",
+        "_role": "string"
+      },
+      "returns": "Json"
+    },
+    "admin_delete_account": {
+      "name": "admin_delete_account",
+      "args": {
+        "_user_id": "string"
+      },
+      "returns": "Json"
+    },
+    "admin_list_account_audit_logs": {
+      "name": "admin_list_account_audit_logs",
+      "args": {
+        "_target_user_id": "string"
+      },
+      "returns": "{\r\n          action: string\r\n          actor_email: string\r\n          actor_id: string\r\n          created_at: string\r\n          id: string\r\n          metadata: Json\r\n          target_email: string\r\n          target_user_id: string\r\n        }[]"
+    },
+    "admin_list_accounts": {
+      "name": "admin_list_accounts",
+      "args": {},
+      "returns": "{\r\n          banned_until: string\r\n          bio: string\r\n          created_at: string\r\n          display_name: string\r\n          division: string\r\n          email: string\r\n          is_active: boolean\r\n          is_super_admin: boolean\r\n          last_sign_in_at: string\r\n          phone: string\r\n          photo_url: string\r\n          published: boolean\r\n          role: string\r\n          socials: Json\r\n          specialties: string[]\r\n          status: string\r\n          team_member_id: string\r\n          team_member_name: string\r\n          team_position: string\r\n          user_id: string\r\n        }[]"
+    },
+    "admin_provision_account": {
+      "name": "admin_provision_account",
+      "args": {
+        "_create_team_member": "boolean",
+        "_display_name": "string",
+        "_division": "string",
+        "_email": "string",
+        "_phone": "string",
+        "_position": "string",
+        "_role": "string",
+        "_status": "string",
+        "_user_id": "string"
+      },
+      "returns": "Json"
+    },
+    "admin_reactivate_account": {
+      "name": "admin_reactivate_account",
+      "args": {
+        "_user_id": "string"
+      },
+      "returns": "Json"
+    },
+    "admin_reset_account_password": {
+      "name": "admin_reset_account_password",
+      "args": {
+        "_new_password": "string",
+        "_user_id": "string"
+      },
+      "returns": "Json"
+    },
+    "admin_suspend_account": {
+      "name": "admin_suspend_account",
+      "args": {
+        "_reason": "string",
+        "_user_id": "string"
+      },
+      "returns": "Json"
+    },
+    "admin_update_account": {
+      "name": "admin_update_account",
+      "args": {
+        "_bio": "string",
+        "_display_name": "string",
+        "_division": "string",
+        "_is_active": "boolean",
+        "_phone": "string",
+        "_position": "string",
+        "_published": "boolean",
+        "_role": "string",
+        "_socials": "Json",
+        "_specialties": "string[]",
+        "_status": "string",
+        "_user_id": "string"
+      },
+      "returns": "Json"
+    },
+    "count_active_super_admins": {
+      "name": "count_active_super_admins",
+      "args": {},
+      "returns": "number"
+    },
+    "get_team_member_id": {
+      "name": "get_team_member_id",
+      "args": {
+        "_user_id": "string"
+      },
+      "returns": "string"
+    },
+    "has_role": {
+      "name": "has_role",
+      "args": {
+        "_role": "Database[\"public\"][\"Enums\"][\"app_role\"]",
+        "_user_id": "string"
+      },
+      "returns": "boolean"
+    },
+    "has_sada_access": {
+      "name": "has_sada_access",
+      "args": {
+        "_user_id": "string"
+      },
+      "returns": "boolean"
+    },
+    "is_admin": {
+      "name": "is_admin",
+      "args": {
+        "_user_id": "string"
+      },
+      "returns": "boolean"
+    },
+    "is_super_admin": {
+      "name": "is_super_admin",
+      "args": {
+        "_user_id": "string"
+      },
+      "returns": "boolean"
+    },
+    "respond_to_task_handoff": {
+      "name": "respond_to_task_handoff",
+      "args": {
+        "p_action": "string",
+        "p_handoff_id": "string",
+        "p_reason": "string"
+      },
+      "returns": "Json"
+    }
+  },
+  "enums": {
+    "app_role": [
+      "admin",
+      "editor",
+      "user",
+      "super_admin",
+      "worker"
+    ],
+    "task_priority": [
+      "low",
+      "medium",
+      "high",
+      "urgent"
+    ],
+    "task_status": [
+      "",
+      "todo",
+      "in_progress",
+      "done",
+      "postponed",
+      "paused",
+      "cancelled",
+      "review",
+      "blocked",
+      "revision",
+      "approved",
+      "delivered"
+    ]
+  }
+}

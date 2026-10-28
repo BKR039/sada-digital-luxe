@@ -1,0 +1,47 @@
+[
+  {
+    "viewport": "320x640",
+    "route": "/admin/analytics",
+    "component": "Charts & Expense Breakdown",
+    "issue": "Component bounding overflow or clipping detected",
+    "details": [
+      "Button \"99+\" clipped: scrollWidth 40 > clientWidth 34",
+      "Button \"\" clipped: scrollWidth 40 > clientWidth 34",
+      "Card relative grid place-items-cent has horizontal overflow: 40 vs 34",
+      "Card relative grid place-items-cent has horizontal overflow: 40 vs 34",
+      "Card my-3 p-2.5 rounded-xl bg-muted has horizontal overflow: 242 vs 224",
+      "Card p-4 rounded-2xl bg-card border has horizontal overflow: 289 vs 258",
+      "Card my-3 p-2.5 rounded-xl bg-muted has horizontal overflow: 272 vs 224",
+      "Card p-4 rounded-2xl bg-card border has horizontal overflow: 271 vs 258",
+      "Card my-3 p-2.5 rounded-xl bg-muted has horizontal overflow: 254 vs 224",
+      "Card items-center justify-center te has horizontal overflow: 1167 vs 258"
+    ]
+  },
+  {
+    "viewport": "360x800",
+    "route": "/admin/analytics",
+    "component": "Charts & Expense Breakdown",
+    "issue": "Component bounding overflow or clipping detected",
+    "details": [
+      "Button \"99+\" clipped: scrollWidth 40 > clientWidth 34",
+      "Button \"\" clipped: scrollWidth 40 > clientWidth 34",
+      "Card relative grid place-items-cent has horizontal overflow: 40 vs 34",
+      "Card relative grid place-items-cent has horizontal overflow: 40 vs 34",
+      "Card my-3 p-2.5 rounded-xl bg-muted has horizontal overflow: 272 vs 264",
+      "Card items-center justify-center te has horizontal overflow: 1187 vs 298"
+    ]
+  },
+  {
+    "viewport": "390x844",
+    "route": "/admin/analytics",
+    "component": "Charts & Expense Breakdown",
+    "issue": "Component bounding overflow or clipping detected",
+    "details": [
+      "Button \"99+\" clipped: scrollWidth 40 > clientWidth 34",
+      "Button \"\" clipped: scrollWidth 40 > clientWidth 34",
+      "Card relative grid place-items-cent has horizontal overflow: 40 vs 34",
+      "Card relative grid place-items-cent has horizontal overflow: 40 vs 34",
+      "Card items-center justify-center te has horizontal overflow: 1202 vs 328"
+    ]
+  }
+]

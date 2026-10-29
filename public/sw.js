@@ -1,10 +1,10 @@
 // ============================================================
 // SADA OS — PRODUCTION SERVICE WORKER (PWA)
-// Cache Name: sada-os-pwa-v1
+// Cache Name: sada-os-pwa-v5
 // Features: App Shell Caching, Offline Fallback, Web Push & Action Routing
 // ============================================================
 
-const CACHE_NAME = 'sada-os-pwa-v4';
+const CACHE_NAME = 'sada-os-pwa-v5';
 
 const STATIC_SHELL_ASSETS = [
   '/',

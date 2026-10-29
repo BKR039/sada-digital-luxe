@@ -1,7 +1,4 @@
-// ============================================================
-// SADA OS — MOBILE BOTTOM NAVIGATION BAR (PWA / APP-LIKE GLASS DOCK)
-// Ultra-Premium Glassmorphism, Zero-Latency Touch, Balanced 5-Item Architecture
-// ============================================================
+// SADA OS — balanced, touch-friendly mobile navigation.
 
 import React from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
@@ -10,7 +7,7 @@ import {
   CheckCircle2,
   CalendarDays,
   Landmark,
-  SlidersHorizontal,
+  Menu,
 } from "lucide-react";
 import { useTranslation } from "@/i18n";
 
@@ -19,9 +16,7 @@ interface SADAMobileBottomNavProps {
   onOpenNextTask?: () => void;
 }
 
-export function SADAMobileBottomNav({
-  onOpenSidebar,
-}: SADAMobileBottomNavProps) {
+export function SADAMobileBottomNav({ onOpenSidebar }: SADAMobileBottomNavProps) {
   const { t, isRTL } = useTranslation();
   const currentPath = useRouterState({ select: (s) => s.location.pathname });
 
@@ -30,102 +25,53 @@ export function SADAMobileBottomNav({
   const isCalendar = currentPath.startsWith("/admin/calendar");
   const isFinance = currentPath.startsWith("/admin/finance") || currentPath.startsWith("/admin/my-salary");
 
+  const items = [
+    { to: "/admin", label: t("admin.overview") || "Overview", Icon: LayoutDashboard, active: isOverview },
+    { to: "/admin/my-work", label: t("admin.myWork") || "My Work", Icon: CheckCircle2, active: isMyWork },
+    { to: "/admin/calendar", label: t("admin.calendar") || "Calendar", Icon: CalendarDays, active: isCalendar },
+    { to: "/admin/finance", label: isRTL ? "المالية" : "Finance", ariaLabel: t("admin.finance") || "Finance", Icon: Landmark, active: isFinance },
+  ];
+
+  const itemClass = (active: boolean) =>
+    `flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-[1.1rem] px-0.5 py-1.5 text-center transition-colors duration-150 touch-manipulation active:scale-[0.97] ${
+      active
+        ? "bg-primary/10 text-primary dark:bg-cyan-400/15 dark:text-cyan-300"
+        : "text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+    }`;
+
   return (
     <nav
       id="sada-mobile-bottom-nav"
-      aria-label="Mobile Navigation Dock"
-      className="md:hidden fixed bottom-3 inset-x-3 max-w-md mx-auto z-40"
+      aria-label={isRTL ? "التنقل الرئيسي" : "Main navigation"}
+      className="md:hidden fixed inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+0.65rem)] z-40 mx-auto max-w-[26rem]"
     >
-      <div className="relative rounded-2xl bg-card/80 dark:bg-zinc-950/85 backdrop-blur-2xl border border-border/80 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_12px_42px_rgba(0,0,0,0.7)] p-1.5 flex items-center justify-between gap-1 ring-1 ring-black/5 dark:ring-white/5">
-        {/* 1. Overview */}
-        <Link
-          to="/admin"
-          className={`flex-1 flex flex-col items-center justify-center min-h-[46px] py-1 px-1 rounded-xl text-center transition-all duration-150 active:scale-90 touch-manipulation cursor-pointer ${
-            isOverview
-              ? "bg-primary/10 dark:bg-cyan-500/15 text-primary dark:text-cyan-400 font-bold shadow-xs"
-              : "text-muted-foreground/75 hover:text-foreground"
-          }`}
-          aria-label={t("admin.overview") || "Overview"}
-          aria-current={isOverview ? "page" : undefined}
-        >
-          <LayoutDashboard className={`size-4.5 transition-transform ${isOverview ? "scale-105 stroke-[2.2px]" : "stroke-[1.75px]"}`} />
-          <span className="text-[10px] mt-0.5 truncate tracking-tight">
-            {t("admin.overview") || "Overview"}
-          </span>
-          {isOverview && (
-            <span className="size-1 rounded-full bg-primary dark:bg-cyan-400 mt-0.5 shadow-sm" />
-          )}
-        </Link>
-
-        {/* 2. My Work */}
-        <Link
-          to="/admin/my-work"
-          className={`flex-1 flex flex-col items-center justify-center min-h-[46px] py-1 px-1 rounded-xl text-center transition-all duration-150 active:scale-90 touch-manipulation cursor-pointer ${
-            isMyWork
-              ? "bg-primary/10 dark:bg-cyan-500/15 text-primary dark:text-cyan-400 font-bold shadow-xs"
-              : "text-muted-foreground/75 hover:text-foreground"
-          }`}
-          aria-label={t("admin.myWork") || "My Work"}
-          aria-current={isMyWork ? "page" : undefined}
-        >
-          <CheckCircle2 className={`size-4.5 transition-transform ${isMyWork ? "scale-105 stroke-[2.2px]" : "stroke-[1.75px]"}`} />
-          <span className="text-[10px] mt-0.5 truncate tracking-tight">
-            {t("admin.myWork") || "My Work"}
-          </span>
-          {isMyWork && (
-            <span className="size-1 rounded-full bg-primary dark:bg-cyan-400 mt-0.5 shadow-sm" />
-          )}
-        </Link>
-
-        {/* 3. Calendar */}
-        <Link
-          to="/admin/calendar"
-          className={`flex-1 flex flex-col items-center justify-center min-h-[46px] py-1 px-1 rounded-xl text-center transition-all duration-150 active:scale-90 touch-manipulation cursor-pointer ${
-            isCalendar
-              ? "bg-primary/10 dark:bg-cyan-500/15 text-primary dark:text-cyan-400 font-bold shadow-xs"
-              : "text-muted-foreground/75 hover:text-foreground"
-          }`}
-          aria-label={t("admin.calendar") || "Calendar"}
-          aria-current={isCalendar ? "page" : undefined}
-        >
-          <CalendarDays className={`size-4.5 transition-transform ${isCalendar ? "scale-105 stroke-[2.2px]" : "stroke-[1.75px]"}`} />
-          <span className="text-[10px] mt-0.5 truncate tracking-tight">
-            {t("admin.calendar") || "Calendar"}
-          </span>
-          {isCalendar && (
-            <span className="size-1 rounded-full bg-primary dark:bg-cyan-400 mt-0.5 shadow-sm" />
-          )}
-        </Link>
-
-        {/* 4. Finance / Treasury */}
-        <Link
-          to="/admin/finance"
-          className={`flex-1 flex flex-col items-center justify-center min-h-[46px] py-1 px-1 rounded-xl text-center transition-all duration-150 active:scale-90 touch-manipulation cursor-pointer ${
-            isFinance
-              ? "bg-primary/10 dark:bg-cyan-500/15 text-primary dark:text-cyan-400 font-bold shadow-xs"
-              : "text-muted-foreground/75 hover:text-foreground"
-          }`}
-          aria-label={t("admin.finance") || "Finance"}
-          aria-current={isFinance ? "page" : undefined}
-        >
-          <Landmark className={`size-4.5 transition-transform ${isFinance ? "scale-105 stroke-[2.2px]" : "stroke-[1.75px]"}`} />
-          <span className="text-[10px] mt-0.5 truncate tracking-tight">
-            {t("admin.finance") || "Finance"}
-          </span>
-          {isFinance && (
-            <span className="size-1 rounded-full bg-primary dark:bg-cyan-400 mt-0.5 shadow-sm" />
-          )}
-        </Link>
-
-        {/* 5. Menu Drawer Trigger */}
+      <div className="flex items-stretch gap-1 rounded-[1.55rem] border border-border/80 bg-card/95 p-1.5 shadow-[0_8px_30px_rgba(15,23,42,0.16)] backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-950/92 dark:shadow-[0_12px_38px_rgba(0,0,0,0.48)]">
+        {items.map(({ to, label, ariaLabel, Icon, active }) => (
+          <Link
+            key={to}
+            to={to}
+            className={itemClass(active)}
+            aria-label={ariaLabel || label}
+            aria-current={active ? "page" : undefined}
+          >
+            <span className="grid size-6 shrink-0 place-items-center" aria-hidden="true">
+              <Icon className="size-[21px]" strokeWidth={active ? 2.35 : 2.1} />
+            </span>
+            <span className="block max-w-full truncate text-[10px] font-medium leading-tight tracking-[-0.01em]">
+              {label}
+            </span>
+          </Link>
+        ))}
         <button
           type="button"
           onClick={onOpenSidebar}
-          className="flex-1 flex flex-col items-center justify-center min-h-[46px] py-1 px-1 rounded-xl text-center text-muted-foreground/75 hover:text-foreground transition-all duration-150 active:scale-90 touch-manipulation cursor-pointer"
-          aria-label="Open Full Navigation Menu"
+          className={itemClass(false)}
+          aria-label={isRTL ? "فتح قائمة التنقل" : "Open navigation menu"}
         >
-          <SlidersHorizontal className="size-4.5 stroke-[1.75px]" />
-          <span className="text-[10px] mt-0.5 truncate tracking-tight">
+          <span className="grid size-6 shrink-0 place-items-center" aria-hidden="true">
+            <Menu className="size-[21px]" strokeWidth={2.1} />
+          </span>
+          <span className="block max-w-full truncate text-[10px] font-medium leading-tight tracking-[-0.01em]">
             {isRTL ? "المزيد" : "More"}
           </span>
         </button>

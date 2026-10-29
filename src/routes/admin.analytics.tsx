@@ -65,6 +65,7 @@ import {
 import { toast } from "sonner";
 import { hasPermission } from "@/types/permissions";
 import { ModuleAccessShield } from "@/components/admin/ModuleAccessShield";
+import { SADAErrorState } from "@/components/ui/sada-error-state";
 
 export const Route = createFileRoute("/admin/analytics")({
   component: AdminAnalyticsPage,
@@ -91,6 +92,7 @@ export function AdminAnalyticsPage() {
   });
   const [activeTab, setActiveTab] = useState("executive_overview");
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   // Analytics Data
   const [analyticsData, setAnalyticsData] = useState<FullManagementAnalyticsData | null>(null);
@@ -103,6 +105,7 @@ export function AdminAnalyticsPage() {
       return;
     }
     setLoading(true);
+    setLoadError(null);
     try {
       const [data, logs] = await Promise.all([
         fetchManagementAnalytics(filters),
@@ -112,6 +115,7 @@ export function AdminAnalyticsPage() {
       setAuditLogs(logs);
     } catch (err) {
       console.error("Failed to load management analytics:", err);
+      setLoadError(err instanceof Error ? err.message : "Failed to load management analytics");
       toast.error(isAr ? "فشل تحميل التحليلات الإدارية" : "Failed to load management analytics");
     } finally {
       setLoading(false);
@@ -146,6 +150,19 @@ export function AdminAnalyticsPage() {
 
   if (loading && !analyticsData) {
     return <AnalyticsDashboardSkeleton />;
+  }
+
+  if (loadError && !analyticsData) {
+    return (
+      <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+        <SADAErrorState
+          title={isAr ? "تعذر تحميل التحليلات" : "Analytics could not be loaded"}
+          message={isAr ? "تحقق من الاتصال والصلاحيات ثم أعد المحاولة." : "Check the connection and access permissions, then try again."}
+          technicalDetails={loadError}
+          onRetry={loadData}
+        />
+      </div>
+    );
   }
 
   if (!analyticsData) return null;

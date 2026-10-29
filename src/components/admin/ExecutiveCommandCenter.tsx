@@ -154,6 +154,7 @@ export function ExecutiveCommandCenter({
 
   // 3. Overdue Tasks (DEF-ECC-09: Synchronized robust deadline evaluation)
   const overdueTasks = tasks.filter((t) => isTaskOverdue(t));
+  const activeProjects = projects.filter((p) => p.status === "active" || p.status === "in_progress");
 
   // 4. Projects at Risk
   const atRiskProjects = projects.filter(
@@ -292,7 +293,7 @@ export function ExecutiveCommandCenter({
               </span>
             </div>
             <div className="text-base sm:text-xl md:text-2xl font-bold font-display tracking-tight text-foreground tabular-nums truncate">
-              {projects.filter(p => p.status === "active" || p.status === "in_progress").length}
+              {activeProjects.length}
             </div>
             <div className="text-[9px] sm:text-[11px] font-medium text-muted-foreground truncate">
               {isRTL ? `${atRiskProjects.length} تحت الخطر` : `${atRiskProjects.length} at risk`}
@@ -366,10 +367,14 @@ export function ExecutiveCommandCenter({
               </div>
               <div className="min-w-0 flex-1">
                 <div className="text-xs font-bold text-emerald-700 dark:text-emerald-400 leading-snug">
-                  {isRTL ? "جميع المشاريع على المسار الصحيح" : "All Projects on Track"}
+                  {activeProjects.length === 0
+                    ? (isRTL ? "لا توجد مشاريع نشطة حالياً" : "No Active Projects")
+                    : (isRTL ? "لا توجد مشاريع نشطة معرضة للخطر" : "No Active Projects at Risk")}
                 </div>
                 <div className="text-[11px] text-muted-foreground leading-tight truncate">
-                  {isRTL ? "لا توجد مشاريع متعثرة أو متأخرة حالياً" : "Zero active client projects are blocked or at risk"}
+                  {activeProjects.length === 0
+                    ? (isRTL ? "لا توجد مشاريع نشطة لتقييمها حالياً" : "There are no active projects to assess right now.")
+                    : (isRTL ? "لا توجد مشاريع نشطة متعثرة أو متأخرة حالياً" : "No active projects are blocked or overdue.")}
                 </div>
               </div>
             </div>

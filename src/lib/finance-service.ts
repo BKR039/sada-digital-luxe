@@ -692,6 +692,22 @@ export async function fetchCompanyFinance(
     (db as any).from("financial_audit_logs").select("*").order("created_at", { ascending: false }).limit(50),
   ]);
 
+  // Do not turn failed reads into plausible-looking zero balances and empty tables.
+  const queryResults: Array<[string, { error: { message?: string } | null }]> = [
+    ["income transactions", incomesRes], ["expense transactions", expensesRes],
+    ["previous income transactions", prevIncomesRes], ["previous expense transactions", prevExpensesRes],
+    ["expense categories", categoriesRes], ["subscriptions", subscriptionsRes],
+    ["salary records", salaryRecordsRes], ["salary payments", salaryPaymentsRes],
+    ["salary requests", salaryRequestsRes], ["invoices", invoicesRes],
+    ["sponsoring campaigns", sponsoringRes], ["sales commissions", commissionsRes],
+    ["financial accounts", accountsRes], ["financial closing periods", closingPeriodsRes],
+    ["clients", clientsRes], ["financial audit logs", auditLogsRes],
+  ];
+  const failedQuery = queryResults.find(([, result]) => result.error);
+  if (failedQuery) {
+    throw new Error(`Could not load ${failedQuery[0]}: ${failedQuery[1].error?.message || "Unknown database error"}`);
+  }
+
   const includeDemo = options?.includeDemo === true;
   const rawClientsAll: any[] = clientsRes.data || [];
   const demoClientIds = new Set(

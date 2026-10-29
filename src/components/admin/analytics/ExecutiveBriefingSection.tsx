@@ -33,12 +33,12 @@ export function ExecutiveBriefingSection({
       <div className="p-5 rounded-2xl bg-card border border-border/80 text-start space-y-2">
         <div className="flex items-center gap-2 text-emerald-500 font-bold text-sm">
           <CheckCircle2 className="size-4" />
-          <span>{isAr ? "كافة مؤشرات العمليات والمالية مستقرة" : "All Operational & Financial Indicators Stable"}</span>
+          <span>{isAr ? "لا توجد تنبيهات تتجاوز الحدود المحددة" : "No Threshold Alerts Detected"}</span>
         </div>
         <p className="text-xs text-muted-foreground font-mono">
           {isAr
-            ? "لا توجد مستحقات متأخرة، أو عجز في السيولة، أو مهام متأخرة تجاوزت الحدود المحددة في الفترة الحالية."
-            : "No overdue receivables, liquidity deficits, or delivery bottlenecks currently exceed threshold."}
+            ? "لم يتم رصد مستحقات أو مخاطر تشغيلية تتجاوز حدود التنبيه للفترة الحالية."
+            : "No receivables or operational risks exceeded alert thresholds for the current period."}
         </p>
       </div>
     );

@@ -104,6 +104,18 @@ export async function fetchManagementAnalytics(
       : (supabase as any).from("client_projects").select("id, title, client_id, status"),
   ]);
 
+  // Surface database/RLS failures instead of silently presenting partial data as zeroes.
+  const queryResults: Array<[string, { error: { message?: string } | null }]> = [
+    ["package catalog", packagesRes], ["project tasks", tasksRes],
+    ["work sessions", workSessionsRes], ["team members", teamMembersRes],
+    ["deals", dealsRes], ["production bookings", bookingsRes],
+    ["client deliverables", deliverablesRes], ["client projects", projectsRes],
+  ];
+  const failedQuery = queryResults.find(([, result]) => result.error);
+  if (failedQuery) {
+    throw new Error(`Could not load ${failedQuery[0]} for analytics: ${failedQuery[1].error?.message || "Unknown database error"}`);
+  }
+
   const rawPackages: any[] = (packagesRes.data || []).map((p: any) => ({
     ...p,
     selling_price: Number(p.price) || 0,

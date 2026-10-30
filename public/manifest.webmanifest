@@ -1,5 +1,5 @@
 {
-  "name": "SADA OS — Travel & Creative Operating System",
+  "name": "SADA OS",
   "short_name": "SADA OS",
   "description": "High-performance operational operating system for creative agencies, multi-stage content production, and team execution.",
   "id": "sada-os-app",
@@ -25,19 +25,19 @@
   ],
   "icons": [
     {
-      "src": "/icons/icon-192x192.png?v=4",
+      "src": "/icons/pwa-icon-192x192.png?v=5",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-512x512.png?v=4",
+      "src": "/icons/pwa-icon-512x512.png?v=5",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/maskable-512x512.png?v=4",
+      "src": "/icons/pwa-icon-maskable-512x512.png?v=5",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -57,7 +57,7 @@
       "url": "/admin/my-work",
       "icons": [
         {
-          "src": "/icons/icon-192x192.png?v=4",
+          "src": "/icons/pwa-icon-192x192.png?v=5",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -70,7 +70,7 @@
       "url": "/admin/calendar",
       "icons": [
         {
-          "src": "/icons/icon-192x192.png?v=4",
+          "src": "/icons/pwa-icon-192x192.png?v=5",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -83,7 +83,7 @@
       "url": "/admin",
       "icons": [
         {
-          "src": "/icons/icon-192x192.png?v=4",
+          "src": "/icons/pwa-icon-192x192.png?v=5",
           "sizes": "192x192",
           "type": "image/png"
         }

@@ -1,10 +1,10 @@
 // ============================================================
 // SADA OS — PRODUCTION SERVICE WORKER (PWA)
-// Cache Name: sada-os-pwa-v6
+// Cache Name: sada-os-pwa-v7
 // Features: App Shell Caching, Offline Fallback, Web Push & Action Routing
 // ============================================================
 
-const CACHE_NAME = 'sada-os-pwa-v6';
+const CACHE_NAME = 'sada-os-pwa-v7';
 
 const STATIC_SHELL_ASSETS = [
   '/',
@@ -19,6 +19,10 @@ const STATIC_SHELL_ASSETS = [
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
   '/icons/maskable-512x512.png',
+  '/icons/pwa-icon-180x180.png',
+  '/icons/pwa-icon-192x192.png',
+  '/icons/pwa-icon-512x512.png',
+  '/icons/pwa-icon-maskable-512x512.png',
   '/sada-emblem-1024.png',
   '/pwa-launch-screen.png',
 ];
@@ -142,7 +146,7 @@ self.addEventListener('push', (event) => {
 
   const notificationOptions = {
     body: data.body,
-    icon: '/icons/icon-192x192.png',
+    icon: '/icons/pwa-icon-192x192.png',
     badge: '/favicon-32x32.png',
     tag: data.tag || 'sada-task-alert',
     renotify: true,

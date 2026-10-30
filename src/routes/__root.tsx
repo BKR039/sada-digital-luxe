@@ -19,6 +19,7 @@ import { DirectionProvider } from "@radix-ui/react-direction";
 import { initPwaInstallPromptListener } from "@/lib/pwa-service";
 import { CookieConsentBanner } from "@/components/site/CookieConsentBanner";
 import { PageLoadingIndicator } from "@/components/site/PageLoadingIndicator";
+import { PwaLaunchScreen } from "@/components/site/PwaLaunchScreen";
 
 function NotFoundComponent() {
   return (
@@ -123,8 +124,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/nBfSu4bCMqZYpLcFALispwceRHz1/social-images/social-1783872933528-Artboard_1.webp" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/nBfSu4bCMqZYpLcFALispwceRHz1/social-images/social-1783872933528-Artboard_1.webp" },
       // PWA & Mobile Web App Meta Tokens
-      { name: "theme-color", content: "#07090E", media: "(prefers-color-scheme: dark)" },
-      { name: "theme-color", content: "#FAFAF8", media: "(prefers-color-scheme: light)" },
+      { name: "theme-color", content: "#222830" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
       { name: "apple-mobile-web-app-title", content: "SADA OS" },
@@ -134,7 +134,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "manifest", href: "/manifest.webmanifest?v=4" },
+      { rel: "manifest", href: "/manifest.webmanifest?v=5" },
       { id: "sada-favicon-ico", rel: "icon", href: "/favicon.ico?v=4", sizes: "any" },
       { id: "sada-favicon-32", rel: "icon", href: "/favicon-32x32.png?v=4", type: "image/png", sizes: "32x32" },
       { id: "sada-favicon-16", rel: "icon", href: "/favicon-16x16.png?v=4", type: "image/png", sizes: "16x16" },
@@ -190,6 +190,7 @@ function RootInner() {
   return (
     <DirectionProvider dir={direction}>
       <AuthProvider>
+        <PwaLaunchScreen />
         <PageLoadingIndicator />
         <SiteLayout />
         <CookieConsentBanner />

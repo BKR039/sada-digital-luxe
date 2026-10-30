@@ -21,6 +21,8 @@ dist-ssr
 .env.*
 !.env.example
 !.env.staging.example
+vapid.json
+*.vapid.json
 
 # Wrangler / Cloudflare
 .wrangler/

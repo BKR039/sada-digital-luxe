@@ -767,6 +767,17 @@ export async function emitNotification(
     }
 
     if (error) throw error;
+    if (inserted?.id) {
+      // The Edge Function sends notifications through the service worker, including
+      // when the recipient's PWA is closed. Do not block in-app notification creation.
+      void (supabase as any).functions.invoke("send-web-push", {
+        body: { notificationId: inserted.id },
+      }).then(({ error: pushError }: { error: unknown }) => {
+        if (pushError) console.warn("[emitNotification] Background push dispatch failed:", pushError);
+      }).catch((pushError: unknown) => {
+        console.warn("[emitNotification] Background push request failed:", pushError);
+      });
+    }
     return { success: true, id: inserted?.id, deduplicated: false, data: inserted };
   } catch (err) {
     console.error("[emitNotification] Error:", err);

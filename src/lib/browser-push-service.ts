@@ -137,6 +137,11 @@ export async function registerPushDeviceSubscription(
   }
 
   try {
+    const vapidPublicKey = (import.meta as any).env?.VITE_VAPID_PUBLIC_KEY;
+    if (!vapidPublicKey) {
+      return { success: false, error: "Web Push is not configured yet. Contact your SADA administrator." };
+    }
+
     // 1. Ensure Service Worker is registered
     const reg = await registerServiceWorker();
     const swReg = reg || (await navigator.serviceWorker.ready);
@@ -156,17 +161,19 @@ export async function registerPushDeviceSubscription(
 
     // 3. Obtain or create PushSubscription
     let sub = await swReg.pushManager.getSubscription();
+    const expectedApplicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
+    const currentApplicationServerKey = sub?.options.applicationServerKey;
+    const matchesVapidKey = currentApplicationServerKey &&
+      bytesEqual(new Uint8Array(currentApplicationServerKey), expectedApplicationServerKey);
+    if (sub && !matchesVapidKey) {
+      await sub.unsubscribe();
+      sub = null;
+    }
     if (!sub) {
-      // Subscribe userVisibleOnly
-      // If VAPID key is configured in env, we can convert it; otherwise subscribe standard userVisibleOnly
-      const vapidPublicKey = (import.meta as any).env?.VITE_VAPID_PUBLIC_KEY;
       const subOptions: PushSubscriptionOptionsInit = {
         userVisibleOnly: true,
       };
-
-      if (vapidPublicKey) {
-        subOptions.applicationServerKey = urlBase64ToUint8Array(vapidPublicKey) as any;
-      }
+      subOptions.applicationServerKey = expectedApplicationServerKey as any;
 
       sub = await swReg.pushManager.subscribe(subOptions);
     }
@@ -190,20 +197,17 @@ export async function registerPushDeviceSubscription(
       device_type: deviceType,
       user_agent: userAgent,
       is_active: true,
-      last_used_at: new Date().toISOString(),
+      last_seen_at: new Date().toISOString(),
     };
 
-    // 5. Persist to database
-    try {
-      const { error: dbErr } = await (supabase as any)
-        .from("push_subscriptions")
-        .upsert(record, { onConflict: "user_id,endpoint" });
+    // 5. Persist to database. Without this row the server cannot deliver background push.
+    const { error: dbErr } = await (supabase as any)
+      .from("push_subscriptions")
+      .upsert(record, { onConflict: "user_id,endpoint" });
 
-      if (dbErr) {
-        console.warn("[registerPushDeviceSubscription] DB notice:", dbErr.message);
-      }
-    } catch (dbEx) {
-      console.warn("[registerPushDeviceSubscription] DB persistence notice:", dbEx);
+    if (dbErr) {
+      console.error("[registerPushDeviceSubscription] DB persistence failed:", dbErr.message);
+      return { success: false, error: "Your device subscription could not be saved. Please try again." };
     }
 
     // 6. Cache in localStorage for offline/client awareness
@@ -266,4 +270,8 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array {
     outputArray[i] = rawData.charCodeAt(i);
   }
   return outputArray;
+}
+
+function bytesEqual(left: Uint8Array, right: Uint8Array): boolean {
+  return left.length === right.length && left.every((value, index) => value === right[index]);
 }

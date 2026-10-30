@@ -28,11 +28,9 @@ import {
   scanAndEmitAutomations,
   sortNotificationsByPriorityAndRecency,
   isNotificationVisibleToUser,
-  fetchNotificationPreferences,
   getSemanticSeverity,
 } from "@/lib/notification-service";
 import { syncBrowserTabBadge } from "@/lib/browser-notification-badge";
-import { showNativeBrowserNotification } from "@/lib/browser-push-service";
 import { useAuth } from "@/lib/auth";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
@@ -71,17 +69,6 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
   try {
     nav = useNavigate();
   } catch (_) {}
-
-  const [cachedPrefs, setCachedPrefs] = useState<{ desktop_push_enabled?: boolean } | null>(null);
-
-  // Fetch cached preferences once for desktop notification gating
-  useEffect(() => {
-    if (effectiveUserId) {
-      fetchNotificationPreferences(effectiveUserId)
-        .then((p) => setCachedPrefs(p))
-        .catch(() => {});
-    }
-  }, [effectiveUserId]);
 
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -267,20 +254,6 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
 
           // Trigger subtle arrival animation and badge ring
           triggerArrivalAnimation(newItem);
-
-          // Native desktop notification if permitted & enabled
-          showNativeBrowserNotification(newItem, {
-            desktopPushEnabled: cachedPrefs?.desktop_push_enabled,
-            onClick: () => {
-              if (newItem.link_url) {
-                if (nav) {
-                  nav({ to: newItem.link_url as any });
-                } else {
-                  window.location.href = newItem.link_url;
-                }
-              }
-            },
-          });
 
           // Elegant compact in-app toast preview using SADA Premium Notification Card
           toast.custom(

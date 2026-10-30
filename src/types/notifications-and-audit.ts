@@ -133,7 +133,7 @@ export interface PushSubscriptionRecord {
   user_agent?: string;
   is_active?: boolean;
   created_at?: string;
-  last_used_at?: string;
+  last_seen_at?: string;
 }
 
 

@@ -12,8 +12,8 @@
     "minimal-ui",
     "browser"
   ],
-  "background_color": "#07090E",
-  "theme_color": "#07090E",
+  "background_color": "#222830",
+  "theme_color": "#222830",
   "orientation": "portrait-primary",
   "dir": "auto",
   "lang": "en",

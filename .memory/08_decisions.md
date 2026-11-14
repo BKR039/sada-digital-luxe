@@ -3,6 +3,44 @@
 Every important technical/product decision, most recent first. Append new entries; never edit past ones except to fix a factual error. (Migrated from the earlier `.memory/roadmap.md` — see that file for a pointer.)
 
 **Date:** 2026-11-14
+**Decision:** SADA OS UNIFIED PREMIUM NOTIFICATION UX REDESIGN:
+1. **Canonical Visual Language Adoption**:
+   - Re-engineered in-app notification surfaces to strictly adhere to the canonical "Stay Informed With Realtime OS Push Alerts" banner design language (`PWAPushOnboardingBanner.tsx`).
+   - Standardized layout anatomy across all surfaces: Left `size-10 rounded-full` soft pastel circular container with semantic Lucide icon; Center high-contrast bold title (`#111827`), category badge, and concise description (`#64748B`); Right primary SADA Blue (`#0878E8`) action button, optional secondary action ("Maybe Later"), and dismiss `X` button.
+   - Design tokens enforced: Background `#FFFFFF` (dark `#0C1017`), primary border `#BFDBFE` (dark `#3B82F6/40`), primary blue `#0878E8`, SADA cyan `#5CE1E6`, text `#111827`/`#64748B`, subtle bg `#F8FAFC`.
+   - Semantic color system:
+     - Urgent/Danger/Overdue: Red `#DC2626`, border `#FECACA`, bg `#FEF2F2` (soft circular container bg `#FEE2E2`).
+     - Warning/Revisions/Due Soon: Amber `#D97706`, border `#FDE68A`, bg `#FFFBEB` (soft circular container bg `#FEF3C7`).
+     - Success/Payments/Approvals: Emerald `#059669`, border `#A7F3D0`, bg `#ECFDF5` (soft circular container bg `#D1FAE5`).
+     - Security: Purple/Red `#7C3AED`/`#DC2626`.
+     - Tasks/Comments/Info: SADA Blue `#0878E8`, border `#BFDBFE`, bg `#EFF6FF` (soft circular container bg `#DBEAFE`).
+2. **Centralized Visual Tokens Engine (`src/lib/notification-ui-tokens.ts`)**:
+   - Engineered `getNotificationVisualTokens()` resolving Lucide icons, container tints, border classes, and canonical CTA verbs for all 48 business event types.
+   - Enforced canonical CTA copy table:
+     - Task Assigned &rarr; "Open Task"
+     - Deadline Reminder &rarr; "View Task"
+     - Overdue Task &rarr; "Resolve Task"
+     - Revision Requested &rarr; "Review Changes"
+     - New Comment / Mention &rarr; "View Comment"
+     - Client Action Required &rarr; "View Request"
+     - Task Review &rarr; "Review Task"
+     - Finance Event &rarr; "View Transaction"
+     - Calendar Event &rarr; "View Schedule"
+     - Security Alert &rarr; "Review Security"
+3. **Surfaces Redesigned**:
+   - `NotificationToastCard.tsx`: Floating toast with circular icon container, clean typography, primary CTA button, "Maybe Later" secondary action, and close icon.
+   - `RealtimeNotificationBanner.tsx`: Created top-of-page alert banner mounted in `src/routes/admin.tsx` displaying the most critical active unread alert with action triggers.
+   - `NotificationCenter.tsx`: Header dropdown rebuilt with canonical card rows, standardized group summaries, and clean empty state with circular checkmark.
+   - `PWAPushOnboardingBanner.tsx`: Harmonized borders (`#BFDBFE`), SADA Blue button styling, and badge treatments.
+4. **Preserved Backend & Security Invariants**:
+   - Zero changes to notification engine, database schema, RLS policies, delivery channels, or real-time hooks.
+   - Explicitly preserved rule: Reading/viewing notifications never counts as worker acknowledgment.
+5. **Quality Gates & Multi-Viewport QA**:
+   - Automated unit test suite: 32/32 PASSED (`scripts/test-unified-notification-ux.ts`).
+   - Visual QA via Puppeteer: Verified zero horizontal document overflow (0px) across Desktop 1440px, Desktop 1280px, Tablet 768px, and Mobile 390px. Screenshots archived in `docs/screenshots/notification_ux_redesign/`.
+   - Production Build & Typecheck: `npx tsc --noEmit` passed with 0 errors; `npm run build` succeeded cleanly in 14.13s.
+
+**Date:** 2026-11-14
 **Decision:** SADA OS PREMIUM LIGHT EMAIL DESIGN SYSTEM REDESIGN:
 1. **Complete Light Theme Overhaul**:
    - Replaced legacy dark navy containers (`#0D1527` / `#080D1A`) with an enterprise-grade light palette: canvas `#F4F7FB`, container card `#FFFFFF`, primary text `#111827`, secondary text `#64748B`, borders `#E5EAF0`, and high-contrast SADA Blue CTA (`#0878E8`).

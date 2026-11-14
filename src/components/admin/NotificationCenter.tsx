@@ -46,6 +46,8 @@ import {
   getFunctionalCategory,
   groupSimilarNotifications,
 } from "@/lib/notification-service";
+import { getNotificationVisualTokens } from "@/lib/notification-ui-tokens";
+import { cn } from "@/lib/utils";
 import type {
   NotificationItem,
   NotificationPriority,
@@ -498,109 +500,22 @@ export function NotificationCenter({
     Boolean(searchQuery.trim());
 
   // ============================================================
-  // SINGLE NOTIFICATION COMPACT ROW RENDERER (5-LEVEL HIERARCHY)
-  // Level 1: SEVERITY + CATEGORY + TIME + MARK READ
-  // Level 2: TITLE
-  // Level 3: CLIENT / CONTEXT / ENTITY
-  // Level 4: SHORT OPERATIONAL EXPLANATION
-  // Level 5: TARGET ACTION
+  // SINGLE NOTIFICATION COMPACT ROW RENDERER (CANONICAL LIGHT DESIGN)
+  // Left: Pastel circular icon container
+  // Center: Title, Concise description, Metadata
+  // Right: Contextual primary action CTA, Mark as read
   // ============================================================
   const renderNotificationRow = (item: NotificationItem) => {
     const resolved = resolveNotification(item, t);
     const timeAgo = formatRelativeTime(item.created_at);
-    const severity = getSemanticSeverity(item);
-    const category = getFunctionalCategory(item);
+    const tokens = getNotificationVisualTokens(item, { isRTL, isRead: item.read });
     const isActionable = Boolean(item.link_url);
-    const actionLabel = getActionLabel(item, isRTL);
     const contextTitle =
       item.context_title || item.metadata?.taskTitle || item.metadata?.taskName;
     const clientName = item.metadata?.clientName || item.metadata?.client_name;
     const senderName = item.metadata?.senderName;
-
-    // Check if event is resolved / completed to settle its visual prominence
-    const isCompletedEvent =
-      item.metadata?.status === "completed" ||
-      (item.event_type || "").includes("COMPLETED") ||
-      (item.event_type || "").includes("RESOLVED") ||
-      severity === "SUCCESS";
-
-    // Severity and Category labels
-    const severityLabel =
-      severity === "URGENT"
-        ? (isRTL ? "عاجل" : "URGENT")
-        : severity === "WARNING"
-        ? (isRTL ? "تنبيه" : "WARNING")
-        : severity === "SECURITY"
-        ? (isRTL ? "أمان" : "SECURITY")
-        : severity === "SUCCESS"
-        ? (isRTL ? "مكتمل" : "SUCCESS")
-        : severity === "MESSAGE"
-        ? (isRTL ? "رسالة" : "MESSAGE")
-        : (isRTL ? "معلومات" : "INFO");
-
-    const categoryLabel =
-      category === "TASK"
-        ? (isRTL ? "مهمة" : "TASK")
-        : category === "OPERATIONS"
-        ? (isRTL ? "عمليات" : "OPERATIONS")
-        : category === "MESSAGE"
-        ? (isRTL ? "محادثة" : "MESSAGE")
-        : category === "SECURITY"
-        ? (isRTL ? "أمان" : "SECURITY")
-        : category === "SYSTEM"
-        ? (isRTL ? "نظام" : "SYSTEM")
-        : (isRTL ? "عام" : "GENERAL");
-
-    // Semantic Color tokens
-    const severityTextClass =
-      severity === "URGENT"
-        ? "text-rose-500 dark:text-rose-400"
-        : severity === "WARNING"
-        ? "text-amber-500 dark:text-amber-400"
-        : severity === "SECURITY"
-        ? "text-purple-500 dark:text-purple-400"
-        : severity === "SUCCESS"
-        ? "text-emerald-500 dark:text-emerald-400"
-        : severity === "MESSAGE"
-        ? "text-sky-500 dark:text-sky-400"
-        : "text-muted-foreground";
-
-    const severityDotClass =
-      severity === "URGENT"
-        ? "bg-rose-500 shadow-rose-500/50 shadow-2xs"
-        : severity === "WARNING"
-        ? "bg-amber-500 shadow-amber-500/50 shadow-2xs"
-        : severity === "SECURITY"
-        ? "bg-purple-500 shadow-purple-500/50 shadow-2xs"
-        : severity === "SUCCESS"
-        ? "bg-emerald-500"
-        : severity === "MESSAGE"
-        ? "bg-sky-500"
-        : "bg-slate-400";
-
-    const unreadCardBorder =
-      severity === "URGENT"
-        ? "bg-rose-500/[0.04] dark:bg-rose-500/[0.08] border-rose-500/30 border-s-3 border-s-rose-500 shadow-2xs"
-        : severity === "WARNING"
-        ? "bg-amber-500/[0.04] dark:bg-amber-500/[0.08] border-amber-500/30 border-s-3 border-s-amber-500 shadow-2xs"
-        : severity === "SECURITY"
-        ? "bg-purple-500/[0.04] dark:bg-purple-500/[0.08] border-purple-500/30 border-s-3 border-s-purple-500 shadow-2xs"
-        : severity === "SUCCESS"
-        ? "bg-emerald-500/[0.04] dark:bg-emerald-500/[0.08] border-emerald-500/30 border-s-3 border-s-emerald-500 shadow-2xs"
-        : severity === "MESSAGE"
-        ? "bg-sky-500/[0.04] dark:bg-sky-500/[0.08] border-sky-500/30 border-s-3 border-s-sky-500 shadow-2xs"
-        : "bg-primary/[0.03] dark:bg-primary/[0.06] border-primary/25 border-s-3 border-s-primary shadow-2xs";
-
-    const actionPillClass =
-      severity === "URGENT"
-        ? "bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 hover:bg-rose-500/25"
-        : severity === "WARNING"
-        ? "bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 hover:bg-amber-500/25"
-        : severity === "SECURITY"
-        ? "bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30 hover:bg-purple-500/25"
-        : severity === "SUCCESS"
-        ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25"
-        : "bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20";
+    const displayContext = clientName || contextTitle || senderName;
+    const IconComp = tokens.IconComponent;
 
     return (
       <div
@@ -614,114 +529,102 @@ export function NotificationCenter({
             handleCardClick(item);
           }
         }}
-        className={`p-2.5 rounded-lg border transition-all cursor-pointer relative text-start flex flex-col gap-0.5 group select-none min-w-0 ${
-          !item.read
-            ? unreadCardBorder
-            : isCompletedEvent
-            ? "bg-card/30 dark:bg-card/20 border-border/30 hover:bg-muted/30 opacity-70 hover:opacity-90"
-            : "bg-card/50 dark:bg-card/30 border-border/40 hover:bg-muted/40 hover:border-border opacity-85 hover:opacity-100"
-        }`}
-      >
-        {/* ROW 1: SEVERITY / CATEGORY + TIME + MARK READ */}
-        <div className="flex items-center justify-between gap-1 text-[10px] font-mono leading-none">
-          <div className="flex items-center gap-1.5 min-w-0">
-            <span className={`size-1.5 rounded-full shrink-0 ${severityDotClass}`} />
-            <span className={`font-bold tracking-wider uppercase truncate ${severityTextClass}`}>
-              {severityLabel} · {categoryLabel}
-            </span>
-            {!item.read ? (
-              <span className="text-[8.5px] font-extrabold text-primary px-1 py-0.2 rounded bg-primary/10 tracking-widest shrink-0">
-                • NEW
-              </span>
-            ) : isCompletedEvent ? (
-              <span className="text-[8.5px] font-semibold text-emerald-600 dark:text-emerald-400 px-1 py-0.2 rounded bg-emerald-500/10 tracking-wider shrink-0">
-                ✓ {isRTL ? "مكتمل" : "RESOLVED"}
-              </span>
-            ) : null}
-          </div>
-
-          <div className="flex items-center gap-1.5 shrink-0 text-muted-foreground/80">
-            <span className="inline-flex items-center gap-0.5">
-              <Clock className="size-2.5" />
-              {timeAgo}
-            </span>
-            {!item.read && (
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  markAsRead(item.id);
-                }}
-                className="size-4.5 rounded hover:bg-muted text-muted-foreground hover:text-foreground grid place-items-center cursor-pointer transition-colors"
-                title={isRTL ? "تحديد كمقروء" : "Mark as read"}
-                aria-label={isRTL ? "تحديد كمقروء" : "Mark as read"}
-              >
-                <Check className="size-2.5" />
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* ROW 2: TITLE */}
-        <h4
-          dir="auto"
-          className={`text-xs leading-snug mt-0.5 ${
-            !item.read ? "font-bold text-foreground" : "font-semibold text-foreground/85"
-          } [overflow-wrap:anywhere] break-words line-clamp-1 group-hover:line-clamp-2 transition-all`}
-        >
-          <bdi dir="auto">{resolved.title}</bdi>
-        </h4>
-
-        {/* ROW 3: CONTEXT / CLIENT / ENTITY + COMPACT ACTION */}
-        <div className="flex items-center justify-between gap-1.5 text-[10.5px] font-medium text-muted-foreground min-w-0 pt-0.5">
-          <div className="flex items-center gap-1 min-w-0 flex-1 truncate">
-            {clientName && (
-              <bdi
-                dir="auto"
-                className="text-foreground/90 font-semibold truncate shrink-0 max-w-[45%]"
-              >
-                {clientName}
-              </bdi>
-            )}
-            {clientName && (contextTitle || senderName) && <span className="opacity-40 shrink-0">·</span>}
-            {contextTitle && (
-              <bdi dir="auto" className="truncate min-w-0 flex-1 text-muted-foreground/90 [overflow-wrap:anywhere]">
-                {contextTitle}
-              </bdi>
-            )}
-            {senderName && !contextTitle && (
-              <bdi dir="auto" className="truncate min-w-0 flex-1 inline-flex items-center gap-1">
-                <User className="size-2.5 shrink-0" />
-                {senderName}
-              </bdi>
-            )}
-          </div>
-
-          {isActionable && (
-            <span
-              className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[9.5px] font-semibold transition-all shrink-0 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 ${actionPillClass}`}
-            >
-              <bdi dir="auto">{actionLabel}</bdi>
-              {isRTL ? <ArrowLeft className="size-2.5" /> : <ArrowRight className="size-2.5" />}
-            </span>
-          )}
-        </div>
-
-        {/* ROW 4: SHORT OPERATIONAL EXPLANATION */}
-        {resolved.message && (
-          <p
-            dir="auto"
-            className="text-[10px] sm:text-[10.5px] text-muted-foreground/80 leading-snug line-clamp-1 group-hover:line-clamp-2 break-words mt-0.5"
-          >
-            <bdi dir="auto">{resolved.message}</bdi>
-          </p>
+        className={cn(
+          "p-3 rounded-2xl border transition-all duration-200 cursor-pointer relative text-start flex items-start gap-3 group select-none min-w-0 shadow-xs",
+          tokens.cardBgClasses,
+          tokens.cardBorderClasses,
+          !item.read ? "hover:shadow-md" : "hover:bg-muted/30"
         )}
+      >
+        {/* Left: Contextual Icon in circular pastel container */}
+        <div
+          className={cn(
+            "size-9 rounded-full flex items-center justify-center shrink-0 shadow-xs transition-transform duration-200 group-hover:scale-105",
+            tokens.iconContainerClasses
+          )}
+        >
+          <IconComp className={cn("size-4 shrink-0", tokens.isUrgent && !item.read && "animate-pulse")} />
+        </div>
+
+        {/* Center: Title, Description, Context & Time */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between gap-1.5 leading-none">
+            <div className="flex items-center gap-1.5 min-w-0 flex-wrap">
+              <h4
+                dir="auto"
+                className={cn(
+                  "text-xs leading-snug line-clamp-1 group-hover:line-clamp-2 transition-all [overflow-wrap:anywhere] break-words",
+                  !item.read ? "font-bold text-[#111827] dark:text-foreground" : "font-semibold text-foreground/80"
+                )}
+              >
+                <bdi dir="auto">{resolved.title}</bdi>
+              </h4>
+              {!item.read && (
+                <span className={cn("text-[8.5px] font-mono uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full shrink-0", tokens.badgeClasses)}>
+                  {tokens.isUrgent ? (isRTL ? "عاجل" : "URGENT") : (isRTL ? "جديد" : "NEW")}
+                </span>
+              )}
+            </div>
+
+            {/* Time + Mark Read Check */}
+            <div className="flex items-center gap-1 shrink-0 text-muted-foreground/80">
+              <span className="text-[10px] font-mono tabular-nums inline-flex items-center gap-0.5">
+                <Clock className="size-2.5 opacity-70" />
+                {timeAgo}
+              </span>
+              {!item.read && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    markAsRead(item.id);
+                  }}
+                  className="size-5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground grid place-items-center cursor-pointer transition-colors ml-0.5"
+                  title={isRTL ? "تحديد كمقروء" : "Mark as read"}
+                  aria-label={isRTL ? "تحديد كمقروء" : "Mark as read"}
+                >
+                  <Check className="size-3" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Description */}
+          {resolved.message && (
+            <p
+              dir="auto"
+              className="text-[11px] text-[#64748B] dark:text-muted-foreground leading-relaxed line-clamp-2 break-words mt-0.5"
+            >
+              <bdi dir="auto">{resolved.message}</bdi>
+            </p>
+          )}
+
+          {/* Context entity + Action button */}
+          <div className="flex items-center justify-between gap-2 pt-1.5 mt-1 border-t border-border/30 text-[10.5px]">
+            <div className="flex items-center gap-1.5 min-w-0 text-[#94A3B8] dark:text-muted-foreground/75 truncate">
+              {displayContext && (
+                <span className="font-semibold text-[#64748B] dark:text-muted-foreground truncate max-w-[180px]">
+                  {displayContext}
+                </span>
+              )}
+            </div>
+
+            {isActionable && (
+              <span
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-[#0878E8] text-white hover:bg-[#0764C4] transition-all shadow-2xs shrink-0"
+              >
+                <span>{tokens.actionText}</span>
+                {isRTL ? <ArrowLeft className="size-3" /> : <ArrowRight className="size-3" />}
+              </span>
+            )}
+          </div>
+        </div>
       </div>
     );
   };
 
   // ============================================================
-  // GROUP CARD RENDERER (SMART GROUPING 2.1)
+  // GROUP CARD RENDERER (SMART GROUPING 2.1 — CANONICAL DESIGN)
   // Cross-client attention context, non-destructive underlying items
   // ============================================================
   const renderGroupCard = (group: NotificationGroup) => {
@@ -740,32 +643,34 @@ export function NotificationCenter({
     return (
       <div
         key={group.groupKey}
-        className="p-2.5 rounded-lg border border-primary/30 bg-primary/[0.03] dark:bg-primary/[0.06] shadow-2xs transition-all space-y-1.5"
+        className="p-3 rounded-2xl border border-[#BFDBFE] dark:border-primary/40 bg-white dark:bg-[#0c1017] shadow-xs hover:shadow-md transition-all space-y-2"
       >
         {/* GROUP HEADER: CATEGORY · COUNT + TIME + EXPAND */}
         <div className="flex items-center justify-between gap-1 text-[10px] font-mono leading-none">
-          <div className="flex items-center gap-1.5 min-w-0">
-            <span className="size-1.5 rounded-full bg-primary shrink-0" />
-            <span className="font-bold tracking-wider uppercase text-primary truncate">
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="size-7 rounded-full bg-blue-50 dark:bg-blue-500/15 text-[#0878E8] dark:text-blue-400 border border-blue-100 dark:border-blue-500/25 flex items-center justify-center shrink-0">
+              <Bell className="size-3.5" />
+            </div>
+            <span className="font-bold tracking-wider uppercase text-foreground truncate">
               {isRTL ? "مجموعة عمليات" : "OPERATION GROUP"} · {group.count} {isRTL ? "عناصر" : "ITEMS"}
             </span>
-            <span className="text-[8.5px] font-extrabold text-primary px-1 py-0.2 rounded bg-primary/10 tracking-widest shrink-0">
-              • NEW
+            <span className="text-[8.5px] font-extrabold text-[#0878E8] px-1.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-500/10 tracking-widest shrink-0 border border-blue-100 dark:border-blue-500/20">
+              {isRTL ? "جديد" : "NEW"}
             </span>
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0 text-muted-foreground/80">
             <span className="inline-flex items-center gap-0.5">
-              <Clock className="size-2.5" />
+              <Clock className="size-2.5 opacity-70" />
               {timeAgo}
             </span>
             <button
               type="button"
               onClick={() => toggleGroupExpand(group.groupKey)}
-              className="px-1.5 py-0.5 rounded text-[9.5px] font-mono text-muted-foreground hover:text-foreground hover:bg-muted inline-flex items-center gap-0.5 transition-colors cursor-pointer"
+              className="px-2 py-0.5 rounded-md text-[10px] font-mono text-muted-foreground hover:text-foreground hover:bg-muted inline-flex items-center gap-0.5 transition-colors cursor-pointer border border-border/50"
             >
               <span>{isExpanded ? (isRTL ? "طي" : "Collapse") : (isRTL ? "عرض الكل" : "Expand")}</span>
-              {isExpanded ? <ChevronUp className="size-2.5" /> : <ChevronDown className="size-2.5" />}
+              {isExpanded ? <ChevronUp className="size-3" /> : <ChevronDown className="size-3" />}
             </button>
           </div>
         </div>
@@ -812,7 +717,7 @@ export function NotificationCenter({
             <button
               type="button"
               onClick={() => handleGroupAction(group)}
-              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-all cursor-pointer"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-[#0878E8] text-white hover:bg-[#0764C4] transition-all shadow-2xs cursor-pointer"
             >
               <span>{isRTL ? "عرض جميع المهام" : "View all tasks"}</span>
               {isRTL ? <ArrowLeft className="size-2.5" /> : <ArrowRight className="size-2.5" />}
@@ -833,7 +738,7 @@ export function NotificationCenter({
 
         {/* EXPANDED SUB-FEED */}
         {isExpanded && (
-          <div className="space-y-1 pt-1 ps-2 border-s-2 border-primary/40 mt-1">
+          <div className="space-y-1.5 pt-1.5 ps-2 border-s-2 border-primary/40 mt-1">
             {group.items.map((item) => renderNotificationRow(item))}
           </div>
         )}
@@ -1184,16 +1089,16 @@ export function NotificationCenter({
               />
             </div>
           ) : feedItems.length === 0 ? (
-            <div className="py-8 px-4 flex flex-col items-center justify-center text-center">
-              <div className="size-8 rounded-full bg-muted/60 grid place-items-center text-muted-foreground mb-2">
-                <Inbox className="size-4" />
+            <div className="py-12 px-4 flex flex-col items-center justify-center text-center">
+              <div className="size-12 rounded-full bg-blue-50 dark:bg-blue-500/15 text-[#0878E8] dark:text-blue-400 border border-blue-100 dark:border-blue-500/25 grid place-items-center mb-3 shadow-xs">
+                <CheckCircle2 className="size-6" />
               </div>
-              <p className="text-xs font-semibold text-foreground">
+              <p className="text-sm font-bold text-foreground">
                 {hasActiveFilters
                   ? (isRTL ? "لا توجد تنبيهات مطابقة للتصفية" : "No alerts match your current filters")
                   : (t("notifications.allCaughtUp") || "All caught up!")}
               </p>
-              <p className="text-[11px] text-muted-foreground mt-0.5 max-w-[240px]">
+              <p className="text-xs text-[#64748B] dark:text-muted-foreground mt-1 max-w-[260px] leading-relaxed">
                 {hasActiveFilters
                   ? (isRTL ? "جرّب تغيير التصنيف أو خيارات البحث." : "Try adjusting your category or search query.")
                   : (t("notifications.emptyDescription") || "Zero pending alerts in your operational queue.")}

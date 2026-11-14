@@ -23,6 +23,7 @@ import { GlobalSearchModal } from "@/components/admin/GlobalSearchModal";
 import { SADAMobileBottomNav } from "@/components/admin/SADAMobileBottomNav";
 import { PWAInstallBanner } from "@/components/admin/PWAInstallBanner";
 import { PWAPushOnboardingBanner } from "@/components/admin/PWAPushOnboardingBanner";
+import { RealtimeNotificationBanner } from "@/components/admin/RealtimeNotificationBanner";
 import { ExecutiveDashboardSkeleton } from "@/components/ui/sada-ui";
 
 function AdminRouteComponent() {
@@ -462,6 +463,7 @@ function AdminLayout() {
 
       {/* Main Content Viewport */}
       <main id="sada-admin-main" className="admin-main p-3.5 sm:p-6 md:p-10 pt-16 md:pt-10 pb-28 md:pb-10 space-y-4">
+        {user?.id && <RealtimeNotificationBanner className="mb-4" />}
         {user?.id && <PWAPushOnboardingBanner userId={user.id} className="mb-4" />}
         {isModuleBlocked && currentModule ? (
           <ModuleAccessShield

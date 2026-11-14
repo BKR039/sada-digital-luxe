@@ -107,30 +107,30 @@ export function PWAPushOnboardingBanner({ userId, className = "" }: PWAPushOnboa
     <div
       role="region"
       aria-label={isRTL ? "تفعيل إشعارات SADA OS" : "SADA OS Push Notifications Setup"}
-      className={`relative overflow-hidden rounded-2xl bg-gradient-to-r from-card via-card/95 to-primary/[0.04] border border-primary/30 p-4 shadow-xl backdrop-blur-md animate-in fade-in slide-in-from-top-2 duration-300 ${className}`}
+      className={`relative overflow-hidden rounded-2xl bg-white dark:bg-[#0c1017] border border-[#BFDBFE] dark:border-primary/40 p-3.5 sm:p-4 shadow-md backdrop-blur-md animate-in fade-in slide-in-from-top-2 duration-300 ${className}`}
     >
       {/* Decorative Glow */}
-      <div className="absolute -top-12 -right-12 size-36 bg-primary/10 rounded-full blur-2xl pointer-events-none" />
+      <div className="absolute -top-12 -right-12 size-36 bg-primary/[0.05] dark:bg-primary/10 rounded-full blur-2xl pointer-events-none" />
 
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3.5 sm:gap-4 relative z-10">
         {/* Left / Info Section */}
-        <div className="flex items-start gap-3.5 min-w-0">
-          <div className="size-10 rounded-xl bg-primary/15 border border-primary/30 grid place-items-center text-primary shrink-0 shadow-inner">
+        <div className="flex items-start gap-3.5 min-w-0 flex-1">
+          <div className="size-10 rounded-full bg-blue-50 dark:bg-blue-500/15 border border-blue-100 dark:border-blue-500/25 grid place-items-center text-[#0878E8] dark:text-blue-400 shrink-0 shadow-xs">
             <Bell className="size-5 animate-pulse" />
           </div>
 
-          <div className="min-w-0">
-            <div className="flex items-center gap-2">
-              <h4 className="text-xs font-bold text-foreground font-heading tracking-wide">
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h4 className="text-xs sm:text-[13px] font-bold text-[#111827] dark:text-foreground font-heading tracking-wide">
                 {isRTL
                   ? "تفعيل تنبيهات SADA OS الفورية"
                   : "Stay Informed With Realtime OS Push Alerts"}
               </h4>
-              <SADABadge variant="primary" size="xs">
+              <span className="text-[9px] font-mono uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-blue-50 text-[#0878E8] dark:bg-blue-500/10 dark:text-blue-400 border border-blue-100 dark:border-blue-500/20 shrink-0">
                 {isRTL ? "توصية PWA" : "Recommended"}
-              </SADABadge>
+              </span>
             </div>
-            <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">
+            <p className="text-[11px] sm:text-xs text-[#64748B] dark:text-muted-foreground mt-0.5 leading-relaxed line-clamp-2">
               {isRTL
                 ? "احصل على تنبيهات فورية عند تعيين المهام، وطلبات المراجعة، وملاحظات العملاء حتى لو كان التطبيق مغلقاً."
                 : "Receive instant updates for task assignments, client approvals, and team handoffs even when SADA OS is closed."}
@@ -139,12 +139,12 @@ export function PWAPushOnboardingBanner({ userId, className = "" }: PWAPushOnboa
         </div>
 
         {/* Right / CTA Section */}
-        <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end">
+        <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end pt-1 sm:pt-0 border-t sm:border-t-0 border-border/40">
           <SADAButton
             variant="ghost"
             size="sm"
             onClick={handleDismiss}
-            className="text-muted-foreground text-xs hover:text-foreground"
+            className="text-[#64748B] dark:text-muted-foreground text-xs hover:text-[#111827] dark:hover:text-foreground h-8 px-2.5"
           >
             {isRTL ? "لاحقاً" : "Maybe Later"}
           </SADAButton>
@@ -155,6 +155,7 @@ export function PWAPushOnboardingBanner({ userId, className = "" }: PWAPushOnboa
             onClick={handleEnablePush}
             isLoading={loading}
             leftIcon={<Sparkles className="size-3.5" />}
+            className="h-8 text-xs font-semibold px-3.5 bg-[#0878E8] hover:bg-[#0764C4] text-white shadow-xs"
           >
             {isRTL ? "تفعيل الإشعارات الآن" : "Enable Push Alerts"}
           </SADAButton>
@@ -162,7 +163,7 @@ export function PWAPushOnboardingBanner({ userId, className = "" }: PWAPushOnboa
           <button
             type="button"
             onClick={handleDismiss}
-            className="p-1 rounded-lg text-muted-foreground/70 hover:text-foreground hover:bg-muted/30 transition-colors ml-1"
+            className="p-1 rounded-lg text-[#94A3B8] hover:text-[#111827] dark:hover:text-foreground hover:bg-muted/40 transition-colors ml-0.5 cursor-pointer"
             aria-label={isRTL ? "إغلاق التنبيه" : "Dismiss banner"}
           >
             <X className="size-4" />

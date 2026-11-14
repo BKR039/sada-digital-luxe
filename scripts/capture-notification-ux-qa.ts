@@ -1,0 +1,673 @@
+// ============================================================
+// SADA OS — NOTIFICATION UX VISUAL QA & SCREENSHOT SUITE
+// Renders and captures all canonical notification categories & surfaces
+// across Desktop (1440px, 1280px), Tablet (768px), and Mobile (390px)
+// ============================================================
+
+import puppeteer from "puppeteer-core";
+import fs from "fs";
+import path from "path";
+
+const SCREENSHOT_DIR = path.resolve(process.cwd(), "docs/screenshots/notification_ux_redesign");
+if (!fs.existsSync(SCREENSHOT_DIR)) {
+  fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
+}
+
+const SHOWCASE_HTML_PATH = path.resolve(process.cwd(), "docs/notification-showcase.html");
+
+// Build self-contained, responsive HTML showcase containing the canonical components
+const showcaseHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SADA OS — Unified Premium Notification UX Showcase</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #F8FAFC;
+      color: #111827;
+      padding: 32px 20px;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .header {
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .title {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: #64748B;
+      margin-top: 4px;
+    }
+    .badge-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-primary { background: #EFF6FF; color: #0878E8; border: 1px solid #BFDBFE; }
+    .badge-urgent { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
+    .badge-warning { background: #FFFBEB; color: #D97706; border: 1px solid #FDE68A; }
+    .badge-success { background: #ECFDF5; color: #059669; border: 1px solid #A7F3D0; }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #334155;
+      margin: 32px 0 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-desc {
+      font-size: 12px;
+      color: #64748B;
+      margin-top: -12px;
+      margin-bottom: 16px;
+    }
+
+    /* ========================================================
+       CANONICAL NOTIFICATION CARD / BANNER COMPONENT STYLES
+       Exact tokens matching PWAPushOnboardingBanner reference
+       ======================================================== */
+    .notif-card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      border: 1px solid #BFDBFE;
+      box-shadow: 0 4px 14px rgba(8, 120, 232, 0.06);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .notif-card:hover {
+      box-shadow: 0 6px 20px rgba(8, 120, 232, 0.1);
+    }
+    .notif-card.urgent {
+      border-color: #FECACA;
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.06);
+    }
+    .notif-card.warning {
+      border-color: #FDE68A;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.06);
+    }
+    .notif-card.success {
+      border-color: #A7F3D0;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.06);
+    }
+    .notif-card.read {
+      background: #F8FAFC;
+      border-color: #E2E8F0;
+      opacity: 0.85;
+      box-shadow: none;
+    }
+
+    .notif-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    /* Circular icon container */
+    .icon-container {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .icon-blue { background: #EFF6FF; border: 1px solid #BFDBFE; color: #0878E8; }
+    .icon-red { background: #FEF2F2; border: 1px solid #FECACA; color: #DC2626; }
+    .icon-amber { background: #FFFBEB; border: 1px solid #FDE68A; color: #D97706; }
+    .icon-emerald { background: #ECFDF5; border: 1px solid #A7F3D0; color: #059669; }
+
+    .notif-content {
+      min-width: 0;
+      flex: 1;
+    }
+    .notif-header-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .notif-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.01em;
+    }
+    .notif-desc {
+      font-size: 12px;
+      color: #64748B;
+      margin-top: 2px;
+      line-height: 1.45;
+    }
+    .notif-meta {
+      font-size: 11px;
+      color: #94A3B8;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: monospace;
+    }
+    .notif-meta strong {
+      color: #64748B;
+      font-weight: 600;
+    }
+
+    .notif-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #0878E8;
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(8, 120, 232, 0.2);
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .btn-cta:hover { background: #0764C4; }
+    .btn-ghost {
+      background: transparent;
+      color: #64748B;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: color 0.15s;
+      white-space: nowrap;
+    }
+    .btn-ghost:hover { color: #111827; }
+    .btn-close {
+      background: transparent;
+      color: #94A3B8;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: color 0.15s;
+    }
+    .btn-close:hover { color: #111827; background: #F1F5F9; }
+
+    /* Responsive grid for showcase */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .notif-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .notif-actions {
+        width: 100%;
+        justify-content: flex-end;
+        padding-top: 10px;
+        border-top: 1px solid #F1F5F9;
+      }
+    }
+
+    /* Notification Center Popover Preview container */
+    .center-mockup {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      max-width: 480px;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+    .center-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #F8FAFC;
+    }
+    .center-body {
+      padding: 14px;
+      background: #FFFFFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <span>SADA OS</span>
+        <span style="color: #0878E8;">·</span>
+        <span>Unified Premium Notification UX</span>
+      </div>
+      <div class="subtitle">
+        Canonical Visual System Derived from the Realtime Push Alerts Reference Banner
+      </div>
+    </div>
+
+    <!-- SURFACE 1: REALTIME TOP NOTIFICATION BANNERS -->
+    <div class="section-title">
+      <span>1. In-App Realtime Notification Banners</span>
+      <span class="badge-pill badge-primary">Primary Surface</span>
+    </div>
+    <div class="section-desc">
+      Displayed at the top of the admin interface for active, actionable events.
+    </div>
+
+    <!-- Banner 1: Task Assigned -->
+    <div class="notif-card" id="banner-task">
+      <div class="notif-left">
+        <div class="icon-container icon-blue">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        </div>
+        <div class="notif-content">
+          <div class="notif-header-line">
+            <span class="notif-title">New Task Assigned: 4K Color Grading Reel</span>
+            <span class="badge-pill badge-primary">Task</span>
+          </div>
+          <div class="notif-desc">
+            A new commercial deliverable has been assigned to your workspace by Boubakar Hamed.
+          </div>
+          <div class="notif-meta">
+            <strong>Hermès Paris Campaign</strong> · <span>Due Fri, 20 Nov, 18:00 CET</span>
+          </div>
+        </div>
+      </div>
+      <div class="notif-actions">
+        <button class="btn-ghost">Maybe Later</button>
+        <button class="btn-cta">Open Task &rarr;</button>
+        <button class="btn-close" aria-label="Close">&times;</button>
+      </div>
+    </div>
+
+    <!-- Banner 2: Overdue Task -->
+    <div class="notif-card urgent" id="banner-overdue">
+      <div class="notif-left">
+        <div class="icon-container icon-red">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="notif-content">
+          <div class="notif-header-line">
+            <span class="notif-title">Task Overdue: Sound Design Master Track</span>
+            <span class="badge-pill badge-urgent">Urgent Action</span>
+          </div>
+          <div class="notif-desc">
+            This deliverable has passed its scheduled delivery window and requires immediate resolution.
+          </div>
+          <div class="notif-meta">
+            <strong>Rolex Middle East</strong> · <span style="color:#DC2626;">Elapsed by 6h</span>
+          </div>
+        </div>
+      </div>
+      <div class="notif-actions">
+        <button class="btn-ghost">Later</button>
+        <button class="btn-cta" style="background:#DC2626;">Resolve Task &rarr;</button>
+        <button class="btn-close" aria-label="Close">&times;</button>
+      </div>
+    </div>
+
+    <!-- SURFACE 2: TOAST NOTIFICATIONS (ALL REPRESENTATIVE CATEGORIES) -->
+    <div class="section-title">
+      <span>2. Toast Notifications & Semantic Accents</span>
+      <span class="badge-pill badge-primary">Popups & Signals</span>
+    </div>
+    <div class="section-desc">
+      Sonner toast card architecture rendering all 8 major business categories.
+    </div>
+
+    <div class="grid-2">
+      <!-- 1. Deadline Reminder -->
+      <div class="notif-card warning">
+        <div class="notif-left">
+          <div class="icon-container icon-amber">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="notif-content">
+            <div class="notif-header-line">
+              <span class="notif-title">Deadline Approaching</span>
+              <span class="badge-pill badge-warning">Due in 18h</span>
+            </div>
+            <div class="notif-desc">Social Media Cutdown delivery window closing soon.</div>
+            <div class="notif-meta"><strong>Cartier Joaillerie</strong> · <span>10m ago</span></div>
+          </div>
+        </div>
+        <div class="notif-actions">
+          <button class="btn-cta">View Task &rarr;</button>
+          <button class="btn-close">&times;</button>
+        </div>
+      </div>
+
+      <!-- 2. Revision Requested -->
+      <div class="notif-card warning">
+        <div class="notif-left">
+          <div class="icon-container icon-amber">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div class="notif-content">
+            <div class="notif-header-line">
+              <span class="notif-title">Revision Requested</span>
+              <span class="badge-pill badge-warning">Changes</span>
+            </div>
+            <div class="notif-desc">Typography motion kerning requires looser tracking (+40).</div>
+            <div class="notif-meta"><strong>Bvlgari Haute Horlogerie</strong> · <span>25m ago</span></div>
+          </div>
+        </div>
+        <div class="notif-actions">
+          <button class="btn-cta">Review Changes &rarr;</button>
+          <button class="btn-close">&times;</button>
+        </div>
+      </div>
+
+      <!-- 3. New Comment / Mention -->
+      <div class="notif-card">
+        <div class="notif-left">
+          <div class="icon-container icon-blue">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="notif-content">
+            <div class="notif-header-line">
+              <span class="notif-title">Mentioned by Sarah Karray</span>
+              <span class="badge-pill badge-primary">Comment</span>
+            </div>
+            <div class="notif-desc">"Can you verify the anamorphic squeeze factor before final export?"</div>
+            <div class="notif-meta"><strong>Balenciaga Winter Reel</strong> · <span>1h ago</span></div>
+          </div>
+        </div>
+        <div class="notif-actions">
+          <button class="btn-cta">View Comment &rarr;</button>
+          <button class="btn-close">&times;</button>
+        </div>
+      </div>
+
+      <!-- 4. Client Action Required -->
+      <div class="notif-card">
+        <div class="notif-left">
+          <div class="icon-container icon-blue">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="notif-content">
+            <div class="notif-header-line">
+              <span class="notif-title">Client Response Needed</span>
+              <span class="badge-pill badge-primary">Approval</span>
+            </div>
+            <div class="notif-desc">Dior brand director signed off on storyboard lighting.</div>
+            <div class="notif-meta"><strong>Dior Beauty</strong> · <span>2h ago</span></div>
+          </div>
+        </div>
+        <div class="notif-actions">
+          <button class="btn-cta">View Request &rarr;</button>
+          <button class="btn-close">&times;</button>
+        </div>
+      </div>
+
+      <!-- 5. Task Review Requested -->
+      <div class="notif-card success">
+        <div class="notif-left">
+          <div class="icon-container icon-emerald">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="notif-content">
+            <div class="notif-header-line">
+              <span class="notif-title">Submission Ready for QA</span>
+              <span class="badge-pill badge-success">Review</span>
+            </div>
+            <div class="notif-desc">3D Glass Bottle simulation submitted by Karim Ben Amor.</div>
+            <div class="notif-meta"><strong>Chanel Fragrance</strong> · <span>3h ago</span></div>
+          </div>
+        </div>
+        <div class="notif-actions">
+          <button class="btn-cta">Review Task &rarr;</button>
+          <button class="btn-close">&times;</button>
+        </div>
+      </div>
+
+      <!-- 6. Finance / Invoice Event -->
+      <div class="notif-card success">
+        <div class="notif-left">
+          <div class="icon-container icon-emerald">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="notif-content">
+            <div class="notif-header-line">
+              <span class="notif-title">Payment Received: 28,400 TND</span>
+              <span class="badge-pill badge-success">Finance</span>
+            </div>
+            <div class="notif-desc">Invoice INV-2026-0089 confirmed settled in central ledger.</div>
+            <div class="notif-meta"><strong>Yves Saint Laurent</strong> · <span>5h ago</span></div>
+          </div>
+        </div>
+        <div class="notif-actions">
+          <button class="btn-cta">View Transaction &rarr;</button>
+          <button class="btn-close">&times;</button>
+        </div>
+      </div>
+
+      <!-- 7. Production Calendar Event -->
+      <div class="notif-card">
+        <div class="notif-left">
+          <div class="icon-container icon-blue">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="notif-content">
+            <div class="notif-header-line">
+              <span class="notif-title">Upcoming Production: Commercial Shoot</span>
+              <span class="badge-pill badge-primary">Calendar</span>
+            </div>
+            <div class="notif-desc">Call time 07:30 AM sharp at Studio SADA Tunis. Stage B.</div>
+            <div class="notif-meta"><strong>Van Cleef & Arpels</strong> · <span>Tomorrow</span></div>
+          </div>
+        </div>
+        <div class="notif-actions">
+          <button class="btn-cta">View Schedule &rarr;</button>
+          <button class="btn-close">&times;</button>
+        </div>
+      </div>
+
+      <!-- 8. Account Security Alert -->
+      <div class="notif-card urgent">
+        <div class="notif-left">
+          <div class="icon-container icon-red">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="notif-content">
+            <div class="notif-header-line">
+              <span class="notif-title">Account Security Alert</span>
+              <span class="badge-pill badge-urgent">Security</span>
+            </div>
+            <div class="notif-desc">New administrative session authorized from macOS in Tunis.</div>
+            <div class="notif-meta"><strong>IP: 197.14.22.45</strong> · <span>10m ago</span></div>
+          </div>
+        </div>
+        <div class="notif-actions">
+          <button class="btn-cta" style="background:#DC2626;">Review Security &rarr;</button>
+          <button class="btn-close">&times;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SURFACE 3: NOTIFICATION CENTER POPOVER MOCKUP -->
+    <div class="section-title">
+      <span>3. Notification Center Popover Mockup</span>
+      <span class="badge-pill badge-primary">Panel Surface</span>
+    </div>
+    <div class="section-desc">
+      Demonstrating read and unread card states inside the 480px popover viewport.
+    </div>
+
+    <div class="center-mockup">
+      <div class="center-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <strong style="font-size:13px; text-transform:uppercase; letter-spacing:0.06em;">Attention Management</strong>
+          <span class="badge-pill badge-primary">3 Unread</span>
+        </div>
+        <span style="font-size:11px; color:#0878E8; font-weight:600; cursor:pointer;">Mark all read</span>
+      </div>
+      <div class="center-body">
+        <!-- Unread item -->
+        <div class="notif-card" style="padding:10px 12px; margin-bottom:8px;">
+          <div class="notif-left" style="gap:10px;">
+            <div class="icon-container icon-blue" style="width:34px; height:34px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            </div>
+            <div class="notif-content">
+              <div class="notif-title" style="font-size:12px;">Task Assigned: Color Grading</div>
+              <div class="notif-desc" style="font-size:11px;">Hermès Paris · Prores 4444 delivery</div>
+            </div>
+          </div>
+          <button class="btn-cta" style="padding:5px 10px; font-size:11px;">Open Task</button>
+        </div>
+
+        <!-- Read item -->
+        <div class="notif-card read" style="padding:10px 12px; margin-bottom:8px;">
+          <div class="notif-left" style="gap:10px;">
+            <div class="icon-container icon-emerald" style="width:34px; height:34px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="notif-content">
+              <div class="notif-title" style="font-size:12px; color:#64748B;">Client Approved Visual Frames</div>
+              <div class="notif-desc" style="font-size:11px;">Dior Beauty · Completed yesterday</div>
+            </div>
+          </div>
+          <button class="btn-ghost" style="padding:5px 8px; font-size:11px;">View Item</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
+
+fs.writeFileSync(SHOWCASE_HTML_PATH, showcaseHtml, "utf-8");
+console.log(`✅ Written HTML showcase to: ${SHOWCASE_HTML_PATH}`);
+
+async function runVisualQA() {
+  console.log("\n============================================================");
+  console.log("   LAUNCHING PUPPETEER FOR MULTI-VIEWPORT NOTIFICATION QA   ");
+  console.log("============================================================\n");
+
+  const chromePath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+  if (!fs.existsSync(chromePath)) {
+    console.error("❌ Chrome executable not found at:", chromePath);
+    process.exit(1);
+  }
+
+  const browser = await puppeteer.launch({
+    executablePath: chromePath,
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-gpu"],
+  });
+
+  const VIEWPORTS = [
+    { name: "desktop-1440", width: 1440, height: 900, label: "Desktop (1440px)" },
+    { name: "desktop-1280", width: 1280, height: 800, label: "Desktop (1280px)" },
+    { name: "tablet-768", width: 768, height: 1024, label: "Tablet (768px)" },
+    { name: "mobile-390", width: 390, height: 844, label: "Mobile (390px)" },
+  ];
+
+  const page = await browser.newPage();
+
+  for (const vp of VIEWPORTS) {
+    await page.setViewport({ width: vp.width, height: vp.height, deviceScaleFactor: 2 });
+    await page.goto(`file://${SHOWCASE_HTML_PATH}`, { waitUntil: "networkidle0" });
+
+    // Check overflow
+    const overflow = await page.evaluate(() => {
+      const doc = document.documentElement;
+      const clientWidth = window.innerWidth;
+      const scrollWidth = Math.max(doc.scrollWidth, document.body.scrollWidth);
+      return {
+        hasOverflow: scrollWidth > clientWidth,
+        scrollWidth,
+        clientWidth,
+      };
+    });
+
+    if (overflow.hasOverflow) {
+      console.error(
+        `  ❌ OVERFLOW on ${vp.label}: scrollWidth=${overflow.scrollWidth} > clientWidth=${overflow.clientWidth}`
+      );
+    } else {
+      console.log(
+        `  ✅ NO OVERFLOW on ${vp.label}: scrollWidth=${overflow.scrollWidth} <= clientWidth=${overflow.clientWidth}`
+      );
+    }
+
+    // Capture screenshot
+    const screenshotPath = path.join(SCREENSHOT_DIR, `${vp.name}.png`);
+    await page.screenshot({ path: screenshotPath, fullPage: true });
+    console.log(`  📸 Captured: ${vp.name}.png`);
+  }
+
+  // Also capture closeups of Banner and Toast Card at 1280px
+  await page.setViewport({ width: 1280, height: 800, deviceScaleFactor: 2 });
+  await page.goto(`file://${SHOWCASE_HTML_PATH}`, { waitUntil: "networkidle0" });
+
+  const bannerEl = await page.$("#banner-task");
+  if (bannerEl) {
+    await bannerEl.screenshot({ path: path.join(SCREENSHOT_DIR, "closeup-banner-task.png") });
+    console.log(`  📸 Captured closeup: closeup-banner-task.png`);
+  }
+
+  const overdueEl = await page.$("#banner-overdue");
+  if (overdueEl) {
+    await overdueEl.screenshot({ path: path.join(SCREENSHOT_DIR, "closeup-banner-overdue.png") });
+    console.log(`  📸 Captured closeup: closeup-banner-overdue.png`);
+  }
+
+  await browser.close();
+  console.log(`\n🎉 Visual QA completed! All screenshots saved in docs/screenshots/notification_ux_redesign/\n`);
+}
+
+runVisualQA().catch((err) => {
+  console.error("Visual QA error:", err);
+  process.exit(1);
+});

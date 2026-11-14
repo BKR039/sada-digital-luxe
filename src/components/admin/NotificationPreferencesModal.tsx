@@ -26,6 +26,7 @@ import {
   Trash2,
   Send,
   Radio,
+  Mail,
 } from "lucide-react";
 import {
   fetchNotificationPreferences,
@@ -447,6 +448,38 @@ export function NotificationPreferencesModal({
                     disabled={pushLoading}
                     size="sm"
                     aria-label="Toggle Mobile Push"
+                  />
+                </div>
+
+                {/* Channel 3: Transactional Email (Resend) */}
+                <div className="p-3 rounded-xl bg-card border border-border/60 flex items-start justify-between gap-3 sm:col-span-2">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-foreground flex items-center gap-1">
+                        <Mail className="size-3 text-primary" />
+                        {isRTL ? "إشعارات البريد الإلكتروني (Resend)" : "Transactional Email (Resend)"}
+                      </span>
+                      {prefs.email_notifications_enabled !== false ? (
+                        <SADABadge variant="success" size="xs">
+                          {isRTL ? "مفعل" : "Active"}
+                        </SADABadge>
+                      ) : (
+                        <SADABadge variant="neutral" size="xs">
+                          {isRTL ? "معطل" : "Disabled"}
+                        </SADABadge>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-muted-foreground mt-1">
+                      {isRTL
+                        ? "رسائل بريد إلكتروني فاخرة لمهامك وتنبيهات المواعيد والمراجعات من SADA"
+                        : "Receive luxury transactional emails for task assignments, deadline alerts, and review updates"}
+                    </p>
+                  </div>
+                  <SADASwitch
+                    checked={prefs.email_notifications_enabled !== false}
+                    onCheckedChange={() => handleToggle("email_notifications_enabled")}
+                    size="sm"
+                    aria-label="Toggle Email Notifications"
                   />
                 </div>
               </div>

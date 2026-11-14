@@ -157,6 +157,7 @@ export interface NotificationPreferences {
   month_end_closing: boolean;
   desktop_push_enabled?: boolean;
   mobile_push_enabled?: boolean;
+  email_notifications_enabled?: boolean;
   messages_enabled?: boolean;
   operations_enabled?: boolean;
   security_enabled?: boolean;
@@ -175,6 +176,45 @@ export interface PushSubscriptionRecord {
   is_active?: boolean;
   created_at?: string;
   last_seen_at?: string;
+}
+
+export type NotificationEmailTemplateId =
+  | "task_assigned_v1"
+  | "deadline_reminder_v1"
+  | "revision_requested_v1"
+  | "comment_mention_v1"
+  | "client_action_v1"
+  | "task_review_v1"
+  | "account_security_v1"
+  | "billing_finance_v1"
+  | "production_calendar_v1"
+  | "canonical_general_v1";
+
+export interface EmailDeliveryAttempt {
+  recipientId: string;
+  recipientEmail: string;
+  templateId: NotificationEmailTemplateId;
+  templateVersion: string;
+  status: "pending" | "sent" | "delivered" | "failed" | "bounced" | "complained" | "opted_out" | "skipped";
+  resendMessageId?: string;
+  statusCode?: number;
+  attemptCount: number;
+  attemptedAt: string;
+  deliveredAt?: string;
+  failureReason?: string;
+  providerResponse?: any;
+}
+
+export interface EmailDeliveryTracking {
+  deliveryStatus: "pending" | "sent" | "delivered" | "partially_delivered" | "failed" | "opted_out" | "skipped";
+  totalRecipients: number;
+  sentCount: number;
+  deliveredCount: number;
+  failedCount: number;
+  bouncedCount: number;
+  lastAttemptAt: string;
+  recipients: Record<string, EmailDeliveryAttempt>;
+  processedWebhookIds?: string[];
 }
 
 

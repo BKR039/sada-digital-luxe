@@ -4,6 +4,15 @@ Every discovered problem, recorded and never hidden. Update Status as issues are
 
 ---
 
+**Feature:** SADA OS — Notification System: Resend Transactional Email Integration & Client Bundle Isolation
+**Issue:** `DEF-RESEND-BUNDLE-01` (TanStack Start Client Environment Import Protection Violation):
+- **Direct Cause**: When wiring up `triggerEmailDispatch` inside `src/lib/notification-service.ts` (which is imported by client components and routes like `NotificationCenter.tsx` and `admin.my-work.tsx`), an isomorphic dynamic `import("../server/email-dispatcher")` was initially placed inside `if (typeof window === "undefined")`. TanStack Start's `import-protection-plugin` statically scans module ASTs during the client Vite build and denied the import with `[import-protection] Import denied in client environment: Denied by file pattern: **/server/**`.
+- **Secondary Factor**: In `notification_preferences`, preferences were previously queried from `user_notification_preferences` rather than `notification_preferences`.
+**Priority:** P1 (Bundle Isolation, Build Integrity & Secret Defense)
+**Status:** Resolved (2026-11-14) — Decoupled client and server execution paths: `triggerEmailDispatch` in `src/lib/notification-service.ts` delegates to the authenticated server endpoint `POST /api/email/dispatch` via `fetch()`, completely eliminating any client-side reference to `src/server/**`. Server-side execution paths (like `reminder-scheduler.ts` and background tasks) call `dispatchEmailNotification` directly. Corrected table query to `public.notification_preferences` with support for event-level preferences (`task_assigned`, `task_due_soon`, etc.). Certified across 42/42 assertions in `scripts/test-resend-email-integration.ts` and verified with a clean `npm run build` and `npx tsc --noEmit`.
+
+---
+
 **Feature:** SADA OS — Notification System 3.0: Reminder Scheduler Query & Authentication Failures
 **Issue:** `DEF-NOTIF-SCHED-01` (Reminder Scheduler RLS Permission Errors & Schema Mismatches):
 - **Direct Cause**: Headless reminder scanner in `src/server/reminder-scheduler.ts` was falling back to the unauthenticated anon key when `SUPABASE_SERVICE_ROLE_KEY` was absent in runtime environment. This caused PostgreSQL RLS functions (`is_super_admin`, `has_sada_access`, `is_admin`) to throw `permission denied for function...` on all reminder queries, resulting in `scannedTasks=0, overdueTasks=0, dueSoonTasks=0, errors=3`. Additionally, PostgREST filter syntax `.not("status", "in", "('paid', 'cancelled')")` contained invalid quotes, and query on `production_bookings` referenced non-existent columns `production_date` and `status` instead of `date` and `stage`.

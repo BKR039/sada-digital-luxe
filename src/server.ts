@@ -190,6 +190,68 @@ async function handleApiRoute(request: Request): Promise<Response | null> {
     }
   }
 
+  // 4. Resend Transactional Email Dispatch Endpoint (POST)
+  if (url.pathname === "/api/email/dispatch" && request.method === "POST") {
+    if (!isAuthorizedServerRequest(request)) {
+      return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    try {
+      const { dispatchEmailNotification } = await import("./server/email-dispatcher");
+      const body = await request.json().catch(() => ({}));
+      const { notificationId, forceRetry, overrideRecipientEmail, overrideRecipientName } = body;
+
+      if (!notificationId) {
+        return new Response(JSON.stringify({ error: "notificationId is required" }), {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+
+      const authHeader = request.headers.get("Authorization") || undefined;
+      const result = await dispatchEmailNotification(notificationId, {
+        authHeader,
+        forceRetry,
+        overrideRecipientEmail,
+        overrideRecipientName,
+      });
+
+      return new Response(JSON.stringify(result), {
+        status: result.success ? 200 : 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (err: any) {
+      return new Response(JSON.stringify({ error: err?.message || "Failed to dispatch email" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }
+
+  // 5. Resend Webhook Event Endpoint (POST)
+  if (url.pathname === "/api/email/webhooks" && request.method === "POST") {
+    try {
+      const { handleResendWebhook } = await import("./server/email-dispatcher");
+      const payload = await request.json().catch(() => ({}));
+      const signatureHeader = request.headers.get("svix-signature") || undefined;
+      const webhookSecret = process.env.RESEND_WEBHOOK_SECRET;
+
+      const result = await handleResendWebhook(payload, { signatureHeader, webhookSecret });
+      return new Response(JSON.stringify(result), {
+        status: result.success ? 200 : 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (err: any) {
+      return new Response(JSON.stringify({ error: err?.message || "Webhook handling failed" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }
+
   return null;
 }
 

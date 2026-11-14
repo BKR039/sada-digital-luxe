@@ -3,6 +3,43 @@
 Every important technical/product decision, most recent first. Append new entries; never edit past ones except to fix a factual error. (Migrated from the earlier `.memory/roadmap.md` — see that file for a pointer.)
 
 **Date:** 2026-11-14
+**Decision:** SADA OS RESEND TRANSACTIONAL EMAIL INTEGRATION & DUAL/TRI-CHANNEL DELIVERY ARCHITECTURE:
+1. **Architecture & Framework Integration**:
+   - Integrated the official Resend SDK (`resend`) strictly on the server side (`src/server/email-dispatcher.ts`, `src/server/email-templates.ts`).
+   - Zero client-side leakage: `RESEND_API_KEY` is never prefixed with `VITE_` and never imported or bundled in client routes or components.
+   - TanStack Start import protection verified: `notification-service.ts` delegates email dispatch to the authenticated server API (`POST /api/email/dispatch`) rather than importing server-side modules into client chunks.
+   - Dual/tri-channel architecture established for all 48 canonical business events: In-App Realtime, Web Push (VAPID), and Transactional Email (Resend). Delivery across channels is completely decoupled and non-blocking.
+2. **SADA Luxury Email Design System & 10 Dedicated Templates**:
+   - Engineered responsive, mobile-first luxury email shell (`wrapInSadaLayout`) featuring SADA brand cyan (`#5CE1E6`), deep navy container (`#0D1527`), high-contrast off-black canvas (`#050811`), MSO VML buttons for Outlook compatibility, bulletproof HTML CTA buttons, and responsive grid metadata layouts.
+   - Strict XSS defense via `escapeHtml()` sanitizer applied across all parameters, tags, and titles.
+   - 10 dedicated event template renderers:
+     1. Task Assigned (`task_assigned_v1`): client/project, priority badge, deadline, assigner, task brief callout.
+     2. Deadline Reminder & Overdue (`deadline_reminder_v1`): exact deadline, urgency badge, remaining time/overdue duration, status indicator.
+     3. Revision Requested (`revision_requested_v1`): reviewer name, deliverable, specific feedback callout, version tag.
+     4. New Comment / Mention (`comment_mention_v1`): author badge, discussion context, message excerpt, conversation link.
+     5. Client Action Required (`client_action_v1`): client name, action needed badge, deadline, direct workspace link.
+     6. Task Review Requested (`task_review_v1`): assignee submitter, deliverable link, review deadline, approval notes.
+     7. Account & Security Events (`account_security_v1`): severity badge, event description, IP/device metadata, security review CTA.
+     8. Billing & Finance (`billing_finance_v1`): invoice/deal ID, client, amount, currency, status, due date.
+     9. Production & Calendar (`production_calendar_v1`): shoot/event date, location, call time, crew roles, agenda.
+     10. Canonical General Fallback (`canonical_general_v1`): universal structured layout for remaining canonical events.
+3. **Universal Worker Acknowledgment Policy Compliance**:
+   - Viewing or opening an email explicitly does NOT count as task acknowledgment under SADA OS Operating Rules.
+   - Every operational email embeds a clear notice warning workers that viewing does not constitute official acknowledgment.
+   - Email CTA buttons route directly to authenticated task context with tracking parameters (`/admin/my-work?task={taskId}&notif={notificationId}&ack=1&utm_source=email_resend`).
+4. **Delivery Tracking, Idempotency & Resend Webhooks**:
+   - Persisted structured tracking in `public.notifications.metadata.email_delivery_tracking`: records recipient status (`pending`, `sent`, `delivered`, `failed`, `bounced`, `opted_out`), message ID, attempt count, timestamps, and provider responses.
+   - Server-side idempotency guard skips recipients whose status is already `sent` or `delivered` unless `forceRetry` is explicitly passed.
+   - Implemented webhook receiver (`handleResendWebhook`) and API endpoint (`POST /api/email/webhooks`): processes `email.delivered`, `email.bounced`, and `email.complained` with a dedicated `processedWebhookIds` deduplication guard.
+5. **Quality Verification**:
+   - Executed automated test suite (`scripts/test-resend-email-integration.ts`): 42 / 42 assertions PASSED (100%).
+   - Controlled live dispatch verified with Super Admin inbox (`boubakarhamedsgail@gmail.com`): Resend returned valid message ID (`01a1da81-3ffe-766d-8aff-c1489d04f3d4`).
+   - Webhook delivery simulation transitioned status to `delivered`; duplicate webhook safely ignored.
+   - Verified zero secret leakage in client code and git-tracked `.env`.
+   - `npx tsc --noEmit` and `npm run build` compiled with code 0 (zero errors).
+
+
+**Date:** 2026-11-14
 **Decision:** SADA OS NOTIFICATION SYSTEM 3.0 PRODUCTION READINESS, SCHEDULER REMEDIATION & PWA PUSH DELIVERY:
 1. **Diagnosis & Audit**:
    - The user requested production-readiness remediation for Notification System 3.0 following earlier scheduler errors (`scannedTasks=0, overdueTasks=0, dueSoonTasks=0, errors=3`).

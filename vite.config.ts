@@ -141,6 +141,68 @@ export default defineConfig({
               }
               return;
             }
+
+            // 4. Resend Transactional Email Dispatch Endpoint (POST)
+            if (url?.pathname === "/api/email/dispatch" && req.method === "POST") {
+              if (!isAuthorized()) {
+                res.statusCode = 401;
+                res.setHeader("Content-Type", "application/json");
+                res.end(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }));
+                return;
+              }
+
+              let body = "";
+              req.on("data", (chunk) => {
+                body += chunk;
+              });
+              req.on("end", async () => {
+                try {
+                  const { dispatchEmailNotification } = await import("./src/server/email-dispatcher");
+                  const data = JSON.parse(body || "{}");
+                  const authHeader = req.headers.authorization;
+                  const result = await dispatchEmailNotification(data.notificationId, {
+                    authHeader,
+                    forceRetry: data.forceRetry,
+                    overrideRecipientEmail: data.overrideRecipientEmail,
+                    overrideRecipientName: data.overrideRecipientName,
+                  });
+                  res.statusCode = result.success ? 200 : 500;
+                  res.setHeader("Content-Type", "application/json");
+                  res.end(JSON.stringify(result));
+                } catch (err: any) {
+                  res.statusCode = 500;
+                  res.setHeader("Content-Type", "application/json");
+                  res.end(JSON.stringify({ error: err?.message || "Failed to dispatch email" }));
+                }
+              });
+              return;
+            }
+
+            // 5. Resend Webhook Event Endpoint (POST)
+            if (url?.pathname === "/api/email/webhooks" && req.method === "POST") {
+              let body = "";
+              req.on("data", (chunk) => {
+                body += chunk;
+              });
+              req.on("end", async () => {
+                try {
+                  const { handleResendWebhook } = await import("./src/server/email-dispatcher");
+                  const payload = JSON.parse(body || "{}");
+                  const signatureHeader = req.headers["svix-signature"] as string | undefined;
+                  const webhookSecret = process.env.RESEND_WEBHOOK_SECRET;
+
+                  const result = await handleResendWebhook(payload, { signatureHeader, webhookSecret });
+                  res.statusCode = result.success ? 200 : 400;
+                  res.setHeader("Content-Type", "application/json");
+                  res.end(JSON.stringify(result));
+                } catch (err: any) {
+                  res.statusCode = 500;
+                  res.setHeader("Content-Type", "application/json");
+                  res.end(JSON.stringify({ error: err?.message || "Webhook handling failed" }));
+                }
+              });
+              return;
+            }
             next();
           });
         },

@@ -39,6 +39,7 @@ export const DEFAULT_NOTIFICATION_PREFERENCES: Omit<NotificationPreferences, "us
   month_end_closing: true,
   desktop_push_enabled: false,
   mobile_push_enabled: false,
+  email_notifications_enabled: true,
   messages_enabled: true,
   operations_enabled: true,
   security_enabled: true,
@@ -840,6 +841,7 @@ export async function emitNotification(
     if (error) throw error;
     if (inserted?.id) {
       void triggerPushDispatch(inserted.id);
+      void triggerEmailDispatch(inserted.id);
     }
     return { success: true, id: inserted?.id, deduplicated: false, data: inserted };
   } catch (err) {
@@ -887,6 +889,27 @@ async function triggerPushDispatch(notificationId: string): Promise<void> {
     }
   } catch (err) {
     console.warn("[triggerPushDispatch] Push dispatch notice:", err);
+  }
+}
+
+/**
+ * Triggers server-side Resend Email dispatch:
+ * Application server endpoint (/api/email/dispatch)
+ */
+async function triggerEmailDispatch(notificationId: string): Promise<void> {
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    const token = session?.access_token;
+    await fetch("/api/email/dispatch", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify({ notificationId }),
+    });
+  } catch (err) {
+    console.warn("[triggerEmailDispatch] Non-blocking email dispatch notice:", err);
   }
 }
 

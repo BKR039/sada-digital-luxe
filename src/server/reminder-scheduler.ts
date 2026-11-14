@@ -7,6 +7,7 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { format, addDays, isPast, parseISO } from "date-fns";
 import { dispatchPushNotification } from "./push-dispatcher";
+import { dispatchEmailNotification } from "./email-dispatcher";
 
 export interface SchedulerScanResult {
   timestamp: string;
@@ -17,6 +18,7 @@ export interface SchedulerScanResult {
   shootsTomorrow: number;
   notificationsEmitted: number;
   pushesDispatched: number;
+  emailsDispatched: number;
   errors: string[];
 }
 
@@ -96,6 +98,7 @@ export async function runScheduledReminderScan(
     shootsTomorrow: 0,
     notificationsEmitted: 0,
     pushesDispatched: 0,
+    emailsDispatched: 0,
     errors: [],
   };
 
@@ -178,10 +181,20 @@ export async function runScheduledReminderScan(
               result.notificationsEmitted++;
 
               // Dispatch push immediately
-              const pushRes = await dispatchPushNotification(inserted.id, { client: supabase });
-              if (pushRes.success && pushRes.sentCount > 0) {
-                result.pushesDispatched += pushRes.sentCount;
-              }
+              try {
+                const pushRes = await dispatchPushNotification(inserted.id, { client: supabase });
+                if (pushRes.success && pushRes.sentCount > 0) {
+                  result.pushesDispatched += pushRes.sentCount;
+                }
+              } catch (_) {}
+
+              // Dispatch email immediately (Tri-channel delivery)
+              try {
+                const emailRes = await dispatchEmailNotification(inserted.id, { client: supabase });
+                if (emailRes.success && emailRes.sentCount > 0) {
+                  result.emailsDispatched += emailRes.sentCount;
+                }
+              } catch (_) {}
             }
           }
         }
@@ -221,10 +234,20 @@ export async function runScheduledReminderScan(
               result.notificationsEmitted++;
 
               // Dispatch push immediately
-              const pushRes = await dispatchPushNotification(inserted.id, { client: supabase });
-              if (pushRes.success && pushRes.sentCount > 0) {
-                result.pushesDispatched += pushRes.sentCount;
-              }
+              try {
+                const pushRes = await dispatchPushNotification(inserted.id, { client: supabase });
+                if (pushRes.success && pushRes.sentCount > 0) {
+                  result.pushesDispatched += pushRes.sentCount;
+                }
+              } catch (_) {}
+
+              // Dispatch email immediately (Tri-channel delivery)
+              try {
+                const emailRes = await dispatchEmailNotification(inserted.id, { client: supabase });
+                if (emailRes.success && emailRes.sentCount > 0) {
+                  result.emailsDispatched += emailRes.sentCount;
+                }
+              } catch (_) {}
             }
           }
         }
@@ -275,10 +298,21 @@ export async function runScheduledReminderScan(
             recentKeys.add(key);
             result.notificationsEmitted++;
 
-            const pushRes = await dispatchPushNotification(inserted.id, { client: supabase });
-            if (pushRes.success && pushRes.sentCount > 0) {
-              result.pushesDispatched += pushRes.sentCount;
-            }
+            // Dispatch push immediately
+            try {
+              const pushRes = await dispatchPushNotification(inserted.id, { client: supabase });
+              if (pushRes.success && pushRes.sentCount > 0) {
+                result.pushesDispatched += pushRes.sentCount;
+              }
+            } catch (_) {}
+
+            // Dispatch email immediately (Tri-channel delivery)
+            try {
+              const emailRes = await dispatchEmailNotification(inserted.id, { client: supabase });
+              if (emailRes.success && emailRes.sentCount > 0) {
+                result.emailsDispatched += emailRes.sentCount;
+              }
+            } catch (_) {}
           }
         }
       }
@@ -327,10 +361,21 @@ export async function runScheduledReminderScan(
             recentKeys.add(key);
             result.notificationsEmitted++;
 
-            const pushRes = await dispatchPushNotification(inserted.id, { client: supabase });
-            if (pushRes.success && pushRes.sentCount > 0) {
-              result.pushesDispatched += pushRes.sentCount;
-            }
+            // Dispatch push immediately
+            try {
+              const pushRes = await dispatchPushNotification(inserted.id, { client: supabase });
+              if (pushRes.success && pushRes.sentCount > 0) {
+                result.pushesDispatched += pushRes.sentCount;
+              }
+            } catch (_) {}
+
+            // Dispatch email immediately (Tri-channel delivery)
+            try {
+              const emailRes = await dispatchEmailNotification(inserted.id, { client: supabase });
+              if (emailRes.success && emailRes.sentCount > 0) {
+                result.emailsDispatched += emailRes.sentCount;
+              }
+            } catch (_) {}
           }
         }
       }

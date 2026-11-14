@@ -19,6 +19,7 @@ export interface SchedulerExecutionRecord {
   shootsTomorrow: number;
   notificationsEmitted: number;
   pushesDispatched: number;
+  emailsDispatched: number;
   errors: string[];
 }
 
@@ -33,6 +34,7 @@ export interface SchedulerDaemonStatus {
   totalRuns: number;
   totalEmitted: number;
   totalPushes: number;
+  totalEmails: number;
   recentRuns: SchedulerExecutionRecord[];
 }
 
@@ -47,6 +49,7 @@ class NotificationSchedulerDaemon {
   private totalRuns: number = 0;
   private totalEmitted: number = 0;
   private totalPushes: number = 0;
+  private totalEmails: number = 0;
   private history: SchedulerExecutionRecord[] = [];
   private readonly MAX_HISTORY = 20;
 
@@ -111,6 +114,7 @@ class NotificationSchedulerDaemon {
         shootsTomorrow: 0,
         notificationsEmitted: 0,
         pushesDispatched: 0,
+        emailsDispatched: 0,
         errors: ["Scheduler cycle already executing in another task. Skipping to prevent race conditions."],
       };
       return busyRecord;
@@ -142,12 +146,14 @@ class NotificationSchedulerDaemon {
         shootsTomorrow: scanResult.shootsTomorrow,
         notificationsEmitted: scanResult.notificationsEmitted,
         pushesDispatched: scanResult.pushesDispatched,
+        emailsDispatched: scanResult.emailsDispatched,
         errors: scanResult.errors,
       };
 
       this.totalRuns++;
       this.totalEmitted += scanResult.notificationsEmitted;
       this.totalPushes += scanResult.pushesDispatched;
+      this.totalEmails += scanResult.emailsDispatched;
 
       if (isSuccess) {
         this.lastStatus = "SUCCESS";
@@ -178,6 +184,7 @@ class NotificationSchedulerDaemon {
         shootsTomorrow: 0,
         notificationsEmitted: 0,
         pushesDispatched: 0,
+        emailsDispatched: 0,
         errors: [err?.message || "Unhandled scheduler exception"],
       };
 
@@ -205,6 +212,7 @@ class NotificationSchedulerDaemon {
       totalRuns: this.totalRuns,
       totalEmitted: this.totalEmitted,
       totalPushes: this.totalPushes,
+      totalEmails: this.totalEmails,
       recentRuns: [...this.history],
     };
   }

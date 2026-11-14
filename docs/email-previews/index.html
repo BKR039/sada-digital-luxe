@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SADA OS — Transactional Email Light Design System Catalog</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #F1F5F9; color: #0F172A; margin: 0; padding: 32px; }
+    h1 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+    p { color: #64748B; font-size: 14px; margin-top: 0; }
+    .nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 24px 0; }
+    .card { background: white; border: 1px solid #E2E8F0; border-radius: 8px; padding: 16px; transition: transform 0.15s, box-shadow 0.15s; text-decoration: none; color: inherit; display: block; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.06); border-color: #0878E8; }
+    .badge { display: inline-block; padding: 3px 8px; border-radius: 9999px; font-size: 11px; font-weight: 700; background: #EFF6FF; color: #0878E8; margin-bottom: 8px; }
+    .cta-badge { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 600; background: #F8FAFC; border: 1px solid #E2E8F0; color: #334155; }
+    .title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .preview-container { margin-top: 40px; background: white; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; }
+    iframe { border: 1px solid #E2E8F0; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>SADA OS — Transactional Email Light Design System</h1>
+  <p>10 Canonical Notification Templates + Fallback · Clean Premium SaaS Light Theme · Resend Tested</p>
+  
+  <div class="nav-grid">
+    
+      <a href="01_task_assigned.html" target="previewFrame" class="card">
+        <span class="badge">Template</span>
+        <div class="title">1. Task Assigned</div>
+        <div class="cta-badge">CTA: Open Task</div>
+      </a>
+    
+      <a href="02_deadline_reminder.html" target="previewFrame" class="card">
+        <span class="badge">Template</span>
+        <div class="title">2. Deadline Reminder (Due Soon)</div>
+        <div class="cta-badge">CTA: View Task & Deadline</div>
+      </a>
+    
+      <a href="03_overdue_task.html" target="previewFrame" class="card">
+        <span class="badge">Template</span>
+        <div class="title">3. Overdue Task</div>
+        <div class="cta-badge">CTA: Resolve Overdue Task</div>
+      </a>
+    
+      <a href="04_revision_requested.html" target="previewFrame" class="card">
+        <span class="badge">Template</span>
+        <div class="title">4. Revision Requested</div>
+        <div class="cta-badge">CTA: Review Requested Changes</div>
+      </a>
+    
+      <a href="05_comment_mention.html" target="previewFrame" class="card">
+        <span class="badge">Template</span>
+        <div class="title">5. Comment / Mention</div>
+        <div class="cta-badge">CTA: View Comment</div>
+      </a>
+    
+      <a href="06_client_action.html" target="previewFrame" class="card">
+        <span class="badge">Template</span>
+        <div class="title">6. Client Action Required</div>
+        <div class="cta-badge">CTA: Review Client Request</div>
+      </a>
+    
+      <a href="07_task_review.html" target="previewFrame" class="card">
+        <span class="badge">Template</span>
+        <div class="title">7. Task Review Requested</div>
+        <div class="cta-badge">CTA: Review Submission</div>
+      </a>
+    
+      <a href="08_security_event.html" target="previewFrame" class="card">
+        <span class="badge">Template</span>
+        <div class="title">8. Account Security Alert</div>
+        <div class="cta-badge">CTA: Review Account Security</div>
+      </a>
+    
+      <a href="09_billing_finance.html" target="previewFrame" class="card">
+        <span class="badge">Template</span>
+        <div class="title">9. Billing & Finance Event</div>
+        <div class="cta-badge">CTA: View Transaction</div>
+      </a>
+    
+      <a href="10_production_calendar.html" target="previewFrame" class="card">
+        <span class="badge">Template</span>
+        <div class="title">10. Production & Calendar Event</div>
+        <div class="cta-badge">CTA: View Schedule</div>
+      </a>
+    
+      <a href="11_canonical_fallback.html" target="previewFrame" class="card">
+        <span class="badge">Template</span>
+        <div class="title">11. Canonical General Fallback</div>
+        <div class="cta-badge">CTA: View in SADA OS</div>
+      </a>
+    
+  </div>
+
+  <div class="preview-container">
+    <h2 style="font-size: 18px; margin-top: 0;">Interactive Live Preview</h2>
+    <p style="font-size: 13px; color: #64748B;">Click any card above to view it in the iframe below, or open each HTML file directly in any browser.</p>
+    <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+      <div>
+        <div style="font-size: 12px; font-weight: 700; color: #64748B; margin-bottom: 8px;">DESKTOP VIEW (600px Max-Width Canvas)</div>
+        <iframe name="previewFrame" src="01_task_assigned.html" width="640" height="750"></iframe>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 700; color: #64748B; margin-bottom: 8px;">MOBILE VIEW (375px Fluid Canvas)</div>
+        <iframe src="01_task_assigned.html" width="375" height="750"></iframe>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

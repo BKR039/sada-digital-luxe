@@ -158,7 +158,7 @@ async function runTestSuite() {
   assert(taskAssignedEmail.templateId.startsWith("task_assigned"), `Task Assigned templateId is correct (${taskAssignedEmail.templateId})`);
   assert(taskAssignedEmail.subject.includes("[SADA Task] Assigned:"), "Task Assigned subject contains proper badge prefix");
   assert(taskAssignedEmail.html.includes("#5CE1E6"), "Email HTML includes SADA brand cyan accent (#5CE1E6)");
-  assert(taskAssignedEmail.html.includes("#0D1527"), "Email HTML includes SADA luxury dark navy container (#0D1527)");
+  assert(taskAssignedEmail.html.includes("#FFFFFF") && taskAssignedEmail.html.includes("#F4F7FB"), "Email HTML includes SADA premium light theme canvas (#F4F7FB) and card (#FFFFFF)");
   assert(!taskAssignedEmail.html.includes("<script>"), "HTML escaping prevents raw <script> execution");
   assert(taskAssignedEmail.html.includes("&lt;script&gt;"), "XSS payload properly converted to HTML entities");
   assert(taskAssignedEmail.html.includes("utm_source=email_resend"), "CTA link contains required tracking utm parameters");

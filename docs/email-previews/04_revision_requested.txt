@@ -1,0 +1,12 @@
+SADA OS — Revisions Requested
+
+Task: Typography Motion Sequence
+Client: Bvlgari Haute Horlogerie
+Reviewer: Amine Sghaier (Lead Designer)
+
+Feedback:
+The serif font kerning on the Roman numerals requires looser tracking (+40). Tone down the bloom pass by 15%.
+
+Review Requested Changes: https://sada.agency/admin/tasks/bvlgari-motion-04?notif=notif_preview_004&ack=1&utm_source=email_resend&utm_medium=transactional_email
+
+Please acknowledge this task inside SADA OS. Opening this email does not confirm receipt.

@@ -299,7 +299,7 @@ async function runFinalAcceptanceSuite() {
   });
   assert(t8.templateId === "account_security_v1", "Template 8: Security Alert maps to account_security_v1");
   assert(!t8.html.includes("2026-11-14T16:15:00Z"), "Template 8: Replaces raw ISO timestamp");
-  assert(t8.html.includes("Review Security Center"), "Template 8: Security CTA button present");
+  assert(t8.html.includes("Review Account Security"), "Template 8: Security CTA button 'Review Account Security' present");
 
   // 9. Billing & Finance Event
   const t9 = renderNotificationEmail({

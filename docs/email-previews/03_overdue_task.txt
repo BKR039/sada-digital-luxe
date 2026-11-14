@@ -1,0 +1,12 @@
+SADA OS — OVERDUE ALERT
+
+Task: Sound Design Master Track
+Client: Rolex Middle East
+Deadline: Sat, 14 Nov 2026, 11:00 CET
+Status: Overdue by 6h
+
+This task has exceeded its scheduled completion window. Please review immediate next steps, submit deliverables, or report blockers.
+
+Resolve Overdue Task: https://sada.agency/admin/tasks/rolex-audio-03?notif=notif_preview_003&ack=1&utm_source=email_resend&utm_medium=transactional_email
+
+Please acknowledge this task inside SADA OS. Opening this email does not confirm receipt.

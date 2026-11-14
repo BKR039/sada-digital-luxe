@@ -1,6 +1,6 @@
 // ============================================================
-// SADA OS — TRANSACTIONAL EMAIL TEMPLATE SYSTEM
-// Luxury Branded HTML & Plaintext Email Templates for Canonical Events
+// SADA OS — TRANSACTIONAL EMAIL TEMPLATE SYSTEM (LIGHT THEME)
+// Premium SaaS Light Design System for Canonical Notification Events
 // Mobile-First, Bulletproof Table Layout, Security-Hardened
 // ============================================================
 
@@ -129,7 +129,29 @@ export function resolveActionUrl(
 }
 
 /**
- * Core SADA Luxury Email HTML Shell.
+ * Computes light-theme color tokens for badges based on primary accent color.
+ */
+function getBadgeColors(categoryColor: string): { bg: string; border: string; text: string } {
+  const c = categoryColor.toUpperCase();
+  if (c === "#DC2626" || c === "#EF4444") {
+    return { bg: "#FEF2F2", border: "#FECACA", text: "#DC2626" };
+  }
+  if (c === "#D97706" || c === "#F59E0B") {
+    return { bg: "#FFFBEB", border: "#FDE68A", text: "#D97706" };
+  }
+  if (c === "#059669" || c === "#10B981") {
+    return { bg: "#ECFDF5", border: "#A7F3D0", text: "#059669" };
+  }
+  if (c === "#64748B" || c === "#94A3B8") {
+    return { bg: "#F1F5F9", border: "#E2E8F0", text: "#475569" };
+  }
+  // Default SADA Blue (#0878E8) or Cyan (#5CE1E6)
+  return { bg: "#EFF6FF", border: "#BFDBFE", text: "#0878E8" };
+}
+
+/**
+ * Core SADA Premium Light Email HTML Shell.
+ * Clean, modern enterprise design system.
  * Responsive table-based layout compatible with Gmail, Apple Mail, Outlook (Windows/Mac/Web), iOS, Android.
  */
 function wrapInSadaLayout(options: {
@@ -144,14 +166,15 @@ function wrapInSadaLayout(options: {
   const { categoryLabel, categoryBadgeColor, heading, contentHtml, actionUrl, actionLabel, showAckNotice = true } = options;
   const baseUrlOrigin = actionUrl.match(/^(https?:\/\/[^\/?#]+)/)?.[1] || "https://sada.agency";
   const settingsUrl = `${baseUrlOrigin}/admin/settings`;
+  const badgeColors = getBadgeColors(categoryBadgeColor);
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light dark">
-  <meta name="supported-color-schemes" content="light dark">
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
   <title>${escapeHtml(heading)}</title>
   <!--[if mso]>
   <noscript>
@@ -166,11 +189,11 @@ function wrapInSadaLayout(options: {
     body {
       margin: 0;
       padding: 0;
-      background-color: #080D1A;
+      background-color: #F4F7FB;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      color: #E2E8F0;
+      color: #111827;
     }
     table {
       border-collapse: collapse;
@@ -190,14 +213,31 @@ function wrapInSadaLayout(options: {
       width: 100%;
       max-width: 600px;
       margin: 0 auto;
-      background-color: #0D1527;
-      border: 1px solid #1E293B;
-      border-radius: 16px;
+      background-color: #FFFFFF;
+      border: 1px solid #E5EAF0;
+      border-radius: 12px;
       overflow: hidden;
       table-layout: fixed;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    .cta-button {
+      display: inline-block;
+      padding: 13px 28px;
+      background-color: #0878E8;
+      color: #FFFFFF !important;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(8, 120, 232, 0.25);
+      box-sizing: border-box;
+      text-align: center;
+      min-height: 44px;
+      line-height: 18px;
     }
     .cta-button:hover {
-      background-color: #4BD4D9 !important;
+      background-color: #0764C4 !important;
     }
     @media only screen and (max-width: 620px) {
       .email-container {
@@ -210,42 +250,45 @@ function wrapInSadaLayout(options: {
         padding: 20px 16px !important;
       }
       .header-padding {
-        padding: 20px 16px 14px 16px !important;
+        padding: 18px 16px 14px 16px !important;
       }
       .footer-padding {
-        padding: 20px 16px !important;
+        padding: 18px 16px !important;
       }
       .cta-button {
         display: block !important;
         width: 100% !important;
-        padding: 12px 16px !important;
+        padding: 13px 16px !important;
         box-sizing: border-box !important;
       }
     }
   </style>
 </head>
-<body style="margin: 0; padding: 16px 0; background-color: #080D1A; color: #E2E8F0;">
-  <center style="width: 100%; table-layout: fixed;">
-    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #080D1A; table-layout: fixed;">
+<body style="margin: 0; padding: 24px 0; background-color: #F4F7FB; color: #111827;">
+  <center style="width: 100%; table-layout: fixed; background-color: #F4F7FB;">
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #F4F7FB; table-layout: fixed;">
       <tr>
-        <td align="center" style="padding: 12px 6px;">
-          <!-- Top Neon Cyan Accent Line -->
-          <div style="max-width: 600px; width: 100%; height: 3px; background: linear-gradient(90deg, #5CE1E6 0%, #3B82F6 100%); border-radius: 3px 3px 0 0;"></div>
+        <td align="center" style="padding: 12px 8px;">
           
-          <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="email-container" style="max-width: 600px; width: 100%; background-color: #0D1527; border: 1px solid #1E293B; border-radius: 0 0 16px 16px; table-layout: fixed;">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="email-container" style="max-width: 600px; width: 100%; background-color: #FFFFFF; border: 1px solid #E5EAF0; border-radius: 12px; overflow: hidden; table-layout: fixed; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);">
             
+            <!-- Top Gradient Accent Line -->
+            <tr>
+              <td style="height: 3px; background: linear-gradient(90deg, #0878E8 0%, #5CE1E6 100%); line-height: 3px; font-size: 1px;">&nbsp;</td>
+            </tr>
+
             <!-- HEADER -->
             <tr>
-              <td class="header-padding" style="padding: 28px 28px 18px 28px; border-bottom: 1px solid #162238;">
+              <td class="header-padding" style="padding: 22px 28px 18px 28px; border-bottom: 1px solid #E5EAF0; background-color: #FFFFFF;">
                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
                   <tr>
                     <td align="left" valign="middle">
-                      <div style="font-size: 16px; font-weight: 800; letter-spacing: 0.12em; color: #FFFFFF; text-transform: uppercase;">
-                        SADA <span style="color: #5CE1E6; font-size: 18px;">·</span> <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.18em; color: #94A3B8;">OPERATING SYSTEM</span>
+                      <div style="font-size: 16px; font-weight: 800; letter-spacing: 0.12em; color: #111827; text-transform: uppercase;">
+                        SADA <span style="color: #0878E8; font-size: 16px;">·</span> <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.18em; color: #64748B;">OPERATING SYSTEM</span>
                       </div>
                     </td>
                     <td align="right" valign="middle" style="width: 45%;">
-                      <span style="display: inline-block; padding: 4px 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 9999px; background-color: rgba(92, 225, 230, 0.12); color: ${categoryBadgeColor}; border: 1px solid ${categoryBadgeColor}40; white-space: nowrap;">
+                      <span style="display: inline-block; padding: 4px 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 9999px; background-color: ${badgeColors.bg}; color: ${badgeColors.text}; border: 1px solid ${badgeColors.border}; white-space: nowrap;">
                         ${escapeHtml(categoryLabel)}
                       </span>
                     </td>
@@ -256,39 +299,36 @@ function wrapInSadaLayout(options: {
 
             <!-- MAIN BODY -->
             <tr>
-              <td class="content-padding" style="padding: 28px; word-break: break-word; overflow-wrap: break-word;">
+              <td class="content-padding" style="padding: 28px; background-color: #FFFFFF; word-break: break-word; overflow-wrap: break-word;">
                 <!-- Main Event Heading -->
-                <h1 style="margin: 0 0 16px 0; font-size: 20px; font-weight: 700; line-height: 1.35; color: #FFFFFF; letter-spacing: -0.01em; word-break: break-word; overflow-wrap: break-word;">
+                <h1 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 700; line-height: 1.35; color: #111827; letter-spacing: -0.01em; word-break: break-word; overflow-wrap: break-word;">
                   ${escapeHtml(heading)}
                 </h1>
 
-                <!-- Event Specific Content -->
-                <div style="font-size: 14px; line-height: 1.6; color: #CBD5E1; word-break: break-word; overflow-wrap: break-word;">
+                <!-- Event Specific Content (concise sentence, data grid, callout) -->
+                <div style="font-size: 14px; line-height: 1.6; color: #475569; word-break: break-word; overflow-wrap: break-word;">
                   ${contentHtml}
                 </div>
 
                 <!-- Action Button CTA -->
                 <div style="margin-top: 28px; text-align: center;">
                   <!--[if mso]>
-                  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${escapeHtml(actionUrl)}" style="height:46px;v-text-anchor:middle;width:260px;" arcsize="16%" stroke="f" fillcolor="#5CE1E6">
+                  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${escapeHtml(actionUrl)}" style="height:46px;v-text-anchor:middle;width:240px;" arcsize="16%" stroke="f" fillcolor="#0878E8">
                     <w:anchorlock/>
-                    <center style="color:#080D1A;font-family:sans-serif;font-size:14px;font-weight:bold;">${escapeHtml(actionLabel)}</center>
+                    <center style="color:#FFFFFF;font-family:sans-serif;font-size:14px;font-weight:bold;">${escapeHtml(actionLabel)}</center>
                   </v:roundrect>
                   <![endif]-->
                   <!--[if !mso]><!-->
-                  <a href="${escapeHtml(actionUrl)}" class="cta-button" style="display: inline-block; padding: 13px 28px; background: #5CE1E6; color: #080D1A; font-size: 14px; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; border-radius: 8px; box-shadow: 0 4px 14px rgba(92, 225, 230, 0.25); max-width: 100%; box-sizing: border-box;">
+                  <a href="${escapeHtml(actionUrl)}" class="cta-button" style="display: inline-block; padding: 13px 28px; background-color: #0878E8; color: #FFFFFF; font-size: 14px; font-weight: 700; letter-spacing: 0.01em; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 8px rgba(8, 120, 232, 0.25); max-width: 100%; box-sizing: border-box;">
                     ${escapeHtml(actionLabel)} &rarr;
                   </a>
                   <!--<![endif]-->
                 </div>
 
                 ${showAckNotice ? `
-                <!-- Authenticated Acknowledgment Notice -->
-                <div style="margin-top: 24px; padding: 14px 18px; background-color: rgba(15, 23, 42, 0.75); border: 1px solid #1E293B; border-left: 3px solid #5CE1E6; border-radius: 8px; font-size: 12px; line-height: 1.55; color: #CBD5E1; word-break: break-word;">
-                  <div style="font-weight: 700; color: #5CE1E6; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; font-size: 11px;">
-                    Mandatory Operational Acknowledgment
-                  </div>
-                  Under SADA OS Operating Rules, viewing or opening this email does not constitute official acknowledgment. You must follow the secure link and record your authenticated acknowledgment in SADA OS.
+                <!-- Small Secondary Operational Acknowledgment Note -->
+                <div style="margin-top: 20px; padding: 10px 14px; background-color: #F8FAFC; border: 1px solid #E5EAF0; border-radius: 6px; font-size: 12px; line-height: 1.5; color: #64748B; text-align: center; word-break: break-word;">
+                  Please acknowledge this task inside SADA OS. Opening this email does not confirm receipt (does not constitute official acknowledgment).
                 </div>
                 ` : ""}
               </td>
@@ -296,16 +336,17 @@ function wrapInSadaLayout(options: {
 
             <!-- FOOTER -->
             <tr>
-              <td class="footer-padding" style="padding: 24px 28px; background-color: #090E1D; border-top: 1px solid #162238; text-align: center; font-size: 12px; line-height: 1.6; color: #64748B; word-break: break-word;">
-                <p style="margin: 0 0 6px 0; color: #94A3B8;">
-                  This is an automated operational notification from <strong>SADA Operating System</strong>.
+              <td class="footer-padding" style="padding: 20px 28px; background-color: #F8FAFC; border-top: 1px solid #E5EAF0; text-align: center; font-size: 12px; line-height: 1.6; color: #64748B; word-break: break-word;">
+                <p style="margin: 0 0 6px 0; color: #64748B; font-weight: 500;">
+                  Automated notification from <strong style="color: #111827;">SADA Operating System</strong>
                 </p>
-                <p style="margin: 0 0 10px 0; font-size: 11px; color: #64748B;">
-                  Confidential & Proprietary · SADA Digital Luxe · Tunis, Tunisia (${SADA_TIMEZONE})
+                <p style="margin: 0 0 8px 0; font-size: 11px; color: #94A3B8;">
+                  Confidential & Proprietary · SADA Digital Luxe · Tunis (${SADA_TIMEZONE})
                 </p>
                 <p style="margin: 0; font-size: 11px;">
-                  <a href="${escapeHtml(actionUrl)}" style="color: #5CE1E6; text-decoration: underline;">Open SADA OS Dashboard</a> · 
-                  <a href="${escapeHtml(settingsUrl)}" style="color: #94A3B8; text-decoration: underline;">Notification Preferences</a>
+                  <a href="${escapeHtml(actionUrl)}" style="color: #0878E8; text-decoration: underline; font-weight: 600;">Open SADA OS Dashboard</a>
+                  <span style="color: #CBD5E1; margin: 0 6px;">·</span>
+                  <a href="${escapeHtml(settingsUrl)}" style="color: #64748B; text-decoration: underline;">Notification Preferences</a>
                 </p>
               </td>
             </tr>
@@ -321,24 +362,38 @@ function wrapInSadaLayout(options: {
 
 /**
  * Builds a structured key-value metadata panel with table-layout: fixed to prevent overflow.
+ * Light theme styling: #F8FAFC background, #E5EAF0 border, #64748B label, #111827 value.
  */
 function renderDataGrid(items: { label: string; value: string; highlight?: boolean; badgeColor?: string }[]): string {
-  const rows = items
-    .filter(item => Boolean(item.value))
-    .map(item => `
-      <tr>
-        <td style="padding: 8px 12px; font-size: 12px; font-weight: 600; color: #94A3B8; width: 36%; border-bottom: 1px solid #1A2640; vertical-align: top; word-break: break-word;">
-          ${escapeHtml(item.label)}
-        </td>
-        <td style="padding: 8px 12px; font-size: 13px; font-weight: 500; color: ${item.highlight ? "#5CE1E6" : "#F8FAFC"}; border-bottom: 1px solid #1A2640; vertical-align: top; word-break: break-word;">
-          ${item.badgeColor ? `<span style="display:inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; background-color: ${item.badgeColor}20; color: ${item.badgeColor}; border: 1px solid ${item.badgeColor}40;">${escapeHtml(item.value)}</span>` : escapeHtml(item.value)}
-        </td>
-      </tr>
-    `)
+  const validItems = items.filter(item => Boolean(item.value));
+  const rows = validItems
+    .map((item, idx) => {
+      const isLast = idx === validItems.length - 1;
+      const borderStyle = isLast ? "" : "border-bottom: 1px solid #E5EAF0;";
+
+      let valueDisplay = escapeHtml(item.value);
+      if (item.badgeColor) {
+        const badgeColors = getBadgeColors(item.badgeColor);
+        valueDisplay = `<span style="display:inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; background-color: ${badgeColors.bg}; color: ${badgeColors.text}; border: 1px solid ${badgeColors.border};">${valueDisplay}</span>`;
+      } else if (item.highlight) {
+        valueDisplay = `<span style="color: #0878E8; font-weight: 700;">${valueDisplay}</span>`;
+      }
+
+      return `
+        <tr>
+          <td style="padding: 10px 14px; font-size: 12px; font-weight: 600; color: #64748B; width: 36%; ${borderStyle} vertical-align: top; word-break: break-word;">
+            ${escapeHtml(item.label)}
+          </td>
+          <td style="padding: 10px 14px; font-size: 13px; font-weight: 600; color: #111827; ${borderStyle} vertical-align: top; word-break: break-word;">
+            ${valueDisplay}
+          </td>
+        </tr>
+      `;
+    })
     .join("");
 
   return `
-    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 16px 0 20px 0; background-color: #0F172A; border: 1px solid #1E293B; border-radius: 8px; overflow: hidden; table-layout: fixed; width: 100%;">
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 16px 0 20px 0; background-color: #F8FAFC; border: 1px solid #E5EAF0; border-radius: 8px; overflow: hidden; table-layout: fixed; width: 100%;">
       ${rows}
     </table>
   `;
@@ -346,14 +401,15 @@ function renderDataGrid(items: { label: string; value: string; highlight?: boole
 
 /**
  * Builds a callout quote / feedback box.
+ * Light theme styling: #F8FAFC background, #E5EAF0 border, left accent line, #334155 text.
  */
-function renderCalloutBox(title: string, body: string, borderColor = "#5CE1E6"): string {
+function renderCalloutBox(title: string, body: string, accentColor = "#0878E8"): string {
   return `
-    <div style="margin: 16px 0; padding: 14px 18px; background-color: rgba(15, 23, 42, 0.7); border-left: 3px solid ${borderColor}; border-radius: 0 8px 8px 0;">
-      <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: ${borderColor}; margin-bottom: 4px;">
+    <div style="margin: 16px 0; padding: 12px 16px; background-color: #F8FAFC; border: 1px solid #E5EAF0; border-left: 3px solid ${accentColor}; border-radius: 0 6px 6px 0; word-break: break-word;">
+      <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: ${accentColor}; margin-bottom: 4px;">
         ${escapeHtml(title)}
       </div>
-      <div style="font-size: 13px; line-height: 1.5; color: #E2E8F0;">
+      <div style="font-size: 13px; line-height: 1.5; color: #334155;">
         ${escapeHtml(body)}
       </div>
     </div>
@@ -361,11 +417,12 @@ function renderCalloutBox(title: string, body: string, borderColor = "#5CE1E6"):
 }
 
 // ============================================================
-// TEMPLATE HANDLERS
+// TEMPLATE HANDLERS (10 DEDICATED LIGHT-THEME TEMPLATES)
 // ============================================================
 
 /**
  * 1. Task Assigned Template
+ * CTA: "Open Task"
  */
 export function renderTaskAssignedTemplate(params: RenderNotificationEmailParams): RenderedEmail {
   const meta = params.metadata || {};
@@ -379,32 +436,32 @@ export function renderTaskAssignedTemplate(params: RenderNotificationEmailParams
 
   const gridHtml = renderDataGrid([
     { label: "Client / Project", value: clientName },
-    { label: "Priority", value: priority, badgeColor: priority === "URGENT" || priority === "HIGH" ? "#EF4444" : "#5CE1E6" },
+    { label: "Priority", value: priority, badgeColor: priority === "URGENT" || priority === "HIGH" ? "#DC2626" : "#0878E8" },
     { label: "Deadline", value: deadline, highlight: true },
     { label: "Assigned By", value: assignedBy },
   ]);
 
   const contentHtml = `
-    <p style="margin: 0 0 16px 0;">A new operational deliverable has been assigned to your workspace in SADA OS:</p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.6; color: #475569;">A new deliverable has been assigned to you in SADA OS.</p>
     ${gridHtml}
-    ${description ? renderCalloutBox("Task Brief / Scope", description, "#5CE1E6") : ""}
+    ${description ? renderCalloutBox("Task Brief / Scope", description, "#0878E8") : ""}
   `;
 
   const html = wrapInSadaLayout({
     categoryLabel: "Task Assigned",
-    categoryBadgeColor: "#5CE1E6",
+    categoryBadgeColor: "#0878E8",
     heading: `Task Assigned: ${taskTitle}`,
     contentHtml,
     actionUrl,
-    actionLabel: "Open & Acknowledge Deliverable",
+    actionLabel: "Open Task",
     showAckNotice: true,
   });
 
-  const text = `SADA OS — Task Assigned\n\nTask: ${taskTitle}\nClient: ${clientName}\nPriority: ${priority}\nDeadline: ${deadline}\nAssigned By: ${assignedBy}\n\nBrief:\n${description}\n\nOpen & Acknowledge: ${actionUrl}\n\n(Viewing this email does not constitute official acknowledgment. Please authenticate in SADA OS.)`;
+  const text = `SADA OS — Task Assigned\n\nTask: ${taskTitle}\nClient: ${clientName}\nPriority: ${priority}\nDeadline: ${deadline}\nAssigned By: ${assignedBy}\n\nBrief:\n${description}\n\nOpen Task: ${actionUrl}\n\nPlease acknowledge this task inside SADA OS. Opening this email does not confirm receipt.`;
 
   return {
     templateId: "task_assigned_v1",
-    templateVersion: "1.0.0",
+    templateVersion: "2.0.0",
     subject: `[SADA Task] Assigned: ${taskTitle} (${clientName})`,
     html,
     text,
@@ -412,19 +469,27 @@ export function renderTaskAssignedTemplate(params: RenderNotificationEmailParams
 }
 
 /**
- * 2. Deadline Reminder & Overdue Template
+ * 2. Deadline Reminder & 3. Overdue Task Template
+ * Non-overdue CTA: "View Task & Deadline"
+ * Overdue CTA: "Resolve Overdue Task"
  */
 export function renderDeadlineReminderTemplate(params: RenderNotificationEmailParams): RenderedEmail {
   const meta = params.metadata || {};
   const isOverdue = params.eventType === "TASK_OVERDUE" || params.eventType === "DELIVERABLE_BEHIND";
-  const taskTitle = meta.taskTitle || params.title;
+  const taskTitle = meta.taskTitle || params.title.replace(/^(Due Soon|Overdue):\s*/i, "");
   const clientName = meta.clientName || params.contextTitle || "Deliverable";
-  const deadline = formatSadaEmailDateTime(meta.deadline, { fallback: "Immediate" });
-  const timeInfo = meta.remainingTime || meta.overdueDuration || (isOverdue ? "Deadline Passed" : "Due Soon (Action Required)");
+  const deadline = formatSadaEmailDateTime(meta.deadline, { fallback: isOverdue ? "Immediate" : "Approaching" });
+  const timeInfo = meta.remainingTime || meta.overdueDuration || (isOverdue ? "Deadline Passed" : "Due Soon");
   const currentStatus = (meta.status || "In Progress").toUpperCase();
   const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl, { isOperational: true });
 
-  const badgeColor = isOverdue ? "#EF4444" : "#F59E0B";
+  const badgeColor = isOverdue ? "#DC2626" : "#D97706";
+  const categoryLabel = isOverdue ? "Overdue Task" : "Deadline Reminder";
+  const actionLabel = isOverdue ? "Resolve Overdue Task" : "View Task & Deadline";
+  const heading = isOverdue ? `Overdue: ${taskTitle}` : `Due Soon: ${taskTitle}`;
+  const conciseSentence = isOverdue
+    ? "This deliverable has exceeded its scheduled completion window and requires immediate resolution."
+    : "This deliverable is approaching its scheduled deadline and requires your prompt attention.";
 
   const gridHtml = renderDataGrid([
     { label: "Deliverable", value: taskTitle },
@@ -439,26 +504,26 @@ export function renderDeadlineReminderTemplate(params: RenderNotificationEmailPa
     : "This task is approaching its deadline. Ensure assets and reviews are completed on time to maintain agency SLAs.";
 
   const contentHtml = `
-    <p style="margin: 0 0 16px 0;">${escapeHtml(params.message)}</p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.6; color: #475569;">${conciseSentence}</p>
     ${gridHtml}
     ${renderCalloutBox(isOverdue ? "CRITICAL TIMELINE ALERT" : "DEADLINE NOTICE", alertNote, badgeColor)}
   `;
 
   const html = wrapInSadaLayout({
-    categoryLabel: isOverdue ? "Overdue Alert" : "Deadline Reminder",
+    categoryLabel,
     categoryBadgeColor: badgeColor,
-    heading: isOverdue ? `Timeline Overdue: ${taskTitle}` : `Due Soon: ${taskTitle}`,
+    heading,
     contentHtml,
     actionUrl,
-    actionLabel: "Open & Acknowledge Timeline",
+    actionLabel,
     showAckNotice: true,
   });
 
-  const text = `SADA OS — ${isOverdue ? "OVERDUE ALERT" : "DEADLINE REMINDER"}\n\nTask: ${taskTitle}\nClient: ${clientName}\nDeadline: ${deadline}\nStatus: ${timeInfo}\n\n${alertNote}\n\nOpen Workspace: ${actionUrl}`;
+  const text = `SADA OS — ${isOverdue ? "OVERDUE ALERT" : "DEADLINE REMINDER"}\n\nTask: ${taskTitle}\nClient: ${clientName}\nDeadline: ${deadline}\nStatus: ${timeInfo}\n\n${alertNote}\n\n${actionLabel}: ${actionUrl}\n\nPlease acknowledge this task inside SADA OS. Opening this email does not confirm receipt.`;
 
   return {
     templateId: "deadline_reminder_v1",
-    templateVersion: "1.0.0",
+    templateVersion: "2.0.0",
     subject: `[SADA ${isOverdue ? "OVERDUE" : "Reminder"}] ${taskTitle} (${clientName})`,
     html,
     text,
@@ -466,11 +531,12 @@ export function renderDeadlineReminderTemplate(params: RenderNotificationEmailPa
 }
 
 /**
- * 3. Revision Requested Template
+ * 4. Revision Requested Template
+ * CTA: "Review Requested Changes"
  */
 export function renderRevisionRequestedTemplate(params: RenderNotificationEmailParams): RenderedEmail {
   const meta = params.metadata || {};
-  const taskTitle = meta.taskTitle || params.title;
+  const taskTitle = meta.taskTitle || params.title.replace(/^Revisions? Requested:\s*/i, "");
   const clientName = meta.clientName || params.contextTitle || "Project";
   const reviewer = meta.reviewerName || "Review Lead";
   const feedback = meta.feedback || meta.comments || params.message;
@@ -480,30 +546,30 @@ export function renderRevisionRequestedTemplate(params: RenderNotificationEmailP
     { label: "Deliverable", value: taskTitle },
     { label: "Client Account", value: clientName },
     { label: "Reviewed By", value: reviewer },
-    { label: "Action Needed", value: "Address Feedback & Resubmit", badgeColor: "#F59E0B" },
+    { label: "Action Needed", value: "Address Feedback & Resubmit", badgeColor: "#D97706" },
   ]);
 
   const contentHtml = `
-    <p style="margin: 0 0 16px 0;">Revisions have been requested on your submitted deliverable. Please address the feedback below:</p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.6; color: #475569;">Revisions have been requested on your submitted deliverable.</p>
     ${gridHtml}
-    ${renderCalloutBox("Reviewer Feedback & Required Changes", feedback, "#F59E0B")}
+    ${renderCalloutBox("Reviewer Feedback & Required Changes", feedback, "#D97706")}
   `;
 
   const html = wrapInSadaLayout({
     categoryLabel: "Revision Requested",
-    categoryBadgeColor: "#F59E0B",
+    categoryBadgeColor: "#D97706",
     heading: `Revisions Requested: ${taskTitle}`,
     contentHtml,
     actionUrl,
-    actionLabel: "Review Comments & Acknowledge",
+    actionLabel: "Review Requested Changes",
     showAckNotice: true,
   });
 
-  const text = `SADA OS — Revisions Requested\n\nTask: ${taskTitle}\nClient: ${clientName}\nReviewer: ${reviewer}\n\nFeedback:\n${feedback}\n\nReview & Resubmit: ${actionUrl}`;
+  const text = `SADA OS — Revisions Requested\n\nTask: ${taskTitle}\nClient: ${clientName}\nReviewer: ${reviewer}\n\nFeedback:\n${feedback}\n\nReview Requested Changes: ${actionUrl}\n\nPlease acknowledge this task inside SADA OS. Opening this email does not confirm receipt.`;
 
   return {
     templateId: "revision_requested_v1",
-    templateVersion: "1.0.0",
+    templateVersion: "2.0.0",
     subject: `[SADA Revision] Changes Requested on ${taskTitle}`,
     html,
     text,
@@ -511,7 +577,8 @@ export function renderRevisionRequestedTemplate(params: RenderNotificationEmailP
 }
 
 /**
- * 4. New Comment / Mention Template
+ * 5. New Comment / Mention Template
+ * CTA: "View Comment"
  */
 export function renderCommentMentionTemplate(params: RenderNotificationEmailParams): RenderedEmail {
   const meta = params.metadata || {};
@@ -522,27 +589,27 @@ export function renderCommentMentionTemplate(params: RenderNotificationEmailPara
   const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl, { isOperational: true });
 
   const contentHtml = `
-    <p style="margin: 0 0 16px 0;">
-      <strong>${escapeHtml(author)}</strong> ${isMention ? "mentioned you in a conversation:" : "added a comment to:"} <em>${escapeHtml(context)}</em>
+    <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.6; color: #475569;">
+      <strong>${escapeHtml(author)}</strong> ${isMention ? "mentioned you in a discussion regarding" : "commented on"} <em>${escapeHtml(context)}</em>.
     </p>
-    ${renderCalloutBox(`Message from ${author}`, comment, "#3B82F6")}
+    ${renderCalloutBox(`Message from ${author}`, comment, "#0878E8")}
   `;
 
   const html = wrapInSadaLayout({
     categoryLabel: isMention ? "Mention" : "Comment",
-    categoryBadgeColor: "#3B82F6",
+    categoryBadgeColor: "#0878E8",
     heading: isMention ? `Mentioned by ${author}` : `New Comment on ${context}`,
     contentHtml,
     actionUrl,
-    actionLabel: "View Discussion & Acknowledge",
+    actionLabel: "View Comment",
     showAckNotice: true,
   });
 
-  const text = `SADA OS — ${isMention ? "Mentioned in Discussion" : "New Comment"}\n\n${author}: "${comment}"\nContext: ${context}\n\nReply: ${actionUrl}`;
+  const text = `SADA OS — ${isMention ? "Mentioned in Discussion" : "New Comment"}\n\n${author}: "${comment}"\nContext: ${context}\n\nView Comment: ${actionUrl}\n\nPlease acknowledge this task inside SADA OS. Opening this email does not confirm receipt.`;
 
   return {
     templateId: "comment_mention_v1",
-    templateVersion: "1.0.0",
+    templateVersion: "2.0.0",
     subject: `[SADA Discussion] ${author} on ${context}`,
     html,
     text,
@@ -550,12 +617,13 @@ export function renderCommentMentionTemplate(params: RenderNotificationEmailPara
 }
 
 /**
- * 5. Client Action Required Template
+ * 6. Client Action Required Template
+ * CTA: "Review Client Request"
  */
 export function renderClientActionTemplate(params: RenderNotificationEmailParams): RenderedEmail {
   const meta = params.metadata || {};
   const clientName = meta.clientName || params.contextTitle || "Client Account";
-  const actionNeeded = meta.actionNeeded || params.title;
+  const actionNeeded = meta.actionNeeded || params.title.replace(/^Client Action Required:\s*/i, "");
   const deadline = formatSadaEmailDateTime(meta.deadline, { fallback: "Within 48 hours" });
   const details = meta.details || params.message;
   const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl, { isOperational: true });
@@ -567,26 +635,26 @@ export function renderClientActionTemplate(params: RenderNotificationEmailParams
   ]);
 
   const contentHtml = `
-    <p style="margin: 0 0 16px 0;">A client interaction requires operational attention or approvals in SADA OS:</p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.6; color: #475569;">A client interaction requires operational attention or approval.</p>
     ${gridHtml}
-    ${renderCalloutBox("Action Description", details, "#5CE1E6")}
+    ${details ? renderCalloutBox("Action Description", details, "#0878E8") : ""}
   `;
 
   const html = wrapInSadaLayout({
     categoryLabel: "Client Action",
-    categoryBadgeColor: "#5CE1E6",
+    categoryBadgeColor: "#0878E8",
     heading: `Client Action Required: ${clientName}`,
     contentHtml,
     actionUrl,
-    actionLabel: "Open Client Workspace & Acknowledge",
+    actionLabel: "Review Client Request",
     showAckNotice: true,
   });
 
-  const text = `SADA OS — Client Action Required\n\nClient: ${clientName}\nAction: ${actionNeeded}\nTimeline: ${deadline}\n\nDetails: ${details}\n\nOpen Workspace: ${actionUrl}`;
+  const text = `SADA OS — Client Action Required\n\nClient: ${clientName}\nAction: ${actionNeeded}\nTimeline: ${deadline}\n\nDetails: ${details}\n\nReview Client Request: ${actionUrl}\n\nPlease acknowledge this task inside SADA OS. Opening this email does not confirm receipt.`;
 
   return {
     templateId: "client_action_v1",
-    templateVersion: "1.0.0",
+    templateVersion: "2.0.0",
     subject: `[SADA Client Action] ${clientName}: ${actionNeeded}`,
     html,
     text,
@@ -594,11 +662,12 @@ export function renderClientActionTemplate(params: RenderNotificationEmailParams
 }
 
 /**
- * 6. Task Review Requested Template
+ * 7. Task Review Requested Template
+ * CTA: "Review Submission"
  */
 export function renderTaskReviewTemplate(params: RenderNotificationEmailParams): RenderedEmail {
   const meta = params.metadata || {};
-  const taskTitle = meta.taskTitle || params.title;
+  const taskTitle = meta.taskTitle || params.title.replace(/^Review Requested:\s*/i, "");
   const clientName = meta.clientName || params.contextTitle || "Project";
   const workerName = meta.workerName || "Assigned Specialist";
   const submissionTime = formatSadaEmailDateTime(meta.submittedAt, { fallback: "Recently" });
@@ -609,30 +678,30 @@ export function renderTaskReviewTemplate(params: RenderNotificationEmailParams):
     { label: "Client Account", value: clientName },
     { label: "Submitted By", value: workerName },
     { label: "Submission Time", value: submissionTime },
-    { label: "Review Status", value: "Ready for Sign-off", badgeColor: "#10B981" },
+    { label: "Review Status", value: "Ready for Sign-off", badgeColor: "#059669" },
   ]);
 
   const contentHtml = `
-    <p style="margin: 0 0 16px 0;">A deliverable has been submitted for QA verification and sign-off:</p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.6; color: #475569;">A deliverable has been submitted for QA verification and sign-off.</p>
     ${gridHtml}
-    ${params.message ? renderCalloutBox("Submission Notes", params.message, "#10B981") : ""}
+    ${params.message ? renderCalloutBox("Submission Notes", params.message, "#059669") : ""}
   `;
 
   const html = wrapInSadaLayout({
     categoryLabel: "Review Required",
-    categoryBadgeColor: "#10B981",
+    categoryBadgeColor: "#059669",
     heading: `Review Requested: ${taskTitle}`,
     contentHtml,
     actionUrl,
-    actionLabel: "Open QA Review & Sign-off",
+    actionLabel: "Review Submission",
     showAckNotice: true,
   });
 
-  const text = `SADA OS — Review Requested\n\nDeliverable: ${taskTitle}\nClient: ${clientName}\nSubmitted By: ${workerName}\nTime: ${submissionTime}\n\nReview: ${actionUrl}`;
+  const text = `SADA OS — Review Requested\n\nDeliverable: ${taskTitle}\nClient: ${clientName}\nSubmitted By: ${workerName}\nTime: ${submissionTime}\n\nReview Submission: ${actionUrl}\n\nPlease acknowledge this task inside SADA OS. Opening this email does not confirm receipt.`;
 
   return {
     templateId: "task_review_v1",
-    templateVersion: "1.0.0",
+    templateVersion: "2.0.0",
     subject: `[SADA Review] Sign-off Required: ${taskTitle}`,
     html,
     text,
@@ -640,7 +709,8 @@ export function renderTaskReviewTemplate(params: RenderNotificationEmailParams):
 }
 
 /**
- * 7. Account / Security Events Template
+ * 8. Account / Security Events Template
+ * CTA: "Review Account Security"
  */
 export function renderSecurityEventTemplate(params: RenderNotificationEmailParams): RenderedEmail {
   const meta = params.metadata || {};
@@ -656,26 +726,26 @@ export function renderSecurityEventTemplate(params: RenderNotificationEmailParam
   ]);
 
   const contentHtml = `
-    <p style="margin: 0 0 16px 0;">This security alert has been dispatched to keep your account safe:</p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.6; color: #475569;">A security-sensitive event was recorded on your SADA OS account.</p>
     ${gridHtml}
-    ${renderCalloutBox("Security Guidance", guidance, "#EF4444")}
+    ${renderCalloutBox("Security Guidance", guidance, "#DC2626")}
   `;
 
   const html = wrapInSadaLayout({
     categoryLabel: "Security Alert",
-    categoryBadgeColor: "#EF4444",
+    categoryBadgeColor: "#DC2626",
     heading: params.title || "Security Notification",
     contentHtml,
     actionUrl,
-    actionLabel: "Review Security Center",
+    actionLabel: "Review Account Security",
     showAckNotice: false,
   });
 
-  const text = `SADA OS — Security Alert\n\nEvent: ${params.title}\nTime: ${timestamp}\nDetails: ${eventDesc}\n\nGuidance: ${guidance}\n\nSecurity Center: ${actionUrl}`;
+  const text = `SADA OS — Security Alert\n\nEvent: ${params.title}\nTime: ${timestamp}\nDetails: ${eventDesc}\n\nGuidance: ${guidance}\n\nReview Account Security: ${actionUrl}`;
 
   return {
     templateId: "account_security_v1",
-    templateVersion: "1.0.0",
+    templateVersion: "2.0.0",
     subject: `[SADA Security] ${params.title}`,
     html,
     text,
@@ -683,7 +753,8 @@ export function renderSecurityEventTemplate(params: RenderNotificationEmailParam
 }
 
 /**
- * 8. Billing & Finance Template
+ * 9. Billing & Finance Template
+ * CTA: "View Transaction"
  */
 export function renderBillingFinanceTemplate(params: RenderNotificationEmailParams): RenderedEmail {
   const meta = params.metadata || {};
@@ -701,25 +772,25 @@ export function renderBillingFinanceTemplate(params: RenderNotificationEmailPara
   ]);
 
   const contentHtml = `
-    <p style="margin: 0 0 16px 0;">${escapeHtml(params.message)}</p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.6; color: #475569;">${escapeHtml(params.message)}</p>
     ${gridHtml}
   `;
 
   const html = wrapInSadaLayout({
     categoryLabel: "Finance & Billing",
-    categoryBadgeColor: "#10B981",
+    categoryBadgeColor: "#059669",
     heading: params.title,
     contentHtml,
     actionUrl,
-    actionLabel: "Open Financial Ledger & Acknowledge",
+    actionLabel: "View Transaction",
     showAckNotice: true,
   });
 
-  const text = `SADA OS — Financial Notification\n\n${params.title}\nClient: ${clientName}\nReference: ${invNumber}\nAmount: ${amount}\n\n${params.message}\n\nView: ${actionUrl}`;
+  const text = `SADA OS — Financial Notification\n\n${params.title}\nClient: ${clientName}\nReference: ${invNumber}\nAmount: ${amount}\n\n${params.message}\n\nView Transaction: ${actionUrl}\n\nPlease acknowledge this task inside SADA OS. Opening this email does not confirm receipt.`;
 
   return {
     templateId: "billing_finance_v1",
-    templateVersion: "1.0.0",
+    templateVersion: "2.0.0",
     subject: `[SADA Finance] ${params.title}`,
     html,
     text,
@@ -727,7 +798,8 @@ export function renderBillingFinanceTemplate(params: RenderNotificationEmailPara
 }
 
 /**
- * 9. Production & Calendar Template
+ * 10. Production & Calendar Template
+ * CTA: "View Schedule"
  */
 export function renderProductionCalendarTemplate(params: RenderNotificationEmailParams): RenderedEmail {
   const meta = params.metadata || {};
@@ -748,26 +820,26 @@ export function renderProductionCalendarTemplate(params: RenderNotificationEmail
   ]);
 
   const contentHtml = `
-    <p style="margin: 0 0 16px 0;">A production booking is scheduled on the operational calendar:</p>
+    <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.6; color: #475569;">A production booking is scheduled on the operational calendar.</p>
     ${gridHtml}
-    ${params.message ? renderCalloutBox("Schedule Notes", params.message, "#5CE1E6") : ""}
+    ${params.message ? renderCalloutBox("Schedule Notes", params.message, "#0878E8") : ""}
   `;
 
   const html = wrapInSadaLayout({
     categoryLabel: "Production Calendar",
-    categoryBadgeColor: "#5CE1E6",
+    categoryBadgeColor: "#0878E8",
     heading: shootTitle,
     contentHtml,
     actionUrl,
-    actionLabel: "Open Production Calendar & Acknowledge",
+    actionLabel: "View Schedule",
     showAckNotice: true,
   });
 
-  const text = `SADA OS — Production Schedule\n\n${shootTitle}\nClient: ${clientName}\nDate: ${date} at ${time}\nLocation: ${location}\nScope: ${prodType}\n\nOpen Calendar: ${actionUrl}`;
+  const text = `SADA OS — Production Schedule\n\n${shootTitle}\nClient: ${clientName}\nDate: ${date} at ${time}\nLocation: ${location}\nScope: ${prodType}\n\nView Schedule: ${actionUrl}\n\nPlease acknowledge this task inside SADA OS. Opening this email does not confirm receipt.`;
 
   return {
     templateId: "production_calendar_v1",
-    templateVersion: "1.0.0",
+    templateVersion: "2.0.0",
     subject: `[SADA Production] ${shootTitle} (${date})`,
     html,
     text,
@@ -775,13 +847,14 @@ export function renderProductionCalendarTemplate(params: RenderNotificationEmail
 }
 
 /**
- * 10. Canonical General Fallback Template
+ * 11. Canonical General Fallback Template
+ * CTA: "View in SADA OS"
  */
 export function renderCanonicalGeneralTemplate(params: RenderNotificationEmailParams): RenderedEmail {
   const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl, { isOperational: true });
 
   const contentHtml = `
-    <p style="margin: 0 0 20px 0; font-size: 15px; line-height: 1.6; color: #E2E8F0;">
+    <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.6; color: #475569;">
       ${escapeHtml(params.message)}
     </p>
     ${params.contextTitle ? renderDataGrid([{ label: "Context", value: params.contextTitle }]) : ""}
@@ -789,19 +862,19 @@ export function renderCanonicalGeneralTemplate(params: RenderNotificationEmailPa
 
   const html = wrapInSadaLayout({
     categoryLabel: "System Notice",
-    categoryBadgeColor: "#94A3B8",
+    categoryBadgeColor: "#64748B",
     heading: params.title,
     contentHtml,
     actionUrl,
-    actionLabel: "View in SADA OS & Acknowledge",
+    actionLabel: "View in SADA OS",
     showAckNotice: true,
   });
 
-  const text = `SADA OS — Notification\n\n${params.title}\n\n${params.message}\n\nView: ${actionUrl}`;
+  const text = `SADA OS — Notification\n\n${params.title}\n\n${params.message}\n\nView in SADA OS: ${actionUrl}\n\nPlease acknowledge this task inside SADA OS. Opening this email does not confirm receipt.`;
 
   return {
     templateId: "canonical_general_v1",
-    templateVersion: "1.0.0",
+    templateVersion: "2.0.0",
     subject: `[SADA OS] ${params.title}`,
     html,
     text,

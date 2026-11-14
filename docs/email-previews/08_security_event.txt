@@ -1,0 +1,9 @@
+SADA OS — Security Alert
+
+Event: New Administrative Session Authorized
+Time: Sat, 14 Nov 2026, 18:30 CET
+Details: A new administrative session was established from Chrome on macOS in Tunis (IP: 197.14.22.45).
+
+Guidance: If you did not authenticate this session, revoke all active sessions immediately and reset your password.
+
+Review Account Security: https://sada.agency/admin/accounts?notif=notif_preview_008&utm_source=email_resend&utm_medium=transactional_email

@@ -3,6 +3,40 @@
 Every important technical/product decision, most recent first. Append new entries; never edit past ones except to fix a factual error. (Migrated from the earlier `.memory/roadmap.md` — see that file for a pointer.)
 
 **Date:** 2026-11-14
+**Decision:** SADA OS PREMIUM LIGHT EMAIL DESIGN SYSTEM REDESIGN:
+1. **Complete Light Theme Overhaul**:
+   - Replaced legacy dark navy containers (`#0D1527` / `#080D1A`) with an enterprise-grade light palette: canvas `#F4F7FB`, container card `#FFFFFF`, primary text `#111827`, secondary text `#64748B`, borders `#E5EAF0`, and high-contrast SADA Blue CTA (`#0878E8`).
+   - Re-engineered `wrapInSadaLayout`, `renderDataGrid`, and `renderCalloutBox` in `src/server/email-templates.ts` with subtle 3px cyan-blue top gradient, restrained card shadow, and harmonized status pill badges.
+2. **Strict Content Hierarchy & Contextual Action CTAs**:
+   - Standardized all 10 templates and the canonical fallback into a strict 7-layer hierarchy: (1) SADA Logo & contextual badge, (2) 20px bold headline, (3) single concise explanation sentence, (4) compact `#F8FAFC` data grid, (5) prominent 44px+ touch-target SADA Blue CTA button, (6) secondary worker acknowledgment note, and (7) minimal footer.
+   - Enforced exact contextual CTA wording across all templates:
+     - Task Assigned &rarr; "Open Task"
+     - Deadline Reminder (Due Soon) &rarr; "View Task & Deadline"
+     - Overdue Task &rarr; "Resolve Overdue Task"
+     - Revision Requested &rarr; "Review Requested Changes"
+     - Comment / Mention &rarr; "View Comment"
+     - Client Action Required &rarr; "Review Client Request"
+     - Task Review Requested &rarr; "Review Submission"
+     - Account Security Alert &rarr; "Review Account Security"
+     - Billing / Finance &rarr; "View Transaction"
+     - Production / Calendar &rarr; "View Schedule"
+     - General Fallback &rarr; "View in SADA OS"
+3. **Universal Worker Acknowledgment Integration**:
+   - Retained and embedded secondary operational reminder across all deliverable emails: `"Please acknowledge this task inside SADA OS. Opening this email does not confirm receipt (does not constitute official acknowledgment)."`
+   - Deep links continue appending `ack=1` and `notif=<id>` to trigger authenticated acknowledgment recording in `public.project_activity`.
+4. **Visual Previews & Multi-Client Verification**:
+   - Created `scripts/generate-email-previews.ts` rendering and validating all 11 scenarios into standalone HTML files and an interactive catalog at `docs/email-previews/index.html`.
+   - Verified mobile responsiveness (375px fluid width, full-width CTA buttons, `table-layout: fixed`, `word-break: break-word`) and desktop rendering (600px max-width).
+5. **Quality Gates & Test Results**:
+   - `scripts/test-resend-final-acceptance.ts`: 84/84 checks PASSED.
+   - `scripts/test-resend-email-integration.ts`: 42/42 checks PASSED.
+   - `scripts/test-production-readiness.ts`: 27/27 checks PASSED.
+   - `scripts/generate-email-previews.ts`: 11/11 visual audit checks PASSED.
+   - Total automated checks: 153/153 PASSED (100%).
+   - `npx tsc --noEmit`: 0 errors.
+   - `npm run build`: Production client, SSR, and Nitro server compilation succeeded in 14.7s.
+
+**Date:** 2026-11-14
 **Decision:** SADA OS RESEND EMAIL FINAL ACCEPTANCE, UX REFINEMENTS & TIMEZONE ALIGNMENT:
 1. **SADA Timezone (`Africa/Tunis`) & Human-Readable Date Formatting**:
    - Engineered `formatSadaEmailDateTime` in `src/server/email-templates.ts` converting all raw ISO timestamps (`2026-11-18T17:00:00Z`) into human-readable strings formatted in Tunisian local time (`CET` / `GMT+1`).

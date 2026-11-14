@@ -1,0 +1,12 @@
+SADA OS — Financial Notification
+
+Invoice Past Due: INV-2026-0089
+Client: Yves Saint Laurent
+Reference: INV-2026-0089
+Amount: 28,400 TND
+
+Scheduled settlement date for commercial media campaign retainer has elapsed.
+
+View Transaction: https://sada.agency/admin/finance/invoices/inv-0089?notif=notif_preview_009&ack=1&utm_source=email_resend&utm_medium=transactional_email
+
+Please acknowledge this task inside SADA OS. Opening this email does not confirm receipt.

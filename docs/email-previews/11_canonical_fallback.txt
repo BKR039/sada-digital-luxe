@@ -1,0 +1,9 @@
+SADA OS — Notification
+
+SADA OS Platform Update v3.2 Deployed
+
+Platform maintenance successfully completed. Resend transactional email light theme and delivery engines are active.
+
+View in SADA OS: https://sada.agency/admin?notif=notif_preview_011&ack=1&utm_source=email_resend&utm_medium=transactional_email
+
+Please acknowledge this task inside SADA OS. Opening this email does not confirm receipt.

@@ -1146,6 +1146,8 @@ export async function fetchTaskActivity(taskId: string, client?: any): Promise<T
  * 10.B EXPLICIT WORKER ACKNOWLEDGMENT ENGINE
  * Records authenticated worker acknowledgment in project_activity and
  * updates related notification tracking.
+ * Strictly verifies caller authorization (assignee or admin) and enforces
+ * idempotency to prevent duplicate activity records.
  */
 export async function acknowledgeTaskAssignment(params: {
   taskId: string;
@@ -1156,21 +1158,99 @@ export async function acknowledgeTaskAssignment(params: {
 }): Promise<boolean> {
   try {
     const activeClient = params.client || supabase;
-    // 1. Insert into project_activity
-    await (activeClient as any).from("project_activity").insert({
-      task_id: params.taskId,
-      project_id: params.projectId || null,
-      actor_id: params.actorId,
-      action: "task_acknowledged",
-      details: "Task assignment officially acknowledged by assigned worker in authenticated workstation.",
-      metadata: {
-        notification_id: params.notificationId || null,
-        acknowledged_at: new Date().toISOString(),
-        source: "authenticated_workstation",
-      },
-    });
 
-    // 2. If notificationId provided, update notification metadata
+    // 1. Fetch task to verify existence and assignee authorization
+    const { data: task, error: taskErr } = await (activeClient as any)
+      .from("project_tasks")
+      .select("id, assignee_id, project_id, title")
+      .eq("id", params.taskId)
+      .maybeSingle();
+
+    if (taskErr || !task) {
+      console.warn("[acknowledgeTaskAssignment] Task not found or inaccessible:", params.taskId);
+      return false;
+    }
+
+    // 2. Authorization Guard: Check if actor is direct assignee, linked team member, or manager
+    let isAuthorized = false;
+    let isAssignee = false;
+
+    if (task.assignee_id === params.actorId) {
+      isAuthorized = true;
+      isAssignee = true;
+    } else if (task.assignee_id) {
+      // Check if task.assignee_id is a team_member record linked to actorId's profile
+      const { data: tm } = await (activeClient as any)
+        .from("team_members")
+        .select("id")
+        .eq("id", task.assignee_id)
+        .eq("profile_id", params.actorId)
+        .maybeSingle();
+
+      if (tm) {
+        isAuthorized = true;
+        isAssignee = true;
+      }
+    }
+
+    if (!isAuthorized) {
+      // Check management roles (super_admin, admin)
+      const { data: roleRow } = await (activeClient as any)
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", params.actorId)
+        .maybeSingle();
+
+      if (roleRow?.role === "super_admin" || roleRow?.role === "admin") {
+        isAuthorized = true;
+      }
+    }
+
+    if (!isAuthorized) {
+      console.warn("[acknowledgeTaskAssignment] Unauthorized acknowledgment attempt by:", params.actorId);
+      return false;
+    }
+
+    // 3. Idempotency Guard: Check if task was already acknowledged in project_activity
+    const { data: existingAck } = await (activeClient as any)
+      .from("project_activity")
+      .select("id, created_at, actor_id")
+      .eq("task_id", params.taskId)
+      .eq("action", "task_acknowledged")
+      .maybeSingle();
+
+    const effectiveTime = existingAck?.created_at || new Date().toISOString();
+    const effectiveActor = existingAck?.actor_id || params.actorId;
+
+    if (!existingAck) {
+      // Insert canonical acknowledgment into project_activity
+      const insertPayload: any = {
+        task_id: params.taskId,
+        project_id: params.projectId || task.project_id || null,
+        actor_id: params.actorId,
+        action: "task_acknowledged",
+        details: {
+          note: isAssignee
+            ? "Task assignment officially acknowledged by assigned worker in authenticated workstation."
+            : "Task assignment officially acknowledged by management in authenticated workstation.",
+          notification_id: params.notificationId || null,
+          acknowledged_at: effectiveTime,
+          actor_id: params.actorId,
+          is_manager_signoff: !isAssignee,
+          source: "authenticated_workstation",
+        },
+      };
+
+      const { error: actErr } = await (activeClient as any)
+        .from("project_activity")
+        .insert(insertPayload);
+
+      if (actErr) {
+        console.warn("[acknowledgeTaskAssignment] Notice inserting project_activity:", actErr.message);
+      }
+    }
+
+    // 4. Update notification metadata if notificationId provided
     if (params.notificationId) {
       const { data: notif } = await (activeClient as any)
         .from("notifications")
@@ -1186,8 +1266,8 @@ export async function acknowledgeTaskAssignment(params: {
             read_at: new Date().toISOString(),
             metadata: {
               ...(notif.metadata || {}),
-              worker_acknowledged_at: new Date().toISOString(),
-              worker_acknowledged_by: params.actorId,
+              worker_acknowledged_at: effectiveTime,
+              worker_acknowledged_by: effectiveActor,
             },
           })
           .eq("id", params.notificationId);

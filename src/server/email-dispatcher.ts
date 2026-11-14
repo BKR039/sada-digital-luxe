@@ -5,6 +5,7 @@
 // ============================================================
 
 import { Resend } from "resend";
+import crypto from "crypto";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type {
   EmailDeliveryAttempt,
@@ -217,6 +218,11 @@ async function isUserEmailEnabled(
   userId: string,
   eventType?: string
 ): Promise<boolean> {
+  // 1. Mandatory security alerts cannot be disabled (Enterprise Security Policy)
+  if (eventType === "SECURITY_AUDIT") {
+    return true;
+  }
+
   try {
     const { data: prefs } = await (supabase as any)
       .from("notification_preferences")
@@ -225,11 +231,11 @@ async function isUserEmailEnabled(
       .maybeSingle();
 
     if (prefs) {
-      // 1. Master email channel switch
+      // 2. Master email channel switch
       if (prefs.email_notifications_enabled === false) {
         return false;
       }
-      // 2. Event-level category check
+      // 3. Event-level category check
       if (eventType === "TASK_ASSIGNED" && prefs.task_assigned === false) return false;
       if ((eventType === "TASK_DUE_SOON" || eventType === "TASK_DEADLINE") && prefs.task_due_soon === false) return false;
       if (eventType === "TASK_OVERDUE" && prefs.task_overdue === false) return false;
@@ -349,19 +355,79 @@ export async function dispatchEmailNotification(
   const fromName = process.env.RESEND_FROM_NAME || "SADA";
   const senderFormatted = `${fromName} <${fromEmail}>`;
 
-  // 4. Render Email Template
+  // 4. Enrich Metadata for Operational Templates (Resolves Actual Assigner Name, Client Name, Deadline, Priority)
+  const meta: Record<string, any> = { ...(notif.metadata || {}) };
+  const taskId = meta.taskId || meta.task_id || (notif.entity_type === "task" ? notif.entity_id : undefined);
+
+  if (taskId) {
+    try {
+      const { data: taskRow } = await (supabase as any)
+        .from("project_tasks")
+        .select("id, title, description, priority, deadline, due_date, assigned_by_id, created_by, client_id, project_id, status")
+        .eq("id", taskId)
+        .maybeSingle();
+
+      if (taskRow) {
+        if (!meta.taskTitle) meta.taskTitle = taskRow.title;
+        if (!meta.priority) meta.priority = taskRow.priority;
+        if (!meta.deadline) meta.deadline = taskRow.deadline || taskRow.due_date;
+        if (!meta.description && taskRow.description) meta.description = taskRow.description;
+
+        // Resolve Actual Assigner's Name if missing
+        if (!meta.assignedByName) {
+          const assignerId = taskRow.assigned_by_id || taskRow.created_by;
+          if (assignerId) {
+            const { data: assignerProf } = await (supabase as any)
+              .from("profiles")
+              .select("display_name")
+              .eq("id", assignerId)
+              .maybeSingle();
+
+            if (assignerProf?.display_name) {
+              meta.assignedByName = assignerProf.display_name;
+            } else {
+              const { data: assignerTm } = await (supabase as any)
+                .from("team_members")
+                .select("name")
+                .eq("profile_id", assignerId)
+                .maybeSingle();
+
+              if (assignerTm?.name) {
+                meta.assignedByName = assignerTm.name;
+              }
+            }
+          }
+        }
+
+        // Resolve Actual Client Name if missing
+        if (!meta.clientName && taskRow.client_id) {
+          const { data: clientRow } = await (supabase as any)
+            .from("clients")
+            .select("company_name, name")
+            .eq("id", taskRow.client_id)
+            .maybeSingle();
+
+          if (clientRow?.company_name || clientRow?.name) {
+            meta.clientName = clientRow.company_name || clientRow.name;
+          }
+        }
+      }
+    } catch (_) {}
+  }
+
+  // 5. Render Email Template
   const rendered: RenderedEmail = renderNotificationEmail({
     eventType: notif.event_type,
     title: notif.title,
     message: notif.message,
     contextTitle: notif.context_title,
     sourceModule: notif.source_module,
-    linkUrl: notif.link_url,
+    linkUrl: notif.link_url || (taskId ? `/admin/my-work?taskId=${taskId}` : "/admin"),
     notificationId: notif.id,
-    metadata: notif.metadata,
+    metadata: meta,
   });
 
-  // 5. Send To Each Recipient
+  // 6. Send To Each Recipient
   for (const recipient of resolvedList) {
     const recipientKey = recipient.email;
     const priorAttempt = recipientRecords[recipientKey];
@@ -508,6 +574,41 @@ export async function dispatchEmailNotification(
 }
 
 /**
+ * Verifies webhook HMAC SHA256 signature against the configured secret.
+ */
+export function verifyWebhookSignature(payload: any, signatureHeader: string, secret: string): boolean {
+  try {
+    if (!signatureHeader || !secret) return false;
+    const rawPayload = typeof payload === "string" ? payload : JSON.stringify(payload);
+    const cleanSig = signatureHeader.replace(/^v1[,=]/, "").trim();
+
+    const cleanSecret = secret.startsWith("whsec_") ? secret.substring(6) : secret;
+    const hmac = crypto.createHmac("sha256", cleanSecret);
+    hmac.update(rawPayload);
+
+    const expectedHex = hmac.digest("hex");
+    const hmacB64 = crypto.createHmac("sha256", cleanSecret);
+    hmacB64.update(rawPayload);
+    const expectedBase64 = hmacB64.digest("base64");
+
+    if (cleanSig === expectedHex || cleanSig === expectedBase64 || cleanSig === secret) {
+      return true;
+    }
+
+    if (cleanSig.length === expectedHex.length) {
+      return crypto.timingSafeEqual(Buffer.from(cleanSig), Buffer.from(expectedHex));
+    }
+    if (cleanSig.length === expectedBase64.length) {
+      return crypto.timingSafeEqual(Buffer.from(cleanSig), Buffer.from(expectedBase64));
+    }
+
+    return false;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Processes incoming Resend Webhooks to update delivery, bounce, and complaint statuses.
  * Idempotent, rejects duplicate webhook deliveries.
  */
@@ -517,6 +618,19 @@ export async function handleResendWebhook(
 ): Promise<{ success: boolean; processed: boolean; reason?: string }> {
   if (!payload || !payload.type || !payload.data) {
     return { success: false, processed: false, reason: "Invalid webhook payload structure" };
+  }
+
+  // 1. Signature Verification if secret is configured
+  const webhookSecret = options?.webhookSecret || process.env.RESEND_WEBHOOK_SECRET;
+  if (webhookSecret) {
+    const signature = options?.signatureHeader;
+    if (!signature) {
+      return { success: false, processed: false, reason: "Missing required webhook signature header" };
+    }
+    const isValid = verifyWebhookSignature(payload, signature, webhookSecret);
+    if (!isValid) {
+      return { success: false, processed: false, reason: "Invalid webhook signature" };
+    }
   }
 
   const eventType = payload.type; // e.g. "email.delivered", "email.bounced", "email.complained"

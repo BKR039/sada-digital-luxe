@@ -29,6 +29,66 @@ export interface RenderedEmail {
 }
 
 /**
+ * Configured SADA Timezone (Tunis, Tunisia · UTC+1)
+ */
+export const SADA_TIMEZONE = process.env.SADA_TIMEZONE || process.env.TIMEZONE || "Africa/Tunis";
+
+/**
+ * Formats a date, ISO timestamp, or date-string into a clean, human-readable
+ * format respecting the configured SADA timezone (Africa/Tunis).
+ * Returns original text if already non-date human prose (e.g. "Immediate", "Tomorrow").
+ */
+export function formatSadaEmailDateTime(
+  val: string | Date | number | null | undefined,
+  opts: { includeTime?: boolean; fallback?: string } = {}
+): string {
+  if (!val) return opts.fallback || "—";
+  const rawStr = String(val).trim();
+  if (!rawStr) return opts.fallback || "—";
+
+  // If already descriptive non-date string, preserve it
+  if (!/^\d{4}-\d{2}-\d{2}/.test(rawStr) && isNaN(Number(rawStr))) {
+    return rawStr;
+  }
+
+  try {
+    const isUnixNum = !isNaN(Number(rawStr)) && Number(rawStr) > 1000000000;
+    let iso = rawStr;
+    if (iso.includes(" ") && !iso.includes("T")) iso = iso.replace(" ", "T") + "Z";
+    else if (!iso.includes("T") && !isUnixNum) iso = `${iso}T12:00:00Z`;
+
+    const d = isUnixNum ? new Date(Number(rawStr)) : new Date(iso);
+    if (isNaN(d.getTime())) return rawStr;
+
+    const hasTime = (rawStr.includes("T") || rawStr.includes(" ") || isUnixNum) && (opts.includeTime ?? true);
+
+    if (hasTime) {
+      return new Intl.DateTimeFormat("en-GB", {
+        timeZone: SADA_TIMEZONE,
+        weekday: "short",
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+        timeZoneName: "short",
+      }).format(d);
+    } else {
+      return new Intl.DateTimeFormat("en-GB", {
+        timeZone: SADA_TIMEZONE,
+        weekday: "short",
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      }).format(d);
+    }
+  } catch (_) {
+    return rawStr;
+  }
+}
+
+/**
  * HTML Escaper to prevent XSS / injection attacks in email clients.
  */
 export function escapeHtml(str?: string | null): string {
@@ -44,15 +104,28 @@ export function escapeHtml(str?: string | null): string {
 /**
  * Formats a clean deep-link target with notification and acknowledgment tracking params.
  */
-function resolveActionUrl(linkUrl?: string, notificationId?: string, baseUrl = "https://sada.agency"): string {
+export function resolveActionUrl(
+  linkUrl?: string,
+  notificationId?: string,
+  baseUrl = "https://sada.agency",
+  options?: { isOperational?: boolean }
+): string {
   const origin = (process.env.APP_BASE_URL || process.env.VITE_APP_URL || baseUrl).replace(/\/$/, "");
   let path = linkUrl || "/admin";
   if (!path.startsWith("/")) path = "/" + path;
 
-  // Append notif tracking id for automated in-app focus and acknowledgment
+  const urlParams = new URLSearchParams();
+  if (notificationId) {
+    urlParams.set("notif", notificationId);
+  }
+  if (options?.isOperational) {
+    urlParams.set("ack", "1");
+  }
+  urlParams.set("utm_source", "email_resend");
+  urlParams.set("utm_medium", "transactional_email");
+
   const separator = path.includes("?") ? "&" : "?";
-  const trackingParam = notificationId ? `${separator}notif=${encodeURIComponent(notificationId)}&utm_source=email_resend` : "";
-  return `${origin}${path}${trackingParam}`;
+  return `${origin}${path}${separator}${urlParams.toString()}`;
 }
 
 /**
@@ -69,6 +142,8 @@ function wrapInSadaLayout(options: {
   showAckNotice?: boolean;
 }): string {
   const { categoryLabel, categoryBadgeColor, heading, contentHtml, actionUrl, actionLabel, showAckNotice = true } = options;
+  const baseUrlOrigin = actionUrl.match(/^(https?:\/\/[^\/?#]+)/)?.[1] || "https://sada.agency";
+  const settingsUrl = `${baseUrlOrigin}/admin/settings`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -119,6 +194,7 @@ function wrapInSadaLayout(options: {
       border: 1px solid #1E293B;
       border-radius: 16px;
       overflow: hidden;
+      table-layout: fixed;
     }
     .cta-button:hover {
       background-color: #4BD4D9 !important;
@@ -127,42 +203,49 @@ function wrapInSadaLayout(options: {
       .email-container {
         width: 100% !important;
         border-radius: 0 !important;
-        border: none !important;
+        border-left: none !important;
+        border-right: none !important;
       }
       .content-padding {
-        padding: 24px 20px !important;
+        padding: 20px 16px !important;
       }
       .header-padding {
-        padding: 24px 20px 16px 20px !important;
+        padding: 20px 16px 14px 16px !important;
       }
       .footer-padding {
-        padding: 24px 20px !important;
+        padding: 20px 16px !important;
+      }
+      .cta-button {
+        display: block !important;
+        width: 100% !important;
+        padding: 12px 16px !important;
+        box-sizing: border-box !important;
       }
     }
   </style>
 </head>
-<body style="margin: 0; padding: 24px 0; background-color: #080D1A; color: #E2E8F0;">
+<body style="margin: 0; padding: 16px 0; background-color: #080D1A; color: #E2E8F0;">
   <center style="width: 100%; table-layout: fixed;">
-    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #080D1A;">
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #080D1A; table-layout: fixed;">
       <tr>
-        <td align="center" style="padding: 16px 8px;">
+        <td align="center" style="padding: 12px 6px;">
           <!-- Top Neon Cyan Accent Line -->
-          <div style="max-width: 600px; height: 3px; background: linear-gradient(90deg, #5CE1E6 0%, #3B82F6 100%); border-radius: 3px 3px 0 0;"></div>
+          <div style="max-width: 600px; width: 100%; height: 3px; background: linear-gradient(90deg, #5CE1E6 0%, #3B82F6 100%); border-radius: 3px 3px 0 0;"></div>
           
-          <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="email-container" style="max-width: 600px; background-color: #0D1527; border: 1px solid #1E293B; border-radius: 0 0 16px 16px;">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="email-container" style="max-width: 600px; width: 100%; background-color: #0D1527; border: 1px solid #1E293B; border-radius: 0 0 16px 16px; table-layout: fixed;">
             
             <!-- HEADER -->
             <tr>
-              <td class="header-padding" style="padding: 32px 32px 20px 32px; border-bottom: 1px solid #162238;">
-                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+              <td class="header-padding" style="padding: 28px 28px 18px 28px; border-bottom: 1px solid #162238;">
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">
                   <tr>
                     <td align="left" valign="middle">
-                      <div style="font-size: 18px; font-weight: 800; letter-spacing: 0.12em; color: #FFFFFF; text-transform: uppercase;">
-                        SADA <span style="color: #5CE1E6; font-size: 20px;">·</span> <span style="font-size: 11px; font-weight: 500; letter-spacing: 0.2em; color: #94A3B8;">OPERATING SYSTEM</span>
+                      <div style="font-size: 16px; font-weight: 800; letter-spacing: 0.12em; color: #FFFFFF; text-transform: uppercase;">
+                        SADA <span style="color: #5CE1E6; font-size: 18px;">·</span> <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.18em; color: #94A3B8;">OPERATING SYSTEM</span>
                       </div>
                     </td>
-                    <td align="right" valign="middle">
-                      <span style="display: inline-block; padding: 4px 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 9999px; background-color: rgba(92, 225, 230, 0.12); color: ${categoryBadgeColor}; border: 1px solid ${categoryBadgeColor}40;">
+                    <td align="right" valign="middle" style="width: 45%;">
+                      <span style="display: inline-block; padding: 4px 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 9999px; background-color: rgba(92, 225, 230, 0.12); color: ${categoryBadgeColor}; border: 1px solid ${categoryBadgeColor}40; white-space: nowrap;">
                         ${escapeHtml(categoryLabel)}
                       </span>
                     </td>
@@ -173,27 +256,27 @@ function wrapInSadaLayout(options: {
 
             <!-- MAIN BODY -->
             <tr>
-              <td class="content-padding" style="padding: 32px;">
+              <td class="content-padding" style="padding: 28px; word-break: break-word; overflow-wrap: break-word;">
                 <!-- Main Event Heading -->
-                <h1 style="margin: 0 0 16px 0; font-size: 22px; font-weight: 700; line-height: 1.35; color: #FFFFFF; letter-spacing: -0.01em;">
+                <h1 style="margin: 0 0 16px 0; font-size: 20px; font-weight: 700; line-height: 1.35; color: #FFFFFF; letter-spacing: -0.01em; word-break: break-word; overflow-wrap: break-word;">
                   ${escapeHtml(heading)}
                 </h1>
 
                 <!-- Event Specific Content -->
-                <div style="font-size: 14px; line-height: 1.6; color: #CBD5E1;">
+                <div style="font-size: 14px; line-height: 1.6; color: #CBD5E1; word-break: break-word; overflow-wrap: break-word;">
                   ${contentHtml}
                 </div>
 
                 <!-- Action Button CTA -->
-                <div style="margin-top: 32px; text-align: center;">
+                <div style="margin-top: 28px; text-align: center;">
                   <!--[if mso]>
-                  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${escapeHtml(actionUrl)}" style="height:48px;v-text-anchor:middle;width:260px;" arcsize="16%" stroke="f" fillcolor="#5CE1E6">
+                  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${escapeHtml(actionUrl)}" style="height:46px;v-text-anchor:middle;width:260px;" arcsize="16%" stroke="f" fillcolor="#5CE1E6">
                     <w:anchorlock/>
                     <center style="color:#080D1A;font-family:sans-serif;font-size:14px;font-weight:bold;">${escapeHtml(actionLabel)}</center>
                   </v:roundrect>
                   <![endif]-->
                   <!--[if !mso]><!-->
-                  <a href="${escapeHtml(actionUrl)}" class="cta-button" style="display: inline-block; padding: 14px 32px; background: #5CE1E6; color: #080D1A; font-size: 14px; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; border-radius: 8px; box-shadow: 0 4px 14px rgba(92, 225, 230, 0.25);">
+                  <a href="${escapeHtml(actionUrl)}" class="cta-button" style="display: inline-block; padding: 13px 28px; background: #5CE1E6; color: #080D1A; font-size: 14px; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; border-radius: 8px; box-shadow: 0 4px 14px rgba(92, 225, 230, 0.25); max-width: 100%; box-sizing: border-box;">
                     ${escapeHtml(actionLabel)} &rarr;
                   </a>
                   <!--<![endif]-->
@@ -201,8 +284,11 @@ function wrapInSadaLayout(options: {
 
                 ${showAckNotice ? `
                 <!-- Authenticated Acknowledgment Notice -->
-                <div style="margin-top: 24px; padding: 12px 16px; background-color: rgba(15, 23, 42, 0.6); border: 1px solid #1E293B; border-radius: 8px; font-size: 12px; line-height: 1.5; color: #94A3B8;">
-                  <strong style="color: #5CE1E6;">Action Required:</strong> Under SADA OS Operating Rules, viewing this email does not constitute official acknowledgment. Please follow the link to record your authenticated acknowledgment.
+                <div style="margin-top: 24px; padding: 14px 18px; background-color: rgba(15, 23, 42, 0.75); border: 1px solid #1E293B; border-left: 3px solid #5CE1E6; border-radius: 8px; font-size: 12px; line-height: 1.55; color: #CBD5E1; word-break: break-word;">
+                  <div style="font-weight: 700; color: #5CE1E6; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; font-size: 11px;">
+                    Mandatory Operational Acknowledgment
+                  </div>
+                  Under SADA OS Operating Rules, viewing or opening this email does not constitute official acknowledgment. You must follow the secure link and record your authenticated acknowledgment in SADA OS.
                 </div>
                 ` : ""}
               </td>
@@ -210,16 +296,16 @@ function wrapInSadaLayout(options: {
 
             <!-- FOOTER -->
             <tr>
-              <td class="footer-padding" style="padding: 24px 32px; background-color: #090E1D; border-top: 1px solid #162238; text-align: center; font-size: 12px; line-height: 1.6; color: #64748B;">
-                <p style="margin: 0 0 8px 0; color: #94A3B8;">
+              <td class="footer-padding" style="padding: 24px 28px; background-color: #090E1D; border-top: 1px solid #162238; text-align: center; font-size: 12px; line-height: 1.6; color: #64748B; word-break: break-word;">
+                <p style="margin: 0 0 6px 0; color: #94A3B8;">
                   This is an automated operational notification from <strong>SADA Operating System</strong>.
                 </p>
-                <p style="margin: 0 0 12px 0; font-size: 11px; color: #64748B;">
-                  Confidential & Proprietary · SADA Digital Luxe · Tunis, Tunisia
+                <p style="margin: 0 0 10px 0; font-size: 11px; color: #64748B;">
+                  Confidential & Proprietary · SADA Digital Luxe · Tunis, Tunisia (${SADA_TIMEZONE})
                 </p>
                 <p style="margin: 0; font-size: 11px;">
                   <a href="${escapeHtml(actionUrl)}" style="color: #5CE1E6; text-decoration: underline;">Open SADA OS Dashboard</a> · 
-                  <a href="${escapeHtml(actionUrl.split("?")[0] + "/settings")}" style="color: #94A3B8; text-decoration: underline;">Notification Preferences</a>
+                  <a href="${escapeHtml(settingsUrl)}" style="color: #94A3B8; text-decoration: underline;">Notification Preferences</a>
                 </p>
               </td>
             </tr>
@@ -234,17 +320,17 @@ function wrapInSadaLayout(options: {
 }
 
 /**
- * Builds a structured key-value metadata panel.
+ * Builds a structured key-value metadata panel with table-layout: fixed to prevent overflow.
  */
 function renderDataGrid(items: { label: string; value: string; highlight?: boolean; badgeColor?: string }[]): string {
   const rows = items
     .filter(item => Boolean(item.value))
     .map(item => `
       <tr>
-        <td style="padding: 8px 12px; font-size: 12px; font-weight: 600; color: #94A3B8; width: 35%; border-bottom: 1px solid #1A2640;">
+        <td style="padding: 8px 12px; font-size: 12px; font-weight: 600; color: #94A3B8; width: 36%; border-bottom: 1px solid #1A2640; vertical-align: top; word-break: break-word;">
           ${escapeHtml(item.label)}
         </td>
-        <td style="padding: 8px 12px; font-size: 13px; font-weight: 500; color: ${item.highlight ? "#5CE1E6" : "#F8FAFC"}; border-bottom: 1px solid #1A2640;">
+        <td style="padding: 8px 12px; font-size: 13px; font-weight: 500; color: ${item.highlight ? "#5CE1E6" : "#F8FAFC"}; border-bottom: 1px solid #1A2640; vertical-align: top; word-break: break-word;">
           ${item.badgeColor ? `<span style="display:inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; background-color: ${item.badgeColor}20; color: ${item.badgeColor}; border: 1px solid ${item.badgeColor}40;">${escapeHtml(item.value)}</span>` : escapeHtml(item.value)}
         </td>
       </tr>
@@ -252,7 +338,7 @@ function renderDataGrid(items: { label: string; value: string; highlight?: boole
     .join("");
 
   return `
-    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 16px 0 20px 0; background-color: #0F172A; border: 1px solid #1E293B; border-radius: 8px; overflow: hidden;">
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 16px 0 20px 0; background-color: #0F172A; border: 1px solid #1E293B; border-radius: 8px; overflow: hidden; table-layout: fixed; width: 100%;">
       ${rows}
     </table>
   `;
@@ -286,10 +372,10 @@ export function renderTaskAssignedTemplate(params: RenderNotificationEmailParams
   const taskTitle = meta.taskTitle || params.title.replace(/^Task Assigned:\s*/i, "");
   const clientName = meta.clientName || params.contextTitle || "SADA Internal";
   const priority = (meta.priority || "normal").toUpperCase();
-  const deadline = meta.deadline || "Not specified";
-  const assignedBy = meta.assignedByName || "Project Lead";
+  const deadline = formatSadaEmailDateTime(meta.deadline, { fallback: "Not specified" });
+  const assignedBy = meta.assignedByName || meta.assignedBy || "Project Lead";
   const description = meta.description || params.message;
-  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl);
+  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl, { isOperational: true });
 
   const gridHtml = renderDataGrid([
     { label: "Client / Project", value: clientName },
@@ -310,7 +396,7 @@ export function renderTaskAssignedTemplate(params: RenderNotificationEmailParams
     heading: `Task Assigned: ${taskTitle}`,
     contentHtml,
     actionUrl,
-    actionLabel: "Open & Acknowledge Task",
+    actionLabel: "Open & Acknowledge Deliverable",
     showAckNotice: true,
   });
 
@@ -333,10 +419,10 @@ export function renderDeadlineReminderTemplate(params: RenderNotificationEmailPa
   const isOverdue = params.eventType === "TASK_OVERDUE" || params.eventType === "DELIVERABLE_BEHIND";
   const taskTitle = meta.taskTitle || params.title;
   const clientName = meta.clientName || params.contextTitle || "Deliverable";
-  const deadline = meta.deadline || "Immediate";
+  const deadline = formatSadaEmailDateTime(meta.deadline, { fallback: "Immediate" });
   const timeInfo = meta.remainingTime || meta.overdueDuration || (isOverdue ? "Deadline Passed" : "Due Soon (Action Required)");
   const currentStatus = (meta.status || "In Progress").toUpperCase();
-  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl);
+  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl, { isOperational: true });
 
   const badgeColor = isOverdue ? "#EF4444" : "#F59E0B";
 
@@ -364,7 +450,7 @@ export function renderDeadlineReminderTemplate(params: RenderNotificationEmailPa
     heading: isOverdue ? `Timeline Overdue: ${taskTitle}` : `Due Soon: ${taskTitle}`,
     contentHtml,
     actionUrl,
-    actionLabel: "Open Task in Workspace",
+    actionLabel: "Open & Acknowledge Timeline",
     showAckNotice: true,
   });
 
@@ -388,7 +474,7 @@ export function renderRevisionRequestedTemplate(params: RenderNotificationEmailP
   const clientName = meta.clientName || params.contextTitle || "Project";
   const reviewer = meta.reviewerName || "Review Lead";
   const feedback = meta.feedback || meta.comments || params.message;
-  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl);
+  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl, { isOperational: true });
 
   const gridHtml = renderDataGrid([
     { label: "Deliverable", value: taskTitle },
@@ -409,7 +495,7 @@ export function renderRevisionRequestedTemplate(params: RenderNotificationEmailP
     heading: `Revisions Requested: ${taskTitle}`,
     contentHtml,
     actionUrl,
-    actionLabel: "Review Comments & Revise",
+    actionLabel: "Review Comments & Acknowledge",
     showAckNotice: true,
   });
 
@@ -433,7 +519,7 @@ export function renderCommentMentionTemplate(params: RenderNotificationEmailPara
   const author = meta.authorName || meta.senderName || "A team member";
   const context = meta.taskTitle || meta.projectName || params.contextTitle || "Operational Item";
   const comment = meta.commentText || params.message;
-  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl);
+  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl, { isOperational: true });
 
   const contentHtml = `
     <p style="margin: 0 0 16px 0;">
@@ -448,8 +534,8 @@ export function renderCommentMentionTemplate(params: RenderNotificationEmailPara
     heading: isMention ? `Mentioned by ${author}` : `New Comment on ${context}`,
     contentHtml,
     actionUrl,
-    actionLabel: "View Discussion & Reply",
-    showAckNotice: false,
+    actionLabel: "View Discussion & Acknowledge",
+    showAckNotice: true,
   });
 
   const text = `SADA OS — ${isMention ? "Mentioned in Discussion" : "New Comment"}\n\n${author}: "${comment}"\nContext: ${context}\n\nReply: ${actionUrl}`;
@@ -470,9 +556,9 @@ export function renderClientActionTemplate(params: RenderNotificationEmailParams
   const meta = params.metadata || {};
   const clientName = meta.clientName || params.contextTitle || "Client Account";
   const actionNeeded = meta.actionNeeded || params.title;
-  const deadline = meta.deadline || "Within 48 hours";
+  const deadline = formatSadaEmailDateTime(meta.deadline, { fallback: "Within 48 hours" });
   const details = meta.details || params.message;
-  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl);
+  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl, { isOperational: true });
 
   const gridHtml = renderDataGrid([
     { label: "Client Workspace", value: clientName },
@@ -492,7 +578,7 @@ export function renderClientActionTemplate(params: RenderNotificationEmailParams
     heading: `Client Action Required: ${clientName}`,
     contentHtml,
     actionUrl,
-    actionLabel: "Open Client Workspace",
+    actionLabel: "Open Client Workspace & Acknowledge",
     showAckNotice: true,
   });
 
@@ -515,8 +601,8 @@ export function renderTaskReviewTemplate(params: RenderNotificationEmailParams):
   const taskTitle = meta.taskTitle || params.title;
   const clientName = meta.clientName || params.contextTitle || "Project";
   const workerName = meta.workerName || "Assigned Specialist";
-  const submissionTime = meta.submittedAt || "Recently";
-  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl);
+  const submissionTime = formatSadaEmailDateTime(meta.submittedAt, { fallback: "Recently" });
+  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl, { isOperational: true });
 
   const gridHtml = renderDataGrid([
     { label: "Deliverable", value: taskTitle },
@@ -538,7 +624,7 @@ export function renderTaskReviewTemplate(params: RenderNotificationEmailParams):
     heading: `Review Requested: ${taskTitle}`,
     contentHtml,
     actionUrl,
-    actionLabel: "Open QA Review",
+    actionLabel: "Open QA Review & Sign-off",
     showAckNotice: true,
   });
 
@@ -559,9 +645,9 @@ export function renderTaskReviewTemplate(params: RenderNotificationEmailParams):
 export function renderSecurityEventTemplate(params: RenderNotificationEmailParams): RenderedEmail {
   const meta = params.metadata || {};
   const eventDesc = params.message || "A security action or audit event occurred on your account.";
-  const timestamp = meta.timestamp || new Date().toUTCString();
+  const timestamp = formatSadaEmailDateTime(meta.timestamp || new Date().toISOString(), { includeTime: true });
   const guidance = meta.guidance || "If you did not initiate this action, please secure your account immediately and alert a Super Admin.";
-  const actionUrl = resolveActionUrl("/admin/accounts", params.notificationId, params.baseUrl);
+  const actionUrl = resolveActionUrl("/admin/accounts", params.notificationId, params.baseUrl, { isOperational: false });
 
   const gridHtml = renderDataGrid([
     { label: "Security Event", value: params.title },
@@ -604,8 +690,8 @@ export function renderBillingFinanceTemplate(params: RenderNotificationEmailPara
   const invNumber = meta.invoiceNumber || meta.invoice_number || "Invoice";
   const clientName = meta.clientName || params.contextTitle || "Client Account";
   const amount = meta.amount || meta.totalAmount ? `${meta.amount || meta.totalAmount} TND` : "Confirmed";
-  const dueDate = meta.dueDate || meta.due_date || "Past Due";
-  const actionUrl = resolveActionUrl(params.linkUrl || "/admin/finance", params.notificationId, params.baseUrl);
+  const dueDate = formatSadaEmailDateTime(meta.dueDate || meta.due_date, { fallback: "Past Due" });
+  const actionUrl = resolveActionUrl(params.linkUrl || "/admin/finance", params.notificationId, params.baseUrl, { isOperational: true });
 
   const gridHtml = renderDataGrid([
     { label: "Account", value: clientName },
@@ -625,7 +711,7 @@ export function renderBillingFinanceTemplate(params: RenderNotificationEmailPara
     heading: params.title,
     contentHtml,
     actionUrl,
-    actionLabel: "Open Financial Ledger",
+    actionLabel: "Open Financial Ledger & Acknowledge",
     showAckNotice: true,
   });
 
@@ -647,11 +733,11 @@ export function renderProductionCalendarTemplate(params: RenderNotificationEmail
   const meta = params.metadata || {};
   const shootTitle = meta.shootTitle || params.title;
   const clientName = meta.clientName || params.contextTitle || "Client Shoot";
-  const date = meta.date || "Tomorrow";
+  const date = formatSadaEmailDateTime(meta.date || meta.scheduledDate, { includeTime: false, fallback: "Tomorrow" });
   const time = meta.time || "Scheduled Time";
   const location = meta.location || "Studio / On-Site";
   const prodType = meta.productionType || "Media Production";
-  const actionUrl = resolveActionUrl(params.linkUrl || "/admin/calendar", params.notificationId, params.baseUrl);
+  const actionUrl = resolveActionUrl(params.linkUrl || "/admin/calendar", params.notificationId, params.baseUrl, { isOperational: true });
 
   const gridHtml = renderDataGrid([
     { label: "Client Account", value: clientName },
@@ -673,7 +759,7 @@ export function renderProductionCalendarTemplate(params: RenderNotificationEmail
     heading: shootTitle,
     contentHtml,
     actionUrl,
-    actionLabel: "Open Production Calendar",
+    actionLabel: "Open Production Calendar & Acknowledge",
     showAckNotice: true,
   });
 
@@ -692,7 +778,7 @@ export function renderProductionCalendarTemplate(params: RenderNotificationEmail
  * 10. Canonical General Fallback Template
  */
 export function renderCanonicalGeneralTemplate(params: RenderNotificationEmailParams): RenderedEmail {
-  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl);
+  const actionUrl = resolveActionUrl(params.linkUrl, params.notificationId, params.baseUrl, { isOperational: true });
 
   const contentHtml = `
     <p style="margin: 0 0 20px 0; font-size: 15px; line-height: 1.6; color: #E2E8F0;">
@@ -707,8 +793,8 @@ export function renderCanonicalGeneralTemplate(params: RenderNotificationEmailPa
     heading: params.title,
     contentHtml,
     actionUrl,
-    actionLabel: "View in SADA OS",
-    showAckNotice: false,
+    actionLabel: "View in SADA OS & Acknowledge",
+    showAckNotice: true,
   });
 
   const text = `SADA OS — Notification\n\n${params.title}\n\n${params.message}\n\nView: ${actionUrl}`;

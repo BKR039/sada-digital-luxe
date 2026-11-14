@@ -3,6 +3,28 @@
 Every important technical/product decision, most recent first. Append new entries; never edit past ones except to fix a factual error. (Migrated from the earlier `.memory/roadmap.md` — see that file for a pointer.)
 
 **Date:** 2026-11-14
+**Decision:** SADA OS RESEND EMAIL FINAL ACCEPTANCE, UX REFINEMENTS & TIMEZONE ALIGNMENT:
+1. **SADA Timezone (`Africa/Tunis`) & Human-Readable Date Formatting**:
+   - Engineered `formatSadaEmailDateTime` in `src/server/email-templates.ts` converting all raw ISO timestamps (`2026-11-18T17:00:00Z`) into human-readable strings formatted in Tunisian local time (`CET` / `GMT+1`).
+   - Non-date human descriptions (`"Immediate"`, `"Tomorrow"`) and date-only strings (`"2026-11-20"`) are safely preserved without day-shifting or timezone distortion.
+2. **Dynamic Assigner & Client Name Resolution**:
+   - Upgraded `src/server/email-dispatcher.ts` to enrich metadata before rendering: fetches the actual assigner from `project_tasks.assigned_by_id` or `created_by` and resolves display names from `profiles` or `team_members` (e.g. `"Boubakar Hamed (Creative Director)"`), eliminating generic `"Project Lead"` fallbacks.
+   - Dynamically resolves client account name from `clients` when missing from incoming notification metadata.
+3. **Gmail Mobile & Desktop Overflow Elimination**:
+   - Inlined `table-layout: fixed; width: 100%; max-width: 600px;` across all table containers and metadata grids.
+   - Enforced `word-break: break-word; overflow-wrap: break-word;` on headings, content, callout cards, and data grids, preventing table blowouts or clipped text on mobile screens (down to 320px).
+4. **Universal Worker Acknowledgment Hardening**:
+   - Refactored `acknowledgeTaskAssignment` in `src/lib/task-execution-service.ts` with explicit caller authorization checks (must be assigned worker, linked team member, or manager) and an idempotency guard preventing duplicate `task_acknowledged` rows in `public.project_activity`.
+   - Consolidated audit details into `project_activity.details` JSON, preserving zero-schema-change database compatibility.
+   - Re-verified that Resend webhook tracking (`email.opened`, `email.clicked`, `email.delivered`) strictly updates `email_delivery_tracking` and NEVER marks task acknowledgment.
+5. **Cryptographic Webhook Signature Verification**:
+   - Implemented `verifyWebhookSignature` in `src/server/email-dispatcher.ts` verifying incoming Svix/Resend webhook signatures using `crypto.createHmac("sha256")` and constant-time comparison (`crypto.timingSafeEqual`).
+6. **E2E Acceptance Suite & 10 Live Deliveries**:
+   - Created `scripts/test-resend-final-acceptance.ts`: 84/84 assertions PASSED (100%).
+   - Dispatched real controlled emails for all 10 canonical event categories through Resend with live provider message IDs.
+   - TypeScript (`npx tsc --noEmit`) and production build (`npm run build`) exited with 0 errors.
+
+**Date:** 2026-11-14
 **Decision:** SADA OS NOTIFICATION 3.0 FINAL DEPLOYMENT GATE & SECURITY HARDENING:
 1. **GitHub Actions & Production Scheduling Deployment**:
    - Committed and verified `.github/workflows/notification-scheduler.yml` configured for recurring 30-minute executions (`*/30 * * * *`) and `workflow_dispatch` manual triggers.

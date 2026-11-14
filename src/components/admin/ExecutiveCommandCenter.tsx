@@ -445,7 +445,7 @@ export function ExecutiveCommandCenter({
               <TrendingUp className="size-3 sm:size-3.5" />
             </span>
           </div>
-          <div className="text-xs min-[360px]:text-sm sm:text-xl md:text-2xl font-bold font-display tracking-tight tabular-nums sada-num-kpi text-foreground break-words leading-tight">
+          <div className="text-xs min-[360px]:text-sm sm:text-xl md:text-2xl font-bold font-display tracking-tight tabular-nums sada-num-kpi text-foreground whitespace-nowrap truncate leading-tight">
             {formatCurrency(kpis.totalIncome)}
           </div>
           <div className="mt-1 sm:mt-2 text-[9px] sm:text-[11px] text-muted-foreground flex items-center justify-between">
@@ -467,7 +467,7 @@ export function ExecutiveCommandCenter({
               <TrendingDown className="size-3 sm:size-3.5" />
             </span>
           </div>
-          <div className="text-xs min-[360px]:text-sm sm:text-xl md:text-2xl font-bold font-display tracking-tight tabular-nums sada-num-kpi text-foreground break-words leading-tight">
+          <div className="text-xs min-[360px]:text-sm sm:text-xl md:text-2xl font-bold font-display tracking-tight tabular-nums sada-num-kpi text-foreground whitespace-nowrap truncate leading-tight">
             {formatCurrency(kpis.totalExpenses)}
           </div>
           <div className="mt-1 sm:mt-2 text-[9px] sm:text-[11px] text-muted-foreground flex items-center justify-between">
@@ -489,7 +489,7 @@ export function ExecutiveCommandCenter({
               <DollarSign className="size-3 sm:size-3.5" />
             </span>
           </div>
-          <div className={`text-xs min-[360px]:text-sm sm:text-xl md:text-2xl font-bold font-display tracking-tight tabular-nums sada-num-kpi break-words leading-tight ${kpis.netProfit >= 0 ? "text-emerald-500" : "text-destructive"}`}>
+          <div className={`text-xs min-[360px]:text-sm sm:text-xl md:text-2xl font-bold font-display tracking-tight tabular-nums sada-num-kpi whitespace-nowrap truncate leading-tight ${kpis.netProfit >= 0 ? "text-emerald-500" : "text-destructive"}`}>
             {formatCurrency(kpis.netProfit)}
           </div>
           <div className="mt-1 sm:mt-2 text-[9px] sm:text-[11px] text-muted-foreground flex items-center justify-between">
@@ -511,7 +511,7 @@ export function ExecutiveCommandCenter({
               <CreditCard className="size-3 sm:size-3.5" />
             </span>
           </div>
-          <div className="text-xs min-[360px]:text-sm sm:text-xl md:text-2xl font-bold font-display tracking-tight tabular-nums sada-num-kpi text-foreground break-words leading-tight">
+          <div className="text-xs min-[360px]:text-sm sm:text-xl md:text-2xl font-bold font-display tracking-tight tabular-nums sada-num-kpi text-foreground whitespace-nowrap truncate leading-tight">
             {availableCashDisplay}
           </div>
           <div className="mt-1 sm:mt-2 text-[9px] sm:text-[11px] text-muted-foreground flex items-center justify-between">
@@ -533,7 +533,7 @@ export function ExecutiveCommandCenter({
               <Clock className="size-3 sm:size-3.5" />
             </span>
           </div>
-          <div className="text-xs min-[360px]:text-sm sm:text-xl md:text-2xl font-bold font-display tracking-tight tabular-nums sada-num-kpi text-amber-600 dark:text-amber-400 break-words leading-tight">
+          <div className="text-xs min-[360px]:text-sm sm:text-xl md:text-2xl font-bold font-display tracking-tight tabular-nums sada-num-kpi text-amber-600 dark:text-amber-400 whitespace-nowrap truncate leading-tight">
             {formatCurrency(totalOutstandingReceivables)}
           </div>
           <div className="mt-1 sm:mt-2 text-[9px] sm:text-[11px] text-muted-foreground flex items-center justify-between">

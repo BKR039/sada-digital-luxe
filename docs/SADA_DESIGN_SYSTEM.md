@@ -358,9 +358,67 @@ The SADA OS Notification Toast Presentation System standardizes the visual appea
 - **Responsive Containment:** Width is 380px on desktop (anchored top-right in LTR, top-left in RTL); constrained to full viewport minus 12px safe margins on mobile screens `<= 640px` and down to 320px.
 - **Accessibility:** Full keyboard focus indicators, `role="alert"`, and `prefers-reduced-motion` animation suppression.
 
+## Global Mobile UI/UX Responsive Design Architecture
 
+### 1. Architectural Philosophy & Principles
+SADA OS mobile experiences are intentionally architected for touchscreens, handheld viewports (360px–430px), and high information density. SADA OS mobile is **not** a scaled-down desktop interface, nor is it an oversized cartoonish mobile app.
+- **High Information Density with Calm Whitespace:** Content must feel compact, professional, and dense without visual claustrophobia.
+- **Predictable Hierarchy:** Clear distinctions between page headings, section subheadings, card headers, and metadata.
+- **Zero Horizontal Overflow:** Document body and containers strictly enforce `scrollWidth <= clientWidth` across all screen widths.
+- **Anti-Wrapping Invariant:** Badges, counters, actions, and currency figures never break across multiple lines unless explicitly architected as multi-line narrative blocks.
+- **Desktop Invariance:** Changes to mobile responsiveness strictly protect desktop (>= 1024px) aesthetics, layouts, and typography.
 
+### 2. Canonical Mobile Sizing & Typography Tokens
 
+| Element | Mobile Token / Size | Desktop Size | Mobile CSS Rule / Class |
+| :--- | :--- | :--- | :--- |
+| **Main Page Title** | 20–24px (`1.25rem–1.5rem`) | 28–36px (`1.75rem–2.25rem`) | `h1` in `.admin-main`, `clamp(1.25rem, 5vw, 1.5rem)` |
+| **Section Heading** | 17–19px (`1.05rem–1.2rem`) | 20–24px (`1.25rem–1.5rem`) | `h2` in `.admin-main`, `clamp(1.05rem, 4vw, 1.2rem)` |
+| **Card Title** | 15–17px (`0.925rem–1.05rem`) | 18–20px (`1.125rem–1.25rem`) | `CardTitle`, `text-base sm:text-lg font-semibold leading-tight` |
+| **Body Text** | 13–14px (`0.8125rem–0.875rem`) | 14–15px (`0.875rem–0.9375rem`) | `p.text-sm` in `.admin-main`, `0.8125rem` |
+| **Supporting Description** | 12–13px (`0.75rem–0.8125rem`) | 13–14px (`0.8125rem–0.875rem`) | `CardDescription`, `text-xs sm:text-sm` |
+| **Small Metadata / Timestamps**| 10–12px (`0.625rem–0.75rem`) | 11–12px (`0.6875rem–0.75rem`) | `p.text-xs`, `text-[11px]`, `text-xs` |
+| **KPI Primary Value** | 21–25px (`1.3rem–1.6rem`) | 28–36px (`1.75rem–2.25rem`) | `.sada-num-kpi`, `clamp(1.3rem, 5vw, 1.6rem)` |
+| **Status Badge** | 10–11px (`0.625rem–0.6875rem`) | 11–12px (`0.6875rem–0.75rem`) | `SADABadge`, `text-[10px]` to `text-[11px]` |
+| **Button / Control Label** | 12–14px (`0.75rem–0.875rem`) | 13–14px (`0.8125rem–0.875rem`) | `Button`, `text-xs sm:text-sm` |
 
+### 3. Spacing & Card Padding Scale
 
+| Element | Mobile Spacing | Desktop Spacing | Implementation Token |
+| :--- | :--- | :--- | :--- |
+| **Page Horizontal Padding** | 16px (`1rem`) | 24–32px (`1.5rem–2rem`) | `.admin-main { padding-left: 1rem; padding-right: 1rem; }` |
+| **Card Internal Padding** | 14–16px (`p-3.5 sm:p-6` or `p-4 sm:p-6`) | 24px (`p-6`) | `CardHeader`, `CardContent`, `CardFooter` in `card.tsx` |
+| **Card Gap in Grids** | 12–16px (`gap-3 sm:gap-4 md:gap-6`) | 20–24px (`gap-5` or `gap-6`) | Grid container classes |
+| **Card Border Radius** | 12–16px (`rounded-xl sm:rounded-2xl`) | 16–24px (`rounded-2xl sm:rounded-3xl`) | `SADACard`, `rounded-xl sm:rounded-2xl` |
+| **Section Gap** | 16–20px (`space-y-4 sm:space-y-6`) | 24–32px (`space-y-6 sm:space-y-8`) | Route container layout |
+| **Page Bottom Clearance** | `calc(5.5rem + env(safe-area-inset-bottom))` (~88px) | 32–40px (`pb-8` to `pb-10`) | Clears fixed `SADAMobileBottomNav` dock |
+
+### 4. Global Single-Line Invariants
+
+#### A. Status Badges & Counter Chips
+Badges such as `0 WAITING`, `0 BLOCKED`, `ACTIVE`, `OVERDUE`, `PAID`, or `PROPOSAL` must **never** wrap onto two lines.
+- Base primitive invariant (`src/components/ui/badge.tsx` and `src/components/ui/sada-badge.tsx`):
+  `whitespace-nowrap shrink-0 inline-flex items-center`
+- Flex container hygiene: When a card header places a title on the left and a badge on the right, the title container **must** declare `min-w-0 flex-1 truncate` so that long text truncates gracefully before exerting lateral pressure on the badge.
+- Global CSS fallback: `.admin-main [data-sada-badge]`, `.admin-main .sada-badge`, `span.font-mono`, `span.uppercase` enforce `white-space: nowrap !important; flex-shrink: 0 !important;` on screen widths `<= 767.98px`.
+
+#### B. Currency Values & KPI Numbers
+Figures like `1,490 TND` or `88,200 TND` must never split the symbol or decimals onto a second line.
+- Canonical class: `whitespace-nowrap tabular-nums sada-num-kpi truncate`
+- Replaced dangerous `break-words` utilities on numeric values with explicit `whitespace-nowrap truncate`.
+
+#### C. Action Buttons & Icons
+All mobile action buttons follow the strict button invariant:
+- `inline-flex flex-row flex-nowrap items-center justify-center whitespace-nowrap`
+- Icons enforce `shrink-0` (`[&_svg]:shrink-0`)
+- Minimum touch target: `min-h-[40px]` on primary touch controls (`min-h-[44px]` on mobile header/drawer buttons).
+
+### 5. Multi-Device Verified Matrix
+The SADA OS mobile design architecture is verified via automated multi-viewport testing scripts (`scripts/audit-mobile-ux-global.ts`):
+- **360 × 740**: Compact Android devices (Samsung Galaxy A series)
+- **390 × 844**: Standard modern smartphone (Apple iPhone 12/13/14)
+- **430 × 932**: Large flagship smartphone (Apple iPhone 14/15/16 Pro Max)
+- **768 × 1024**: Tablet portrait (Apple iPad / Android tablets)
+- **1440 × 900**: Standard desktop baseline (verifying 0 desktop regression)
+- **RTL Arabic Mode**: Verified on 390px with flipped chevron orientations, mirrored padding, and aligned badges.
 

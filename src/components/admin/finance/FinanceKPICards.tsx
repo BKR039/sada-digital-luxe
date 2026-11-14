@@ -56,7 +56,7 @@ export function FinanceKPICards({
           </div>
 
           <div className="mt-2.5">
-            <div className="text-xl sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi">
+            <div className="text-lg sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi whitespace-nowrap truncate">
               {formatCurrency(kpis.revenue)}
             </div>
           </div>
@@ -105,7 +105,7 @@ export function FinanceKPICards({
           </div>
 
           <div className="mt-2.5">
-            <div className="text-xl sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi">
+            <div className="text-lg sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi whitespace-nowrap truncate">
               {formatCurrency(kpis.expenses)}
             </div>
           </div>
@@ -164,7 +164,7 @@ export function FinanceKPICards({
 
           <div className="mt-2.5">
             <div
-              className={`text-xl sm:text-2xl font-bold font-display tracking-tight tabular-nums sada-num-kpi ${
+              className={`text-lg sm:text-2xl font-bold font-display tracking-tight tabular-nums sada-num-kpi whitespace-nowrap truncate ${
                 isNetPositive
                   ? "text-emerald-600 dark:text-emerald-400"
                   : "text-rose-600 dark:text-rose-400"
@@ -203,7 +203,7 @@ export function FinanceKPICards({
           </div>
 
           <div className="mt-2.5">
-            <div className="text-xl sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi">
+            <div className="text-lg sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi whitespace-nowrap truncate">
               {kpis.cashUsd && kpis.cashUsd > 0
                 ? `${formatCurrency(kpis.cash, { currency: "TND" })} + ${formatCurrency(kpis.cashUsd, { currency: "USD" })}`
                 : formatCurrency(kpis.cash, { currency: "TND" })}
@@ -235,7 +235,7 @@ export function FinanceKPICards({
           </div>
 
           <div className="mt-2.5">
-            <div className="text-xl sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi">
+            <div className="text-lg sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi whitespace-nowrap truncate">
               {formatCurrency(kpis.outstandingPayments)}
             </div>
           </div>
@@ -264,7 +264,7 @@ export function FinanceKPICards({
           </div>
 
           <div className="mt-2.5">
-            <div className="text-xl sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi">
+            <div className="text-lg sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi whitespace-nowrap truncate">
               {formatCurrency(kpis.sponsoringMargin)}
             </div>
           </div>
@@ -295,7 +295,7 @@ export function FinanceKPICards({
           </div>
 
           <div className="mt-2.5">
-            <div className="text-xl sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi">
+            <div className="text-lg sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi whitespace-nowrap truncate">
               {formatCurrency(kpis.payroll)}
             </div>
           </div>
@@ -333,7 +333,7 @@ export function FinanceKPICards({
           </div>
 
           <div className="mt-2.5">
-            <div className="text-xl sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi">
+            <div className="text-lg sm:text-2xl font-bold font-display text-foreground tracking-tight tabular-nums sada-num-kpi whitespace-nowrap truncate">
               {formatCurrency(kpis.operatingExpenses)}
             </div>
           </div>

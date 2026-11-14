@@ -157,38 +157,38 @@ function InquiriesPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
+          <h1 className="font-display text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
             Client Inquiries & Discovery Briefs
           </h1>
-          <p className="text-sm text-muted-foreground mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1">
             Structured briefs submitted via the Smart Project Discovery flow.
           </p>
         </div>
       </div>
 
       {/* KPI Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
-        <div className="rounded-2xl border border-border bg-card p-4 soft-shadow">
-          <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Total Inquiries</div>
-          <div className="font-display text-2xl font-bold mt-1 text-foreground">{stats.total}</div>
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 sm:gap-3.5">
+        <div className="rounded-xl sm:rounded-2xl border border-border bg-card p-3 sm:p-4 soft-shadow min-w-0">
+          <div className="text-[10px] sm:text-xs text-muted-foreground font-medium uppercase tracking-wider truncate">Total Inquiries</div>
+          <div className="font-display text-lg sm:text-2xl font-bold mt-1 text-foreground tabular-nums truncate">{stats.total}</div>
         </div>
-        <div className="rounded-2xl border border-border bg-card p-4 soft-shadow">
-          <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Pending / New</div>
-          <div className="font-display text-2xl font-bold mt-1 text-amber-500">{stats.pending}</div>
+        <div className="rounded-xl sm:rounded-2xl border border-border bg-card p-3 sm:p-4 soft-shadow min-w-0">
+          <div className="text-[10px] sm:text-xs text-muted-foreground font-medium uppercase tracking-wider truncate">Pending / New</div>
+          <div className="font-display text-lg sm:text-2xl font-bold mt-1 text-amber-500 tabular-nums truncate">{stats.pending}</div>
         </div>
-        <div className="rounded-2xl border border-border bg-card p-4 soft-shadow">
-          <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Converted</div>
-          <div className="font-display text-2xl font-bold mt-1 text-emerald-500">{stats.converted}</div>
+        <div className="rounded-xl sm:rounded-2xl border border-border bg-card p-3 sm:p-4 soft-shadow min-w-0">
+          <div className="text-[10px] sm:text-xs text-muted-foreground font-medium uppercase tracking-wider truncate">Converted</div>
+          <div className="font-display text-lg sm:text-2xl font-bold mt-1 text-emerald-500 tabular-nums truncate">{stats.converted}</div>
         </div>
-        <div className="rounded-2xl border border-border bg-card p-4 soft-shadow">
-          <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Direct Packages</div>
-          <div className="font-display text-2xl font-bold mt-1 text-purple-500">{stats.packages}</div>
+        <div className="rounded-xl sm:rounded-2xl border border-border bg-card p-3 sm:p-4 soft-shadow min-w-0">
+          <div className="text-[10px] sm:text-xs text-muted-foreground font-medium uppercase tracking-wider truncate">Direct Packages</div>
+          <div className="font-display text-lg sm:text-2xl font-bold mt-1 text-purple-500 tabular-nums truncate">{stats.packages}</div>
         </div>
-        <div className="rounded-2xl border border-border bg-card p-4 soft-shadow">
-          <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Guided Discovery</div>
-          <div className="font-display text-2xl font-bold mt-1 text-primary">{stats.guided}</div>
+        <div className="rounded-xl sm:rounded-2xl border border-border bg-card p-3 sm:p-4 soft-shadow col-span-2 sm:col-span-1 min-w-0">
+          <div className="text-[10px] sm:text-xs text-muted-foreground font-medium uppercase tracking-wider truncate">Guided Discovery</div>
+          <div className="font-display text-lg sm:text-2xl font-bold mt-1 text-primary tabular-nums truncate">{stats.guided}</div>
         </div>
       </div>
 

@@ -992,72 +992,72 @@ function DailyExecutionDashboard() {
           )}
 
           {/* LEVEL 1.5 — SALES & COMMISSION WORKSPACE SNAPSHOT */}
-          <div className="rounded-3xl border border-primary/20 bg-gradient-to-br from-card via-card to-primary/5 p-6 elevated-shadow space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <div className="size-8 rounded-xl bg-gradient-primary text-white grid place-items-center shadow-md">
+          <div className="rounded-2xl sm:rounded-3xl border border-primary/20 bg-gradient-to-br from-card via-card to-primary/5 p-4 sm:p-6 elevated-shadow space-y-4 min-w-0">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 min-w-0">
+              <div className="space-y-1 min-w-0 flex-1">
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="size-8 rounded-xl bg-gradient-primary text-white grid place-items-center shadow-md shrink-0">
                     <TrendingUp className="size-4" />
                   </div>
-                  <div>
-                    <h3 className="font-display font-bold text-lg text-foreground">Worker Sales & Commissions Hub</h3>
-                    <p className="text-xs text-muted-foreground">Your active leads, closed deals, and earned commissions</p>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-display font-bold text-base sm:text-lg text-foreground truncate">Worker Sales & Commissions Hub</h3>
+                    <p className="text-xs text-muted-foreground truncate">Your active leads, closed deals, and earned commissions</p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 <Link
                   to="/admin/sales"
-                  className="bg-gradient-primary text-white px-4 py-2 rounded-2xl text-xs font-semibold inline-flex items-center gap-1.5 neon-glow hover:scale-[1.02] transition-transform shadow-md"
+                  className="bg-gradient-primary text-white px-3.5 sm:px-4 py-2 rounded-xl sm:rounded-2xl text-xs font-semibold inline-flex items-center justify-center gap-1.5 neon-glow hover:scale-[1.02] transition-transform shadow-md w-full sm:w-auto"
                 >
                   <span>Open Sales Workspace</span>
-                  <ArrowRight className="size-3.5" />
+                  <ArrowRight className="size-3.5 rtl:rotate-180" />
                 </Link>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
-              <div className="p-3.5 rounded-2xl border border-border bg-background/50 space-y-1">
-                <div className="text-[10px] font-mono uppercase text-muted-foreground font-semibold">Active Leads</div>
-                <div className="text-xl font-bold font-mono text-foreground">{salesSnapshot.activeLeadsCount}</div>
-                <div className="text-[10px] text-muted-foreground">In pipeline</div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 pt-1">
+              <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border border-border bg-background/50 space-y-1 min-w-0">
+                <div className="text-[10px] font-mono uppercase text-muted-foreground font-semibold truncate">Active Leads</div>
+                <div className="text-lg sm:text-xl font-bold font-mono text-foreground truncate">{salesSnapshot.activeLeadsCount}</div>
+                <div className="text-[10px] text-muted-foreground truncate">In pipeline</div>
               </div>
 
-              <div className="p-3.5 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 space-y-1">
-                <div className="text-[10px] font-mono uppercase text-emerald-600 dark:text-emerald-400 font-semibold">Won Deals</div>
-                <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400">{salesSnapshot.wonSalesCount}</div>
-                <div className="text-[10px] text-emerald-600/80">Converted sales</div>
+              <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border border-emerald-500/20 bg-emerald-500/5 space-y-1 min-w-0">
+                <div className="text-[10px] font-mono uppercase text-emerald-600 dark:text-emerald-400 font-semibold truncate">Won Deals</div>
+                <div className="text-lg sm:text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400 truncate">{salesSnapshot.wonSalesCount}</div>
+                <div className="text-[10px] text-emerald-600/80 truncate">Converted sales</div>
               </div>
 
-              <div className="p-3.5 rounded-2xl border border-border bg-background/50 space-y-1">
-                <div className="text-[10px] font-mono uppercase text-muted-foreground font-semibold">Pipeline Value</div>
-                <div className="text-xl font-bold font-mono text-foreground">{salesSnapshot.pipelineValue.toLocaleString()} <span className="text-xs font-normal">TND</span></div>
-                <div className="text-[10px] text-muted-foreground">Estimated</div>
+              <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border border-border bg-background/50 space-y-1 min-w-0">
+                <div className="text-[10px] font-mono uppercase text-muted-foreground font-semibold truncate">Pipeline Value</div>
+                <div className="text-lg sm:text-xl font-bold font-mono text-foreground whitespace-nowrap truncate">{salesSnapshot.pipelineValue.toLocaleString()} <span className="text-xs font-normal">TND</span></div>
+                <div className="text-[10px] text-muted-foreground truncate">Estimated</div>
               </div>
 
-              <div className="p-3.5 rounded-2xl border border-primary/20 bg-primary/5 space-y-1">
-                <div className="text-[10px] font-mono uppercase text-primary font-semibold">Won Revenue</div>
-                <div className="text-xl font-bold font-mono text-primary">{salesSnapshot.wonRevenue.toLocaleString()} <span className="text-xs font-normal">TND</span></div>
-                <div className="text-[10px] text-muted-foreground">Closed volume</div>
+              <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border border-primary/20 bg-primary/5 space-y-1 min-w-0">
+                <div className="text-[10px] font-mono uppercase text-primary font-semibold truncate">Won Revenue</div>
+                <div className="text-lg sm:text-xl font-bold font-mono text-primary whitespace-nowrap truncate">{salesSnapshot.wonRevenue.toLocaleString()} <span className="text-xs font-normal">TND</span></div>
+                <div className="text-[10px] text-muted-foreground truncate">Closed volume</div>
               </div>
 
-              <div className="p-3.5 rounded-2xl border border-amber-500/20 bg-amber-500/5 space-y-1">
-                <div className="text-[10px] font-mono uppercase text-amber-600 dark:text-amber-400 font-semibold">Pending Comm.</div>
-                <div className="text-xl font-bold font-mono text-amber-600 dark:text-amber-400">{salesSnapshot.pendingComms.toLocaleString()} <span className="text-xs font-normal">TND</span></div>
-                <div className="text-[10px] text-amber-600/80">Awaiting approval/pay</div>
+              <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-amber-500/5 space-y-1 min-w-0">
+                <div className="text-[10px] font-mono uppercase text-amber-600 dark:text-amber-400 font-semibold truncate">Pending Comm.</div>
+                <div className="text-lg sm:text-xl font-bold font-mono text-amber-600 dark:text-amber-400 whitespace-nowrap truncate">{salesSnapshot.pendingComms.toLocaleString()} <span className="text-xs font-normal">TND</span></div>
+                <div className="text-[10px] text-amber-600/80 truncate">Awaiting approval/pay</div>
               </div>
 
-              <div className="p-3.5 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 space-y-1">
-                <div className="text-[10px] font-mono uppercase text-emerald-600 dark:text-emerald-400 font-semibold">Paid Comm.</div>
-                <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400">{salesSnapshot.paidComms.toLocaleString()} <span className="text-xs font-normal">TND</span></div>
-                <div className="text-[10px] text-emerald-600/80">Total received</div>
+              <div className="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border border-emerald-500/20 bg-emerald-500/5 space-y-1 min-w-0">
+                <div className="text-[10px] font-mono uppercase text-emerald-600 dark:text-emerald-400 font-semibold truncate">Paid Comm.</div>
+                <div className="text-lg sm:text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400 whitespace-nowrap truncate">{salesSnapshot.paidComms.toLocaleString()} <span className="text-xs font-normal">TND</span></div>
+                <div className="text-[10px] text-emerald-600/80 truncate">Total received</div>
               </div>
             </div>
           </div>
 
           {/* LEVEL 2 — MY DAY / TODAY'S EXECUTION (GROUPED TASK STATES) */}
-          <div className="rounded-3xl border border-border bg-card p-5 md:p-7 elevated-shadow space-y-5">
+          <div className="rounded-2xl sm:rounded-3xl border border-border bg-card p-4 sm:p-6 md:p-7 elevated-shadow space-y-4 sm:space-y-5 min-w-0">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <div className="flex items-center gap-2">
@@ -1414,16 +1414,16 @@ function DailyExecutionDashboard() {
           {/* LEVEL 3 — CLIENT ACTION REQUIRED & BLOCKED WORK */}
           <div className="grid lg:grid-cols-2 gap-6">
             {/* CLIENT ACTION REQUIRED */}
-            <div className="rounded-3xl border border-amber-500/30 bg-amber-500/5 p-6 soft-shadow space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <PhoneCall className="size-5 text-amber-600 dark:text-amber-400" />
-                  <div>
-                    <h3 className="font-display font-bold text-lg text-foreground">Client Action Required</h3>
-                    <p className="text-xs text-muted-foreground">Projects and tasks waiting on client input or assets</p>
+            <div className="rounded-2xl sm:rounded-3xl border border-amber-500/30 bg-amber-500/5 p-4 sm:p-6 soft-shadow space-y-4 min-w-0">
+              <div className="flex items-center justify-between gap-3 min-w-0">
+                <div className="flex items-center gap-2 min-w-0 flex-1">
+                  <PhoneCall className="size-4.5 sm:size-5 text-amber-600 dark:text-amber-400 shrink-0" />
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-display font-bold text-base sm:text-lg text-foreground truncate">Client Action Required</h3>
+                    <p className="text-xs text-muted-foreground truncate">Projects and tasks waiting on client input or assets</p>
                   </div>
                 </div>
-                <span className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/30">
+                <span className="text-xs font-mono font-bold text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/30 shrink-0 whitespace-nowrap">
                   {clientActionRequired.length} WAITING
                 </span>
               </div>
@@ -1435,10 +1435,10 @@ function DailyExecutionDashboard() {
               ) : (
                 <div className="space-y-3">
                   {clientActionRequired.slice(0, 4).map((item, idx) => (
-                    <div key={idx} className="p-4 rounded-2xl border border-amber-500/20 bg-card hover:bg-amber-500/10 transition-all space-y-2">
+                    <div key={idx} className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-amber-500/20 bg-card hover:bg-amber-500/10 transition-all space-y-2">
                       <div className="flex items-center justify-between text-xs gap-2 min-w-0">
                         <span className="font-bold text-foreground truncate min-w-0 flex-1">{item.project.client_name}</span>
-                        <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 font-bold uppercase shrink-0">
+                        <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 font-bold uppercase shrink-0 whitespace-nowrap">
                           {item.followupDate ? format(parseISO(item.followupDate), "d MMM") : "Waiting"}
                         </span>
                       </div>
@@ -1453,7 +1453,7 @@ function DailyExecutionDashboard() {
                         </span>
                         <button
                           onClick={() => openFollowupForProject(item.project)}
-                          className="px-2.5 sm:px-3 py-1 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-[11px] font-semibold hover:bg-amber-500/20 transition-colors inline-flex items-center gap-1 shrink-0"
+                          className="px-2.5 sm:px-3 py-1 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 text-[11px] font-semibold hover:bg-amber-500/20 transition-colors inline-flex items-center gap-1 shrink-0 whitespace-nowrap"
                         >
                           <PhoneCall className="size-3" /> Log Contact
                         </button>
@@ -1465,16 +1465,16 @@ function DailyExecutionDashboard() {
             </div>
 
             {/* BLOCKED WORK */}
-            <div className="rounded-3xl border border-rose-500/30 bg-rose-500/5 p-6 soft-shadow space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <ShieldAlert className="size-5 text-rose-600 dark:text-rose-400" />
-                  <div>
-                    <h3 className="font-display font-bold text-lg text-foreground">Blocked Work</h3>
-                    <p className="text-xs text-muted-foreground">Tasks currently stopped due to blockers</p>
+            <div className="rounded-2xl sm:rounded-3xl border border-rose-500/30 bg-rose-500/5 p-4 sm:p-6 soft-shadow space-y-4 min-w-0">
+              <div className="flex items-center justify-between gap-3 min-w-0">
+                <div className="flex items-center gap-2 min-w-0 flex-1">
+                  <ShieldAlert className="size-4.5 sm:size-5 text-rose-600 dark:text-rose-400 shrink-0" />
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-display font-bold text-base sm:text-lg text-foreground truncate">Blocked Work</h3>
+                    <p className="text-xs text-muted-foreground truncate">Tasks currently stopped due to blockers</p>
                   </div>
                 </div>
-                <span className="text-xs font-mono font-bold text-rose-600 dark:text-rose-400 bg-rose-500/10 px-2.5 py-0.5 rounded-full border border-rose-500/30">
+                <span className="text-xs font-mono font-bold text-rose-600 dark:text-rose-400 bg-rose-500/10 px-2.5 py-0.5 rounded-full border border-rose-500/30 shrink-0 whitespace-nowrap">
                   {blockedTasksList.length} BLOCKED
                 </span>
               </div>

@@ -1644,52 +1644,69 @@ html[dir="rtl"],
   .admin-main {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: contain;
-    padding-left: 0.75rem !important;
-    padding-right: 0.75rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
     padding-top: 4.25rem !important;
     padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)) !important;
+    overflow-x: hidden;
+    min-width: 0;
+    max-width: 100vw;
+    box-sizing: border-box;
   }
 
   /* Compact responsive typography for mobile viewports */
   .admin-main h1,
   .admin-main .font-display.text-2xl,
-  .admin-main .font-display.text-3xl {
-    font-size: clamp(1.15rem, 4.8vw, 1.45rem) !important;
+  .admin-main .font-display.text-3xl,
+  .admin-main .font-display.text-4xl {
+    font-size: clamp(1.25rem, 5vw, 1.5rem) !important;
     line-height: 1.25 !important;
     letter-spacing: -0.02em !important;
   }
 
   .admin-main h2 {
-    font-size: 1.05rem !important;
+    font-size: clamp(1.05rem, 4vw, 1.2rem) !important;
     line-height: 1.3 !important;
   }
 
   .admin-main h3 {
-    font-size: 0.95rem !important;
+    font-size: clamp(0.925rem, 3.5vw, 1.05rem) !important;
     line-height: 1.3 !important;
   }
 
-  .admin-main p.text-xs,
   .admin-main p.text-sm {
+    font-size: 0.8125rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .admin-main p.text-xs {
     font-size: 0.75rem !important;
     line-height: 1.35 !important;
   }
 
-  /* Compact badges */
-  .admin-main [data-sada-badge] {
-    font-size: 0.65rem !important;
-    padding: 0.15rem 0.45rem !important;
+  /* Compact single-line badges & status pills across all modules */
+  .admin-main [data-sada-badge],
+  .admin-main .sada-badge,
+  .admin-main [class*="badge"],
+  .admin-main span[class*="rounded-full"][class*="font-mono"],
+  .admin-main span[class*="rounded-md"][class*="font-mono"],
+  .admin-main span[class*="rounded-full"][class*="uppercase"],
+  .admin-main span[class*="rounded-md"][class*="uppercase"] {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    max-width: 100%;
   }
 
-  /* Compact KPI numbers on mobile */
+  /* Proportional KPI metrics on mobile */
   .admin-main .text-3xl,
   .admin-main .text-4xl,
   .admin-main .sada-num-kpi {
-    font-size: 1.4rem !important;
-    line-height: 1.15 !important;
+    font-size: clamp(1.3rem, 5vw, 1.6rem) !important;
+    line-height: 1.2 !important;
+    white-space: nowrap;
   }
 
-  /* Mobile touch targets: minimum 44px for primary interactions */
+  /* Mobile touch targets: minimum 40-44px for primary interactions */
   button, a, input, select {
     touch-action: manipulation;
   }
@@ -1701,6 +1718,16 @@ html[dir="rtl"],
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Prevent oversized cards with hardcoded desktop p-6 / p-8 on mobile */
+  .admin-main div[class*="rounded-3xl"][class*="p-6"],
+  .admin-main div[class*="rounded-3xl"][class*="p-8"],
+  .admin-main div[class*="rounded-2xl"][class*="p-6"],
+  .admin-main div[class*="rounded-2xl"][class*="p-8"] {
+    padding: 1rem !important;
   }
 }
 

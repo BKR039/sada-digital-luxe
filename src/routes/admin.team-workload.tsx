@@ -378,10 +378,10 @@ export function TeamWorkloadPage() {
               {isAr ? "إدارة الفريق والقدرة الاستيعابية الموحدة" : "Unified Team & Capacity Management"}
             </span>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
+          <h1 className="font-display text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
             {isAr ? "إدارة الفريق وتوزيع طاقة العمل" : "Team Management & Workload"}
           </h1>
-          <p className="text-sm text-muted-foreground mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
             {isAr
               ? "إدارة أعضاء الفريق، وإعادة موازنة طاقة العمل المباشرة، وتعيين المهام غير المسندة، ومزامنة الملفات التعريفية للموقع."
               : "Manage team members, rebalance live workload, assign unassigned tasks, and sync public website profiles."}
@@ -402,49 +402,49 @@ export function TeamWorkloadPage() {
       </div>
 
       {/* Operational Pulse Banner */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-        <div className="p-4 rounded-2xl border border-border bg-card soft-shadow">
-          <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5 sm:gap-3">
+        <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-border bg-card soft-shadow min-w-0">
+          <div className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wider truncate">
             {isAr ? "الفريق النشط" : "Active Team"}
           </div>
-          <div className="text-2xl font-bold text-foreground mt-1 flex items-center gap-2">
-            <Users className="size-5 text-primary" /> {pulseMetrics.activeMembersCount}
+          <div className="text-lg sm:text-xl font-bold text-foreground mt-1 flex items-center gap-1.5 truncate">
+            <Users className="size-4 sm:size-5 text-primary shrink-0" /> {pulseMetrics.activeMembersCount}
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl border border-border bg-card soft-shadow">
-          <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+        <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-border bg-card soft-shadow min-w-0">
+          <div className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wider truncate">
             {isAr ? "المهام النشطة" : "Active Tasks"}
           </div>
-          <div className="text-2xl font-bold text-foreground mt-1 flex items-center gap-2">
-            <Clock className="size-5 text-primary" /> {pulseMetrics.activeTasksCount}
+          <div className="text-lg sm:text-xl font-bold text-foreground mt-1 flex items-center gap-1.5 truncate">
+            <Clock className="size-4 sm:size-5 text-primary shrink-0" /> {pulseMetrics.activeTasksCount}
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl border border-border bg-card soft-shadow">
-          <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+        <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-border bg-card soft-shadow min-w-0">
+          <div className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wider truncate">
             {isAr ? "غير المعينة" : "Unassigned"}
           </div>
-          <div className={`text-2xl font-bold mt-1 flex items-center gap-2 ${pulseMetrics.unassignedCount > 0 ? "text-amber-500" : "text-foreground"}`}>
-            <AlertCircle className="size-5" /> {pulseMetrics.unassignedCount}
+          <div className={`text-lg sm:text-xl font-bold mt-1 flex items-center gap-1.5 truncate ${pulseMetrics.unassignedCount > 0 ? "text-amber-500" : "text-foreground"}`}>
+            <AlertCircle className="size-4 sm:size-5 shrink-0" /> {pulseMetrics.unassignedCount}
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl border border-border bg-card soft-shadow">
-          <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+        <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-border bg-card soft-shadow min-w-0">
+          <div className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wider truncate">
             {isAr ? "المتأخرة" : "Overdue"}
           </div>
-          <div className={`text-2xl font-bold mt-1 flex items-center gap-2 ${pulseMetrics.overdueCount > 0 ? "text-destructive" : "text-foreground"}`}>
-            <AlertTriangle className="size-5" /> {pulseMetrics.overdueCount}
+          <div className={`text-lg sm:text-xl font-bold mt-1 flex items-center gap-1.5 truncate ${pulseMetrics.overdueCount > 0 ? "text-destructive" : "text-foreground"}`}>
+            <AlertTriangle className="size-4 sm:size-5 shrink-0" /> {pulseMetrics.overdueCount}
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl border border-border bg-card soft-shadow col-span-2 sm:col-span-1">
-          <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+        <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-border bg-card soft-shadow col-span-2 sm:col-span-1 min-w-0">
+          <div className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wider truncate">
             {isAr ? "المعلقة" : "Blocked"}
           </div>
-          <div className={`text-2xl font-bold mt-1 flex items-center gap-2 ${pulseMetrics.blockedCount > 0 ? "text-rose-500" : "text-foreground"}`}>
-            <ShieldAlert className="size-5" /> {pulseMetrics.blockedCount}
+          <div className={`text-lg sm:text-xl font-bold mt-1 flex items-center gap-1.5 truncate ${pulseMetrics.blockedCount > 0 ? "text-rose-500" : "text-foreground"}`}>
+            <ShieldAlert className="size-4 sm:size-5 shrink-0" /> {pulseMetrics.blockedCount}
           </div>
         </div>
       </div>

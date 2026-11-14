@@ -3,7 +3,7 @@ import { useRouterState } from "@tanstack/react-router";
 
 export function PageLoadingIndicator() {
   const isNavigating = useRouterState({
-    select: (s) => s.status === "pending" || s.isLoading || s.isTransitioning,
+    select: (s) => s.status === "pending" || s.isLoading || Boolean((s as { isTransitioning?: boolean }).isTransitioning),
   });
 
   const [active, setActive] = useState(false);

@@ -3,42 +3,116 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>SADA OS — Offline Mode</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <meta name="theme-color" content="#F8FAFC" />
+  <title>SADA OS — You're Offline</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" href="/icons/pwa-icon-180x180.png" />
+  <style>
+    /* ============================================================
+       SADA CANONICAL ARABIC TYPOGRAPHY: THMANYAH SERIF TEXT
+       Local offline font loading with graceful system fallbacks
+       ============================================================ */
     @font-face {
       font-family: 'Thmanyah Serif Text';
-      src: url('/fonts/thmanyahseriftext-Regular.otf') format('opentype');
+      src: url('/fonts/thmanyahseriftext-Regular.otf') format('opentype'),
+           url('/fonts/thmanyah-400.woff2') format('woff2');
       font-weight: 400;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
       font-family: 'Thmanyah Serif Text';
-      src: url('/fonts/thmanyahseriftext-Bold.otf') format('opentype');
+      src: url('/fonts/thmanyahseriftext-Bold.otf') format('opentype'),
+           url('/fonts/thmanyah-700.woff2') format('woff2');
       font-weight: 700;
       font-style: normal;
       font-display: swap;
     }
+
+    /* ============================================================
+       DESIGN SYSTEM TOKENS: LIGHT (CANONICAL DEFAULT) & DARK
+       ============================================================ */
     :root {
-      --bg: #07090E;
-      --card: #0D121F;
-      --border: rgba(255, 255, 255, 0.08);
-      --text: #F8FAFC;
-      --text-muted: #94A3B8;
-      --accent: #38BDF8;
-      --accent-glow: rgba(56, 189, 248, 0.15);
+      --sada-blue: #0167EA;
+      --sada-cyan: #5CE1E6;
+      --sada-cyan-rgb: 92, 225, 230;
+      --sada-blue-rgb: 1, 103, 234;
+
+      /* Clean white / subtle off-white background canvas */
+      --bg-canvas: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --border-card: #E2E8F0;
+      --border-subtle: #F1F5F9;
+      
+      /* Dark navy / charcoal typography */
+      --text-heading: #0F172A;
+      --text-body: #334155;
+      --text-muted: #64748B;
+      
+      --status-bg: #F8FAFC;
+      --status-border: #E2E8F0;
+      --status-text: #475569;
+      --status-dot: #94A3B8;
+
+      --icon-badge-bg: rgba(92, 225, 230, 0.14);
+      --icon-badge-border: rgba(92, 225, 230, 0.45);
+      --icon-badge-color: #0284C7;
+
+      --btn-bg: linear-gradient(135deg, #0167EA 0%, #0284C7 100%);
+      --btn-text: #FFFFFF;
+      --btn-shadow: 0 4px 14px rgba(1, 103, 234, 0.28);
+      --btn-shadow-hover: 0 8px 24px rgba(1, 103, 234, 0.38);
+
+      --card-shadow: 0 1px 3px rgba(15, 23, 42, 0.03), 0 20px 40px -15px rgba(15, 23, 42, 0.06);
+
+      --font-latin: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Manrope", sans-serif;
+      --font-arabic: 'Thmanyah Serif Text', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-    * {
+
+    html.dark {
+      --bg-canvas: #090D15;
+      --bg-card: #111827;
+      --border-card: rgba(255, 255, 255, 0.09);
+      --border-subtle: rgba(255, 255, 255, 0.05);
+
+      --text-heading: #F8FAFC;
+      --text-body: #CBD5E1;
+      --text-muted: #94A3B8;
+
+      --status-bg: rgba(255, 255, 255, 0.05);
+      --status-border: rgba(255, 255, 255, 0.08);
+      --status-text: #94A3B8;
+      --status-dot: #64748B;
+
+      --icon-badge-bg: rgba(92, 225, 230, 0.10);
+      --icon-badge-border: rgba(92, 225, 230, 0.28);
+      --icon-badge-color: #38BDF8;
+
+      --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+    }
+
+    /* ============================================================
+       BASE & RESET
+       ============================================================ */
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-canvas);
+      background-image: 
+        radial-gradient(ellipse 600px 320px at 50% 0%, rgba(var(--sada-cyan-rgb), 0.08), transparent 70%),
+        radial-gradient(ellipse 500px 300px at 50% 100%, rgba(var(--sada-blue-rgb), 0.04), transparent 70%);
+      color: var(--text-body);
+      font-family: var(--font-latin);
       min-height: 100vh;
       min-height: 100dvh;
       display: flex;
@@ -46,142 +120,655 @@
       align-items: center;
       justify-content: center;
       padding: 24px;
-      text-align: center;
-      background-image: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 60%);
+      padding-top: max(24px, env(safe-area-inset-top));
+      padding-bottom: max(24px, env(safe-area-inset-bottom));
+      padding-left: max(24px, env(safe-area-inset-left));
+      padding-right: max(24px, env(safe-area-inset-right));
+      line-height: 1.5;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
     }
+
+    html[dir="rtl"] body {
+      font-family: var(--font-arabic);
+      direction: rtl;
+    }
+
+    /* ============================================================
+       CARD CONTAINER
+       ============================================================ */
     .card {
-      background: var(--card);
-      border: 1px solid var(--border);
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
       border-radius: 24px;
-      padding: 36px 28px;
+      padding: 36px 28px 32px 28px;
       max-width: 440px;
       width: 100%;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(12px);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .icon-badge {
-      width: 64px;
-      height: 64px;
-      border-radius: 20px;
-      background: var(--accent-glow);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      display: inline-flex;
+
+    @media (min-width: 640px) {
+      .card {
+        padding: 44px 36px 36px 36px;
+      }
+    }
+
+    /* Header row: perfectly centered logo + corner language switcher */
+    .header-row {
+      width: 100%;
+      position: relative;
+      display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
+
+    .lang-toggle {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: 1px solid var(--status-border);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border-radius: 9999px;
+      padding: 4px 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      transition: all 0.15s ease;
+    }
+
+    html[dir="rtl"] .lang-toggle {
+      right: auto;
+      left: 0;
+      font-family: var(--font-arabic);
+    }
+
+    .lang-toggle:hover {
+      color: var(--text-heading);
+      border-color: var(--text-muted);
+      background: var(--status-bg);
+    }
+
+    /* SADA Brand Logo */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sada-logo-svg {
+      height: 28px;
+      width: auto;
+      max-width: 135px;
+      display: block;
+    }
+
+    /* Offline Visual Badge */
+    .icon-badge {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--icon-badge-bg);
+      border: 1px solid var(--icon-badge-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      color: var(--icon-badge-color);
+      transition: transform 0.3s ease;
+    }
+
     .icon-badge svg {
-      width: 32px;
-      height: 32px;
-      stroke: var(--accent);
+      width: 26px;
+      height: 26px;
+      stroke: currentColor;
       fill: none;
       stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-    h1 {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-    h2 {
-      font-size: 19px;
-      font-weight: 700;
-      color: var(--text);
-      margin-top: 14px;
-      margin-bottom: 6px;
-      direction: rtl;
-      font-family: 'Thmanyah Serif Text', system-ui, sans-serif;
-    }
-    p {
-      color: var(--text-muted);
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 12px;
-    }
-    .ar-desc {
-      direction: rtl;
-      font-size: 14px;
-      margin-bottom: 24px;
-      font-family: 'Thmanyah Serif Text', system-ui, sans-serif;
-      line-height: 1.7;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 14px 20px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #0284C7 0%, #2563EB 100%);
-      color: #FFFFFF;
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
-    }
-    .btn:hover {
-      opacity: 0.94;
-      transform: translateY(-1px);
-    }
+
+    /* Status Indicator */
     .status-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
+      background: var(--status-bg);
+      border: 1px solid var(--status-border);
+      border-radius: 9999px;
+      padding: 5px 13px;
       font-size: 12px;
-      font-weight: 600;
-      color: #F59E0B;
-      background: rgba(245, 158, 11, 0.12);
-      border: 1px solid rgba(245, 158, 11, 0.25);
-      border-radius: 20px;
-      padding: 4px 12px;
-      margin-bottom: 16px;
+      font-weight: 500;
+      color: var(--status-text);
+      margin-bottom: 18px;
+      transition: all 0.25s ease;
     }
+
     .status-dot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: #F59E0B;
-      animation: pulse 2s infinite;
+      background: var(--status-dot);
+      transition: background-color 0.25s ease;
+      flex-shrink: 0;
     }
+
+    /* Status variations */
+    .status-pill.is-offline .status-dot {
+      background: #F43F5E;
+    }
+
+    .status-pill.is-checking {
+      color: #0284C7;
+      border-color: rgba(var(--sada-cyan-rgb), 0.4);
+    }
+    .status-pill.is-checking .status-dot {
+      background: #0284C7;
+      animation: pulse 1s infinite alternate;
+    }
+
+    .status-pill.is-restored {
+      background: #ECFDF5;
+      border-color: #A7F3D0;
+      color: #047857;
+    }
+    html.dark .status-pill.is-restored {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #34D399;
+    }
+    .status-pill.is-restored .status-dot {
+      background: #10B981;
+    }
+
     @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
+      from { opacity: 0.4; transform: scale(0.85); }
+      to { opacity: 1; transform: scale(1.15); }
+    }
+
+    /* Copy Typography */
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -0.025em;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+
+    html[dir="rtl"] h1 {
+      font-size: 23px;
+      font-weight: 700;
+      letter-spacing: normal;
+      font-family: var(--font-arabic);
+    }
+
+    .desc {
+      font-size: 14.5px;
+      color: var(--text-body);
+      line-height: 1.6;
+      max-width: 360px;
+    }
+
+    .sub-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      margin-bottom: 24px;
+      line-height: 1.55;
+    }
+
+    html[dir="rtl"] .desc,
+    html[dir="rtl"] .sub-desc {
+      font-family: var(--font-arabic);
+      line-height: 1.7;
+    }
+
+    /* Retry Action Button */
+    .btn-retry {
+      width: 100%;
+      min-height: 48px;
+      padding: 13px 20px;
+      border-radius: 14px;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      font-size: 14.5px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      box-shadow: var(--btn-shadow);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      user-select: none;
+    }
+
+    html[dir="rtl"] .btn-retry {
+      font-family: var(--font-arabic);
+      font-size: 15px;
+      letter-spacing: normal;
+    }
+
+    .btn-retry:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: var(--btn-shadow-hover);
+      filter: brightness(1.03);
+    }
+
+    .btn-retry:active:not(:disabled) {
+      transform: translateY(0);
+      filter: brightness(0.97);
+    }
+
+    .btn-retry:focus-visible {
+      outline: 2px solid var(--sada-cyan);
+      outline-offset: 3px;
+    }
+
+    .btn-retry:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    /* Inline Loading Spinner */
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #FFFFFF;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Feedback Banner */
+    .feedback-banner {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--text-body);
+      background: var(--status-bg);
+      border: 1px solid var(--status-border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      width: 100%;
+      text-align: center;
+      display: none;
+      line-height: 1.45;
+      animation: fadeIn 0.2s ease forwards;
+    }
+
+    html.dark .feedback-banner {
+      color: var(--text-body);
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.09);
+    }
+
+    html[dir="rtl"] .feedback-banner {
+      font-family: var(--font-arabic);
+      font-size: 13px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Standalone PWA Bottom Notch Clearance */
+    .bottom-hint {
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+      opacity: 0.8;
+    }
+
+    html[dir="rtl"] .bottom-hint {
+      font-family: var(--font-arabic);
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="icon-badge">
-      <svg viewBox="0 0 24 24">
-        <line x1="1" y1="1" x2="23" y2="23"></line>
-        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
-        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
-        <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
-        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
-        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+  <main class="card" role="main" aria-live="polite">
+    <!-- Header with perfectly centered logo + corner language switch -->
+    <div class="header-row">
+      <div class="logo-container">
+        <!-- Canonical SADA Official SVG Logo -->
+        <svg class="sada-logo-svg" viewBox="0 0 585.5 199.35" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-label="SADA">
+          <defs>
+            <linearGradient id="sada-brand-grad" x1="238.85" y1="30.78" x2=".02" y2="30.78" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#0166e9"/>
+              <stop offset=".17" stop-color="#026fe9"/>
+              <stop offset=".45" stop-color="#0588ea"/>
+              <stop offset=".5" stop-color="#068eeb"/>
+              <stop offset=".99" stop-color="#00e0ff"/>
+            </linearGradient>
+            <linearGradient id="sada-grad-2" x1="238.88" y1="168.57" x2="0" y2="168.57" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-3" x1="238.88" y1="99.67" x2="0" y2="99.67" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-4" x1="238.88" y1="83.6" x2="0" y2="83.6" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-5" x1="238.88" y1="70.12" x2="0" y2="70.12" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-6" x1="238.88" y1="115.75" x2="0" y2="115.75" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-7" x1="238.88" y1="129.23" x2="0" y2="129.23" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-8" x1="447.69" y1="144.35" x2="585.5" y2="144.35" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-9" x1="304.19" y1="173.64" x2="310.72" y2="173.64" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-10" x1="283.68" y1="164.85" x2="287.46" y2="164.85" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-11" x1="294" y1="171.4" x2="299.96" y2="171.4" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-12" x1="286.85" y1="167.01" x2="291.27" y2="167.01" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-13" x1="280.51" y1="162.63" x2="283.67" y2="162.63" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-14" x1="298.45" y1="172.53" x2="304.83" y2="172.53" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-15" x1="290.02" y1="169.13" x2="295.11" y2="169.13" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-16" x1="316.92" y1="175.42" x2="323.62" y2="175.42" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-17" x1="310.03" y1="174.55" x2="316.65" y2="174.55" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-18" x1="278.48" y1="160.58" x2="279.92" y2="160.58" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-19" x1="323.87" y1="153.38" x2="438.2" y2="153.38" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-20" x1="278.48" y1="52.22" x2="348.26" y2="52.22" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-21" x1="357.56" y1="52.22" x2="427.34" y2="52.22" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-22" x1="436.64" y1="52.22" x2="506.42" y2="52.22" xlink:href="#sada-brand-grad"/>
+            <linearGradient id="sada-grad-23" x1="515.73" y1="52.22" x2="585.5" y2="52.22" xlink:href="#sada-brand-grad"/>
+          </defs>
+          <g>
+            <!-- Emblem Geometry -->
+            <path fill="url(#sada-brand-grad)" d="m238.85,51.27H27.02C9.51,51.27.02,61.56.02,61.56l1.94-15.16h0c1.15-12.21,6.58-23.18,14.78-31.38C26.02,5.74,38.84,0,53,0l185.85.55v50.71Z"/>
+            <path fill="url(#sada-grad-2)" d="m0,148.07h211.88c17.52.01,27-10.28,27-10.28l-1.94,15.16h0c-1.15,12.21-6.58,23.18-14.78,31.38-9.27,9.27-22.09,15.01-36.25,15.01H0v-51.28Z"/>
+            <rect fill="url(#sada-grad-3)" x="0" y="93.58" width="238.88" height="12.19"/>
+            <rect fill="url(#sada-grad-4)" x="0" y="78.81" width="238.88" height="9.58"/>
+            <rect fill="url(#sada-grad-5)" x="0" y="66.63" width="238.88" height="6.98"/>
+            <rect fill="url(#sada-grad-6)" x="0" y="110.97" width="238.88" height="9.58"/>
+            <rect fill="url(#sada-grad-7)" x="0" y="125.74" width="238.88" height="6.98"/>
+            <!-- SADA Arabic Typography Mark -->
+            <path fill="url(#sada-grad-8)" d="m585.5,151.31c0-.15-.04-.44-.12-.86-.08-.42-.19-.86-.34-1.32-.15-.46-.31-.88-.46-1.27-.15-.38-.27-.69-.34-.92-.77-1.84-1.78-3.66-3.05-5.47-1.27-1.8-2.7-3.41-4.32-4.83-1.61-1.42-3.39-2.57-5.35-3.45-1.96-.88-4.01-1.32-6.16-1.32-1.31,0-2.61.17-3.91.52-1.3.34-2.57.79-3.8,1.32-2.15.92-4.18,1.98-6.1,3.16-1.92,1.19-3.87,2.44-5.87,3.74-3.99,2.53-7.94,5.12-11.85,7.77-3.22,2.18-6.52,4.2-9.89,6.09-.91-.54-1.67-1.16-2.25-1.89-1.11-1.38-1.86-3.22-2.24-5.52-.15-.92-.33-2.28-.52-4.09-.19-1.8-.36-3.86-.52-6.16l-1.96,2.3c.31,3.84.65,7.08,1.04,9.72.38,2.65.73,4.78,1.03,6.39,0,0,0,.01,0,.02-1.6.61-3.54,1.11-5.87,1.48-2.92.46-5.98.69-9.21.69s-5.64-.25-7.71-.75c-2.07-.5-3.87-1.4-5.41-2.7-1.54-1.3-2.93-3.07-4.2-5.29-1.27-2.22-2.59-5.1-3.97-8.63-.77-1.84-1.55-3.8-2.36-5.87-.81-2.07-1.59-4.14-2.36-6.21-.77-2.07-1.5-4.07-2.19-5.98-.69-1.92-1.27-3.64-1.73-5.18l-1.96,2.76c0,.15.23.86.69,2.13.46,1.27,1.03,2.84,1.73,4.72.69,1.88,1.46,3.93,2.3,6.16.84,2.23,1.67,4.39,2.48,6.5.81,2.11,1.53,4.01,2.19,5.7.65,1.69,1.13,2.95,1.44,3.8.61,1.84,1.07,3.68,1.38,5.52-1.23.46-2.7.88-4.43,1.27-1.73.38-3.57.73-5.52,1.04-1.96.31-4.01.56-6.16.75-2.15.19-4.3.29-6.44.29-1.84,0-3.53-.12-5.06-.35-1.54-.23-2.88-.69-4.03-1.38-1.15-.69-2.02-1.69-2.59-2.99-.58-1.3-.79-3.07-.63-5.29h-1.03c-.31,4.45-.23,8.23.23,11.33.46,3.11,1.32,5.64,2.59,7.6,1.27,1.96,2.97,3.38,5.12,4.26,2.15.88,4.83,1.32,8.06,1.32,3.53,0,7.21-.4,11.05-1.21,3.83-.81,7.09-1.82,9.78-3.05v-13.23c1.23,2.99,2.45,5.58,3.68,7.77,1.23,2.19,2.57,4.01,4.03,5.47,1.46,1.46,3.07,2.53,4.83,3.22,1.76.69,3.84,1.04,6.21,1.04,2.99,0,6-.31,9.03-.92,3.03-.61,5.43-1.42,7.19-2.42v-9.16c.35.94.74,1.86,1.21,2.72,1.11,2.07,2.8,3.84,5.06,5.29,2.26,1.46,5.25,2.57,8.98,3.34,3.72.77,8.46,1.15,14.21,1.15s11.57-.46,17.43-1.38c5.87-.92,11.33-2.49,16.4-4.72l2.01-12.07.52-2.43Zm-19.51,5.18c-5.95.61-11.76.92-17.43.92-5.22,0-9.59-.12-13.12-.35s-6.43-.69-8.69-1.38c-.08-.02-.15-.06-.22-.08,2.29-1.29,4.54-2.62,6.73-4,3.84-2.42,7.71-4.81,11.62-7.19,1.99-1.23,3.97-2.45,5.93-3.68,1.96-1.23,4.01-2.26,6.16-3.11,1.23-.54,2.49-.96,3.8-1.27,1.3-.31,2.61-.46,3.91-.46,2.68,0,5.22.65,7.6,1.96,1.3.69,2.65,1.67,4.03,2.93,1.38,1.27,2.68,2.67,3.91,4.2,1.23,1.54,2.26,3.13,3.11,4.78.65,1.27,1.09,2.5,1.33,3.71-6.6,1.41-12.82,2.43-18.65,3.03Z"/>
+            <path fill="url(#sada-grad-9)" d="m307.81,166.59l-3.62,13.51c.93.21,1.89.4,2.87.59l3.66-13.66c-.97-.14-1.94-.29-2.91-.44Z"/>
+            <path fill="url(#sada-grad-10)" d="m284.63,161.82l-.95,3.57,2.36,2.48,1.42-5.29c-.96-.25-1.9-.5-2.83-.76Z"/>
+            <path fill="url(#sada-grad-11)" d="m298.96,165.12c-.64-.12-1.26-.24-1.89-.37l-3.07,11.46,1.39,1.45c.38.13.76.26,1.15.39l3.42-12.76c-.34-.06-.67-.11-1-.17Z"/>
+            <path fill="url(#sada-grad-12)" d="m288.43,162.83l-1.58,5.88,2.36,2.48,2.06-7.67c-.96-.23-1.91-.45-2.84-.69Z"/>
+            <path fill="url(#sada-grad-13)" d="m280.51,162.07l2.36,2.47.8-2.99c-.94-.27-1.88-.55-2.8-.84l-.36,1.36Z"/>
+            <path fill="url(#sada-grad-14)" d="m301.93,165.64l-3.48,13.01c.9.26,1.85.52,2.82.76l3.56-13.27c-.97-.16-1.93-.33-2.9-.5Z"/>
+            <path fill="url(#sada-grad-15)" d="m292.25,163.74l-2.23,8.3,2.37,2.47,2.72-10.15c-.97-.2-1.92-.41-2.86-.62Z"/>
+            <path fill="url(#sada-grad-16)" d="m320.67,168.23l-3.75,14.01c.97.13,1.95.25,2.93.37l3.77-14.09c-.64-.06-1.28-.11-1.93-.18-.34-.03-.68-.08-1.02-.11Z"/>
+            <path fill="url(#sada-grad-17)" d="m310.03,181.21c.96.16,1.92.31,2.9.46l3.72-13.88c-.98-.12-1.95-.25-2.93-.37l-3.69,13.79Z"/>
+            <path fill="url(#sada-grad-18)" d="m279.7,161.22l.22-.82c-.49-.15-.97-.3-1.44-.46l1.22,1.28Z"/>
+            <path fill="url(#sada-grad-19)" d="m436.07,153.61c-1.42-1-3.08-1.9-5-2.7-1.92-.81-3.87-1.48-5.87-2.02-2-.53-3.61-.96-4.83-1.26-4.38-1.08-8.17-2.03-11.4-2.88-3.22-.84-5.63-1.46-7.24-1.84,2.45-4.83,5.56-8.71,9.32-11.62,3.75-2.92,8.05-4.38,12.88-4.38,6.45,0,10.78,2.5,13.01,7.48l1.15-2.3c-1.08-3.07-2.84-5.54-5.29-7.42-2.46-1.88-5.18-2.82-8.18-2.82-2.3,0-4.67.59-7.13,1.78s-4.77,2.77-6.96,4.72c-2.19,1.96-4.11,4.18-5.76,6.68-1.65,2.49-2.85,5.04-3.62,7.65v5.06c2.38.62,5,1.31,7.88,2.07,2.88.77,6.66,1.84,11.34,3.23,1.84.53,3.72,1.07,5.64,1.61,1.91.53,3.66,1.17,5.23,1.9s2.88,1.57,3.92,2.53c1.03.96,1.66,2.17,1.89,3.62-3.14,1.15-7.23,2.21-12.25,3.17-5.03.96-10.67,1.78-16.92,2.47s-13,1.21-20.25,1.55c-7.25.35-14.67.52-22.27.52-6.37,0-13.31-.15-20.83-.46-5.57-.22-11.19-.58-16.86-1.06l-3.8,14.17c.96.1,1.91.21,2.88.3,6.1.57,12.27.98,18.53,1.21,6.25.23,12.14.34,17.66.34,7.98,0,15.79-.25,23.42-.75s14.71-1.17,21.23-2.01c6.52-.84,12.26-1.82,17.21-2.93,4.95-1.12,8.72-2.33,11.33-3.63l2.07-18.53c0-1.3-.71-2.45-2.13-3.45Z"/>
+            <!-- SADA Latin Letters -->
+            <path fill="url(#sada-grad-20)" d="m348.26,9.33v19.79h-55.82v13.19h50.82c2.76,0,5,2.24,5,5v37.78c0,5.52-4.48,10-10,10h-59.78v-19.79h55.82v-13.19h-55.82V19.33c0-5.52,4.48-10,10-10h59.78Z"/>
+            <path fill="url(#sada-grad-21)" d="m427.34,95.1h-13.96v-32.99h-41.87v32.99h-13.96V19.33c0-5.52,4.48-10,10-10h59.78v85.76Zm-13.96-52.78v-13.19h-41.87v13.19h41.87Z"/>
+            <path fill="url(#sada-grad-22)" d="m491.07,9.33l10.78,15.29c2.97,4.22,4.57,9.25,4.57,14.41v26.37c0,5.16-1.6,10.19-4.57,14.41l-10.78,15.29h-54.43V14.33c0-2.76,2.24-5,5-5h49.43Zm-40.47,19.79v46.18h33.96l6.08-8.62c1.19-1.69,1.83-3.7,1.83-5.76v-17.41c0-2.06-.64-4.08-1.83-5.76l-6.08-8.62h-33.96Z"/>
+            <path fill="url(#sada-grad-23)" d="m585.5,95.1h-13.96v-32.99h-41.87v32.99h-13.96V19.33c0-5.52,4.48-10,10-10h59.78v85.76Zm-13.96-52.78v-13.19h-41.87v13.19h41.87Z"/>
+          </g>
+        </svg>
+      </div>
+      <button id="lang-btn" class="lang-toggle" onclick="toggleLanguage()" aria-label="Toggle language">
+        العربية
+      </button>
+    </div>
+
+    <!-- Minimal Offline Visual: Circular Badge with Lucide WifiOff Icon -->
+    <div class="icon-badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <line x1="2" y1="2" x2="22" y2="22"></line>
+        <path d="M8.5 16.5a5 5 0 0 1 7 0"></path>
+        <path d="M2 8.82a15 15 0 0 1 4.17-2.65"></path>
+        <path d="M10.66 5c4.01-.36 8.14.9 11.34 3.76"></path>
+        <path d="M16.85 11.25a10 10 0 0 1 2.22 1.68"></path>
+        <path d="M5 13a10 10 0 0 1 5.24-2.76"></path>
         <line x1="12" y1="20" x2="12.01" y2="20"></line>
       </svg>
     </div>
 
-    <div class="status-pill">
+    <!-- Accurate Connection Status Indicator -->
+    <div id="status-pill" class="status-pill is-offline">
       <span class="status-dot"></span>
-      <span>Offline Mode • وضع عدم الاتصال</span>
+      <span id="status-text">No Internet Connection</span>
     </div>
 
-    <h1>No Internet Connection</h1>
-    <p>SADA OS requires an active connection to synchronize your tasks and client deliverables.</p>
+    <!-- Main Message Copy -->
+    <h1 id="heading">You're Offline</h1>
+    <p id="desc-line1" class="desc">SADA is temporarily unable to connect to the internet.</p>
+    <p id="desc-line2" class="desc sub-desc">Check your connection and try again. Your workspace will be available once you're back online.</p>
 
-    <h2>لا يوجد اتصال بالإنترنت</h2>
-    <p class="ar-desc">يتطلب نظام صدى اتصالاً نشطاً لمزامنة مهام الإنتاج وتسليمات العملاء. سيتم استئناف العمل تلقائياً فور عودة الاتصال.</p>
-
-    <button class="btn" onclick="window.location.reload()">
-      Retry Connection • إعادة المحاولة
+    <!-- Primary Retry Action -->
+    <button id="retry-btn" class="btn-retry" onclick="attemptReconnection()">
+      <span id="retry-spinner" class="spinner" style="display: none;" aria-hidden="true"></span>
+      <span id="retry-text">Retry Connection</span>
     </button>
-  </div>
+
+    <!-- Subtle Feedback Notice for Failed Verification -->
+    <div id="feedback-banner" class="feedback-banner" role="alert"></div>
+
+    <!-- Discreet Standalone Indicator -->
+    <div class="bottom-hint" id="pwa-hint">SADA OS • Workspace Engine</div>
+  </main>
+
+  <script>
+    // ============================================================
+    // SADA OFFLINE ENGINE: i18n, Theme, Verification & Navigation
+    // ============================================================
+
+    const I18N = {
+      en: {
+        title: "SADA OS — You're Offline",
+        heading: "You're Offline",
+        descLine1: "SADA is temporarily unable to connect to the internet.",
+        descLine2: "Check your connection and try again. Your workspace will be available once you're back online.",
+        btnRetry: "Retry Connection",
+        btnConnecting: "Checking Connection...",
+        statusOffline: "No Internet Connection",
+        statusChecking: "Checking Connection...",
+        statusRestored: "Connection Restored",
+        feedbackOffline: "Still unable to connect. Please check your network and try again.",
+        langToggle: "العربية",
+        pwaHint: "SADA OS • Workspace Engine"
+      },
+      ar: {
+        title: "نظام صدى — أنت غير متصل بالإنترنت",
+        heading: "أنت غير متصل بالإنترنت",
+        descLine1: "يتعذّر على SADA الاتصال بالإنترنت حاليًا.",
+        descLine2: "تحقّق من اتصالك بالإنترنت وحاول مرة أخرى. ستتمكن من العودة إلى مساحة عملك عند استعادة الاتصال.",
+        btnRetry: "إعادة المحاولة",
+        btnConnecting: "جارٍ التحقق من الاتصال...",
+        statusOffline: "لا يوجد اتصال بالإنترنت",
+        statusChecking: "جارٍ التحقق من الاتصال...",
+        statusRestored: "تم استعادة الاتصال",
+        feedbackOffline: "ما زال الاتصال غير متاح. يرجى التحقق من اتصال الشبكة والمحاولة مجددًا.",
+        langToggle: "English",
+        pwaHint: "نظام صدى • مساحة العمل التشغيلية"
+      }
+    };
+
+    let currentLang = 'en';
+    let isVerifying = false;
+
+    // Detect user preferences from existing SADA storage
+    function initPreferences() {
+      // 1. Theme sync: Default to clean white/subtle off-white canonical design;
+      // only adopt dark mode if explicitly chosen in SADA settings
+      try {
+        const storedTheme = localStorage.getItem('sada-theme');
+        if (storedTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (_) {}
+
+      // 2. Language sync (from localStorage 'sada-lang' or URL param 'lang')
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlLang = urlParams.get('lang');
+        const storedLang = localStorage.getItem('sada-lang');
+        const browserLang = (navigator.language || '').toLowerCase().startsWith('ar') ? 'ar' : 'en';
+
+        currentLang = (urlLang === 'ar' || urlLang === 'en') ? urlLang : (storedLang === 'ar' || storedLang === 'en') ? storedLang : browserLang;
+      } catch (_) {
+        currentLang = 'en';
+      }
+
+      applyLanguage(currentLang);
+    }
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      const t = I18N[lang] || I18N.en;
+
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.title = t.title;
+
+      document.getElementById('heading').textContent = t.heading;
+      document.getElementById('desc-line1').textContent = t.descLine1;
+      document.getElementById('desc-line2').textContent = t.descLine2;
+      document.getElementById('lang-btn').textContent = t.langToggle;
+      document.getElementById('pwa-hint').textContent = t.pwaHint;
+
+      if (!isVerifying) {
+        document.getElementById('retry-text').textContent = t.btnRetry;
+        updateStatusPill('offline', t.statusOffline);
+      }
+    }
+
+    function toggleLanguage() {
+      const nextLang = currentLang === 'ar' ? 'en' : 'ar';
+      try {
+        localStorage.setItem('sada-lang', nextLang);
+      } catch (_) {}
+      applyLanguage(nextLang);
+    }
+
+    function updateStatusPill(state, text) {
+      const pill = document.getElementById('status-pill');
+      const statusText = document.getElementById('status-text');
+
+      pill.classList.remove('is-offline', 'is-checking', 'is-restored');
+      if (state === 'offline') pill.classList.add('is-offline');
+      if (state === 'checking') pill.classList.add('is-checking');
+      if (state === 'restored') pill.classList.add('is-restored');
+
+      statusText.textContent = text;
+    }
+
+    function showFeedback(message) {
+      const banner = document.getElementById('feedback-banner');
+      if (message) {
+        banner.textContent = message;
+        banner.style.display = 'block';
+      } else {
+        banner.style.display = 'none';
+        banner.textContent = '';
+      }
+    }
+
+    // ============================================================
+    // RELIABLE RECONNECTION VERIFICATION
+    // ============================================================
+    async function attemptReconnection() {
+      if (isVerifying) return;
+      isVerifying = true;
+
+      const t = I18N[currentLang] || I18N.en;
+      showFeedback(null);
+
+      const btn = document.getElementById('retry-btn');
+      const spinner = document.getElementById('retry-spinner');
+      const btnText = document.getElementById('retry-text');
+
+      btn.disabled = true;
+      spinner.style.display = 'inline-block';
+      btnText.textContent = t.btnConnecting;
+      updateStatusPill('checking', t.statusChecking);
+
+      // 1. Fast browser check
+      if (!navigator.onLine) {
+        await new Promise((r) => setTimeout(r, 600));
+        finishFailedAttempt(t.feedbackOffline);
+        return;
+      }
+
+      // 2. Real network verification ping to server / backend
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+        // Ping cache-busted favicon or API endpoint to test actual upstream connectivity
+        const pingUrl = `/favicon.svg?_ping=${Date.now()}`;
+        const response = await fetch(pingUrl, {
+          method: 'GET',
+          cache: 'no-store',
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (response.ok || (response.status >= 200 && response.status < 400)) {
+          // Success! Show restored indicator briefly before returning
+          updateStatusPill('restored', t.statusRestored);
+          btnText.textContent = t.statusRestored;
+          spinner.style.display = 'none';
+
+          await new Promise((r) => setTimeout(r, 500));
+
+          // Determine return destination
+          const returnTo = new URLSearchParams(window.location.search).get('returnTo');
+          if (returnTo && returnTo.startsWith('/')) {
+            window.location.replace(returnTo);
+          } else {
+            window.location.reload();
+          }
+          return;
+        } else {
+          throw new Error('Server returned ' + response.status);
+        }
+      } catch (err) {
+        finishFailedAttempt(t.feedbackOffline);
+      }
+    }
+
+    function finishFailedAttempt(errorMessage) {
+      isVerifying = false;
+      const t = I18N[currentLang] || I18N.en;
+
+      const btn = document.getElementById('retry-btn');
+      const spinner = document.getElementById('retry-spinner');
+      const btnText = document.getElementById('retry-text');
+
+      btn.disabled = false;
+      spinner.style.display = 'none';
+      btnText.textContent = t.btnRetry;
+
+      updateStatusPill('offline', t.statusOffline);
+      showFeedback(errorMessage);
+    }
+
+    // Auto-listen to network state changes
+    window.addEventListener('online', () => {
+      // Browser reports network back; perform quiet background check to verify
+      attemptReconnection();
+    });
+
+    window.addEventListener('offline', () => {
+      const t = I18N[currentLang] || I18N.en;
+      updateStatusPill('offline', t.statusOffline);
+    });
+
+    // Run setup
+    initPreferences();
+  </script>
 </body>
 </html>

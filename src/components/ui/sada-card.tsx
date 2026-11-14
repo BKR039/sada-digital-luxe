@@ -15,7 +15,7 @@ export function SADACard({
   return (
     <div
       className={cn(
-        "rounded-2xl sm:rounded-3xl border border-border bg-card text-card-foreground shadow-2xs elevated-shadow",
+        "rounded-xl sm:rounded-2xl border border-border bg-card text-card-foreground shadow-2xs elevated-shadow",
         "transition-all duration-200",
         hoverable && "hover:border-primary/40 hover:shadow-md hover:scale-[1.005]",
         glow && "neon-glow border-primary/40",

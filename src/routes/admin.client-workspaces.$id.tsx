@@ -1879,18 +1879,18 @@ export function Client360UnifiedConsole() {
       {/* =====================================================================
           1. CLIENT 360 HEADER (AUTHORITATIVE COMMERCIAL IDENTITY)
       ===================================================================== */}
-      <div className="p-6 md:p-8 rounded-3xl border border-border/80 bg-card/95 elevated-shadow space-y-6 backdrop-blur-xs">
-        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
-          <div className="space-y-3 flex-1 min-w-0">
+      <div className="p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-border/80 bg-card/95 elevated-shadow space-y-4 sm:space-y-6 backdrop-blur-xs min-w-0">
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 sm:gap-6 min-w-0">
+          <div className="space-y-2 sm:space-y-3 flex-1 min-w-0">
             {/* Badges Strip */}
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[11px] uppercase font-mono tracking-widest text-primary font-bold px-2.5 py-0.5 rounded-md bg-primary/10 border border-primary/20">
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+              <span className="text-[10px] sm:text-[11px] uppercase font-mono tracking-widest text-primary font-bold px-2 sm:px-2.5 py-0.5 rounded-md bg-primary/10 border border-primary/20 shrink-0 whitespace-nowrap">
                 SADA CLIENT 360
               </span>
-              <span className="text-xs text-muted-foreground/60">·</span>
+              <span className="text-xs text-muted-foreground/60 shrink-0">·</span>
 
               {/* Explicit Engagement Type Badge */}
-              <span className={`text-[10px] font-mono uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-md border ${
+              <span className={`text-[9px] sm:text-[10px] font-mono uppercase font-bold tracking-wider px-2 sm:px-2.5 py-0.5 rounded-md border shrink-0 whitespace-nowrap ${
                 isMonthly
                   ? "bg-primary/10 text-primary border-primary/20"
                   : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
@@ -1901,13 +1901,13 @@ export function Client360UnifiedConsole() {
               </span>
 
               {/* Status Badge */}
-              <span className={`text-[10px] font-mono uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-md border ${statusConfig.bg} ${statusConfig.color} ${statusConfig.border}`}>
+              <span className={`text-[9px] sm:text-[10px] font-mono uppercase font-bold tracking-wider px-2 sm:px-2.5 py-0.5 rounded-md border shrink-0 whitespace-nowrap ${statusConfig.bg} ${statusConfig.color} ${statusConfig.border}`}>
                 {getStatusLabel(client.status)}
               </span>
 
               {/* Financial Health Badge */}
               {canAccessFinance && clientFinancials && (
-                <span className={`text-[10px] font-mono uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-md border ${
+                <span className={`text-[9px] sm:text-[10px] font-mono uppercase font-bold tracking-wider px-2 sm:px-2.5 py-0.5 rounded-md border shrink-0 whitespace-nowrap ${
                   clientFinancials.clientHealth === "HIGH PROFIT"
                     ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
                     : clientFinancials.clientHealth === "MEDIUM"
@@ -2177,7 +2177,7 @@ export function Client360UnifiedConsole() {
                       setDeliveryViewMode("tasks");
                       scrollToSection("delivery-section");
                     }}
-                    className="px-2 py-0.5 rounded-lg bg-rose-500 text-white text-[10px] font-mono font-bold shadow-xs hover:bg-rose-600 transition-colors cursor-pointer"
+                    className="px-2 py-0.5 rounded-lg bg-rose-500 text-white text-[10px] font-mono font-bold shadow-xs hover:bg-rose-600 transition-colors cursor-pointer shrink-0 whitespace-nowrap"
                     title={isAr ? "تصفية المهام المتأخرة" : "Filter overdue tasks"}
                   >
                     {overdueTasks.length} {isAr ? "متأخرة" : "OVERDUE"}
@@ -2191,7 +2191,7 @@ export function Client360UnifiedConsole() {
                       setDeliveryViewMode("tasks");
                       scrollToSection("delivery-section");
                     }}
-                    className="px-2 py-0.5 rounded-lg bg-amber-500 text-white text-[10px] font-mono font-bold shadow-xs hover:bg-amber-600 transition-colors cursor-pointer"
+                    className="px-2 py-0.5 rounded-lg bg-amber-500 text-white text-[10px] font-mono font-bold shadow-xs hover:bg-amber-600 transition-colors cursor-pointer shrink-0 whitespace-nowrap"
                     title={isAr ? "معطلة" : "Blocked tasks"}
                   >
                     {blockedTasks.length} {isAr ? "معطلة" : "BLOCKED"}
@@ -2205,7 +2205,7 @@ export function Client360UnifiedConsole() {
                       setDeliveryViewMode("tasks");
                       scrollToSection("delivery-section");
                     }}
-                    className="px-2 py-0.5 rounded-lg bg-purple-600 text-white text-[10px] font-mono font-bold shadow-xs hover:bg-purple-700 transition-colors cursor-pointer"
+                    className="px-2 py-0.5 rounded-lg bg-purple-600 text-white text-[10px] font-mono font-bold shadow-xs hover:bg-purple-700 transition-colors cursor-pointer shrink-0 whitespace-nowrap"
                     title={isAr ? "بانتظار العميل" : "Waiting on client"}
                   >
                     {waitingClientTasks.length} {isAr ? "بانتظار العميل" : "WAITING"}

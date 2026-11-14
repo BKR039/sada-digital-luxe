@@ -52,7 +52,7 @@ function NotFoundContent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: { error: any; reset: () => void }) {
   console.error("[RootErrorComponent]", error);
   return (
     <I18nProvider>
@@ -61,7 +61,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-function ErrorContent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorContent({ error, reset }: { error: any; reset: () => void }) {
   const { t } = useTranslation();
   const router = useRouter();
 

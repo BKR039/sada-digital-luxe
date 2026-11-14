@@ -38,3 +38,6 @@ vapid.json
 *.njsproj
 *.sln
 *.sw?
+
+# Supabase Local CLI
+supabase/.temp/

@@ -284,16 +284,19 @@ SADA OS provides a first-class, installable Progressive Web App (PWA) across And
    - 1-tap app shortcuts: `/admin/my-work` ("My Work Queue"), `/admin/calendar` ("Production Calendar"), and `/admin` ("Executive Overview").
 
 2. **Production Service Worker (`public/sw.js`)**:
-   - Explicit versioned cache identifier: `sada-os-pwa-v1`.
-   - Pre-caches core app shell: `/`, `/manifest.webmanifest`, `/offline.html`, `/favicon.svg`, and vector icons.
+   - Explicit versioned cache identifier: `sada-os-pwa-v8`.
+   - Pre-caches core app shell and offline essentials: `/`, `/manifest.webmanifest`, `/offline.html`, `/favicon.svg`, official brand logo SVGs (`/icons/sada-logo-light.svg`, `/icons/sada-logo-dark.svg`), Arabic typography (`/fonts/thmanyahseriftext-Regular.otf`, `/fonts/thmanyahseriftext-Bold.otf`, `/fonts/thmanyah-400.woff2`, `/fonts/thmanyah-700.woff2`), and vector icons.
    - **Data & Mutation Security**: All Supabase requests (`*.supabase.co`, `/rest/v1/`, `/auth/v1/`, `/storage/v1/`), cross-origin APIs, and non-GET mutations strictly bypass the service worker and execute directly against the network. Zero private user data or dynamic JSON responses are ever cached in static storage.
    - **Navigation Strategy**: Network-first with automatic fallback to `public/offline.html`.
    - **Static Assets**: Cache-first with network fallback for fonts, icons, and SVG assets.
    - Automatic stale cache eviction on `activate`.
 
 3. **Offline Fallback Screen (`public/offline.html`)**:
-   - Informational, generic static HTML fallback screen.
-   - Full bilingual support with English and Arabic (RTL) status and interactive retry button (`window.location.reload()`).
+   - Minimal, premium SADA OS offline experience aligned with the SADA Design System.
+   - Clean white/subtle off-white background canvas with SADA cyan (`#5CE1E6`) and blue accents, dark navy/charcoal typography, and generous whitespace.
+   - 100% self-contained: official SADA vector logo SVG embedded inline with brand gradients, Lucide `WifiOff` badge in soft cyan circular container, and zero external CDN/Google Fonts dependencies.
+   - Full bilingual support: automatic language sync with SADA's `sada-lang` setting (English & Arabic RTL with `Thmanyah Serif Text`), plus an interactive 1-tap offline language switcher (`EN | العربية`).
+   - Resilient retry action with real connectivity verification (cache-busted network ping), spinner loading state, double-click prevention, status indicator pill (`No Internet Connection` / `Connection Restored`), and graceful non-blocking feedback.
    - Zero private data (contains no user names, tasks, clients, finances, or tokens).
 
 4. **Web Push Classification & Boundaries**:

@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 export const sadaBadgeVariants = cva(
-  "inline-flex items-center font-mono uppercase tracking-wider font-bold border transition-colors select-none",
+  "inline-flex items-center font-mono uppercase tracking-wider font-bold border transition-colors select-none whitespace-nowrap shrink-0",
   {
     variants: {
       variant: {
@@ -19,9 +19,9 @@ export const sadaBadgeVariants = cva(
       },
       size: {
         xs: "text-[9px] px-1.5 py-0.5 rounded gap-1",
-        sm: "text-[10px] px-2 py-0.5 rounded-md gap-1.5",
-        default: "text-[11px] px-2.5 py-1 rounded-lg gap-1.5",
-        lg: "text-xs px-3 py-1.5 rounded-xl gap-2",
+        sm: "text-[10px] px-2 py-0.5 rounded-md gap-1",
+        default: "text-[11px] px-2.5 py-0.5 rounded-lg gap-1.5",
+        lg: "text-xs px-3 py-1 rounded-xl gap-2",
       },
     },
     defaultVariants: {

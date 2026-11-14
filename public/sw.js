@@ -1,10 +1,10 @@
 // ============================================================
 // SADA OS — PRODUCTION SERVICE WORKER (PWA)
-// Cache Name: sada-os-pwa-v7
+// Cache Name: sada-os-pwa-v8
 // Features: App Shell Caching, Offline Fallback, Web Push & Action Routing
 // ============================================================
 
-const CACHE_NAME = 'sada-os-pwa-v7';
+const CACHE_NAME = 'sada-os-pwa-v8';
 
 const STATIC_SHELL_ASSETS = [
   '/',
@@ -23,6 +23,12 @@ const STATIC_SHELL_ASSETS = [
   '/icons/pwa-icon-192x192.png',
   '/icons/pwa-icon-512x512.png',
   '/icons/pwa-icon-maskable-512x512.png',
+  '/icons/sada-logo-light.svg',
+  '/icons/sada-logo-dark.svg',
+  '/fonts/thmanyahseriftext-Regular.otf',
+  '/fonts/thmanyahseriftext-Bold.otf',
+  '/fonts/thmanyah-400.woff2',
+  '/fonts/thmanyah-700.woff2',
   '/sada-emblem-1024.png',
   '/pwa-launch-screen.png',
 ];
@@ -74,8 +80,21 @@ self.addEventListener('fetch', (event) => {
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
-        .catch(() => {
-          return caches.match('/offline.html');
+        .catch(async (err) => {
+          console.log('[SW] Navigation fetch failed for:', request.url, err);
+          const cache = await caches.open(CACHE_NAME);
+          const cachedOffline = await cache.match('/offline.html');
+          console.log('[SW] Found cached offline.html?', Boolean(cachedOffline));
+          if (cachedOffline) {
+            return cachedOffline;
+          }
+          const globalCached = await caches.match('/offline.html');
+          if (globalCached) {
+            return globalCached;
+          }
+          return new Response('<h1>Offline</h1>', {
+            headers: { 'Content-Type': 'text/html' }
+          });
         })
     );
     return;

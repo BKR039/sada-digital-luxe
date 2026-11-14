@@ -354,7 +354,7 @@ export async function submitTaskForReview(params: {
 
     // Notify Reviewer / Managers
     await safeEmitNotification({
-      eventType: "GENERAL",
+      eventType: "TASK_REVIEW_REQUESTED",
       title: "Deliverable Ready for Review",
       message: `"${params.task.title}" was submitted for review.`,
       userId: params.task.reviewer_id || undefined,
@@ -428,7 +428,7 @@ export async function requestTaskChanges(params: {
     // Notify Assignee
     if (params.task.assignee_id) {
       await safeEmitNotification({
-        eventType: "TASK_ASSIGNED",
+        eventType: "TASK_REVISION_REQUESTED",
         title: "Changes Requested on Deliverable",
         message: `Feedback on "${params.task.title}": ${params.feedback}`,
         userId: params.task.assignee_id,
@@ -519,7 +519,7 @@ export async function approveAndCompleteTask(params: {
     // Notify Worker
     if (params.task.assignee_id && params.task.assignee_id !== effectiveActorId) {
       await safeEmitNotification({
-        eventType: "GENERAL",
+        eventType: "TASK_APPROVED",
         title: "Deliverable Approved!",
         message: `"${params.task.title}" was approved and marked complete.`,
         userId: params.task.assignee_id,
@@ -545,7 +545,7 @@ export async function approveAndCompleteTask(params: {
           const nextStage = siblingStages.find((s: any) => (s.sort_order || 0) === currentOrder + 1);
           if (nextStage && nextStage.assignee_id) {
             await safeEmitNotification({
-              eventType: "GENERAL",
+              eventType: "TASK_DEPENDENCY_RESOLVED",
               title: "Next Workflow Stage Ready!",
               message: `Stage "${params.task.title}" was approved. Your stage "${nextStage.title}" is now unlocked!`,
               userId: nextStage.assignee_id,
@@ -657,7 +657,7 @@ export async function completeTask(params: {
     // Notify Assigner / Lead if completed by someone other than the assigner
     if (params.task.assigned_by_id && params.task.assigned_by_id !== effectiveActorId) {
       await safeEmitNotification({
-        eventType: "GENERAL",
+        eventType: "TASK_COMPLETED",
         title: "Deliverable Completed",
         message: `"${params.task.title}" has been completed.`,
         userId: params.task.assigned_by_id,
@@ -683,7 +683,7 @@ export async function completeTask(params: {
           const nextStage = siblingStages.find((s: any) => (s.sort_order || 0) === currentOrder + 1);
           if (nextStage && nextStage.assignee_id) {
             await safeEmitNotification({
-              eventType: "GENERAL",
+              eventType: "TASK_DEPENDENCY_RESOLVED",
               title: "Next Workflow Stage Ready!",
               message: `Stage "${params.task.title}" was completed. Your stage "${nextStage.title}" is now unlocked!`,
               userId: nextStage.assignee_id,
@@ -901,7 +901,7 @@ export async function postponeTask(params: {
 
     // Notify Manager / Assigner
     await safeEmitNotification({
-      eventType: "GENERAL",
+      eventType: "TASK_DEADLINE",
       title: "Deliverable Postponed",
       message: `"${params.task.title}" postponed to ${params.newDeadline}. Reason: ${params.reason}`,
       roleTarget: "admin",
@@ -972,7 +972,7 @@ export async function markTaskBlocked(params: {
 
     // Alert Admin / Lead
     await safeEmitNotification({
-      eventType: "GENERAL",
+      eventType: "TASK_BLOCKED",
       title: "🚨 Task Blocked",
       message: `"${params.task.title}" is blocked: ${params.reason}`,
       roleTarget: "admin",
@@ -1039,6 +1039,21 @@ export async function resolveTaskBlocker(params: {
       },
     });
 
+    // Alert Assignee that blocker was resolved
+    if (params.task.assignee_id && params.task.assignee_id !== effectiveActorId) {
+      await safeEmitNotification({
+        eventType: "TASK_UNBLOCKED",
+        title: "Task Unblocked",
+        message: `"${params.task.title}" is now unblocked and back in progress.`,
+        userId: params.task.assignee_id,
+        category: "task",
+        priority: "normal",
+        entityType: "task",
+        entityId: params.task.id,
+        linkUrl: `/admin/my-work?taskId=${params.task.id}`,
+      });
+    }
+
     return { success: true, updatedTask: updatePayload };
   } catch (err: any) {
     console.error("[resolveTaskBlocker] Error:", err);
@@ -1084,6 +1099,22 @@ export async function addTaskNote(params: {
       .single();
 
     if (error) throw error;
+
+    // Emit notification to assignee if comment author is different
+    if (params.task.assignee_id && params.task.assignee_id !== effectiveActorId) {
+      await safeEmitNotification({
+        eventType: "TASK_COMMENT",
+        title: `New Note on "${params.task.title}"`,
+        message: params.note.length > 120 ? `${params.note.substring(0, 117)}...` : params.note,
+        userId: params.task.assignee_id,
+        category: "task",
+        priority: "normal",
+        entityType: "task",
+        entityId: params.task.id,
+        linkUrl: `/admin/my-work?taskId=${params.task.id}`,
+      });
+    }
+
     return { success: true, entry: data };
   } catch (err: any) {
     console.error("[addTaskNote] Error:", err);
@@ -1410,7 +1441,7 @@ export async function updateSubtaskAssignee(params: {
     // 5. Emit isolated notification strictly to the new assignee
     if (resolvedProfileId && resolvedProfileId !== prevAssigneeId) {
       await safeEmitNotification({
-        eventType: "GENERAL",
+        eventType: "TASK_REASSIGNED",
         title: currentTask.parent_task_id ? "Subtask Reassigned" : "Task Reassigned",
         message: `You were assigned to: "${currentTask.title}"`,
         userId: resolvedProfileId,
@@ -1493,6 +1524,21 @@ export async function createProjectTask(params: {
       details: { title: data.title },
       client: activeClient,
     });
+
+    if (data.assignee_id && data.assignee_id !== authCtx.userId) {
+      await safeEmitNotification({
+        eventType: "TASK_ASSIGNED",
+        title: "New Task Assigned",
+        message: `You were assigned to: "${data.title}"`,
+        userId: data.assignee_id,
+        category: "task",
+        priority: (data.priority === "urgent" || data.priority === "high") ? "high" : "normal",
+        entityType: "task",
+        entityId: data.id,
+        linkUrl: `/admin/my-work?taskId=${data.id}`,
+      });
+    }
+
     return { success: true, data };
   } catch (err: any) {
     return { success: false, error: err.message || "Failed to create task" };
@@ -1584,6 +1630,20 @@ export async function createProjectSubtask(params: {
       },
       client: activeClient,
     });
+
+    if (data.assignee_id && data.assignee_id !== authCtx.userId) {
+      await safeEmitNotification({
+        eventType: "TASK_ASSIGNED",
+        title: "New Subtask Assigned",
+        message: `You were assigned to subtask: "${data.title}"`,
+        userId: data.assignee_id,
+        category: "task",
+        priority: (data.priority === "urgent" || data.priority === "high") ? "high" : "normal",
+        entityType: "task",
+        entityId: data.id,
+        linkUrl: `/admin/my-work?taskId=${data.id}`,
+      });
+    }
 
     return { success: true, data };
   } catch (err: any) {
@@ -1697,6 +1757,21 @@ export async function updateProjectTaskDefinition(params: {
       details: { updates: params.updates },
       client: activeClient,
     });
+
+    if (params.updates.assignee_id && data.assignee_id && data.assignee_id !== (authCtx?.userId || params.actorId)) {
+      await safeEmitNotification({
+        eventType: "TASK_ASSIGNED",
+        title: "Task Assigned",
+        message: `You were assigned to: "${data.title}"`,
+        userId: data.assignee_id,
+        category: "task",
+        priority: "normal",
+        entityType: "task",
+        entityId: data.id,
+        linkUrl: `/admin/my-work?taskId=${data.id}`,
+      });
+    }
+
     return { success: true, data };
   } catch (err: any) {
     return { success: false, error: err.message || "Failed to update task" };

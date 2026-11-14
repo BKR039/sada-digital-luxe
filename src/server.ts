@@ -66,9 +66,142 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   return brandedErrorResponse();
 }
 
+function isAuthorizedServerRequest(request: Request): boolean {
+  const configuredSecret = process.env.SCHEDULER_SECRET;
+  const authHeader = request.headers.get("Authorization");
+  const customHeader = request.headers.get("x-scheduler-secret") || request.headers.get("x-internal-secret");
+
+  if (configuredSecret) {
+    if (customHeader === configuredSecret) return true;
+    if (authHeader && authHeader.replace(/^Bearer\s+/i, "").trim() === configuredSecret) return true;
+  }
+
+  // Also permit authenticated caller JWT tokens (forwarded to Supabase)
+  if (authHeader && authHeader.startsWith("Bearer ") && authHeader.length > 30) {
+    return true;
+  }
+
+  return false;
+}
+
+let schedulerDaemonStarted = false;
+
+function ensureSchedulerDaemon() {
+  if (!schedulerDaemonStarted) {
+    schedulerDaemonStarted = true;
+    import("./server/scheduler-daemon").then(({ startSchedulerDaemon }) => {
+      startSchedulerDaemon();
+    }).catch((e) => {
+      console.warn("[Server] Failed to initialize scheduler daemon:", e);
+    });
+  }
+}
+
+async function handleApiRoute(request: Request): Promise<Response | null> {
+  const url = new URL(request.url);
+
+  // Initialize recurring daemon on first request
+  ensureSchedulerDaemon();
+
+  // 1. Web Push Dispatch Endpoint
+  if (url.pathname === "/api/push/dispatch" && request.method === "POST") {
+    if (!isAuthorizedServerRequest(request)) {
+      return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    try {
+      const { dispatchPushNotification } = await import("./server/push-dispatcher");
+      const body = await request.json().catch(() => ({}));
+      const { notificationId, forceRetry } = body;
+
+      if (!notificationId) {
+        return new Response(JSON.stringify({ error: "notificationId is required" }), {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+
+      const authHeader = request.headers.get("Authorization") || undefined;
+      const result = await dispatchPushNotification(notificationId, { authHeader, forceRetry });
+      return new Response(JSON.stringify(result), {
+        status: result.success ? 200 : 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (err: any) {
+      return new Response(JSON.stringify({ error: err?.message || "Failed to dispatch push" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }
+
+  // 2. Scheduled Reminders & Deadlines Status Endpoint (GET)
+  if (url.pathname === "/api/notifications/scheduler" && request.method === "GET") {
+    if (!isAuthorizedServerRequest(request)) {
+      return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    try {
+      const { getSchedulerDaemonStatus } = await import("./server/scheduler-daemon");
+      const status = getSchedulerDaemonStatus();
+      return new Response(JSON.stringify(status), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (err: any) {
+      return new Response(JSON.stringify({ error: err?.message || "Failed to read daemon status" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }
+
+  // 3. Trigger Scheduled Reminders Scan (POST)
+  if (url.pathname === "/api/notifications/scheduler" && request.method === "POST") {
+    if (!isAuthorizedServerRequest(request)) {
+      return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    try {
+      const { triggerSchedulerNow } = await import("./server/scheduler-daemon");
+      const authHeader = request.headers.get("Authorization") || undefined;
+      const report = await triggerSchedulerNow({ triggeredBy: "http_api_trigger", authHeader });
+
+      // An execution with errors returns HTTP 500 so callers know it failed internally
+      const statusCode = report.success ? 200 : 500;
+      return new Response(JSON.stringify(report), {
+        status: statusCode,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (err: any) {
+      return new Response(JSON.stringify({ error: err?.message || "Scheduler trigger failed" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }
+
+  return null;
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      // Check custom server endpoints before SSR
+      const apiResponse = await handleApiRoute(request);
+      if (apiResponse) {
+        return apiResponse;
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);

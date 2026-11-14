@@ -67,21 +67,45 @@ export function getSemanticSeverity(
   const eventType = item.event_type || "";
   const category = item.category || "system";
 
-  if (priority === "urgent" || eventType === "TASK_BLOCKED") return "URGENT";
+  if (
+    priority === "urgent" ||
+    eventType === "TASK_BLOCKED" ||
+    eventType === "APPROVAL_BLOCKED" ||
+    eventType === "TASK_DEPENDENCY_BLOCKED"
+  ) {
+    return "URGENT";
+  }
   if (category === "security" || eventType === "SECURITY_AUDIT") return "SECURITY";
-  if (eventType === "TASK_ALERT" || eventType === "MANAGER_MESSAGE" || category === "messages") {
+  if (
+    eventType === "TASK_ALERT" ||
+    eventType === "MANAGER_MESSAGE" ||
+    eventType === "TASK_COMMENT" ||
+    eventType === "USER_MENTIONED" ||
+    category === "messages"
+  ) {
     return "MESSAGE";
   }
   if (
     eventType === "TASK_APPROVED" ||
+    eventType === "TASK_COMPLETED" ||
     eventType === "TASK_PUBLISHED" ||
+    eventType === "TASK_DELIVERED" ||
+    eventType === "APPROVAL_COMPLETED" ||
+    eventType === "CLIENT_DELIVERABLE_APPROVED" ||
     eventType === "PAYMENT_RECEIVED" ||
     eventType === "COMMISSION_APPROVED" ||
     eventType === "SALARY_PAID"
   ) {
     return "SUCCESS";
   }
-  if (priority === "high" || eventType === "TASK_OVERDUE" || eventType === "DELIVERABLE_BEHIND") {
+  if (
+    priority === "high" ||
+    eventType === "TASK_OVERDUE" ||
+    eventType === "TASK_REVISION_REQUESTED" ||
+    eventType === "REVISION_REQUESTED" ||
+    eventType === "DELIVERABLE_BEHIND" ||
+    eventType === "CLIENT_ACTION_OVERDUE"
+  ) {
     return "WARNING";
   }
   return "INFO";
@@ -102,7 +126,11 @@ export function getFunctionalCategory(
     category === "task" ||
     entityType === "task" ||
     entityType === "project_task" ||
-    eventType.startsWith("TASK_")
+    eventType.startsWith("TASK_") ||
+    eventType === "USER_MENTIONED" ||
+    eventType.startsWith("REVIEW_") ||
+    eventType.startsWith("APPROVAL_") ||
+    eventType.startsWith("REVISION_")
   ) {
     return "TASK";
   }
@@ -111,10 +139,16 @@ export function getFunctionalCategory(
     category === "billing" ||
     category === "finance" ||
     category === "clients" ||
+    category === "sales" ||
     eventType.startsWith("PRODUCTION_") ||
     eventType.startsWith("INVOICE_") ||
     eventType.startsWith("COMMISSION_") ||
     eventType.startsWith("SALARY_") ||
+    eventType.startsWith("DEAL_") ||
+    eventType.startsWith("CLIENT_") ||
+    eventType.startsWith("CALENDAR_") ||
+    eventType.startsWith("REMINDER_") ||
+    eventType.startsWith("WORKSPACE_") ||
     eventType === "DELIVERABLE_BEHIND"
   ) {
     return "OPERATIONS";
@@ -122,7 +156,9 @@ export function getFunctionalCategory(
   if (
     category === "messages" ||
     eventType === "TASK_ALERT" ||
-    eventType === "MANAGER_MESSAGE"
+    eventType === "MANAGER_MESSAGE" ||
+    eventType === "TASK_COMMENT" ||
+    eventType === "CLIENT_COMMUNICATION_ALERT"
   ) {
     return "MESSAGE";
   }
@@ -662,20 +698,55 @@ export async function emitNotification(
       const prefs = await fetchNotificationPreferences(params.userId);
       const prefKeyMap: Partial<Record<NotificationEventType, keyof NotificationPreferences>> = {
         TASK_ASSIGNED: "task_assigned",
+        TASK_REASSIGNED: "task_assigned",
         TASK_DUE_SOON: "task_due_soon",
         TASK_OVERDUE: "task_overdue",
         TASK_DEADLINE: "task_due_soon",
         TASK_ALERT: "task_assigned",
-        MANAGER_MESSAGE: "task_assigned",
-        TASK_REASSIGNED: "task_assigned",
+        TASK_IN_PROGRESS: "task_assigned",
         TASK_BLOCKED: "task_assigned",
         TASK_UNBLOCKED: "task_assigned",
         TASK_REVIEW_REQUESTED: "task_assigned",
         TASK_REVISION_REQUESTED: "task_assigned",
         TASK_APPROVED: "task_assigned",
+        TASK_COMPLETED: "task_assigned",
+        TASK_DELIVERED: "task_assigned",
+        TASK_CANCELLED: "task_assigned",
+        TASK_COMMENT: "messages_enabled",
+        USER_MENTIONED: "messages_enabled",
+        TASK_ATTACHMENT_ADDED: "task_assigned",
+        TASK_DEPENDENCY_RESOLVED: "task_assigned",
+        TASK_DEPENDENCY_BLOCKED: "task_assigned",
         TASK_PUBLISHING_HANDOFF: "task_assigned",
         TASK_PUBLISHED: "task_assigned",
+        MANAGER_MESSAGE: "messages_enabled",
+        REMINDER_DUE: "task_due_soon",
+        TASK_REMINDER: "task_due_soon",
+        CALENDAR_EVENT_REMINDER: "production_tomorrow",
+        CALENDAR_SCHEDULE_CHANGED: "operations_enabled",
+        CALENDAR_ACTION_REQUIRED: "operations_enabled",
+        INQUIRY_RECEIVED: "operations_enabled",
+        CLIENT_INFO_SUBMITTED: "operations_enabled",
+        CLIENT_FILES_UPLOADED: "operations_enabled",
+        CLIENT_RESPONSE_RECEIVED: "operations_enabled",
+        CLIENT_DELIVERABLE_APPROVED: "client_approval_required",
+        CLIENT_REVISION_REQUESTED: "client_approval_required",
+        CLIENT_ACTION_OVERDUE: "client_approval_required",
+        CLIENT_COMMUNICATION_ALERT: "messages_enabled",
+        WORKSPACE_STATUS_CHANGED: "operations_enabled",
         CLIENT_APPROVAL_REQUIRED: "client_approval_required",
+        REVIEW_ASSIGNED: "task_assigned",
+        REVIEW_PENDING: "task_assigned",
+        APPROVAL_COMPLETED: "task_assigned",
+        REVISION_REQUESTED: "task_assigned",
+        REVIEW_DEADLINE_APPROACHING: "task_due_soon",
+        APPROVAL_BLOCKED: "task_assigned",
+        DEAL_CREATED: "operations_enabled",
+        CLIENT_ASSIGNED: "operations_enabled",
+        DEAL_STATUS_CHANGED: "operations_enabled",
+        LEAD_ASSIGNED: "operations_enabled",
+        SALES_FOLLOWUP_REQUIRED: "operations_enabled",
+        OPERATIONS_ALERT: "operations_enabled",
         INVOICE_OVERDUE: "invoice_overdue",
         PAYMENT_RECEIVED: "payment_received",
         COMMISSION_ELIGIBLE: "commission_eligible",
@@ -685,7 +756,7 @@ export async function emitNotification(
         PRODUCTION_TOMORROW: "production_tomorrow",
         DELIVERABLE_BEHIND: "deliverable_behind",
         MONTH_END_CLOSING: "month_end_closing",
-        SECURITY_AUDIT: "month_end_closing",
+        SECURITY_AUDIT: "security_enabled",
         GENERAL: "task_assigned",
       };
 
@@ -768,20 +839,54 @@ export async function emitNotification(
 
     if (error) throw error;
     if (inserted?.id) {
-      // The Edge Function sends notifications through the service worker, including
-      // when the recipient's PWA is closed. Do not block in-app notification creation.
-      void (supabase as any).functions.invoke("send-web-push", {
-        body: { notificationId: inserted.id },
-      }).then(({ error: pushError }: { error: unknown }) => {
-        if (pushError) console.warn("[emitNotification] Background push dispatch failed:", pushError);
-      }).catch((pushError: unknown) => {
-        console.warn("[emitNotification] Background push request failed:", pushError);
-      });
+      void triggerPushDispatch(inserted.id);
     }
     return { success: true, id: inserted?.id, deduplicated: false, data: inserted };
   } catch (err) {
     console.error("[emitNotification] Error:", err);
     return { success: false, deduplicated: false };
+  }
+}
+
+/**
+ * Triggers dual-redundant Web Push dispatch:
+ * 1. Application server endpoint (/api/push/dispatch)
+ * 2. Supabase Edge Function (send-web-push)
+ */
+async function triggerPushDispatch(notificationId: string): Promise<void> {
+  try {
+    let dispatched = false;
+
+    // 1. Primary: Local application server endpoint (direct VAPID delivery)
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const res = await fetch("/api/push/dispatch", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({ notificationId }),
+      });
+      if (res.ok) {
+        const payload = await res.json().catch(() => ({}));
+        if (payload?.success) {
+          dispatched = true;
+        }
+      }
+    } catch (_) {
+      // Server fetch failed, proceed to fallback
+    }
+
+    // 2. Secondary fallback: Supabase Edge Function
+    if (!dispatched) {
+      await (supabase as any).functions.invoke("send-web-push", {
+        body: { notificationId },
+      });
+    }
+  } catch (err) {
+    console.warn("[triggerPushDispatch] Push dispatch notice:", err);
   }
 }
 

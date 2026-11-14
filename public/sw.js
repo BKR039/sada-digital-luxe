@@ -4,7 +4,7 @@
 // Features: App Shell Caching, Offline Fallback, Web Push & Action Routing
 // ============================================================
 
-const CACHE_NAME = 'sada-os-pwa-v8';
+const CACHE_NAME = 'sada-os-pwa-v9';
 
 const STATIC_SHELL_ASSETS = [
   '/',
@@ -143,7 +143,7 @@ self.addEventListener('fetch', (event) => {
 });
 
 // ============================================================
-// WEB PUSH NOTIFICATION HANDLER
+// WEB PUSH NOTIFICATION HANDLER (PUSH 3.0)
 // ============================================================
 self.addEventListener('push', (event) => {
   let data = {
@@ -152,6 +152,8 @@ self.addEventListener('push', (event) => {
     url: '/admin/my-work',
     tag: 'sada-notification',
     priority: 'normal',
+    icon: '/icons/pwa-icon-192x192.png',
+    badge: '/favicon-32x32.png',
   };
 
   if (event.data) {
@@ -165,12 +167,15 @@ self.addEventListener('push', (event) => {
 
   const notificationOptions = {
     body: data.body,
-    icon: '/icons/pwa-icon-192x192.png',
-    badge: '/favicon-32x32.png',
-    tag: data.tag || 'sada-task-alert',
+    icon: data.icon || '/icons/pwa-icon-192x192.png',
+    badge: data.badge || '/favicon-32x32.png',
+    tag: data.tag || `sada-notif-${Date.now()}`,
     renotify: true,
     data: {
       url: data.url || '/admin/my-work',
+      id: data.data?.id,
+      entityType: data.data?.entityType,
+      entityId: data.data?.entityId,
     },
     vibrate: data.priority === 'urgent' ? [200, 100, 200, 100, 300] : [100, 50, 100],
     actions: [
@@ -185,7 +190,7 @@ self.addEventListener('push', (event) => {
 });
 
 // ============================================================
-// NOTIFICATION CLICK / ACTION HANDLER
+// NOTIFICATION CLICK / ACTION HANDLER (DEEP-LINKING)
 // ============================================================
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
@@ -194,20 +199,24 @@ self.addEventListener('notificationclick', (event) => {
     return;
   }
 
-  const targetUrl = event.notification.data?.url || '/admin/my-work';
+  const rawUrl = event.notification.data?.url || '/admin/my-work';
+  const targetUrl = new URL(rawUrl, self.location.origin).href;
 
   event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windowClients) => {
-      // Focus existing window if open
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(async (windowClients) => {
+      // 1. Try to focus an existing window matching our origin
       for (const client of windowClients) {
-        if ((client.url.includes('/admin') || client.url.includes('/sada-os')) && 'focus' in client) {
-          if ('navigate' in client && targetUrl) {
-            client.navigate(targetUrl);
+        if (client.url && client.url.startsWith(self.location.origin)) {
+          if ('focus' in client) {
+            await client.focus();
           }
-          return client.focus();
+          if ('navigate' in client && targetUrl) {
+            return client.navigate(targetUrl);
+          }
+          return;
         }
       }
-      // Otherwise open a new window
+      // 2. Otherwise open a new window
       if (clients.openWindow) {
         return clients.openWindow(targetUrl);
       }

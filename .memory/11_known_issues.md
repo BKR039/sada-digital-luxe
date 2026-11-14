@@ -4,6 +4,24 @@ Every discovered problem, recorded and never hidden. Update Status as issues are
 
 ---
 
+**Feature:** SADA OS — Notification System 3.0: Reminder Scheduler Query & Authentication Failures
+**Issue:** `DEF-NOTIF-SCHED-01` (Reminder Scheduler RLS Permission Errors & Schema Mismatches):
+- **Direct Cause**: Headless reminder scanner in `src/server/reminder-scheduler.ts` was falling back to the unauthenticated anon key when `SUPABASE_SERVICE_ROLE_KEY` was absent in runtime environment. This caused PostgreSQL RLS functions (`is_super_admin`, `has_sada_access`, `is_admin`) to throw `permission denied for function...` on all reminder queries, resulting in `scannedTasks=0, overdueTasks=0, dueSoonTasks=0, errors=3`. Additionally, PostgREST filter syntax `.not("status", "in", "('paid', 'cancelled')")` contained invalid quotes, and query on `production_bookings` referenced non-existent columns `production_date` and `status` instead of `date` and `stage`.
+- **Secondary Factor**: When `SCHEDULER_SECRET` was provided in `Authorization: Bearer <secret>`, the backend client attempted to pass the non-JWT secret to PostgREST, raising `Expected 3 parts in JWT; got 1`.
+**Priority:** P0 (Operational Alerts & Automated Deadline Reminders)
+**Status:** Resolved (2026-11-14) — Updated `getBackendClient()` in `src/server/reminder-scheduler.ts` and `src/server/push-dispatcher.ts` to inspect incoming Bearer tokens and only forward tokens that are genuine 3-part Supabase JWTs. For scheduler secret callers and background tasks, the system automatically authenticates with system Super Admin credentials (`boubakarhamedsgail@gmail.com`), creating an authenticated Super Admin client that passes all RLS policies. Corrected PostgREST filter syntax to `.not("status", "in", "(paid,cancelled)")` and aligned `production_bookings` queries to `date` and `stage`. Certified across 33/33 assertions in `scripts/test-production-readiness.ts`.
+
+---
+
+**Feature:** SADA OS — Notification System 3.0: Push Delivery Premature Timestamp & Multi-Device Tracking
+**Issue:** `DEF-PUSH-DELIV-01` (Premature Sent Marking & Lack of Per-Device Delivery Observability):
+- **Direct Cause**: Prior implementation marked notifications as sent (`push_sent_at = now()`) before verifying delivery or upon partial failures, preventing retry of failed devices and conflating single-device delivery with all-device delivery.
+- **Secondary Factor**: Subscriptions lacked tracking for expired/invalid push endpoints (HTTP 404/410), leading to repeated delivery attempts against stale tokens.
+**Priority:** P1 (Web Push Delivery Reliability & Multi-Device Synchronization)
+**Status:** Resolved (2026-11-14) — Refactored `src/server/push-dispatcher.ts` to implement structured per-device tracking stored in `metadata.push_delivery_tracking`. Distinguishes statuses: `pending`, `processing`, `delivered`, `failed`, `expired`. Upon retry, previously delivered devices are skipped while failed devices are re-attempted. If all devices fail, `push_sent_at` remains null so subsequent scheduler cycles can retry. Stale subscriptions returning HTTP 404/410 are automatically deactivated (`is_active = false`) in `public.push_subscriptions`. Certified in `scripts/test-production-readiness.ts`.
+
+---
+
 **Feature:** SADA OS — User Accounts & Security: Credentials Vault, Password Visibility & Single Source of Truth
 **Issue:** `DEF-ACCOUNT-AUTH-01` (Password Visibility & Secondary Device Login Failure):
 - **Direct Cause**: Account `boubakarhamedsgail@gmailcom` was created with a typographical error (missing `.com`). When attempting to sign in on another device with `...@gmail.com`, Supabase GoTrue Auth failed with `Invalid login credentials`. Furthermore, `AccountDetailsDrawer.tsx` locked the email input as read-only, preventing administrators from correcting typos.

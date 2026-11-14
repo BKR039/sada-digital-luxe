@@ -7,6 +7,8 @@ import { supabase } from "@/integrations/supabase/client";
 import type { NotificationItem, PushSubscriptionRecord } from "@/types/notifications-and-audit";
 import { isWebPushSupported, registerServiceWorker } from "@/lib/pwa-service";
 
+export type { PushSubscriptionRecord };
+
 const LOCAL_STORAGE_PUSH_KEY = "sada_push_subscription_v2";
 
 /**
@@ -255,6 +257,80 @@ export async function unregisterPushDeviceSubscription(userId: string): Promise<
   } catch (err) {
     console.warn("[unregisterPushDeviceSubscription] Error:", err);
     return false;
+  }
+}
+
+/**
+ * Fetches all registered active push subscriptions for a user.
+ */
+export async function fetchActiveUserSubscriptions(
+  userId: string
+): Promise<PushSubscriptionRecord[]> {
+  if (!userId) return [];
+  try {
+    const { data, error } = await (supabase as any)
+      .from("push_subscriptions")
+      .select("id, user_id, endpoint, device_type, user_agent, is_active, last_seen_at, created_at")
+      .eq("user_id", userId)
+      .eq("is_active", true)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.warn("[fetchActiveUserSubscriptions] DB query notice:", error.message);
+      return [];
+    }
+    return data || [];
+  } catch (err) {
+    console.error("[fetchActiveUserSubscriptions] Error:", err);
+    return [];
+  }
+}
+
+/**
+ * Removes or deactivates a specific push subscription by ID.
+ */
+export async function removeDeviceSubscription(subscriptionId: string): Promise<boolean> {
+  if (!subscriptionId) return false;
+  try {
+    const { error } = await (supabase as any)
+      .from("push_subscriptions")
+      .update({ is_active: false })
+      .eq("id", subscriptionId);
+
+    return !error;
+  } catch (err) {
+    console.error("[removeDeviceSubscription] Error:", err);
+    return false;
+  }
+}
+
+/**
+ * Sends a controlled test notification to the authenticated user to verify device push delivery.
+ */
+export async function sendTestPushNotification(
+  userId: string,
+  lang: "en" | "ar" = "en"
+): Promise<{ success: boolean; error?: string }> {
+  if (!userId) return { success: false, error: "User ID required" };
+
+  try {
+    const { emitNotification } = await import("./notification-service");
+    const isAr = lang === "ar";
+    const res = await emitNotification({
+      eventType: "GENERAL",
+      userId,
+      title: isAr ? "إشعار تجريبي • SADA OS" : "Test Notification • SADA OS",
+      message: isAr
+        ? "تم تأكيد وصول الإشعارات إلى جهازك بنجاح. أنت الآن متصل بـ SADA OS!"
+        : "Push notifications are working on this device. You're connected to SADA OS!",
+      category: "system",
+      priority: "high",
+      linkUrl: "/admin/my-work",
+    });
+
+    return { success: res.success, error: res.success ? undefined : "Failed to emit notification" };
+  } catch (err: any) {
+    return { success: false, error: err?.message || "Failed to send test push" };
   }
 }
 

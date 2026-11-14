@@ -23,6 +23,9 @@ import {
   CheckCircle2,
   AlertCircle,
   ExternalLink,
+  Trash2,
+  Send,
+  Radio,
 } from "lucide-react";
 import {
   fetchNotificationPreferences,
@@ -34,6 +37,10 @@ import {
   requestBrowserNotificationPermission,
   registerPushDeviceSubscription,
   unregisterPushDeviceSubscription,
+  fetchActiveUserSubscriptions,
+  removeDeviceSubscription,
+  sendTestPushNotification,
+  type PushSubscriptionRecord,
 } from "@/lib/browser-push-service";
 import type { NotificationPreferences } from "@/types/notifications-and-audit";
 import { useTranslation } from "@/i18n";
@@ -42,6 +49,17 @@ interface NotificationPreferencesModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   userId: string;
+}
+
+function parseDeviceLabel(ua?: string, type?: string): string {
+  if (!ua) return type === "mobile" ? "Mobile Device" : "Desktop Browser";
+  if (ua.includes("iPhone")) return "Apple iPhone (iOS Safari / PWA)";
+  if (ua.includes("iPad")) return "Apple iPad (iPadOS PWA)";
+  if (ua.includes("Android")) return "Android Phone (Chrome / PWA)";
+  if (ua.includes("Macintosh")) return "Mac Workstation (Safari / Chrome)";
+  if (ua.includes("Windows")) return "Windows Workstation (Chrome / Edge)";
+  if (ua.includes("Linux")) return "Linux Workstation";
+  return type === "mobile" ? "Mobile Device" : "Desktop Workstation";
 }
 
 export function NotificationPreferencesModal({
@@ -60,6 +78,9 @@ export function NotificationPreferencesModal({
   // Browser permissions state
   const [browserPerm, setBrowserPerm] = useState<NotificationPermission | "unsupported">("default");
   const [pushLoading, setPushLoading] = useState(false);
+  const [devices, setDevices] = useState<PushSubscriptionRecord[]>([]);
+  const [devicesLoading, setDevicesLoading] = useState(false);
+  const [testingPush, setTestingPush] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -70,6 +91,12 @@ export function NotificationPreferencesModal({
           .then((data) => setPrefs(data))
           .catch(() => toast.error(isRTL ? "تعذر تحميل التفضيلات" : "Failed to load preferences"))
           .finally(() => setLoading(false));
+
+        setDevicesLoading(true);
+        fetchActiveUserSubscriptions(userId)
+          .then((list) => setDevices(list))
+          .catch(() => {})
+          .finally(() => setDevicesLoading(false));
       }
     }
   }, [open, userId, isRTL]);
@@ -87,6 +114,10 @@ export function NotificationPreferencesModal({
     if (res === "granted") {
       setPrefs((prev) => ({ ...prev, desktop_push_enabled: true }));
       toast.success(isRTL ? "تم تفعيل إشعارات المتصفح بنجاح" : "Browser notifications enabled");
+      // Refresh devices list
+      if (userId) {
+        fetchActiveUserSubscriptions(userId).then(setDevices).catch(() => {});
+      }
     } else if (res === "denied") {
       toast.error(
         isRTL
@@ -105,6 +136,7 @@ export function NotificationPreferencesModal({
         if (res.success) {
           setPrefs((prev) => ({ ...prev, mobile_push_enabled: true }));
           toast.success(isRTL ? "تم تسجيل هذا الجهاز لإشعارات Push" : "Device registered for Web Push");
+          fetchActiveUserSubscriptions(userId).then(setDevices).catch(() => {});
         } else {
           toast.error(res.error || (isRTL ? "فشل تسجيل الإشعارات" : "Failed to register Web Push"));
         }
@@ -112,11 +144,46 @@ export function NotificationPreferencesModal({
         await unregisterPushDeviceSubscription(userId);
         setPrefs((prev) => ({ ...prev, mobile_push_enabled: false }));
         toast.info(isRTL ? "تم تعطيل إشعارات Push لهذا الجهاز" : "Push disabled for this device");
+        fetchActiveUserSubscriptions(userId).then(setDevices).catch(() => {});
       }
     } catch {
       toast.error(isRTL ? "حدث خطأ غير متوقع" : "An unexpected error occurred");
     } finally {
       setPushLoading(false);
+    }
+  };
+
+  const handleSendTestPush = async () => {
+    setTestingPush(true);
+    try {
+      const res = await sendTestPushNotification(userId, isRTL ? "ar" : "en");
+      if (res.success) {
+        toast.success(
+          isRTL
+            ? "تم إرسال إشعار تجريبي! تحقق من جهازك أو شاشة القفل."
+            : "Test notification dispatched! Check your notification tray or lock screen."
+        );
+      } else {
+        toast.error(res.error || (isRTL ? "تعذر إرسال الإشعار التجريبي" : "Failed to send test push"));
+      }
+    } catch {
+      toast.error(isRTL ? "حدث خطأ أثناء الإرسال" : "An error occurred while sending test");
+    } finally {
+      setTestingPush(false);
+    }
+  };
+
+  const handleRemoveDevice = async (subId: string) => {
+    try {
+      const ok = await removeDeviceSubscription(subId);
+      if (ok) {
+        setDevices((prev) => prev.filter((d) => d.id !== subId));
+        toast.success(isRTL ? "تمت إزالة الجهاز بنجاح" : "Device unregistered successfully");
+      } else {
+        toast.error(isRTL ? "تعذر إزالة الجهاز" : "Failed to unregister device");
+      }
+    } catch {
+      toast.error(isRTL ? "حدث خطأ" : "Error removing device");
     }
   };
 
@@ -383,6 +450,89 @@ export function NotificationPreferencesModal({
                   />
                 </div>
               </div>
+            </div>
+
+            {/* REGISTERED PUSH DEVICES & TEST DELIVERY */}
+            <div className="p-4 rounded-2xl bg-muted/20 border border-border/80 space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-xs font-bold font-heading text-foreground uppercase tracking-wider flex items-center gap-1.5">
+                    <Radio className="size-3.5 text-primary" />
+                    {isRTL ? "الأجهزة المسجلة لإشعارات Push" : "Registered Push Devices"}
+                  </h4>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    {isRTL
+                      ? "إدارة الأجهزة المتصلة بخدمة Web Push RFC 8292 واختبار التسليم"
+                      : "Manage active devices receiving OS notifications and test delivery"}
+                  </p>
+                </div>
+                <SADAButton
+                  variant="outline"
+                  size="xs"
+                  onClick={handleSendTestPush}
+                  isLoading={testingPush}
+                  leftIcon={<Send className="size-3" />}
+                >
+                  {isRTL ? "إرسال إشعار تجريبي" : "Send Test Notification"}
+                </SADAButton>
+              </div>
+
+              {devicesLoading ? (
+                <div className="p-4 text-center text-xs text-muted-foreground font-mono flex items-center justify-center gap-2">
+                  <Loader2 className="size-3.5 animate-spin text-primary" />
+                  {isRTL ? "جاري تحميل الأجهزة..." : "Loading registered devices..."}
+                </div>
+              ) : devices.length === 0 ? (
+                <div className="p-3.5 rounded-xl bg-card/60 border border-dashed border-border/70 text-center">
+                  <p className="text-[11px] text-muted-foreground">
+                    {isRTL
+                      ? "لا توجد أجهزة مسجلة حالياً. قم بتفعيل إشعارات الجوال أو إذن المتصفح أعلاه لتسجيل هذا الجهاز."
+                      : "No active devices registered yet. Enable Mobile Push or grant browser permissions above to register this device."}
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {devices.map((dev) => (
+                    <div
+                      key={dev.id}
+                      className="p-2.5 rounded-xl bg-card border border-border/60 flex items-center justify-between gap-3 text-xs"
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="size-7 rounded-lg bg-primary/10 border border-primary/20 grid place-items-center text-primary shrink-0">
+                          {dev.device_type === "mobile" || dev.device_type === "tablet" ? (
+                            <Smartphone className="size-3.5" />
+                          ) : (
+                            <Laptop className="size-3.5" />
+                          )}
+                        </div>
+                        <div className="min-w-0">
+                          <div className="font-semibold text-foreground truncate">
+                            {parseDeviceLabel(dev.user_agent, dev.device_type)}
+                          </div>
+                          <div className="text-[10px] text-muted-foreground font-mono">
+                            {isRTL ? "مسجل: " : "Registered: "}
+                            {dev.created_at ? new Date(dev.created_at).toLocaleDateString() : "Active"}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <SADABadge variant="success" size="xs">
+                          {isRTL ? "نشط" : "Online"}
+                        </SADABadge>
+                        <button
+                          type="button"
+                          onClick={() => dev.id && handleRemoveDevice(dev.id)}
+                          disabled={!dev.id}
+                          className="size-7 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 grid place-items-center transition-colors cursor-pointer"
+                          title={isRTL ? "إلغاء تسجيل هذا الجهاز" : "Unregister this device"}
+                        >
+                          <Trash2 className="size-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* MANDATORY / REQUIRED SECURITY TIER */}

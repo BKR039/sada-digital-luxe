@@ -80,8 +80,13 @@ async function runTestSuite() {
 
   const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
   const anonKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-  const adminEmail = process.env.SYSTEM_ADMIN_EMAIL || "boubakarhamedsgail@gmail.com";
-  const adminPass = process.env.SYSTEM_ADMIN_PASSWORD || "Boubakar2026!";
+  const adminEmail = process.env.SYSTEM_ADMIN_EMAIL;
+  const adminPass = process.env.SYSTEM_ADMIN_PASSWORD;
+
+  if (!adminEmail || !adminPass) {
+    console.error("❌ Fatal: SYSTEM_ADMIN_EMAIL or SYSTEM_ADMIN_PASSWORD missing from environment.");
+    process.exit(1);
+  }
 
   if (!supabaseUrl || !anonKey) {
     console.error("❌ Fatal: Supabase credentials missing from environment.");

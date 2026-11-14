@@ -3,6 +3,30 @@
 Every important technical/product decision, most recent first. Append new entries; never edit past ones except to fix a factual error. (Migrated from the earlier `.memory/roadmap.md` — see that file for a pointer.)
 
 **Date:** 2026-11-14
+**Decision:** SADA OS NOTIFICATION 3.0 FINAL DEPLOYMENT GATE & SECURITY HARDENING:
+1. **GitHub Actions & Production Scheduling Deployment**:
+   - Committed and verified `.github/workflows/notification-scheduler.yml` configured for recurring 30-minute executions (`*/30 * * * *`) and `workflow_dispatch` manual triggers.
+   - Configured target secret fallback to `secrets.SADA_BASE_URL` with secondary fallback to `secrets.SADA_OS_APP_URL` and `https://sada-digital-luxe.vercel.app`.
+   - Added native `vercel.json` cron definition (`"schedule": "*/30 * * * *"`, path: `"/api/notifications/scheduler"`) for automatic serverless execution without relying on long-running node processes.
+2. **Vercel Serverless Runtime Safety & Daemon Boundary**:
+   - Documented that the in-process daemon (`scheduler-daemon.ts`) is strictly an in-memory timer for persistent local dev and containerized runtimes.
+   - Confirmed that Vercel Serverless production execution relies on external HTTP invocation (GitHub Actions or Vercel Cron).
+   - In-memory execution lock (`isExecuting`) and 24-hour database deduplication window prevent duplicate concurrent executions even under overlapping external triggers.
+3. **Backend Credential Security Hardening & Zero Plaintext Fallbacks**:
+   - Eradicated all hardcoded fallback credentials (`Boubakar2026!`, `boubakarhamedsgail@gmail.com`) from `src/server/reminder-scheduler.ts`, `src/server/push-dispatcher.ts`, and `src/server/email-dispatcher.ts`.
+   - Structured `getBackendClient()` to strictly prioritize `SUPABASE_SERVICE_ROLE_KEY` for server-side operations, followed by caller JWTs, and only reads admin credentials from environment variables (`SYSTEM_ADMIN_EMAIL`, `SYSTEM_ADMIN_PASSWORD`) if explicitly configured.
+   - Verified that unauthorized requests to `/api/notifications/scheduler` and `/api/push/dispatch` are strictly rejected with HTTP 401.
+4. **Universal Worker Acknowledgment Engine & Manager Visibility**:
+   - Implemented `acknowledgeTaskAssignment()` in `src/lib/task-execution-service.ts` logging authenticated worker acknowledgment directly into `public.project_activity` and marking linked notification metadata.
+   - Wired deep link parameters `?task={id}&notif={id}&ack=1` in `src/routes/admin.my-work.tsx` to automatically record worker acknowledgment upon authenticated mount.
+   - Updated `src/components/admin/TaskDetailModal.tsx` with a dedicated **Worker Acknowledgment** card showing acknowledgment status, timestamp, and actor name for managers, plus an actionable "Ack" button for assigned workers.
+5. **Quality Verification**:
+   - Production readiness test suite: 33/33 assertions PASSED (`scripts/test-production-readiness.ts`).
+   - Resend transactional email test suite: 42/42 assertions PASSED (`scripts/test-resend-email-integration.ts`).
+   - TypeScript check: 0 errors (`npx tsc --noEmit`).
+   - Production build: Clean compilation of client, SSR, and Nitro modules (`npm run build`).
+
+**Date:** 2026-11-14
 **Decision:** SADA OS RESEND TRANSACTIONAL EMAIL INTEGRATION & DUAL/TRI-CHANNEL DELIVERY ARCHITECTURE:
 1. **Architecture & Framework Integration**:
    - Integrated the official Resend SDK (`resend`) strictly on the server side (`src/server/email-dispatcher.ts`, `src/server/email-templates.ts`).

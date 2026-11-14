@@ -63,9 +63,17 @@ async function runProductionReadinessAudit() {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 
+  const adminEmail = process.env.SYSTEM_ADMIN_EMAIL;
+  const adminPass = process.env.SYSTEM_ADMIN_PASSWORD;
+
+  if (!adminEmail || !adminPass) {
+    console.error("❌ Fatal: SYSTEM_ADMIN_EMAIL or SYSTEM_ADMIN_PASSWORD missing from environment.");
+    process.exit(1);
+  }
+
   const { data: authData, error: authErr } = await authClient.auth.signInWithPassword({
-    email: "boubakarhamedsgail@gmail.com",
-    password: "Boubakar2026!",
+    email: adminEmail,
+    password: adminPass,
   });
 
   assert(!authErr && Boolean(authData.session?.access_token), "Super Admin authenticated successfully");

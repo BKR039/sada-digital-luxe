@@ -52,6 +52,7 @@ import {
   resolveTaskBlocker,
   addTaskNote,
   fetchTaskActivity,
+  acknowledgeTaskAssignment,
   updateSubtaskAssignee,
   createProjectSubtask,
   BLOCKER_CATEGORY_LABELS,
@@ -491,6 +492,39 @@ export function TaskDetailModal({
     loadHandoff();
     loadActivity();
   }, [loadSubtasks, loadHandoff, loadActivity]);
+
+  // Worker Acknowledgment State
+  const ackActivity = useMemo(() => {
+    return activities.find((a) => a.action === "task_acknowledged" || (a as any).action === "acknowledged");
+  }, [activities]);
+
+  const isAcknowledged = useMemo(() => {
+    return Boolean(
+      ackActivity ||
+      task.status === "in_progress" ||
+      task.status === "review" ||
+      task.status === "done" ||
+      task.status === "approved" ||
+      task.completed_at
+    );
+  }, [ackActivity, task.status, task.completed_at]);
+
+  const handleAcknowledgeTask = async () => {
+    if (!user) return;
+    setActionLoading("acknowledge");
+    const success = await acknowledgeTaskAssignment({
+      taskId: task.id,
+      actorId: user.id,
+      projectId: task.project_id || null,
+    });
+    setActionLoading(null);
+    if (success) {
+      toast.success(isAr ? "تم تسجيل الإقرار باستلام المهمة بنجاح" : "Task assignment officially acknowledged");
+      loadActivity();
+    } else {
+      toast.error(isAr ? "تعذر تسجيل الإقرار" : "Failed to record acknowledgment");
+    }
+  };
 
   // -------------------------------------------------------------
   // Execution Handlers
@@ -1683,6 +1717,57 @@ export function TaskDetailModal({
                           </span>
                         </div>
                       </div>
+
+                      {/* ACKNOWLEDGMENT STATUS (Visible to both Workers & Managers) */}
+                      {task.status !== "done" && task.status !== "approved" && !task.completed_at && (
+                        <div
+                          className={`flex items-center gap-2.5 p-2.5 rounded-xl border shadow-2xs ${
+                            isAcknowledged
+                              ? "bg-emerald-500/5 border-emerald-500/20"
+                              : "bg-amber-500/5 border-amber-500/20"
+                          }`}
+                        >
+                          <div
+                            className={`size-9 rounded-full flex items-center justify-center shrink-0 ${
+                              isAcknowledged ? "bg-emerald-500/10 text-emerald-500" : "bg-amber-500/10 text-amber-500"
+                            }`}
+                          >
+                            {isAcknowledged ? <CheckCircle2 className="size-4" /> : <Clock className="size-4" />}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <span
+                              className={`text-[9px] font-mono uppercase tracking-wider font-bold block ${
+                                isAcknowledged ? "text-emerald-500" : "text-amber-500"
+                              }`}
+                            >
+                              {isAr ? "إقرار الاستلام" : "Worker Acknowledgment"}
+                            </span>
+                            <h4 className="text-xs font-bold text-foreground truncate">
+                              {isAcknowledged
+                                ? (isAr ? "تم الإقرار بالاستلام" : "Acknowledged")
+                                : (isAr ? "بانتظار الإقرار" : "Awaiting Acknowledgment")}
+                            </h4>
+                            <span className="text-[10px] text-muted-foreground block truncate">
+                              {ackActivity
+                                ? `${isAr ? "أقر به" : "By"} ${ackActivity.actor?.display_name || "Worker"} • ${formatDate(parseISO(ackActivity.created_at), "d MMM, HH:mm")}`
+                                : isAcknowledged
+                                ? (isAr ? "بدأ التنفيذ الفعلي" : "Active in progress")
+                                : (isAr ? "لم يقر العامل بعد" : "Awaiting worker check-in")}
+                            </span>
+                          </div>
+                          {!isAcknowledged && (
+                            <button
+                              type="button"
+                              onClick={handleAcknowledgeTask}
+                              disabled={actionLoading === "acknowledge"}
+                              className="px-2 py-1 rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 hover:bg-amber-500/25 text-[10px] font-bold font-mono inline-flex items-center gap-1 transition-colors cursor-pointer shrink-0"
+                            >
+                              <CheckCircle2 className="size-3" />
+                              <span>{isAr ? "تأكيد" : "Ack"}</span>
+                            </button>
+                          )}
+                        </div>
+                      )}
 
                       {/* COMPLETED BY */}
                       {(task.status === "done" || task.status === "approved" || task.completed_at) && (

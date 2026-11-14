@@ -88,26 +88,29 @@ async function getBackendClient(clientOverride?: SupabaseClient, authHeader?: st
     }
   }
 
-  // Fallback: Authenticate with Super Admin credentials
-  const adminEmail = process.env.SYSTEM_ADMIN_EMAIL || "boubakarhamedsgail@gmail.com";
-  const adminPass = process.env.SYSTEM_ADMIN_PASSWORD || "Boubakar2026!";
-  const authClient = createClient(supabaseUrl, anonKey || "", {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
+  // Fallback: Authenticate with server-configured admin credentials if provided (zero plaintext in source)
+  const adminEmail = process.env.SYSTEM_ADMIN_EMAIL;
+  const adminPass = process.env.SYSTEM_ADMIN_PASSWORD;
 
-  try {
-    const { data: authData, error: authErr } = await authClient.auth.signInWithPassword({
-      email: adminEmail,
-      password: adminPass,
+  if (adminEmail && adminPass && anonKey) {
+    const authClient = createClient(supabaseUrl, anonKey, {
+      auth: { persistSession: false, autoRefreshToken: false },
     });
 
-    if (!authErr && authData.session?.access_token) {
-      return createClient(supabaseUrl, anonKey || "", {
-        auth: { persistSession: false, autoRefreshToken: false },
-        global: { headers: { Authorization: `Bearer ${authData.session.access_token}` } },
+    try {
+      const { data: authData, error: authErr } = await authClient.auth.signInWithPassword({
+        email: adminEmail,
+        password: adminPass,
       });
-    }
-  } catch (_) {}
+
+      if (!authErr && authData.session?.access_token) {
+        return createClient(supabaseUrl, anonKey, {
+          auth: { persistSession: false, autoRefreshToken: false },
+          global: { headers: { Authorization: `Bearer ${authData.session.access_token}` } },
+        });
+      }
+    } catch (_) {}
+  }
 
   return createClient(supabaseUrl, anonKey || "", {
     auth: { persistSession: false, autoRefreshToken: false },

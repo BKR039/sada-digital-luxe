@@ -36,6 +36,7 @@ import {
   computeTaskExecutionTier,
   computeBlockedDuration,
   isTaskPaused,
+  acknowledgeTaskAssignment,
   BLOCKER_CATEGORY_LABELS,
   type BlockerCategory
 } from "@/lib/task-execution-service";
@@ -49,6 +50,8 @@ import { checkStageActionability } from "@/lib/workflow-service";
 export interface MyWorkSearchParams {
   task?: string;
   taskId?: string;
+  notif?: string;
+  ack?: string;
   [key: string]: unknown;
 }
 
@@ -58,6 +61,8 @@ export const Route = createFileRoute("/admin/my-work")({
       ...search,
       task: typeof search.task === "string" ? search.task : undefined,
       taskId: typeof search.taskId === "string" ? search.taskId : undefined,
+      notif: typeof search.notif === "string" ? search.notif : undefined,
+      ack: typeof search.ack === "string" ? search.ack : undefined,
     };
   },
   component: MyWorkExecutionView,
@@ -250,6 +255,28 @@ export function MyWorkExecutionView() {
         });
     }
   }, [targetTaskId, tasks, loading, activeTask]);
+
+  // Handle authenticated worker acknowledgment from email / push deep-link
+  const ackProcessedRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!user || !targetTaskId) return;
+    if (search.ack !== "1" && search.ack !== "true" && !search.notif) return;
+
+    const ackKey = `${user.id}_${targetTaskId}_${search.notif || "ack"}`;
+    if (ackProcessedRef.current === ackKey) return;
+    ackProcessedRef.current = ackKey;
+
+    acknowledgeTaskAssignment({
+      taskId: targetTaskId,
+      actorId: user.id,
+      notificationId: search.notif || null,
+      projectId: activeTask?.project_id || null,
+    }).then((success) => {
+      if (success) {
+        toast.success(isAr ? "تم تسجيل الإقرار باستلام المهمة بنجاح" : "Task assignment officially acknowledged");
+      }
+    });
+  }, [user, targetTaskId, search.ack, search.notif, activeTask?.project_id, isAr]);
 
   // Filter Tasks by Assigned Worker
   const workerFilteredTasks = useMemo(() => {

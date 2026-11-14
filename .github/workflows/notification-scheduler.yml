@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Trigger SADA OS Scheduler Endpoint
         env:
-          TARGET_URL: ${{ secrets.SADA_OS_APP_URL || 'https://sada-os.agency' }}
+          TARGET_URL: ${{ secrets.SADA_BASE_URL || secrets.SADA_OS_APP_URL || 'https://sada-digital-luxe.vercel.app' }}
           SCHEDULER_SECRET: ${{ secrets.SCHEDULER_SECRET }}
         run: |
           echo "Dispatching scheduled reminder check to $TARGET_URL..."

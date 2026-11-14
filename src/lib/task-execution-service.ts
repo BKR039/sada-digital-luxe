@@ -1143,6 +1143,65 @@ export async function fetchTaskActivity(taskId: string, client?: any): Promise<T
 }
 
 /**
+ * 10.B EXPLICIT WORKER ACKNOWLEDGMENT ENGINE
+ * Records authenticated worker acknowledgment in project_activity and
+ * updates related notification tracking.
+ */
+export async function acknowledgeTaskAssignment(params: {
+  taskId: string;
+  actorId: string;
+  projectId?: string | null;
+  notificationId?: string | null;
+  client?: any;
+}): Promise<boolean> {
+  try {
+    const activeClient = params.client || supabase;
+    // 1. Insert into project_activity
+    await (activeClient as any).from("project_activity").insert({
+      task_id: params.taskId,
+      project_id: params.projectId || null,
+      actor_id: params.actorId,
+      action: "task_acknowledged",
+      details: "Task assignment officially acknowledged by assigned worker in authenticated workstation.",
+      metadata: {
+        notification_id: params.notificationId || null,
+        acknowledged_at: new Date().toISOString(),
+        source: "authenticated_workstation",
+      },
+    });
+
+    // 2. If notificationId provided, update notification metadata
+    if (params.notificationId) {
+      const { data: notif } = await (activeClient as any)
+        .from("notifications")
+        .select("metadata")
+        .eq("id", params.notificationId)
+        .maybeSingle();
+
+      if (notif) {
+        await (activeClient as any)
+          .from("notifications")
+          .update({
+            read: true,
+            read_at: new Date().toISOString(),
+            metadata: {
+              ...(notif.metadata || {}),
+              worker_acknowledged_at: new Date().toISOString(),
+              worker_acknowledged_by: params.actorId,
+            },
+          })
+          .eq("id", params.notificationId);
+      }
+    }
+
+    return true;
+  } catch (err) {
+    console.error("[acknowledgeTaskAssignment] Error:", err);
+    return false;
+  }
+}
+
+/**
  * 11. DETERMINISTIC "NEXT TASK" SCORING ENGINE
  * Evaluates candidate tasks and deterministically returns the highest priority action item
  * along with transparent rationale.

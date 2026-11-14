@@ -67,7 +67,7 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 }
 
 function isAuthorizedServerRequest(request: Request): boolean {
-  const configuredSecret = process.env.SCHEDULER_SECRET;
+  const configuredSecret = process.env.SCHEDULER_SECRET || process.env.CRON_SECRET;
   const authHeader = request.headers.get("Authorization");
   const customHeader = request.headers.get("x-scheduler-secret") || request.headers.get("x-internal-secret");
 

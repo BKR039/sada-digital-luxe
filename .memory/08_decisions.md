@@ -2,6 +2,30 @@
 
 Every important technical/product decision, most recent first. Append new entries; never edit past ones except to fix a factual error. (Migrated from the earlier `.memory/roadmap.md` — see that file for a pointer.)
 
+**Date:** 2026-11-15
+**Decision:** SADA OS PWA APP ICON & FAVICON UNIFICATION:
+1. **Single Source of Truth Asset**:
+   - Established `B:/Work/DIGITOUS/SADA/favicon.png` (1080x1080 PNG) as the authoritative master asset across all browser tabs, mobile home screens, app launchers, and installed desktop/mobile PWAs.
+   - Identified root cause of brand inconsistency: legacy PWA icons (`pwa-icon-*.png`) had been generated from a bare vector mark without the brand squircle, glowing border, or dark `#222830` surface.
+2. **Deterministic Icon Regeneration**:
+   - Re-generated all PWA and favicon targets with high-fidelity Skia bicubic scaling:
+     - `pwa-icon-512x512.png` & `icon-512x512.png` (512x512, purpose: "any"): Preserves the full squircle, cyan-blue glowing gradient border, and emblem.
+     - `pwa-icon-192x192.png` & `icon-192x192.png` (192x192, purpose: "any"): Scaled launcher icon.
+     - `pwa-icon-180x180.png` & `apple-touch-icon.png` (180x180): High-resolution Apple Touch icon.
+     - `pwa-icon-maskable-512x512.png` & `maskable-512x512.png` (512x512, purpose: "maskable"): Generated with full-bleed `#222830` background and centered squircle inside the 80% safe zone circle, preventing clipped borders on Android adaptive icon masks.
+     - `public/favicon.png` (512x512): Updated to match master asset.
+     - `public/favicon-48x48.png`, `favicon-32x32.png`, `favicon-16x16.png`, and multi-layer `favicon.ico`: Crisp step-down downscaled versions.
+     - `public/favicon.svg`: Embeds updated 512x512 base64 PNG.
+3. **PWA Manifest & HTML Meta Alignment**:
+   - Updated `public/manifest.webmanifest` icon declarations to reference unified assets with cache-busting `?v=6`.
+   - Updated `src/routes/__root.tsx` `<link>` tags for favicon and touch icons with `?v=6`.
+   - Bumped service worker cache name in `public/sw.js` to `sada-os-pwa-v10` to automatically flush stale cached icons on all clients.
+4. **Verification & Quality Gates**:
+   - `scripts/test-pwa-icon-unification.ts`: 72/72 assertions PASSED (100%).
+   - Visual verification screenshot captured at `docs/screenshots/pwa_icon_unification/unified_icons_verification.png`.
+   - `npx tsc --noEmit`: 0 errors.
+   - `npm run build`: Production client, SSR, and Nitro server compilation succeeded in 14.97s.
+
 **Date:** 2026-11-14
 **Decision:** SADA OS UNIFIED PREMIUM NOTIFICATION UX REDESIGN:
 1. **Canonical Visual Language Adoption**:

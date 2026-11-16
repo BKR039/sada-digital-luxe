@@ -5,6 +5,7 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { cloudflare } from "@cloudflare/vite-plugin";
 import fs from "node:fs";
 
 // Load .env and .env.local if not loaded into process.env
@@ -29,18 +30,20 @@ try {
 // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
 // @cloudflare/vite-plugin builds from this — wrangler.jsonc main alone is insufficient.
 export default defineConfig({
+  nitro: false,
   tanstackStart: {
     server: { entry: "server" },
   },
   vite: {
     plugins: [
+      cloudflare({ viteEnvironment: { name: "ssr" } }),
       {
         name: "sada-push-dev-api",
         configureServer(server) {
           server.middlewares.use(async (req, res, next) => {
             const url = req.url ? new URL(req.url, "http://localhost:3000") : null;
 
-            const isAuthorized = () => {
+            const isAuthorized = async () => {
               let configuredSecret = process.env.SCHEDULER_SECRET;
               if (!configuredSecret) {
                 try {
@@ -58,8 +61,26 @@ export default defineConfig({
                 if (authHeader && authHeader.replace(/^Bearer\s+/i, "").trim() === configuredSecret) return true;
               }
 
-              if (authHeader && authHeader.startsWith("Bearer ") && authHeader.length > 30) {
-                return true;
+              if (authHeader && authHeader.startsWith("Bearer ")) {
+                const token = authHeader.replace(/^Bearer\s+/i, "").trim();
+                if (!token) return false;
+                const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+                const supabaseKey =
+                  process.env.SUPABASE_ANON_KEY ||
+                  process.env.VITE_SUPABASE_ANON_KEY ||
+                  process.env.SUPABASE_PUBLISHABLE_KEY ||
+                  process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+                if (supabaseUrl && supabaseKey) {
+                  try {
+                    const { createClient } = await import("@supabase/supabase-js");
+                    const supabase = createClient(supabaseUrl, supabaseKey, {
+                      auth: { persistSession: false, autoRefreshToken: false },
+                    });
+                    const { data, error } = await supabase.auth.getUser(token);
+                    if (!error && data?.user?.id) return true;
+                  } catch {}
+                }
               }
 
               return false;
@@ -67,7 +88,7 @@ export default defineConfig({
 
             // 1. Web Push Dispatch Endpoint
             if (url?.pathname === "/api/push/dispatch" && req.method === "POST") {
-              if (!isAuthorized()) {
+              if (!(await isAuthorized())) {
                 res.statusCode = 401;
                 res.setHeader("Content-Type", "application/json");
                 res.end(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }));
@@ -98,7 +119,7 @@ export default defineConfig({
 
             // 2. Scheduled Reminders Status Endpoint (GET)
             if (url?.pathname === "/api/notifications/scheduler" && req.method === "GET") {
-              if (!isAuthorized()) {
+              if (!(await isAuthorized())) {
                 res.statusCode = 401;
                 res.setHeader("Content-Type", "application/json");
                 res.end(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }));
@@ -120,7 +141,7 @@ export default defineConfig({
 
             // 3. Trigger Scheduled Reminders Scan (POST)
             if (url?.pathname === "/api/notifications/scheduler" && req.method === "POST") {
-              if (!isAuthorized()) {
+              if (!(await isAuthorized())) {
                 res.statusCode = 401;
                 res.setHeader("Content-Type", "application/json");
                 res.end(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }));
@@ -144,7 +165,7 @@ export default defineConfig({
 
             // 4. Resend Transactional Email Dispatch Endpoint (POST)
             if (url?.pathname === "/api/email/dispatch" && req.method === "POST") {
-              if (!isAuthorized()) {
+              if (!(await isAuthorized())) {
                 res.statusCode = 401;
                 res.setHeader("Content-Type", "application/json");
                 res.end(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }));

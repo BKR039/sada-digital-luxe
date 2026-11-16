@@ -1,7 +1,21 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "tanstack-start-app",
-  "compatibility_date": "2025-09-24",
-  "compatibility_flags": ["nodejs_compat"],
+  "name": "sada-os",
+  "compatibility_date": "2026-11-14",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "main": "src/server.ts",
+  "vars": {
+    "VITE_SUPABASE_URL": "https://mtfkzabiscyleztypqks.supabase.co",
+    "SUPABASE_URL": "https://mtfkzabiscyleztypqks.supabase.co",
+    "RESEND_FROM_EMAIL": "notifications@boubakarhamedsghaier.com",
+    "RESEND_FROM_NAME": "SADA",
+    "SADA_BASE_URL": "https://boubakarhamedsghaier.com",
+    "APP_BASE_URL": "https://boubakarhamedsghaier.com",
+    "VITE_APP_URL": "https://boubakarhamedsghaier.com",
+    "SADA_TIMEZONE": "Africa/Tunis",
+    "TIMEZONE": "Africa/Tunis",
+    "VAPID_SUBJECT": "mailto:admin@sada.agency"
+  }
 }

@@ -66,33 +66,75 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   return brandedErrorResponse();
 }
 
-function isAuthorizedServerRequest(request: Request): boolean {
+async function isAuthorizedServerRequest(request: Request): Promise<boolean> {
   const configuredSecret = process.env.SCHEDULER_SECRET || process.env.CRON_SECRET;
   const authHeader = request.headers.get("Authorization");
   const customHeader = request.headers.get("x-scheduler-secret") || request.headers.get("x-internal-secret");
 
+  // 1. Strict match for configured scheduler / internal cron secret
   if (configuredSecret) {
     if (customHeader === configuredSecret) return true;
     if (authHeader && authHeader.replace(/^Bearer\s+/i, "").trim() === configuredSecret) return true;
   }
 
-  // Also permit authenticated caller JWT tokens (forwarded to Supabase)
-  if (authHeader && authHeader.startsWith("Bearer ") && authHeader.length > 30) {
-    return true;
+  // 2. Cryptographic Supabase JWT verification for authenticated client user requests
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    const token = authHeader.replace(/^Bearer\s+/i, "").trim();
+    if (!token) return false;
+
+    const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+    const supabaseKey =
+      process.env.SUPABASE_ANON_KEY ||
+      process.env.VITE_SUPABASE_ANON_KEY ||
+      process.env.SUPABASE_PUBLISHABLE_KEY ||
+      process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+    if (supabaseUrl && supabaseKey) {
+      try {
+        const { createClient } = await import("@supabase/supabase-js");
+        const supabase = createClient(supabaseUrl, supabaseKey, {
+          auth: {
+            persistSession: false,
+            autoRefreshToken: false,
+          },
+        });
+        const { data, error } = await supabase.auth.getUser(token);
+        if (!error && data?.user?.id) {
+          return true;
+        }
+      } catch (err) {
+        console.warn("[Server] Supabase JWT verification error:", err);
+      }
+    }
   }
 
   return false;
 }
 
+function populateProcessEnv(env: unknown) {
+  if (env && typeof env === "object") {
+    for (const [key, value] of Object.entries(env as Record<string, unknown>)) {
+      if (typeof value === "string") {
+        process.env[key] = value;
+      }
+    }
+  }
+}
+
 let schedulerDaemonStarted = false;
 
 function ensureSchedulerDaemon() {
+  // In serverless / edge runtime (production), in-process timers do not persist.
+  // Production scheduling runs via external triggers (Cloudflare Cron Triggers or GitHub Actions).
+  if (process.env.NODE_ENV === "production") {
+    return;
+  }
   if (!schedulerDaemonStarted) {
     schedulerDaemonStarted = true;
     import("./server/scheduler-daemon").then(({ startSchedulerDaemon }) => {
       startSchedulerDaemon();
     }).catch((e) => {
-      console.warn("[Server] Failed to initialize scheduler daemon:", e);
+      console.warn("[Server] Failed to initialize scheduler daemon in development:", e);
     });
   }
 }
@@ -105,7 +147,7 @@ async function handleApiRoute(request: Request): Promise<Response | null> {
 
   // 1. Web Push Dispatch Endpoint
   if (url.pathname === "/api/push/dispatch" && request.method === "POST") {
-    if (!isAuthorizedServerRequest(request)) {
+    if (!(await isAuthorizedServerRequest(request))) {
       return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }), {
         status: 401,
         headers: { "Content-Type": "application/json" },
@@ -140,7 +182,7 @@ async function handleApiRoute(request: Request): Promise<Response | null> {
 
   // 2. Scheduled Reminders & Deadlines Status Endpoint (GET)
   if (url.pathname === "/api/notifications/scheduler" && request.method === "GET") {
-    if (!isAuthorizedServerRequest(request)) {
+    if (!(await isAuthorizedServerRequest(request))) {
       return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }), {
         status: 401,
         headers: { "Content-Type": "application/json" },
@@ -164,7 +206,7 @@ async function handleApiRoute(request: Request): Promise<Response | null> {
 
   // 3. Trigger Scheduled Reminders Scan (POST)
   if (url.pathname === "/api/notifications/scheduler" && request.method === "POST") {
-    if (!isAuthorizedServerRequest(request)) {
+    if (!(await isAuthorizedServerRequest(request))) {
       return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }), {
         status: 401,
         headers: { "Content-Type": "application/json" },
@@ -192,7 +234,7 @@ async function handleApiRoute(request: Request): Promise<Response | null> {
 
   // 4. Resend Transactional Email Dispatch Endpoint (POST)
   if (url.pathname === "/api/email/dispatch" && request.method === "POST") {
-    if (!isAuthorizedServerRequest(request)) {
+    if (!(await isAuthorizedServerRequest(request))) {
       return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }), {
         status: 401,
         headers: { "Content-Type": "application/json" },
@@ -258,6 +300,9 @@ async function handleApiRoute(request: Request): Promise<Response | null> {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      // Sync Cloudflare Worker environment variables and secrets into process.env
+      populateProcessEnv(env);
+
       // Check custom server endpoints before SSR
       const apiResponse = await handleApiRoute(request);
       if (apiResponse) {
@@ -270,6 +315,23 @@ export default {
     } catch (error) {
       console.error(error);
       return brandedErrorResponse();
+    }
+  },
+
+  async scheduled(controller: { cron: string; scheduledTime: number }, env: unknown, ctx: { waitUntil?: (p: Promise<unknown>) => void }) {
+    populateProcessEnv(env);
+    try {
+      const { triggerSchedulerNow } = await import("./server/scheduler-daemon");
+      const promise = triggerSchedulerNow({
+        triggeredBy: `cf_cron_${controller.cron || "unknown"}`,
+      });
+      if (ctx && typeof ctx.waitUntil === "function") {
+        ctx.waitUntil(promise);
+      } else {
+        await promise;
+      }
+    } catch (err) {
+      console.error("[Server] Cloudflare Cron Trigger error:", err);
     }
   },
 };

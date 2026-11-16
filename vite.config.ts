@@ -43,52 +43,19 @@ export default defineConfig({
           server.middlewares.use(async (req, res, next) => {
             const url = req.url ? new URL(req.url, "http://localhost:3000") : null;
 
-            const isAuthorized = async () => {
-              let configuredSecret = process.env.SCHEDULER_SECRET;
-              if (!configuredSecret) {
-                try {
-                  const raw = fs.readFileSync(".env", "utf-8");
-                  const m = raw.match(/SCHEDULER_SECRET=([^\r\n]+)/);
-                  if (m) configuredSecret = m[1].trim();
-                } catch {}
-              }
-
-              const authHeader = req.headers.authorization;
-              const customHeader = req.headers["x-scheduler-secret"] || req.headers["x-internal-secret"];
-
-              if (configuredSecret) {
-                if (customHeader === configuredSecret) return true;
-                if (authHeader && authHeader.replace(/^Bearer\s+/i, "").trim() === configuredSecret) return true;
-              }
-
-              if (authHeader && authHeader.startsWith("Bearer ")) {
-                const token = authHeader.replace(/^Bearer\s+/i, "").trim();
-                if (!token) return false;
-                const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
-                const supabaseKey =
-                  process.env.SUPABASE_ANON_KEY ||
-                  process.env.VITE_SUPABASE_ANON_KEY ||
-                  process.env.SUPABASE_PUBLISHABLE_KEY ||
-                  process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-
-                if (supabaseUrl && supabaseKey) {
-                  try {
-                    const { createClient } = await import("@supabase/supabase-js");
-                    const supabase = createClient(supabaseUrl, supabaseKey, {
-                      auth: { persistSession: false, autoRefreshToken: false },
-                    });
-                    const { data, error } = await supabase.auth.getUser(token);
-                    if (!error && data?.user?.id) return true;
-                  } catch {}
-                }
-              }
-
-              return false;
+            const getAuthContext = async () => {
+              const { resolveServerAuthContext } = await import("./src/server");
+              const dummyReq = new Request(`http://localhost:3000${req.url}`, {
+                method: req.method,
+                headers: req.headers as any,
+              });
+              return await resolveServerAuthContext(dummyReq);
             };
 
             // 1. Web Push Dispatch Endpoint
             if (url?.pathname === "/api/push/dispatch" && req.method === "POST") {
-              if (!(await isAuthorized())) {
+              const authContext = await getAuthContext();
+              if (!authContext.isSchedulerSecret && !authContext.user) {
                 res.statusCode = 401;
                 res.setHeader("Content-Type", "application/json");
                 res.end(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }));
@@ -119,10 +86,17 @@ export default defineConfig({
 
             // 2. Scheduled Reminders Status Endpoint (GET)
             if (url?.pathname === "/api/notifications/scheduler" && req.method === "GET") {
-              if (!(await isAuthorized())) {
+              const authContext = await getAuthContext();
+              if (!authContext.isSchedulerSecret && !authContext.user) {
                 res.statusCode = 401;
                 res.setHeader("Content-Type", "application/json");
                 res.end(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }));
+                return;
+              }
+              if (!authContext.isSchedulerSecret && authContext.user?.role !== "super_admin" && authContext.user?.role !== "admin") {
+                res.statusCode = 403;
+                res.setHeader("Content-Type", "application/json");
+                res.end(JSON.stringify({ error: "Forbidden: Administrative access or scheduler secret required" }));
                 return;
               }
 
@@ -141,10 +115,17 @@ export default defineConfig({
 
             // 3. Trigger Scheduled Reminders Scan (POST)
             if (url?.pathname === "/api/notifications/scheduler" && req.method === "POST") {
-              if (!(await isAuthorized())) {
+              const authContext = await getAuthContext();
+              if (!authContext.isSchedulerSecret && !authContext.user) {
                 res.statusCode = 401;
                 res.setHeader("Content-Type", "application/json");
                 res.end(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }));
+                return;
+              }
+              if (!authContext.isSchedulerSecret && authContext.user?.role !== "super_admin" && authContext.user?.role !== "admin") {
+                res.statusCode = 403;
+                res.setHeader("Content-Type", "application/json");
+                res.end(JSON.stringify({ error: "Forbidden: Administrative access or scheduler secret required" }));
                 return;
               }
 
@@ -165,10 +146,17 @@ export default defineConfig({
 
             // 4. Resend Transactional Email Dispatch Endpoint (POST)
             if (url?.pathname === "/api/email/dispatch" && req.method === "POST") {
-              if (!(await isAuthorized())) {
+              const authContext = await getAuthContext();
+              if (!authContext.isSchedulerSecret && !authContext.user) {
                 res.statusCode = 401;
                 res.setHeader("Content-Type", "application/json");
                 res.end(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }));
+                return;
+              }
+              if (!authContext.isSchedulerSecret && authContext.user?.role !== "super_admin" && authContext.user?.role !== "admin") {
+                res.statusCode = 403;
+                res.setHeader("Content-Type", "application/json");
+                res.end(JSON.stringify({ error: "Forbidden: Administrative access or scheduler secret required" }));
                 return;
               }
 

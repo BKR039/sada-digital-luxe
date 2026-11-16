@@ -66,24 +66,40 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   return brandedErrorResponse();
 }
 
-async function isAuthorizedServerRequest(request: Request): Promise<boolean> {
+export interface ServerAuthContext {
+  isSchedulerSecret: boolean;
+  user: {
+    id: string;
+    email?: string;
+    role: "super_admin" | "admin" | "worker";
+  } | null;
+}
+
+export async function resolveServerAuthContext(request: Request): Promise<ServerAuthContext> {
   const configuredSecret = process.env.SCHEDULER_SECRET || process.env.CRON_SECRET;
   const authHeader = request.headers.get("Authorization");
   const customHeader = request.headers.get("x-scheduler-secret") || request.headers.get("x-internal-secret");
 
   // 1. Strict match for configured scheduler / internal cron secret
   if (configuredSecret) {
-    if (customHeader === configuredSecret) return true;
-    if (authHeader && authHeader.replace(/^Bearer\s+/i, "").trim() === configuredSecret) return true;
+    if (customHeader === configuredSecret) {
+      return { isSchedulerSecret: true, user: null };
+    }
+    if (authHeader && authHeader.replace(/^Bearer\s+/i, "").trim() === configuredSecret) {
+      return { isSchedulerSecret: true, user: null };
+    }
   }
 
   // 2. Cryptographic Supabase JWT verification for authenticated client user requests
   if (authHeader && authHeader.startsWith("Bearer ")) {
     const token = authHeader.replace(/^Bearer\s+/i, "").trim();
-    if (!token) return false;
+    if (!token) {
+      return { isSchedulerSecret: false, user: null };
+    }
 
     const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
     const supabaseKey =
+      process.env.SUPABASE_SERVICE_ROLE_KEY ||
       process.env.SUPABASE_ANON_KEY ||
       process.env.VITE_SUPABASE_ANON_KEY ||
       process.env.SUPABASE_PUBLISHABLE_KEY ||
@@ -98,17 +114,61 @@ async function isAuthorizedServerRequest(request: Request): Promise<boolean> {
             autoRefreshToken: false,
           },
         });
-        const { data, error } = await supabase.auth.getUser(token);
-        if (!error && data?.user?.id) {
-          return true;
+
+        // Verify cryptographic JWT against Supabase
+        const { data: authData, error: authError } = await supabase.auth.getUser(token);
+        if (authError || !authData?.user?.id) {
+          return { isSchedulerSecret: false, user: null };
         }
+
+        const userId = authData.user.id;
+        let role: "super_admin" | "admin" | "worker" = "worker";
+
+        // Query user_roles table for canonical administrative role
+        const { data: userRoles } = await (supabase as any)
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", userId);
+
+        if (userRoles && Array.isArray(userRoles) && userRoles.length > 0) {
+          if (userRoles.some((r: any) => r.role === "super_admin")) {
+            role = "super_admin";
+          } else if (userRoles.some((r: any) => r.role === "admin")) {
+            role = "admin";
+          }
+        } else {
+          // Fallback to team_members
+          const { data: member } = await (supabase as any)
+            .from("team_members")
+            .select("role")
+            .or(`user_id.eq.${userId},profile_id.eq.${userId}`)
+            .maybeSingle();
+
+          if (member?.role) {
+            const r = String(member.role).toLowerCase().trim();
+            if (r === "super_admin" || r === "superadmin" || r === "super admin") {
+              role = "super_admin";
+            } else if (r === "admin") {
+              role = "admin";
+            }
+          }
+        }
+
+        return {
+          isSchedulerSecret: false,
+          user: {
+            id: userId,
+            email: authData.user.email,
+            role,
+          },
+        };
       } catch (err) {
-        console.warn("[Server] Supabase JWT verification error:", err);
+        console.warn("[Server] Auth context resolution error:", err);
       }
     }
   }
 
-  return false;
+  return { isSchedulerSecret: false, user: null };
 }
 
 function populateProcessEnv(env: unknown) {
@@ -142,20 +202,25 @@ function ensureSchedulerDaemon() {
 async function handleApiRoute(request: Request): Promise<Response | null> {
   const url = new URL(request.url);
 
-  // Initialize recurring daemon on first request
+  // Initialize recurring daemon on first request in development mode only
   ensureSchedulerDaemon();
 
   // 1. Web Push Dispatch Endpoint
   if (url.pathname === "/api/push/dispatch" && request.method === "POST") {
-    if (!(await isAuthorizedServerRequest(request))) {
-      return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }), {
+    const authContext = await resolveServerAuthContext(request);
+    if (!authContext.isSchedulerSecret && !authContext.user) {
+      return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid credentials" }), {
         status: 401,
         headers: { "Content-Type": "application/json" },
       });
     }
 
+    const isAdminOrScheduler =
+      authContext.isSchedulerSecret ||
+      authContext.user?.role === "super_admin" ||
+      authContext.user?.role === "admin";
+
     try {
-      const { dispatchPushNotification } = await import("./server/push-dispatcher");
       const body = await request.json().catch(() => ({}));
       const { notificationId, forceRetry } = body;
 
@@ -166,6 +231,28 @@ async function handleApiRoute(request: Request): Promise<Response | null> {
         });
       }
 
+      // Ordinary workers cannot trigger push for other users
+      if (!isAdminOrScheduler) {
+        const { getBackendClient } = await import("./server/email-dispatcher");
+        const supabase = await getBackendClient();
+        const { data: notif } = await (supabase as any)
+          .from("notifications")
+          .select("recipient_id")
+          .eq("id", notificationId)
+          .maybeSingle();
+
+        if (!notif || notif.recipient_id !== authContext.user?.id) {
+          return new Response(
+            JSON.stringify({ error: "Forbidden: You may only dispatch notifications addressed to your own account" }),
+            {
+              status: 403,
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+        }
+      }
+
+      const { dispatchPushNotification } = await import("./server/push-dispatcher");
       const authHeader = request.headers.get("Authorization") || undefined;
       const result = await dispatchPushNotification(notificationId, { authHeader, forceRetry });
       return new Response(JSON.stringify(result), {
@@ -182,11 +269,22 @@ async function handleApiRoute(request: Request): Promise<Response | null> {
 
   // 2. Scheduled Reminders & Deadlines Status Endpoint (GET)
   if (url.pathname === "/api/notifications/scheduler" && request.method === "GET") {
-    if (!(await isAuthorizedServerRequest(request))) {
-      return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }), {
+    const authContext = await resolveServerAuthContext(request);
+    if (!authContext.isSchedulerSecret && !authContext.user) {
+      return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid credentials" }), {
         status: 401,
         headers: { "Content-Type": "application/json" },
       });
+    }
+
+    if (!authContext.isSchedulerSecret && authContext.user?.role !== "super_admin" && authContext.user?.role !== "admin") {
+      return new Response(
+        JSON.stringify({ error: "Forbidden: Administrative access or scheduler secret required" }),
+        {
+          status: 403,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     try {
@@ -206,19 +304,32 @@ async function handleApiRoute(request: Request): Promise<Response | null> {
 
   // 3. Trigger Scheduled Reminders Scan (POST)
   if (url.pathname === "/api/notifications/scheduler" && request.method === "POST") {
-    if (!(await isAuthorizedServerRequest(request))) {
-      return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }), {
+    const authContext = await resolveServerAuthContext(request);
+    if (!authContext.isSchedulerSecret && !authContext.user) {
+      return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid credentials" }), {
         status: 401,
         headers: { "Content-Type": "application/json" },
       });
     }
 
+    if (!authContext.isSchedulerSecret && authContext.user?.role !== "super_admin" && authContext.user?.role !== "admin") {
+      return new Response(
+        JSON.stringify({ error: "Forbidden: Administrative access or scheduler secret required to trigger scheduler" }),
+        {
+          status: 403,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
     try {
       const { triggerSchedulerNow } = await import("./server/scheduler-daemon");
       const authHeader = request.headers.get("Authorization") || undefined;
-      const report = await triggerSchedulerNow({ triggeredBy: "http_api_trigger", authHeader });
+      const triggeredBy = authContext.isSchedulerSecret
+        ? "scheduler_secret_trigger"
+        : `admin_${authContext.user?.role}_${authContext.user?.id}`;
+      const report = await triggerSchedulerNow({ triggeredBy, authHeader });
 
-      // An execution with errors returns HTTP 500 so callers know it failed internally
       const statusCode = report.success ? 200 : 500;
       return new Response(JSON.stringify(report), {
         status: statusCode,
@@ -234,15 +345,26 @@ async function handleApiRoute(request: Request): Promise<Response | null> {
 
   // 4. Resend Transactional Email Dispatch Endpoint (POST)
   if (url.pathname === "/api/email/dispatch" && request.method === "POST") {
-    if (!(await isAuthorizedServerRequest(request))) {
-      return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }), {
+    const authContext = await resolveServerAuthContext(request);
+    if (!authContext.isSchedulerSecret && !authContext.user) {
+      return new Response(JSON.stringify({ error: "Unauthorized: Missing or invalid credentials" }), {
         status: 401,
         headers: { "Content-Type": "application/json" },
       });
     }
 
+    // Email dispatch is an administrative action
+    if (!authContext.isSchedulerSecret && authContext.user?.role !== "super_admin" && authContext.user?.role !== "admin") {
+      return new Response(
+        JSON.stringify({ error: "Forbidden: Administrative access or scheduler secret required to dispatch transactional emails" }),
+        {
+          status: 403,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
     try {
-      const { dispatchEmailNotification } = await import("./server/email-dispatcher");
       const body = await request.json().catch(() => ({}));
       const { notificationId, forceRetry, overrideRecipientEmail, overrideRecipientName } = body;
 
@@ -253,12 +375,31 @@ async function handleApiRoute(request: Request): Promise<Response | null> {
         });
       }
 
+      // CRITICAL RECIPIENT OVERRIDE PROTECTION:
+      // Overriding recipients is strictly restricted to Super Admin or the dedicated Scheduler Secret.
+      // Ordinary admins and callers are blocked from redirecting SADA domain emails to arbitrary addresses.
+      if (overrideRecipientEmail) {
+        const canOverride = authContext.isSchedulerSecret || authContext.user?.role === "super_admin";
+        if (!canOverride) {
+          return new Response(
+            JSON.stringify({ error: "Forbidden: Only Super Admin or Scheduler Secret is authorized to override recipient email addresses" }),
+            {
+              status: 403,
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+        }
+      }
+
+      const { dispatchEmailNotification } = await import("./server/email-dispatcher");
       const authHeader = request.headers.get("Authorization") || undefined;
+      const canApplyOverride = authContext.isSchedulerSecret || authContext.user?.role === "super_admin";
+
       const result = await dispatchEmailNotification(notificationId, {
         authHeader,
         forceRetry,
-        overrideRecipientEmail,
-        overrideRecipientName,
+        overrideRecipientEmail: canApplyOverride ? overrideRecipientEmail : undefined,
+        overrideRecipientName: canApplyOverride ? overrideRecipientName : undefined,
       });
 
       return new Response(JSON.stringify(result), {
@@ -276,10 +417,30 @@ async function handleApiRoute(request: Request): Promise<Response | null> {
   // 5. Resend Webhook Event Endpoint (POST)
   if (url.pathname === "/api/email/webhooks" && request.method === "POST") {
     try {
+      const signatureHeader =
+        request.headers.get("svix-signature") || request.headers.get("resend-signature") || undefined;
+      const webhookSecret = process.env.RESEND_WEBHOOK_SECRET;
+
+      if (!webhookSecret) {
+        console.error("[Webhooks] RESEND_WEBHOOK_SECRET is not configured on server.");
+        return new Response(JSON.stringify({ error: "Server misconfiguration: Webhook secret not configured" }), {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+
+      if (!signatureHeader) {
+        return new Response(
+          JSON.stringify({ error: "Missing required webhook signature header (svix-signature)" }),
+          {
+            status: 401,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+
       const { handleResendWebhook } = await import("./server/email-dispatcher");
       const payload = await request.json().catch(() => ({}));
-      const signatureHeader = request.headers.get("svix-signature") || undefined;
-      const webhookSecret = process.env.RESEND_WEBHOOK_SECRET;
 
       const result = await handleResendWebhook(payload, { signatureHeader, webhookSecret });
       return new Response(JSON.stringify(result), {

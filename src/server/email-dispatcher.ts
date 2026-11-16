@@ -58,7 +58,7 @@ export function getResendClient(): Resend | null {
 /**
  * Authenticates or resolves a server-side Supabase client for database operations.
  */
-async function getBackendClient(clientOverride?: SupabaseClient, authHeader?: string): Promise<SupabaseClient> {
+export async function getBackendClient(clientOverride?: SupabaseClient, authHeader?: string): Promise<SupabaseClient> {
   if (clientOverride) return clientOverride;
 
   const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
